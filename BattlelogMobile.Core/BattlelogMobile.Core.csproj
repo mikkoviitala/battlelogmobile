@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{ED3F380C-DDB1-4248-946F-F2B7ABA005D6}</ProjectGuid>
+    <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BattlelogMobile.Core</RootNamespace>
+    <AssemblyName>Core</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GalaSoft.MvvmLight.Extras.WP71, Version=3.0.0.19987, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLight.3.1.1\lib\sl4-windowsphone71\GalaSoft.MvvmLight.Extras.WP71.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.WP71, Version=3.0.0.19988, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLight.3.1.1\lib\sl4-windowsphone71\GalaSoft.MvvmLight.WP71.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Phone" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.0.7\lib\sl4-windowsphone71\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpGIS.GZipWebClient">
+      <HintPath>..\packages\SharpGIS.GZipWebClient.1.2\lib\sl40-wp71\SharpGIS.GZipWebClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Interactivity, Version=3.8.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLight.3.1.1\lib\sl4-windowsphone71\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="mscorlib.extensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common.cs" />
+    <Compile Include="Message\BattlelogCredentialsAcceptedMessage.cs" />
+    <Compile Include="Message\BattlelogResponseMessage.cs" />
+    <Compile Include="Message\BattlelogUpdateCompleteMessage.cs" />
+    <Compile Include="Message\SoldierLoadedMessage.cs" />
+    <Compile Include="Message\SoldierVisibleMessage.cs" />
+    <Compile Include="Message\UserIdAndPlatformResolvedMessage.cs" />
+    <Compile Include="Model\Award.cs" />
+    <Compile Include="Model\Awards.cs" />
+    <Compile Include="Model\BaseModel.cs" />
+    <Compile Include="Model\Credentials.cs" />
+    <Compile Include="Model\IAward.cs" />
+    <Compile Include="Model\IAwards.cs" />
+    <Compile Include="Model\ICredentials.cs" />
+    <Compile Include="Model\IItem.cs" />
+    <Compile Include="Model\IItems.cs" />
+    <Compile Include="Model\IKitProgression.cs" />
+    <Compile Include="Model\IKitProgressions.cs" />
+    <Compile Include="Model\IOther.cs" />
+    <Compile Include="Model\IOthers.cs" />
+    <Compile Include="Model\IStatistics.cs" />
+    <Compile Include="Model\Item.cs" />
+    <Compile Include="Model\Items.cs" />
+    <Compile Include="Model\IUnlock.cs" />
+    <Compile Include="Model\IUnlocks.cs" />
+    <Compile Include="Model\KitProgression.cs" />
+    <Compile Include="Model\KitProgressions.cs" />
+    <Compile Include="Model\Other.cs" />
+    <Compile Include="Model\Others.cs" />
+    <Compile Include="Model\Platform.cs" />
+    <Compile Include="Model\Statistics.cs" />
+    <Compile Include="Model\Unlock.cs" />
+    <Compile Include="Model\Unlocks.cs" />
+    <Compile Include="Repository\FileCredentialsRepository.cs" />
+    <Compile Include="Repository\IBattlelogRepository.cs" />
+    <Compile Include="Repository\ICredentialsRepository.cs" />
+    <Compile Include="Repository\BattlelogRepository.cs" />
+    <Compile Include="Model\IKit.cs" />
+    <Compile Include="Model\IKits.cs" />
+    <Compile Include="Model\IScore.cs" />
+    <Compile Include="Model\ISoldier.cs" />
+    <Compile Include="Model\IUser.cs" />
+    <Compile Include="Model\Kit.cs" />
+    <Compile Include="Model\Kits.cs" />
+    <Compile Include="Model\KitType.cs" />
+    <Compile Include="Model\Score.cs" />
+    <Compile Include="Model\Soldier.cs" />
+    <Compile Include="Model\User.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\AwardNameAndDescriptionMapper.cs" />
+    <Compile Include="Service\CryptoService.cs" />
+    <Compile Include="Service\DownloadService.cs" />
+    <Compile Include="Service\IDownloadService.cs" />
+    <Compile Include="Repository\IImageRepository.cs" />
+    <Compile Include="Service\IJSONParser.cs" />
+    <Compile Include="Repository\ImageRepository.cs" />
+    <Compile Include="Service\IUserIdAndPlatformResolver.cs" />
+    <Compile Include="Service\JSONParser.cs" />
+    <Compile Include="Service\UserIdAndPlatformResolver.cs" />
+    <Compile Include="Service\ItemNameMapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <ProjectExtensions />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
