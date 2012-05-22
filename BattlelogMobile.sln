@@ -15,18 +15,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattlelogMobile.Test", "BattlelogMobile.Test\BattlelogMobile.Test.csproj", "{29AC269C-05A8-4EE7-96BD-C652476953CD}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs19
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = BattlelogMobile.Client\\BattlelogMobile.Client.csproj
-		SccProjectName1 = BattlelogMobile.Client
-		SccLocalPath1 = BattlelogMobile.Client
-		SccProjectUniqueName2 = BattlelogMobile.Core\\BattlelogMobile.Core.csproj
-		SccProjectName2 = BattlelogMobile.Core
-		SccLocalPath2 = BattlelogMobile.Core
-	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = BattlelogMobile.vsmdi
 	EndGlobalSection
