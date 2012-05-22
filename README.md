@@ -29,17 +29,14 @@ We have over 600 downloads, so what our users are saying? Well, after solving co
 
 ## Some screenshots
 
-![](http://github.com/mikkoviitala/battlelogmobile/raw/master/public/MarketplaceDescription00.png)   ![](http://github.com/mikkoviitala/battlelogmobile/raw/master/public/MarketplaceDescription01.png)
+![](http://github.com/mikkoviitala/battlelogmobile/raw/master/public/MarketplaceDescription00.png) - ![](http://github.com/mikkoviitala/battlelogmobile/raw/master/public/MarketplaceDescription01.png)
 
-![](http://github.com/mikkoviitala/battlelogmobile/raw/master/public/MarketplaceDescription02.png)   ![](http://github.com/mikkoviitala/battlelogmobile/raw/master/public/MarketplaceDescription03.png)
+![](http://github.com/mikkoviitala/battlelogmobile/raw/master/public/MarketplaceDescription02.png) - ![](http://github.com/mikkoviitala/battlelogmobile/raw/master/public/MarketplaceDescription03.png)
 
-![](http://github.com/mikkoviitala/battlelogmobile/raw/master/public/MarketplaceDescription04.png)
-![](http://github.com/mikkoviitala/battlelogmobile/raw/master/public/MarketplaceDescription05.png)
+![](http://github.com/mikkoviitala/battlelogmobile/raw/master/public/MarketplaceDescription04.png) - ![](http://github.com/mikkoviitala/battlelogmobile/raw/master/public/MarketplaceDescription05.png)
 
-![](http://github.com/mikkoviitala/battlelogmobile/raw/master/public/MarketplaceDescription06.png)
-![](http://github.com/mikkoviitala/battlelogmobile/raw/master/public/MarketplaceDescription07.png)
+![](http://github.com/mikkoviitala/battlelogmobile/raw/master/public/MarketplaceDescription06.png) - ![](http://github.com/mikkoviitala/battlelogmobile/raw/master/public/MarketplaceDescription07.png)
 
-![](http://github.com/mikkoviitala/battlelogmobile/raw/master/public/MarketplaceDescription08.png)
-![](http://github.com/mikkoviitala/battlelogmobile/raw/master/public/MarketplaceDescription09.png)
+![](http://github.com/mikkoviitala/battlelogmobile/raw/master/public/MarketplaceDescription08.png) - ![](http://github.com/mikkoviitala/battlelogmobile/raw/master/public/MarketplaceDescription09.png)
 
 ![](http://github.com/mikkoviitala/battlelogmobile/raw/master/public/MarketplaceDescription10.png)
