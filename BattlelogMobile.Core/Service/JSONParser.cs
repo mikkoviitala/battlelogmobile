@@ -189,13 +189,13 @@ namespace BattlelogMobile.Core.Service
         // Basic BF3 soldier information
         private ISoldier ParseSoldier(JToken overviewStatsToken)
         {
-            const string rankFormat = "00";
+            const string rankFormat = "0";
             ISoldier soldier = new Soldier()
             {
                 Rank = Convert.ToInt32(overviewStatsToken.SelectToken("rank").ToString()),
                 Skill = Convert.ToDouble(overviewStatsToken.SelectToken("elo").ToString()), // , CultureInfo.InvariantCulture
                 TimePlayed = TimeSpan.FromSeconds(Convert.ToDouble(overviewStatsToken.SelectToken("timePlayed").ToString(), CultureInfo.InvariantCulture)),
-                ScorePerMinute = Convert.ToInt32(overviewStatsToken.SelectToken("scorePerMinute").ToString()),
+                ScorePerMinute = Convert.ToDouble(overviewStatsToken.SelectToken("scorePerMinute").ToString()),
                 KillDeathRatio = Convert.ToDouble(overviewStatsToken.SelectToken("kdRatio").ToString()), // , CultureInfo.InvariantCulture
                 //Kills = Convert.ToInt32(overviewStatsToken.SelectToken("kills").ToString()),
                 Wins = Convert.ToInt32(overviewStatsToken.SelectToken("numWins").ToString()),

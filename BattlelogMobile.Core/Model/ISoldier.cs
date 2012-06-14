@@ -16,7 +16,7 @@ namespace BattlelogMobile.Core.Model
         int Losses { get; set; }
         double WinLoseRatio { get; set; }               // Panorama 1
         IScore Score { get; set; }                      // Panorama 2, 4
-        int ScorePerMinute { get; set; }                // Panorama 1
+        double ScorePerMinute { get; set; }                // Panorama 1
         IKitProgressions KitProgressions { get; set; }  // Panorama 3
         IItems Weapons { get; set; }                    // Panorama 5
         IItems Vehicles { get; set; }                   // Panorama 6

@@ -26,7 +26,7 @@ namespace BattlelogMobile.Core.Model
         public double Skill { get; set; }           // elo
         public IKitProgressions KitProgressions { get; set; }
         public TimeSpan TimePlayed { get; set; }    // timePlayed
-        public int ScorePerMinute { get; set; }     // scorePerMinute
+        public double ScorePerMinute { get; set; }     // scorePerMinute
         public double KillDeathRatio { get; set; }  // kdRatio
         public int Wins                             // numWins
         {
