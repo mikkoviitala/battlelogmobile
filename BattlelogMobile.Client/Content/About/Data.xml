@@ -73,7 +73,8 @@
     <Item Title="History"
           Type="text">
       v1.4.0.0
-      
+      Adapted to BF3 Premium and CQ DLC release
+      Removed user credential encryption
       
       v1.3.0.0
       Changed weapon names to be more readable
