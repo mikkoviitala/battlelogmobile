@@ -23,7 +23,7 @@ namespace BattlelogMobile.Client.View
         public SoldierPage()
         {
             InitializeComponent();
-            ShowLoginHelp();
+            //ShowLoginHelp();
         }
 
         private static void ShowLoginHelp()
