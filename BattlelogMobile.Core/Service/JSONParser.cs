@@ -189,7 +189,7 @@ namespace BattlelogMobile.Core.Service
         // Basic BF3 soldier information
         private ISoldier ParseSoldier(JToken overviewStatsToken)
         {
-            const string rankFormat = "0";
+            //const string rankFormat = "00";
             ISoldier soldier = new Soldier()
             {
                 Rank = Convert.ToInt32(overviewStatsToken.SelectToken("rank").ToString()),
@@ -203,8 +203,8 @@ namespace BattlelogMobile.Core.Service
             };
 
             string image = soldier.Rank <= Common.MaxRank ?
-                    Common.RankImagePrefix + soldier.Rank.ToString(rankFormat) + ImageSuffix :
-                    Common.RankServiceStarImagePrefix + (soldier.Rank - Common.MaxRank).ToString(rankFormat) + ImageSuffix;
+                    Common.RankImagePrefix + soldier.Rank.ToString(CultureInfo.InvariantCulture) + ImageSuffix :
+                    Common.RankServiceStarImagePrefix + (soldier.Rank - Common.MaxRank).ToString(CultureInfo.InvariantCulture) + ImageSuffix;
             _imageRepository.Load(Common.RankImageUrl, image, bitmap => { soldier.RankImage = bitmap; });
             return soldier;
         }
