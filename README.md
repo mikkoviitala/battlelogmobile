@@ -11,7 +11,7 @@ All three platforms are supported (PC, PS3, XBox).
 This is a WP7 application, developed in C# and it will be active as long as EA / DICE lacks to provide their own "killer" for mobile devices.
 
 # Status
-Version 1.4.0.0 is is verification process and wil lappear in Marketplace soon. This release adapteds to recent BF3 Premiun and CQ DLC changes. See the [Issue Tracker](https://github.com/mikkoviitala/battlelogmobile/issues) 
+Version 1.4.0.0 is is verification process and will appear in Marketplace soon. This release adapts to recent BF3 Premiun and CQ DLC changes. See the [Issue Tracker](https://github.com/mikkoviitala/battlelogmobile/issues) 
 if you want to know what is being developed for next release. You are also welcome to contact us via email or Battlelog.
 
 # Contact information
