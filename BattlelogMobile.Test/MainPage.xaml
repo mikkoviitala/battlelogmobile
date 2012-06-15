@@ -29,7 +29,7 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <TextBlock TextWrapping="Wrap">
-                Compile and deploy BattlelogMobile.Test project to emulator and run it. Running in debugger causes
+                Compile and deploy BattlelogMobile.Test project and run it. Running in debugger causes
                 expected exception tests to stop the execution. Annoying...
             </TextBlock>
         </Grid>
