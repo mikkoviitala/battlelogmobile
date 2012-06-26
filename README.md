@@ -20,6 +20,7 @@ if you want to know what is being developed for next release. You are also welco
 
 # Contributions
 [RazorbacksWPS](http://battlelog.battlefield.com/bf3/user/RazorbacksWPS/) reported and helped with issues
+[3ximius](http://battlelog.battlefield.com/bf3/user/3ximius/) reported and helped with issues
 
 # Reviews
 We have over 3000 downloads, so what our users are saying? Well, after solving complications with first versions, here's some copy/paste from AppHub.
