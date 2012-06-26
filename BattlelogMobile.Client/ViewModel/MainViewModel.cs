@@ -46,9 +46,6 @@ namespace BattlelogMobile.Client.ViewModel
             LogInCommand = new RelayCommand(LogInCommandReceived, CanExecuteLogInCommand);
             CredentialsRepository = credentialsRepository;
             LoadCredentials();
-
-            Email = "nakquada@hotmail.com";
-            Password = "acceptpw2";
         }
 
         public ICredentialsRepository CredentialsRepository { get; private set; }
