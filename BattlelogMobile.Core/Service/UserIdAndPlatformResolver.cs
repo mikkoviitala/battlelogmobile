@@ -13,6 +13,7 @@ namespace BattlelogMobile.Core.Service
         private const string UnableToParse = "Unable to retrieve user id";
         private const string DogtagsBlockStart = "/dogtags/";
         private const string UnlocksBlockStart = "/unlocks/";
+        private const string EaId = "cem_ea_id";
         private long _userId;
         private Platform _platform;
 
@@ -51,10 +52,13 @@ namespace BattlelogMobile.Core.Service
                 _userId = Convert.ToInt64(buffer.Substring(0, buffer.IndexOf("/", StringComparison.Ordinal)));
 
                 buffer = buffer.Substring(_userId.ToString(CultureInfo.InvariantCulture).Length + 1);
-                _platform =
-                    (Platform) Enum.Parse(typeof (Platform),
-                                          buffer.Substring(0, buffer.IndexOf("/", StringComparison.Ordinal)),
-                                          true);
+                string platformBlock = buffer.Substring(0, buffer.IndexOf("/", StringComparison.Ordinal));
+                
+                if (platformBlock == EaId)
+                    _platform = Platform.PC;
+                else
+                    _platform = (Platform) Enum.Parse(typeof (Platform), platformBlock, true);
+                
                 return true;
             }
             catch (Exception e)

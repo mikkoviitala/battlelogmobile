@@ -66,12 +66,16 @@
 
       Thanks to
       Wade Williamson (RazorbacksWPS @ Battlelog)
+      Terri Hyland (3ximius @ Battlelog)
 
       Participate!
       If you want to contribute in any way or just find out what is being developed for the next release, visit https://github.com/mikkoviitala/battlelogmobile
     </Item>
     <Item Title="History"
           Type="text">
+      v1.5.0.0
+      Fixed platform identification issues
+      
       v1.4.0.0
       Adapted to BF3 Premium and CQ DLC release
       Removed user credential encryption
