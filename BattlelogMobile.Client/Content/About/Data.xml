@@ -44,7 +44,7 @@
         <!-- By using different protocols like http or mailto you can invoke the respective applications -->
         <!-- The Label attribute defines an additional label placed in front of the hyperlink -->
         <!-- Use this to provide contact/support details for your app -->
-        <Link NavigateUri="https://github.com/mikkoviitala/battlelogmobile"
+        <Link NavigateUri="http://battlelogmobile.codeplex.com/"
               Content="Project page"
               Label="Home:" />
         <Link NavigateUri="mailto:battlelogmobile@inbox.com?subject=Battlelog Mobile Support request"
@@ -69,7 +69,7 @@
       Terri Hyland (3ximius @ Battlelog)
 
       Participate!
-      If you want to contribute in any way or just find out what is being developed for the next release, visit https://github.com/mikkoviitala/battlelogmobile
+      If you want to contribute in any way or just find out what is being developed for the next release, visit http://battlelogmobile.codeplex.com/
     </Item>
     <Item Title="History"
           Type="text">
