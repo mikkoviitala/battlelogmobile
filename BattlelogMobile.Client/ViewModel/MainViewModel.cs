@@ -34,11 +34,6 @@ namespace BattlelogMobile.Client.ViewModel
 
         public MainViewModel(ICredentialsRepository credentialsRepository)
         {
-            //Messenger.Default.Register<PageOrientationChangedMessage>(this, message =>
-            //    {
-            //        if (!message.IsPortrait)
-            //            _navigationService.NavigateTo(ViewModelLocator.CopyrightPageUri);
-            //    });
             Messenger.Default.Register<BattlelogResponseMessage>(this, BattlelogResponseMessageReceived);
             Messenger.Default.Register<SoldierLoadedMessage>(this, SoldierLoadedMessageReceived);
             Messenger.Default.Register<SoldierVisibleMessage>(this, SoldierVisibleMessageReceived);

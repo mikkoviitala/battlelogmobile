@@ -14,6 +14,8 @@ This is a WP7 application, developed in C# and it will be active as long as EA /
 Version 1.4.0.0 is available for download from Marketplace. This release adapts to recent BF3 Premiun and CQ DLC changes. See the [Issue Tracker](https://github.com/mikkoviitala/battlelogmobile/issues) 
 if you want to know what is being developed for next release. You are also welcome to contact us via email or Battlelog.
 
+Version 1.5.0.0 is in verification process. This has some minor UI fixes and it also fixes issues in platform identification some user's have experienced.
+
 # Contact information
 * Email: [battlelogmobile@inbox.com](mailto:battlelogmobile@inbox.com)
 * Battlelog: [Mustavuori](http://battlelog.battlefield.com/bf3/user/Mustavuori/), [Riegetor](http://battlelog.battlefield.com/bf3/user/riegetor/)

@@ -67,6 +67,7 @@
       Thanks to
       Wade Williamson (RazorbacksWPS @ Battlelog)
       Terri Hyland (3ximius @ Battlelog)
+      Loz Slater
 
       Participate!
       If you want to contribute in any way or just find out what is being developed for the next release, visit http://battlelogmobile.codeplex.com/
@@ -74,17 +75,19 @@
     <Item Title="History"
           Type="text">
       v1.5.0.0
+      Changed some of the weapon names
       Fixed platform identification issues
-      
+      Fixed minor user interface issues
+
       v1.4.0.0
       Adapted to BF3 Premium and CQ DLC release
       Removed user credential encryption
-      
+
       v1.3.0.0
       Changed weapon names to be more readable
       Fixed some weapons showing up multiple times
       Fixed some ribbons showing wrong image
-      
+
       v1.2.0.0
       Faster login process
       Added more statistics

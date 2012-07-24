@@ -86,9 +86,9 @@
                             Content="Ok"
                             Command="{Binding LogInCommand}" />
                 </StackPanel>
-                <StackPanel Margin="0,80,0,0" 
-                            Visibility="{Binding LogInFailedReason, Converter={StaticResource StringLengthVisibilityConverter}}">
-                    <TextBlock HorizontalAlignment="Center" Foreground="Red" FontSize="22" Margin="15"
+                <StackPanel Margin="0,80,0,0"  
+                            Visibility="{Binding LogInFailedReason, Converter={StaticResource StringLengthVisibilityConverter}}" Height="120">
+                    <TextBlock HorizontalAlignment="Center" TextAlignment="Center" Foreground="Red" FontSize="22" Margin="15" TextWrapping="Wrap" 
                                Text="{Binding LogInFailedReason}" />
                 </StackPanel>
             </StackPanel>

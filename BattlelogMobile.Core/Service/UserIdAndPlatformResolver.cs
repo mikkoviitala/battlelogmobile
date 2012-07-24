@@ -7,10 +7,11 @@ using GalaSoft.MvvmLight.Messaging;
 
 namespace BattlelogMobile.Core.Service
 {
-    // The Resolve method will first try to resolve userId and platform from the /dogtags/ block. If it fails, a retry will be performed from the /unlocks/ block.
+    // The Resolve method will first try to resolve userId and platform from the /dogtags/ block. 
+    // If it fails, a retry will be performed from the /unlocks/ block.
     public class UserIdAndPlatformResolver : IUserIdAndPlatformResolver 
     {
-        private const string UnableToParse = "Unable to retrieve user id";
+        private const string UnableToParse = "Unable to retrieve user id, please contact support to resolve this issue.";
         private const string DogtagsBlockStart = "/dogtags/";
         private const string UnlocksBlockStart = "/unlocks/";
         private const string EaId = "cem_ea_id";
@@ -28,17 +29,12 @@ namespace BattlelogMobile.Core.Service
                 if (!resolvedIdAndPlatform)
                     Resolve(buffer, UnlocksBlockStart);
 
-                if (_userId <= 0)
+                if (_userId <= 0 || _platform == Platform.Unknown)
                 {
                     Messenger.Default.Send(new BattlelogResponseMessage(UnableToParse, false));
                     return;
                 }
 
-                if (_platform == Platform.Unknown)
-                {
-                    Messenger.Default.Send(new BattlelogResponseMessage(UnableToParse, false));
-                    return;
-                }
                 Messenger.Default.Send(new UserIdAndPlatformResolvedMessage(_userId, _platform));
             }
         }
