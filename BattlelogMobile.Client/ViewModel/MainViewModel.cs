@@ -47,7 +47,6 @@ namespace BattlelogMobile.Client.ViewModel
             CredentialsRepository = credentialsRepository;
             LoadCredentials();
 
-
             (new DownloadService(ViewModelLocator.CookieJar)).RetrieveServerMessage(ServerMessageUrl);
         }
 
