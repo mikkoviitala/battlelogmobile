@@ -74,6 +74,9 @@
     </Item>
     <Item Title="History"
           Type="text">
+      v1.6.0.0
+      Adapted to BF3 Armored Kill DLC release
+      
       v1.5.0.0
       Changed some of the weapon names
       Fixed platform identification issues
