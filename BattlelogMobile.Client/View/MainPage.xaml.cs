@@ -15,7 +15,6 @@ namespace BattlelogMobile.Client.View
         public MainPage()
         {
             InitializeComponent();
-            Messenger.Default.Register<DialogMessage>(this, message => MessageBox.Show(message.Content));
         }
 
         private void TextChangedUpdateTrigger(object sender, TextChangedEventArgs e)

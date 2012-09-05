@@ -30,6 +30,36 @@ namespace BattlelogMobile.Core.Service
 
         public CookieContainer CookieJar { get; set; }
 
+        public void RetrieveServerMessage(string url)
+        {
+            var request = WebRequest.Create(new Uri(url)) as HttpWebRequest;
+            if (request == null)
+                throw new ArgumentNullException();
+
+            request.Method = DefaultMethod;
+            request.Accept = Accept;
+            request.UserAgent = UserAgent;
+            request.CookieContainer = CookieJar;
+
+            request.BeginGetResponse(responseAsyncResult =>
+            {
+                try
+                {
+                    var response = (HttpWebResponse)request.EndGetResponse(responseAsyncResult);
+                    var responseStream = response.GetResponseStream();
+                    var reader = new StreamReader(responseStream);
+                    string message = reader.ReadToEnd();
+                    response.Close();
+                    if (message.Length > 0)
+                        Messenger.Default.Send(new DialogMessage(this, null, message, null));
+                }
+                catch (WebException we)
+                {
+                    // Omitted
+                }
+            }, null);
+        }
+
         public void ResolveUserIdAndPlatform(string url, IUserIdAndPlatformResolver userIdAndPlatformUserIdAndPlatformResolver)
         {
             var request = WebRequest.Create(new Uri(url)) as HttpWebRequest;

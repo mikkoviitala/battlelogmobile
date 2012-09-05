@@ -8,6 +8,7 @@ using BattlelogMobile.Client.Service;
 using BattlelogMobile.Core.Message;
 using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Repository;
+using BattlelogMobile.Core.Service;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using ICredentials = BattlelogMobile.Core.Model.ICredentials;
@@ -20,12 +21,14 @@ namespace BattlelogMobile.Client.ViewModel
         private const string LogInFailedReasonTimedOut = "Login request timed out!";
         private const string LogInFailedReasonInvalidCredentials = "User credentials not accepted!";
         private const string StatusInformationVerifyingCredential = "Verifying credentials";
+        private const string ServerMessageUrl = "http://www.losninosdelsol.net/battlelogmobile/message.txt";
 
         private readonly INavigationService _navigationService = new NavigationService();
         private string _email;
         private string _password;
         private bool _rememberMe;
         private string _logInFailedReason = string.Empty;
+        private string _serverMessage = string.Empty;
         private bool _userInterfaceEnabled = true;
         private bool _timedOut = false;
 
@@ -37,11 +40,15 @@ namespace BattlelogMobile.Client.ViewModel
             Messenger.Default.Register<BattlelogResponseMessage>(this, BattlelogResponseMessageReceived);
             Messenger.Default.Register<SoldierLoadedMessage>(this, SoldierLoadedMessageReceived);
             Messenger.Default.Register<SoldierVisibleMessage>(this, SoldierVisibleMessageReceived);
+            Messenger.Default.Register<DialogMessage>(this, 
+                message => ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() => ServerMessage = message.Content));
 
             LogInCommand = new RelayCommand(LogInCommandReceived, CanExecuteLogInCommand);
             CredentialsRepository = credentialsRepository;
             LoadCredentials();
-            
+
+
+            (new DownloadService(ViewModelLocator.CookieJar)).RetrieveServerMessage(ServerMessageUrl);
         }
 
         public ICredentialsRepository CredentialsRepository { get; private set; }
@@ -106,6 +113,16 @@ namespace BattlelogMobile.Client.ViewModel
             {
                 _logInFailedReason = value;
                 RaisePropertyChanged("LogInFailedReason");
+            }
+        }
+
+        public string ServerMessage
+        {
+            get { return _serverMessage; }
+            set
+            {
+                _serverMessage = value;
+                RaisePropertyChanged("ServerMessage");
             }
         }
 

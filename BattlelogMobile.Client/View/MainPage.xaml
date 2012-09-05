@@ -52,6 +52,7 @@
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
+            <RowDefinition Height="140" />
             <RowDefinition Height="40" />
 		</Grid.RowDefinitions>
 
@@ -93,11 +94,14 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
-        
-        <Grid Grid.Row="2" Margin="0,-20,0,10">
-            <HyperlinkButton NavigateUri="mailto:battlelogmobile@inbox.com?subject=Battlelog Mobile Support request" 
-                             Content="Support &amp; Feedback" TargetName="_blank" Width="300" 
-                             Foreground="{StaticResource PhoneAccentBrush}" />
-        </Grid>
+
+        <StackPanel Grid.Row="2" Margin="0,0,0,0" Visibility="{Binding ServerMessage, Converter={StaticResource StringLengthVisibilityConverter}}" Height="120">
+            <TextBlock HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Top" Foreground="#dddddd" FontSize="22" Margin="15" TextWrapping="Wrap" Text="{Binding ServerMessage}" />
+        </StackPanel>
+
+        <HyperlinkButton Grid.Row="3" Margin="0,-20,0,10" NavigateUri="mailto:battlelogmobile@inbox.com?subject=Battlelog Mobile Support request" 
+                         Content="Support &amp; Feedback" TargetName="_blank" Width="300" 
+                         Foreground="{StaticResource PhoneAccentBrush}" />
+
 	</Grid>
 </phone:PhoneApplicationPage>
