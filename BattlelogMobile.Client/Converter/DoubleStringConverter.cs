@@ -16,18 +16,8 @@ namespace BattlelogMobile.Client.Converter
         /// </summary>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            bool wasNumeric = false;
-            string ratioFormat = RatioFormat;
+            string formatted = System.Convert.ToDouble(value, CultureInfo.InvariantCulture).ToString(RatioFormat, CultureInfo.InvariantCulture);
             if (parameter != null)
-            {
-                double doubleValue;
-                wasNumeric = double.TryParse(parameter.ToString(), out doubleValue);
-                if (wasNumeric)
-                    ratioFormat = parameter.ToString();
-            }
-
-            string formatted = System.Convert.ToDouble(value, CultureInfo.InvariantCulture).ToString(ratioFormat, CultureInfo.InvariantCulture);
-            if (parameter != null && !wasNumeric)
                 formatted += parameter.ToString();
             
             return formatted;
