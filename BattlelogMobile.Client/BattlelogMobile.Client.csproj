@@ -144,6 +144,7 @@
     <None Include="Properties\WMAppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Background.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
@@ -151,8 +152,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
-    <Resource Include="ApplicationIcon.png" />
-    <Resource Include="Background.png" />
+    <Resource Include="ApplicationIcon.old.png" />
+    <Resource Include="Background.old.png" />
     <Content Include="Content\About\Data.xml">
       <SubType>Designer</SubType>
     </Content>
