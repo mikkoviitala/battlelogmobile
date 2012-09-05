@@ -301,10 +301,6 @@ namespace BattlelogMobile.Core.Service
             }
             var sortedAndFiltered = vehicles.OrderByDescending(v => v.Kills).ThenByDescending(v => v.TimeIn).
                 ThenBy(v => v.Slug).ThenBy(v => v.Name).Where(g => g.Kills > 0);
-            foreach (var item in sortedAndFiltered)
-            {
-                System.Diagnostics.Debug.WriteLine(item);    
-            }
             
             return new Items(sortedAndFiltered.ToList());
         }
@@ -329,9 +325,14 @@ namespace BattlelogMobile.Core.Service
                 {
                     Name = gadgetsToken.SelectToken("slug").ToString(),
                     Slug = (gadgetsToken.SelectToken("slug").ToString()).ToUpperInvariant(),
-                    Kills = Convert.ToInt32(gadgetsToken.SelectToken("performanceStatValue").ToString())
+                    Kills = 0
                 };
-                string image = jObject.SelectToken("data").SelectToken("bf3GadgetsLocale").SelectToken("kititems").SelectToken(guid).SelectToken("image") + ImageSuffix;
+
+                if (gadgetsToken.SelectToken("performances").HasValues)
+                    gadget.Kills =
+                        Convert.ToInt32(gadgetsToken.SelectToken("performances").First.SelectToken("stat").ToString());
+
+                string image = jObject.SelectToken("data").SelectToken("gadgetsLocale").SelectToken("kititems").SelectToken(guid).SelectToken("image") + ImageSuffix;
                 _imageRepository.Load(
                     Common.VehicleAndGadgetImageUrl, image, bitmap => { gadget.Image = bitmap; });
                 gadgets.Add(gadget);
@@ -365,7 +366,7 @@ namespace BattlelogMobile.Core.Service
                     ServiceStars = Convert.ToInt32(weaponsToken.SelectToken("serviceStars").ToString())
                 };
                 
-                string image = jObject.SelectToken("data").SelectToken("bf3GadgetsLocale").SelectToken("weapons").SelectToken(guid).SelectToken("image") + ImageSuffix;
+                string image = jObject.SelectToken("data").SelectToken("gadgetsLocale").SelectToken("weapons").SelectToken(guid).SelectToken("image") + ImageSuffix;
                 
                 if (!image.Contains(AmericanImageSuffix) && (!image.Contains(RussianImageSuffix)) && !_duplicateWeaponSlugs.Contains(weapon.Slug))
                 {

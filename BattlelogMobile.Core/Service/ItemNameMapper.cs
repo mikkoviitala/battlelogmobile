@@ -63,6 +63,7 @@ namespace BattlelogMobile.Core.Service
                 {"SU-35BM-FLANKER-E", "SU-35BM FLANKER-E"},
                 {"UH-1Y-VENOM", "UH-1Y VENOM"},
                 {"VDV-BUGGY", "VDV BUGGY"},
+                {"QUAD-BIKE", "QUAD BIKE"},
 
                 // Gadget slug -> Display name
                 {"C4-EXPLOSIVES", "C4 EXPLOSIVES"},
