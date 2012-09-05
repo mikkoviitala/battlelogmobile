@@ -41,6 +41,7 @@ namespace BattlelogMobile.Client.ViewModel
             LogInCommand = new RelayCommand(LogInCommandReceived, CanExecuteLogInCommand);
             CredentialsRepository = credentialsRepository;
             LoadCredentials();
+            
         }
 
         public ICredentialsRepository CredentialsRepository { get; private set; }

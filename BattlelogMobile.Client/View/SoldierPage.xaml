@@ -90,10 +90,10 @@
                     <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.ScorePerMinute}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
 
                     <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="K / D ratio" VerticalAlignment="Center" />
-                    <TextBlock Grid.Row="5" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.KillDeathRatio, Converter={StaticResource DoubleStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+                    <TextBlock Grid.Row="5" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.KillDeathRatio, Converter={StaticResource DoubleStringConverter}, ConverterParameter=0.000}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
 
                     <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="W / L ratio" VerticalAlignment="Center" />
-                    <TextBlock Grid.Row="6" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.WinLoseRatio, Converter={StaticResource DoubleStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+                    <TextBlock Grid.Row="6" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.WinLoseRatio, Converter={StaticResource DoubleStringConverter}, ConverterParameter=0.000}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
                 </Grid>
             </controls:PanoramaItem>
 

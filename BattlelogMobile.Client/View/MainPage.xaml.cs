@@ -1,5 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
+using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Phone.Tasks;
 using Tomers.Phone.Controls;
 
@@ -13,6 +15,7 @@ namespace BattlelogMobile.Client.View
         public MainPage()
         {
             InitializeComponent();
+            Messenger.Default.Register<DialogMessage>(this, message => MessageBox.Show(message.Content));
         }
 
         private void TextChangedUpdateTrigger(object sender, TextChangedEventArgs e)
