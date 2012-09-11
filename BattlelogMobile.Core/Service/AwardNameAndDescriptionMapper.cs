@@ -61,8 +61,8 @@ namespace BattlelogMobile.Core.Service
                 {"r44", new KeyValuePair<string, string>("MEDICAL EFFICIENCY", "In a round, get 5 Revives.")},
                 {"r45", new KeyValuePair<string, string>("SURVEILLANCE EFFICIENCY", "In a round, get 5 motion Sensor Assists")},
                 {"tanksuperiority2d", new KeyValuePair<string, string>("TANK SUPERIORITY WINNER", "Win a Tank Superiority round")},
-                {"xxx", new KeyValuePair<string, string>("xxx", "yyy")},
-                {"yyy", new KeyValuePair<string, string>("yyy", "yyy")},
+                {"conquest_domination2d", new KeyValuePair<string, string>("DOMINATION WINNER", "Win a Domination round")},
+                {"gunmaster2d", new KeyValuePair<string, string>("GUN MASTER WINNER", "Win a Gun Master round")},
                 
                 // Medals
                 {"m01", new KeyValuePair<string, string>("ASSAULT RIFLE", "Obtain the Assault Rifle Ribbon 50 times")},
@@ -114,7 +114,10 @@ namespace BattlelogMobile.Core.Service
                 {"m47", new KeyValuePair<string, string>("TANK SERVICE", "Spend 20 hours in Tanks")},
                 {"m48", new KeyValuePair<string, string>("HELICOPTER SERVICE", "Spend 20 hours in Helicopters")},
                 {"m49", new KeyValuePair<string, string>("JET SERVICE", "Spend 20 hours in Jets")},
-                {"m50", new KeyValuePair<string, string>("STATIONARY SERVICE", "Spend 2 hours in Stationary Weapons")}
+                {"m50", new KeyValuePair<string, string>("STATIONARY SERVICE", "Spend 2 hours in Stationary Weapons")},
+                {"tank_superiority2d", new KeyValuePair<string, string>("TANK SUPERIORITY", "Obtain the Tank Superiority Winner Ribbon 50 times")},
+                {"conquest_domination2d", new KeyValuePair<string, string>("DOMINATION", "Obtain the Domination Winner Ribbon 50 times")},
+                {"gunmaster2d", new KeyValuePair<string, string>("GUN MASTER", "Obtain the Gun Master Ribbon 50 times")},
             };
         }
 
