@@ -11,7 +11,7 @@ All three platforms are supported (PC, PS3, XBox).
 This is a WP7 application, developed in C# and it will be active as long as EA / DICE lacks to provide their own "killer" for mobile devices.
 
 # Status
-Version 1.5.0.0 is available for download from Marketplace and version 1.6.0.0 is out really soon, fixing issues raised by Armored Kill DLC release. 
+Version 1.6.0.0 is soon available for download from Marketplace and version 1.7.0.0 is already under development, with minor fixes. 
 See the [Issue Tracker](https://github.com/mikkoviitala/battlelogmobile/issues) 
 if you want to know what is being developed for next release. You are also welcome to contact us via email or Battlelog.
 

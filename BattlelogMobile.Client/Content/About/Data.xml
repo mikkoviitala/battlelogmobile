@@ -74,6 +74,10 @@
     </Item>
     <Item Title="History"
           Type="text">
+      v1.7.0.0
+      Added Armored Kill ribbons and medals
+      Changed application icons
+      
       v1.6.0.0
       Adapted to BF3 Armored Kill DLC release
       Developer notifications on login page
