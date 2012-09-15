@@ -8,13 +8,15 @@ namespace BattlelogMobile.Core.Service
     /// </summary>
     public static class AwardNameAndDescriptionMapper
     {
-        private static readonly Dictionary<string, KeyValuePair<string, string>> NameAndDescriptionMapper;
-        
+        private static readonly Dictionary<string, KeyValuePair<string, string>> RibbonMapper;
+        private static readonly Dictionary<string, KeyValuePair<string, string>> MedalMapper;
+        private static readonly KeyValuePair<string, string> MappingNotFound = new KeyValuePair<string, string>("UNKNOWN", "No description available");
+
         static AwardNameAndDescriptionMapper()
         {
-            NameAndDescriptionMapper = new Dictionary<string, KeyValuePair<string, string>>
+            // Ribbons
+            RibbonMapper = new Dictionary<string, KeyValuePair<string, string>>
             {
-                // Ribbons
                 {"r01", new KeyValuePair<string, string>("ASSAULT RIFLE", "In a round, kill 7 enemies with Assault Rifles")},
                 {"r02", new KeyValuePair<string, string>("CARBINE", "In a round, kill 7 enemies with Carbines")},
                 {"r03", new KeyValuePair<string, string>("LIGHT MACHINE GUN", "In a round, kill 7 enemies with Light Machine Guns")},
@@ -62,9 +64,12 @@ namespace BattlelogMobile.Core.Service
                 {"r45", new KeyValuePair<string, string>("SURVEILLANCE EFFICIENCY", "In a round, get 5 motion Sensor Assists")},
                 {"tanksuperiority2d", new KeyValuePair<string, string>("TANK SUPERIORITY WINNER", "Win a Tank Superiority round")},
                 {"conquest_domination2d", new KeyValuePair<string, string>("DOMINATION WINNER", "Win a Domination round")},
-                {"gunmaster2d", new KeyValuePair<string, string>("GUN MASTER WINNER", "Win a Gun Master round")},
+                {"gunmaster2d", new KeyValuePair<string, string>("GUN MASTER WINNER", "Win a Gun Master round")}
+            };
                 
-                // Medals
+            // Medals
+            MedalMapper = new Dictionary<string, KeyValuePair<string, string>>
+            {
                 {"m01", new KeyValuePair<string, string>("ASSAULT RIFLE", "Obtain the Assault Rifle Ribbon 50 times")},
                 {"m02", new KeyValuePair<string, string>("CARBINE", "Obtain the Carbine Ribbon 50 times")},
                 {"m03", new KeyValuePair<string, string>("LIGHT MACHINE GUN", "Obtain the Light Machine Gun Ribbon 50 times")},
@@ -117,15 +122,15 @@ namespace BattlelogMobile.Core.Service
                 {"m50", new KeyValuePair<string, string>("STATIONARY SERVICE", "Spend 2 hours in Stationary Weapons")},
                 {"tank_superiority2d", new KeyValuePair<string, string>("TANK SUPERIORITY", "Obtain the Tank Superiority Winner Ribbon 50 times")},
                 {"conquest_domination2d", new KeyValuePair<string, string>("DOMINATION", "Obtain the Domination Winner Ribbon 50 times")},
-                {"gunmaster2d", new KeyValuePair<string, string>("GUN MASTER", "Obtain the Gun Master Ribbon 50 times")},
+                {"gunmaster2d", new KeyValuePair<string, string>("GUN MASTER", "Obtain the Gun Master Ribbon 50 times")}
             };
         }
 
-        public static KeyValuePair<string, string> Get(string awardCode)
+        public static KeyValuePair<string, string> Get(string awardCode, string awardGroup)
         {
-            return NameAndDescriptionMapper.ContainsKey(awardCode) ? 
-                NameAndDescriptionMapper[awardCode] : 
-                    new KeyValuePair<string, string>("UNKNOWN", "No description available");
+            if (awardGroup.ToLower().Contains("ribbon"))
+                return RibbonMapper.ContainsKey(awardCode) ? RibbonMapper[awardCode] : MappingNotFound;
+            return MedalMapper.ContainsKey(awardCode) ? MedalMapper[awardCode] : MappingNotFound;
         }
     }
 }
