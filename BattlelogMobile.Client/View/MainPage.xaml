@@ -8,6 +8,7 @@
     xmlns:conv="clr-namespace:BattlelogMobile.Client.Converter"
     xmlns:watermark="clr-namespace:WatermarkedTextBoxControl"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:Add="clr-namespace:Microsoft.Advertising.Mobile.UI;assembly=Microsoft.Advertising.Mobile.UI"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -51,8 +52,8 @@
     <Grid Background="Transparent">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
-			<RowDefinition Height="*" />
-            <RowDefinition Height="140" />
+			<RowDefinition Height="433*" />
+            <RowDefinition Height="163" />
             <RowDefinition Height="40" />
 		</Grid.RowDefinitions>
 
@@ -96,7 +97,8 @@
         </Grid>
 
         <StackPanel Grid.Row="2" Margin="0,0,0,0" Visibility="{Binding ServerMessage, Converter={StaticResource StringLengthVisibilityConverter}}" Height="120">
-            <TextBlock HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Top" Foreground="#dddddd" FontSize="22" Margin="15" TextWrapping="Wrap" Text="{Binding ServerMessage}" />
+            <TextBlock HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Top" Foreground="#dddddd" FontSize="22" Margin="0,0,0,20" TextWrapping="Wrap" Text="{Binding ServerMessage}" />
+            <Add:AdControl Name="BattlelogMobileAds" Height="50" Width="300" AdUnitId="98660" ApplicationId="f67396f2-e07b-4c5b-9757-7b680e5d39ad" />
         </StackPanel>
 
         <HyperlinkButton Grid.Row="3" Margin="0,-20,0,10" NavigateUri="mailto:battlelogmobile@inbox.com?subject=Battlelog Mobile Support request" 

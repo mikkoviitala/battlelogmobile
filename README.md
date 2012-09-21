@@ -11,9 +11,8 @@ All three platforms are supported (PC, PS3, XBox).
 This is a WP7 application, developed in C# and it will be active as long as EA / DICE lacks to provide their own "killer" for mobile devices.
 
 # Status
-Version 1.6.0.0 is soon available for download from Marketplace and version 1.7.0.0 is already under development, with minor fixes. 
-See the [Issue Tracker](https://github.com/mikkoviitala/battlelogmobile/issues) 
-if you want to know what is being developed for next release. You are also welcome to contact us via email or Battlelog.
+Version 1.7.0.0 is available for download from Marketplace and version 1.8.0.0 is already under development.
+If you want to know what is being developed for next release, visit the issue tracker. You are also welcome to contact us via email or Battlelog.
 
 # Contact information
 * Email: [battlelogmobile@inbox.com](mailto:battlelogmobile@inbox.com)
@@ -25,6 +24,6 @@ if you want to know what is being developed for next release. You are also welco
 Loz Slater
 
 # Reviews
-Currently we have 5500+ downloads, so what our users are saying? Well, after solving complications with first versions, here's some copy/paste from Dev Center.
+Currently we have 6500+ downloads, so what our users are saying? Well, after solving complications with first versions, here's some copy/paste from Dev Center.
 
 ![Reviews](http://github.com/mikkoviitala/battlelogmobile/raw/master/public/reviews.png)

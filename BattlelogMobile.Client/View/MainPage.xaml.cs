@@ -1,9 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using GalaSoft.MvvmLight.Messaging;
-using Microsoft.Phone.Tasks;
-using Tomers.Phone.Controls;
 
 namespace BattlelogMobile.Client.View
 {
@@ -15,6 +12,7 @@ namespace BattlelogMobile.Client.View
         public MainPage()
         {
             InitializeComponent();
+            //BattlelogMobileAds.ErrorOccurred += (sender, args) => System.Diagnostics.Debug.WriteLine(args.Error.ToString());
         }
 
         private void TextChangedUpdateTrigger(object sender, TextChangedEventArgs e)
