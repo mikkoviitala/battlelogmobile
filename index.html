@@ -1,43 +1,58 @@
 <!DOCTYPE html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Battlelog Mobile for Windows Phone : Battlefield 3 stats made easy!" />
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640" />
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
 
-    <title>Battlelog Mobile for Windows Phone</title>
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>Battlelog Mobile for Windows Phone by mikkoviitala</title>
   </head>
 
   <body>
+    <a id="forkme_banner" href="https://github.com/mikkoviitala/battlelogmobile">View on GitHub</a>
+    <div class="shell">
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/mikkoviitala/battlelogmobile">View on GitHub</a>
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Battlelog Mobile for Windows Phone</h1>
+            <h2>Battlefield 3 stats made easy!</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
 
-          <h1 id="project_title">Battlelog Mobile for Windows Phone</h1>
-          <h2 id="project_tagline">Battlefield 3 stats made easy!</h2>
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/mikkoviitala/battlelogmobile/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/mikkoviitala/battlelogmobile/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/mikkoviitala/battlelogmobile/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/mikkoviitala/battlelogmobile/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
         <h1>Description</h1>
 
-<p>Battlelog Mobile retrieves your real time <a href="http://www.battlefield.com/battlefield3">Battlefield 3</a> soldier information from EA / DICE Battlelog server to your Windows Phone. You are able to track your progression in easy, intuitive manner with lots of images and charts. Get yours from <a href="http://windowsphone.com/s?appid=003ef672-e898-4564-8799-7bd258060cc0">Microsoft Marketplace</a>, for free.</p>
+<p>Battlelog Mobile retrieves your real time <a href="http://www.battlefield.com/battlefield3">Battlefield 3</a> soldier information from EA / DICE Battlelog server to your Windows Phone. You are able to track your progression in easy, intuitive manner with lots of images and charts. Get yours from <a href="http://windowsphone.com/s?appid=003ef672-e898-4564-8799-7bd258060cc0">Microsoft Marketplace</a>, for free. But please, click the ads so I can buy meh some beer :(.</p>
 
 <p>All three platforms are supported (PC, PS3, XBox). </p>
 
-<p>Battlelog Mobile is a open source project it it has nothing to do with official EA / DICE Battlefield 3 or Battlelog products. Project page can be found <a href="https://github.com/mikkoviitala/battlelogmobile">right here</a>.</p>
+<p>Battlelog Mobile is a open source project it has nothing to do with official EA / DICE Battlefield 3 or Battlelog products. Project page can be found <a href="https://github.com/mikkoviitala/battlelogmobile">right here</a>.</p>
 
 <h1>Status</h1>
 
@@ -60,17 +75,21 @@ if you want to know what is being developed for next release. You are also welco
 <li><a href="http://www.facebook.com/BattlelogMobile">Facebook</a></li>
 </ul>
       </section>
-    </div>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Battlelog Mobile for Windows Phone maintained by <a href="https://github.com/mikkoviitala">mikkoviitala</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/mikkoviitala">mikkoviitala</a> can be found on <a href="https://github.com/mikkoviitala/battlelogmobile">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
       </footer>
+
     </div>
 
     
-
   </body>
 </html>
