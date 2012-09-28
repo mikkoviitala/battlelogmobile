@@ -68,6 +68,7 @@
       Wade Williamson (RazorbacksWPS @ Battlelog)
       Terri Hyland (3ximius @ Battlelog)
       Loz Slater
+      James Havens
 
       Participate!
       If you want to contribute in any way or just find out what is being developed for the next release, visit http://mikkoviitala.github.com/battlelogmobile
@@ -75,6 +76,9 @@
     <Item Title="History"
           Type="text">
       v1.8.0.0
+      Adapted to BF3 ??? DLC release
+      Fixed US/RU specific weapons not being displayed
+      Tweaked weapon ordering on the list
       Microsoft adds on login page
       
       v1.7.0.0

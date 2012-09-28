@@ -30,7 +30,7 @@ namespace BattlelogMobile.Client.ViewModel
         private string _logInFailedReason = string.Empty;
         private string _serverMessage = string.Empty;
         private bool _userInterfaceEnabled = true;
-        private bool _timedOut = false;
+        private bool _timedOut;
 
         public MainViewModel() : this(new FileCredentialsRepository())
         {}
@@ -46,7 +46,7 @@ namespace BattlelogMobile.Client.ViewModel
             LogInCommand = new RelayCommand(LogInCommandReceived, CanExecuteLogInCommand);
             CredentialsRepository = credentialsRepository;
             LoadCredentials();
-
+ 
             (new DownloadService(ViewModelLocator.CookieJar)).RetrieveServerMessage(ServerMessageUrl);
         }
 

@@ -15,8 +15,8 @@ namespace BattlelogMobile.Core.Service
 {
     public class JSONParser : IJSONParser<ISoldier>
     {
-        private const string AmericanImageSuffix = "_american"; // Duplicate
-        private const string RussianImageSuffix = "_russian";   // Duplicate
+        //private const string AmericanImageSuffix = "_american"; // Duplicate
+        //private const string RussianImageSuffix = "_russian";   // Duplicate
         private const string RibbonAwardPrefix = "r";
         private const string MedalAwardPrefix = "m";
         private const string RibbonAwardSavePrefix = "ribbon_";
@@ -368,16 +368,18 @@ namespace BattlelogMobile.Core.Service
                 
                 string image = jObject.SelectToken("data").SelectToken("gadgetsLocale").SelectToken("weapons").SelectToken(guid).SelectToken("image") + ImageSuffix;
                 
-                if (!image.Contains(AmericanImageSuffix) && (!image.Contains(RussianImageSuffix)) && !_duplicateWeaponSlugs.Contains(weapon.Slug))
-                {
+               //if (!image.Contains(AmericanImageSuffix) && (!image.Contains(RussianImageSuffix)) && !_duplicateWeaponSlugs.Contains(weapon.Slug))
+               //{
                     _imageRepository.Load(
                         Common.ServiceStarImageUrl, Common.ServiceStarImage, bitmap => { weapon.ServiceStarImage = bitmap; });
                     _imageRepository.Load(
                         Common.WeaponAndAccessoryImageUrl, image, bitmap => { weapon.Image = bitmap; });
                     weapons.Add(weapon);
-                }
+                //}
             }
-            var sortedAndFiltered = weapons.OrderByDescending(g => g.Kills).ThenBy(g => g.Slug).ThenBy(g => g.Name).Where(g => g.Kills > 0);
+            var sortedAndFiltered = weapons.OrderByDescending(g => g.Kills).
+                ThenByDescending(g => g.Headshots).ThenBy(g => g.Slug).ThenBy(g => g.Name).
+                    Where(g => g.Kills > 0);
             // For some reason e.g. M39EMR is twice is JSON ?
             return new Items(sortedAndFiltered.Distinct(new ItemComparer()).ToList());
         }
