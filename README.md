@@ -1,5 +1,5 @@
 ## Important
-Majority of users should download this application from [Windows Phone Marketplace](http://windowsphone.com/s?appid=003ef672-e898-4564-8799-7bd258060cc0). 
+Majority of you should download this application from [Windows Phone Marketplace](http://windowsphone.com/s?appid=003ef672-e898-4564-8799-7bd258060cc0). 
 Source can ONLY be deployed on unlocked development device or emulator!
 
 # Description
@@ -10,7 +10,7 @@ All three platforms are supported (PC, PS3, XBox).
 Battlelog Mobile is a open source project and it has nothing to do with official EA / DICE Battlefield 3 or Battlelog products.
 
 # Status
-Version 1.7.0.0 is available for download from Marketplace and version 1.8.0.0 is under development and will be released in December along with Aftermath DLC. See the Issue Tracker if you want to know what is being developed for next release. You are also welcome to contact us via email or Battlelog. Every contribution is mentioned in About page.
+Version 1.7.0.0 is available for download from Marketplace and version 1.8.0.0 is under development and will be released in December along with Aftermath DLC.
 
 # Contact information
 * Email: [battlelogmobile@inbox.com](mailto:battlelogmobile@inbox.com)
