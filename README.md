@@ -1,6 +1,6 @@
 # Important
 Majority of you should download this application from [Windows Phone Marketplace](http://windowsphone.com/s?appid=003ef672-e898-4564-8799-7bd258060cc0). 
-Source can ONLY be deployed on unlocked development device or emulator!
+Compiled source can ONLY be deployed on unlocked development device or emulator!
 
 # Description
 Battlelog Mobile retrieves your real time Battlefield 3 soldier information from EA / DICE Battlelog server to your Windows Phone. You are able to track your progression in easy, intuitive manner with lots of images and charts. Get yours from Microsoft Marketplace, for free.
