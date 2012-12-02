@@ -17,15 +17,16 @@ namespace BattlelogMobile.Core.Service
     {
         //private const string AmericanImageSuffix = "_american"; // Duplicate
         //private const string RussianImageSuffix = "_russian";   // Duplicate
-        private const string RibbonAwardPrefix = "r";
-        private const string MedalAwardPrefix = "m";
+        //private const string MedalAwardPrefix = "m";
+        //private const string RibbonAwardPrefix = "r";
+        private const string AwardGroup = "AwardGroup_Ribbons";
         private const string RibbonAwardSavePrefix = "ribbon_";
         private const string MedalAwardSavePrefix = "medal_";
         private const string ImageSuffix = ".png";
         private const string JSONParseFailedMessage = "Couldn't read soldier information";
         private readonly IsolatedStorageFile _isolatedStorage = IsolatedStorageFile.GetUserStoreForApplication();
         private readonly IImageRepository _imageRepository = new ImageRepository();
-        private readonly List<string> _duplicateWeaponSlugs = new List<string>() { "M4", "M16A4" }; // Same as M4A1 and M16A3
+        //private readonly List<string> _duplicateWeaponSlugs = new List<string>() { "M4", "M16A4" }; // Same as M4A1 and M16A3
 
         /// <summary>
         /// Here lies some nasty JSON parsing...
@@ -52,7 +53,6 @@ namespace BattlelogMobile.Core.Service
                 soldier.KitProgressions = ParseKitServiceStarProgressions(overviewStatsToken.SelectToken("serviceStarsProgress"), serviceStars);
                 soldier.Score = ParseScore(overviewStatsToken);
                 soldier.Score.Kits = ParseKitScore(overviewStatsToken);
-                //soldier.Weapons = ParseWeapons(dataToken);
                 soldier.Awards = ParseAwards(dataToken.SelectToken("awards"));
                 soldier.Statistics = ParseStatistics(dataToken.SelectToken("overviewStats"));
 
@@ -259,7 +259,9 @@ namespace BattlelogMobile.Core.Service
                 };
 
                 string image = token.SelectToken("award").SelectToken("code") + ImageSuffix;
-                if (image.StartsWith(RibbonAwardPrefix))
+                
+                //if (image.StartsWith(RibbonAwardPrefix))
+                if (string.CompareOrdinal(award.Group, AwardGroup) == 0)
                     _imageRepository.Load(Common.RibbonAwardImageUrl, image, 
                         bitmap => { award.Image = bitmap; }, RibbonAwardSavePrefix + image);
                 else
@@ -337,7 +339,7 @@ namespace BattlelogMobile.Core.Service
                     Common.VehicleAndGadgetImageUrl, image, bitmap => { gadget.Image = bitmap; });
                 gadgets.Add(gadget);
             }
-            var sortedAndFiltered = gadgets.OrderByDescending(g => g.Kills).ThenBy(g => g.Slug).ThenBy(g => g.Name).Where(g => g.Kills > 0);
+            var sortedAndFiltered = gadgets.OrderByDescending(g => g.Kills).ThenBy(g => g.Slug).ThenBy(g => g.Name); //.Where(g => g.Kills > 0);
             return new Items(sortedAndFiltered);
         }
 
@@ -380,56 +382,58 @@ namespace BattlelogMobile.Core.Service
             var sortedAndFiltered = weapons.OrderByDescending(g => g.Kills).
                 ThenByDescending(g => g.Headshots).ThenBy(g => g.Slug).ThenBy(g => g.Name).
                     Where(g => g.Kills > 0);
+
             // For some reason e.g. M39EMR is twice is JSON ?
             return new Items(sortedAndFiltered.Distinct(new ItemComparer()).ToList());
         }
 
-        private IUnlocks ParseUnlocks(string file)
-        {
-            var unlocks = new List<IUnlock>();
-            string completeJson;
+        //private IUnlocks ParseUnlocks(string file)
+        //{
+        //    var unlocks = new List<IUnlock>();
+        //    string completeJson;
 
-            using (var reader = new StreamReader(_isolatedStorage.OpenFile(file, FileMode.Open)))
-            {
-                completeJson = reader.ReadToEnd();
-                reader.Close();
-            }
-            JObject jObject = JObject.Parse(completeJson);
+        //    using (var reader = new StreamReader(_isolatedStorage.OpenFile(file, FileMode.Open)))
+        //    {
+        //        completeJson = reader.ReadToEnd();
+        //        reader.Close();
+        //    }
+        //    JObject jObject = JObject.Parse(completeJson);
 
-            // [0].SelectToken("weaponAddonUnlock").SelectToken("unlockedBy").SelectToken("completion").ToString()
-            foreach (var unlocksToken in jObject.SelectToken("data").SelectToken("unlocks"))
-            {
-                 // check if weaponunlock == null tai weaponaddonunlock == null
+        //    // [0].SelectToken("weaponAddonUnlock").SelectToken("unlockedBy").SelectToken("completion").ToString()
+        //    foreach (var unlocksToken in jObject.SelectToken("data").SelectToken("unlocks"))
+        //    {
+        //         // check if weaponunlock == null tai weaponaddonunlock == null
                 
-                // "unlockId" -> tästä kuva
-                foreach (var token in unlocksToken)
-                {
-                    System.Diagnostics.Debug.WriteLine("-> " + token.ToString().Length);
-                    foreach (var t in token)
-                    {
-                        System.Diagnostics.Debug.WriteLine("-> " + t.ToString().Length);
-                    }
-                }
-                System.Diagnostics.Debug.WriteLine("- - - - - ");
-                continue;
-                string guid = unlocksToken.SelectToken("weaponAddonUnlock").SelectToken("unlockId").ToString();
-                System.Diagnostics.Debug.WriteLine("-> " + guid);
-                // "weaponCode" -> tästä mihin liittyy
-                IUnlock unlock = new Unlock()
-                {
-                    Slug = unlocksToken.SelectToken("weaponAddonUnlock").SelectToken("slug").ToString(),
-                    Completion = Convert.ToInt32(unlocksToken.SelectToken("weaponAddonUnlock").SelectToken("unlockedBy").SelectToken("completion").ToString()),
-                };
+        //        // "unlockId" -> tästä kuva
+        //        foreach (var token in unlocksToken)
+        //        {
+        //            System.Diagnostics.Debug.WriteLine("-> " + token.ToString().Length);
+        //            foreach (var t in token)
+        //            {
+        //                System.Diagnostics.Debug.WriteLine("-> " + t.ToString().Length);
+        //            }
+        //        }
+        //        System.Diagnostics.Debug.WriteLine("- - - - - ");
+        //        continue;
+        //        string guid = unlocksToken.SelectToken("weaponAddonUnlock").SelectToken("unlockId").ToString();
+        //        System.Diagnostics.Debug.WriteLine("-> " + guid);
+        //        // "weaponCode" -> tästä mihin liittyy
+        //        IUnlock unlock = new Unlock()
+        //        {
+        //            Slug = unlocksToken.SelectToken("weaponAddonUnlock").SelectToken("slug").ToString(),
+        //            Completion = Convert.ToInt32(unlocksToken.SelectToken("weaponAddonUnlock").SelectToken("unlockedBy").SelectToken("completion").ToString()),
+        //        };
 
-                string image = jObject.SelectToken("data").SelectToken("bf3GadgetsLocale").SelectToken("weaponaccessory").
-                    SelectToken(guid).SelectToken("image").ToString() + ImageSuffix;
-                _imageRepository.Load(
-                    Common.WeaponAndAccessoryImageUrl, image, bitmap => { unlock.Image = bitmap; });
-                unlocks.Add(unlock);
-            }
-            //var sortedAndFiltered = unlocks.OrderByDescending(g => g.Kills).ThenBy(g => g.Slug).ThenBy(g => g.Name).Where(g => g.Kills > 0);
-            //return new Unlocks(sortedAndFiltered.ToList());
-            return new Unlocks(unlocks);
-        }
+        //        string image = jObject.SelectToken("data").SelectToken("bf3GadgetsLocale").SelectToken("weaponaccessory").
+        //            SelectToken(guid).SelectToken("image").ToString() + ImageSuffix;
+        //        _imageRepository.Load(
+        //            Common.WeaponAndAccessoryImageUrl, image, bitmap => { unlock.Image = bitmap; });
+        //        unlocks.Add(unlock);
+        //    }
+
+        //    //var sortedAndFiltered = unlocks.OrderByDescending(g => g.Kills).ThenBy(g => g.Slug).ThenBy(g => g.Name).Where(g => g.Kills > 0);
+        //    //return new Unlocks(sortedAndFiltered.ToList());
+        //    return new Unlocks(unlocks);
+        //}
     }
 }

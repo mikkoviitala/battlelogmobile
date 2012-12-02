@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
 
 namespace BattlelogMobile.Core.Service
 {
@@ -70,7 +71,7 @@ namespace BattlelogMobile.Core.Service
                 {"scavengerribbon", new KeyValuePair<string, string>("SCAVENGER", "Finish a Scavenger round")},
                 {"scavenger2d", new KeyValuePair<string, string>("SCAVENGER WINNER", "Win a Scavenger round")}
             };
-                
+
             // Medals
             MedalMapper = new Dictionary<string, KeyValuePair<string, string>>
             {

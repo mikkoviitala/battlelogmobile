@@ -72,7 +72,11 @@ namespace BattlelogMobile.Core.Service
                 {"M15-AT-MINE", "M15 AT MINE"},
                 {"M18-CLAYMORE", "M18 CLAYMORE"},
                 {"M224-MORTAR", "M224 MORTAR"},
-                {"M67-GRENADE", "M67 GRENADE"}
+                {"M67-GRENADE", "M67 GRENADE"},
+                {"AMMO-BOX", "AMMO BOX"},
+                {"RADIO-BEACON", "RADIO BEACON"},
+                {"REPAIR-TOOL", "REPAIR TOOL"},
+                {"MEDIC-KIT", "MEDIC KIT"}
             };
         }
 
