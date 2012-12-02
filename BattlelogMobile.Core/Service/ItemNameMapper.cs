@@ -40,6 +40,7 @@ namespace BattlelogMobile.Core.Service
                 {"SA-18-IGLA", "SA18 IGLA"},
                 {"TYPE-88-LMG", "TYPE88 LMG"},
                 {"ASSAULT-M320-LVG", "M320"},
+                {"XBOW-SCOPED", "XBOW SCOPED"},
 
                 // Vehicle slug -> DisplayName
                 {"9K22-TUNGUSKA-M", "9K22 TUNGUSKA-M"},

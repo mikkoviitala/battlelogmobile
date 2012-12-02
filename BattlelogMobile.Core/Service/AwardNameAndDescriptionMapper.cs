@@ -64,7 +64,11 @@ namespace BattlelogMobile.Core.Service
                 {"r45", new KeyValuePair<string, string>("SURVEILLANCE EFFICIENCY", "In a round, get 5 motion Sensor Assists")},
                 {"tanksuperiority2d", new KeyValuePair<string, string>("TANK SUPERIORITY WINNER", "Win a Tank Superiority round")},
                 {"conquest_domination2d", new KeyValuePair<string, string>("DOMINATION WINNER", "Win a Domination round")},
-                {"gunmaster2d", new KeyValuePair<string, string>("GUN MASTER WINNER", "Win a Gun Master round")}
+                {"gunmaster2d", new KeyValuePair<string, string>("GUN MASTER WINNER", "Win a Gun Master round")},
+                {"tdmcqribbon", new KeyValuePair<string, string>("TDMCQ", "Finish a TDMCQ round")},
+                {"tdmcq2d", new KeyValuePair<string, string>("TDMCQ WINNER", "Win a TDMCQ round")},
+                {"scavengerribbon", new KeyValuePair<string, string>("SCAVENGER", "Finish a Scavenger round")},
+                {"scavenger2d", new KeyValuePair<string, string>("SCAVENGER WINNER", "Win a Scavenger round")}
             };
                 
             // Medals
@@ -122,7 +126,9 @@ namespace BattlelogMobile.Core.Service
                 {"m50", new KeyValuePair<string, string>("STATIONARY SERVICE", "Spend 2 hours in Stationary Weapons")},
                 {"tank_superiority2d", new KeyValuePair<string, string>("TANK SUPERIORITY", "Obtain the Tank Superiority Winner Ribbon 50 times")},
                 {"conquest_domination2d", new KeyValuePair<string, string>("DOMINATION", "Obtain the Domination Winner Ribbon 50 times")},
-                {"gunmaster2d", new KeyValuePair<string, string>("GUN MASTER", "Obtain the Gun Master Ribbon 50 times")}
+                {"gunmaster2d", new KeyValuePair<string, string>("GUN MASTER", "Obtain the Gun Master Ribbon 50 times")},
+                {"tdmcq2s", new KeyValuePair<string, string>("TDMCQ", "Obtain the TDMCQ Winner Ribbon 50 times")},
+                {"scavenger2d", new KeyValuePair<string, string>("SCAVENGER", "Obtain the Scavenger Winner Ribbon 50 times")}
             };
         }
 
