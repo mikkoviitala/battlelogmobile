@@ -28,7 +28,7 @@
   <Items>
     <!-- Create a MainItem entry to configure the front page -->
     <!-- The Titel attribute defines the title of the pivot item -->
-    <!-- The Label (and review buttong content) attributes can override the default values to what you like, and also help with localization -->
+    <!-- The Label (and review button content) attributes can override the default values to what you like, and also help with localization -->
     <!-- By default, the "Buy this app!" button is only shown when the app runs in trial mode (more on trial mode and how to configure YLAD accordingly here:
           http://ylad.codeplex.com/documentation). Explicitly set any of the button contents to an empty string to override the default behavior, and remove the button from the page. -->
     <MainItem Title="About"
@@ -76,7 +76,7 @@
     <Item Title="History"
           Type="text">
       v1.8.0.0
-      Adapted to BF3 ??? DLC release
+      Adapted to BF3 Aftermath DLC release
       Fixed US/RU weapons not being displayed
       Tweaked weapon ordering on the list
       Microsoft adds on login page
