@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Data;
+//using System.Device;
 
 namespace BattlelogMobile.Client.View
 {
@@ -8,9 +9,38 @@ namespace BattlelogMobile.Client.View
     /// </summary>
     public partial class MainPage
     {
+        //private GeoCoordinateWatcher watcher;
+
         public MainPage()
         {
             InitializeComponent();
+
+            //if (watcher == null)
+            //{
+            //    watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High); // Use high accuracy. 
+            //    watcher.MovementThreshold = 20; // Use MovementThreshold to ignore noise in the signal. 
+            //    watcher.StatusChanged += new EventHandler<GeoPositionStatusChangedEventArgs>(watcher_StatusChanged);
+            //}
+            //watcher.Start(); 
+
+            //void watcher_StatusChanged(object sender, GeoPositionStatusChangedEventArgs e) 
+            //{ 
+            //    if (e.Status == GeoPositionStatus.Ready) 
+            //    { 
+            //        // Use the Position property of the GeoCoordinateWatcher object to get the current location. 
+            //        GeoCoordinate co = watcher.Position.Location; 
+            //        latitudeTextBlock.Text = co.Latitude.ToString("0.000"); 
+            //        longitudeTextBlock.Text = co.Longitude.ToString("0.000"); 
+            //        //Stop the Location Service to conserve battery power. 
+            //        watcher.Stop(); 
+            //    } 
+            //}
+
+            //BattlelogMobileAds.CountryOrRegion
+            //BattlelogMobileAds.PostalCode
+            //BattlelogMobileAds.Longitude
+            //BattlelogMobileAds.Latitude
+
             //BattlelogMobileAds.ErrorOccurred += (sender, args) => System.Diagnostics.Debug.WriteLine(args.Error.ToString());
         }
 
