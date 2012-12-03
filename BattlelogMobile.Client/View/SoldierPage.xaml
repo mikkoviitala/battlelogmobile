@@ -27,6 +27,7 @@
         <conv:IntegerStringConverter x:Key="IntegerStringConverter" />
         <conv:DoublePercentageStringConverter x:Key="DoublePercentageStringConverter" />
         <conv:KillsAndAssistsStringConverter x:Key="KillsAndAssistsStringConverter" />
+        <conv:IntegerVisibilityConverter x:Key="IntegerVisibilityConverter" />
     </phone:PhoneApplicationPage.Resources>
 
     <toolkit:TransitionService.NavigationInTransition>
@@ -406,6 +407,7 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                     <RowDefinition />
+                                    <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="168" />
@@ -413,14 +415,24 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Image Source="{Binding Path=Image}" 
-                                       Grid.RowSpan="2"
+                                       Grid.RowSpan="3"
                                        Width="147" Height="88" Margin="0,0,25,0" VerticalAlignment="Center" />
-                                <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Path=DisplayName}" VerticalAlignment="Bottom" Margin="0" />
-                                <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Top" Margin="0">
-                                    <Run Text="{Binding Kills}" />
-                                    <Run Text="kills / performance" />
+                                <TextBlock Grid.Row="0" Grid.Column="1"
+                                           Style="{StaticResource PhoneTextLargeStyle}" 
+                                           Text="{Binding Path=DisplayName}" VerticalAlignment="Bottom" Margin="0" />
+                                <TextBlock Grid.Row="1" Grid.Column="1" 
+                                           Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Top" Margin="0"
+                                           Visibility="{Binding Kills, Converter={StaticResource IntegerVisibilityConverter}}">
+                                           <Run Text="{Binding Kills}" />
+                                           <Run Text="kills" />
                                 </TextBlock>
-                            </Grid>
+                                <TextBlock Grid.Row="2" Grid.Column="1" 
+                                           Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Top" Margin="0"
+                                           Visibility="{Binding Performance, Converter={StaticResource IntegerVisibilityConverter}}">
+                                           <Run Text="{Binding Performance}" />
+                                           <Run Text="{Binding PerformanceDescription}" />
+                                </TextBlock>
+                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
