@@ -105,6 +105,7 @@
     <Compile Include="Converter\DoublePercentageStringConverter.cs" />
     <Compile Include="Converter\DoubleStringConverter.cs" />
     <Compile Include="Converter\IntegerStringConverter.cs" />
+    <Compile Include="Converter\NegativeIntegerStringConverter.cs" />
     <Compile Include="Converter\StringLengthVisibilityConverter.cs" />
     <Compile Include="Converter\TimeSpanStringConverter.cs" />
     <Compile Include="GlobalLoading.cs" />
