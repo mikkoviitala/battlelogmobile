@@ -15,13 +15,6 @@ namespace BattlelogMobile.Client.Converter
                 return intValue >= 0 ? Visibility.Visible : Visibility.Collapsed;
             }
             throw new ArgumentException("Value must be type of int", "value");
-
-            //if (value is int)
-            //{
-            //    int intValue = int.Parse(value.ToString());
-            //    return intValue < 0 ? "" : value.ToString();
-            //}
-            //throw new ArgumentException("Value must be type of int", "value");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
