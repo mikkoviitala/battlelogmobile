@@ -14,5 +14,9 @@ namespace BattlelogMobile.Core.Model
         BitmapImage ServiceStarImage { get; set; }
         TimeSpan? TimeIn { get; set; }
         BitmapImage Image { get; set; }
+
+        // Gadget related
+        int Performance { get; set; }
+        string PerformanceDescription { get; set; }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -17,10 +16,10 @@ namespace BattlelogMobile.Core.Model
             _items = items;
         }
 
-        public IItem Get(string itemName)
-        {
-            throw new NotImplementedException();
-        }
+        //public IItem Get(string itemName)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         IEnumerator IEnumerable.GetEnumerator()
         {

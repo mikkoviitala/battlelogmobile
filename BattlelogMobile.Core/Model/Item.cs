@@ -31,6 +31,9 @@ namespace BattlelogMobile.Core.Model
             set { _bitmap = value; RaisePropertyChanged("Image"); }
         }
 
+        public int Performance { get; set; }
+        public string PerformanceDescription { get; set; }
+
         public override string ToString()
         {
             return string.Format("Name={0}, Slug={1}, Kills={2}, Headshots={3}, ServiceStars={4}, TimeIn={5}, Image={6}",
@@ -40,7 +43,6 @@ namespace BattlelogMobile.Core.Model
 
     public class ItemComparer : IEqualityComparer<IItem>
     {
-        // Products are equal if their names and product numbers are equal.
         public bool Equals(IItem item1, IItem item2)
         {
             if (ReferenceEquals(item1, item2)) 

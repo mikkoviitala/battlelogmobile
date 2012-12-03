@@ -23,19 +23,6 @@ namespace BattlelogMobile.Client.View
         public SoldierPage()
         {
             InitializeComponent();
-            //ShowLoginHelp();
-        }
-
-        private static void ShowLoginHelp()
-        {
-            NotificationBox.ShowAgain(
-                "Problems?",
-                "If your credentials are not being saved, please uninstall and install application again. " +
-                "For further assistance, please contact Support.",
-                false,
-                surpressed => { },
-                "LoginMsgPrompt",
-                new NotificationBoxCommand("Ok", () => { }));
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)

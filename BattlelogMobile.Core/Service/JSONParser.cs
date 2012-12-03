@@ -19,6 +19,7 @@ namespace BattlelogMobile.Core.Service
         //private const string RussianImageSuffix = "_russian";   // Duplicate
         //private const string MedalAwardPrefix = "m";
         //private const string RibbonAwardPrefix = "r";
+        private const string KillsToken = "kills";
         private const string AwardGroup = "AwardGroup_Ribbons";
         private const string RibbonAwardSavePrefix = "ribbon_";
         private const string MedalAwardSavePrefix = "medal_";
@@ -327,19 +328,39 @@ namespace BattlelogMobile.Core.Service
                 {
                     Name = gadgetsToken.SelectToken("slug").ToString(),
                     Slug = (gadgetsToken.SelectToken("slug").ToString()).ToUpperInvariant(),
-                    Kills = 0
+                    // -1 indicates to converter that this option is not possible for this item
+                    // actual kill/performance values are parsed below
+                    Kills = -1,         
+                    Performance = -1
                 };
 
                 if (gadgetsToken.SelectToken("performances").HasValues)
-                    gadget.Kills =
-                        Convert.ToInt32(gadgetsToken.SelectToken("performances").First.SelectToken("stat").ToString());
+                {
+                    foreach (var token in gadgetsToken.SelectToken("performances"))
+                    {
+                        int amount = Convert.ToInt32(token.SelectToken("stat").ToString());
+                        string unit = token.SelectToken("name").ToString();
+
+                        if (unit.Equals(KillsToken, StringComparison.OrdinalIgnoreCase))
+                        {
+                            gadget.Kills = amount;
+                        }
+                        else
+                        {
+                            gadget.Performance = amount;
+                            gadget.PerformanceDescription = unit;
+                        }
+                    }
+                }
 
                 string image = jObject.SelectToken("data").SelectToken("gadgetsLocale").SelectToken("kititems").SelectToken(guid).SelectToken("image") + ImageSuffix;
                 _imageRepository.Load(
                     Common.VehicleAndGadgetImageUrl, image, bitmap => { gadget.Image = bitmap; });
                 gadgets.Add(gadget);
             }
-            var sortedAndFiltered = gadgets.OrderByDescending(g => g.Kills).ThenBy(g => g.Slug).ThenBy(g => g.Name); //.Where(g => g.Kills > 0);
+            var sortedAndFiltered = gadgets.OrderByDescending(
+                g => g.Kills >= g.Performance ? g.Kills : g.Performance).ThenBy(g => g.Slug).ThenBy(g => g.Name); 
+            
             return new Items(sortedAndFiltered);
         }
 
