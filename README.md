@@ -1,4 +1,4 @@
-![My image](mikkoviitala.github.com/battlelogmobile/img/apphubstat.png)
+![My image](mikkoviitala.github.com/battlelogmobile/apphubstat.png)
 # Important
 Majority of you should download this application from [Windows Phone Marketplace](http://windowsphone.com/s?appid=003ef672-e898-4564-8799-7bd258060cc0). 
 Compiled source can ONLY be deployed on unlocked development device or emulator!
