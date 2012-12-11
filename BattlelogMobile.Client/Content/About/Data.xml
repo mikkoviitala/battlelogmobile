@@ -73,23 +73,25 @@
       Participate!
       If you want to contribute in any way or just find out what is being developed for the next release, visit http://mikkoviitala.github.com/battlelogmobile
     </Item>
-    <Item Title="History"
-          Type="text">
+    <Item Title="History" Type="text">
+      v1.9.0.0
+      Removed unnecessary access to device
+
       v1.8.0.0
       Adapted to BF3 Aftermath DLC release
       Fixed US/RU weapons not being displayed
       Tweaked weapon ordering on the list
       Improved gadget statistics
       Microsoft adds on login page
-      
+
       v1.7.0.0
       Added Armored Kill ribbons and medals
       Changed application icons
-      
+
       v1.6.0.0
       Adapted to BF3 Armored Kill DLC release
       Developer notifications on login page
-      
+
       v1.5.0.0
       Changed some of the weapon names
       Fixed platform identification issues
