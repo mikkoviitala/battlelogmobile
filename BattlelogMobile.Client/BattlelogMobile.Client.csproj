@@ -117,11 +117,11 @@
     <Compile Include="Service\INavigationService.cs" />
     <Compile Include="Service\NavigationService.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
-    <Compile Include="View\SoldierPage.xaml.cs">
-      <DependentUpon>SoldierPage.xaml</DependentUpon>
+    <Compile Include="View\WorkPage.xaml.cs">
+      <DependentUpon>WorkPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\SoldierViewModel.cs" />
+    <Compile Include="ViewModel\WorkViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\ViewHelper\WatermarkedTextbox.cs" />
   </ItemGroup>
@@ -134,7 +134,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\SoldierPage.xaml">
+    <Page Include="View\WorkPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
