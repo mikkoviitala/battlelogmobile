@@ -75,6 +75,8 @@
     </Item>
     <Item Title="History" Type="text">
       v1.9.0.0
+      Adapted to End Game DLC release
+      Minor UI tweaks
       Removed unnecessary access to device
 
       v1.8.0.0

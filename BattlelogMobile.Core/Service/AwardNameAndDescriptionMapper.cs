@@ -63,13 +63,20 @@ namespace BattlelogMobile.Core.Service
                 {"r43", new KeyValuePair<string, string>("MAINTENANCE EFFICIENCY", "In a round, get 7 Repairs")},
                 {"r44", new KeyValuePair<string, string>("MEDICAL EFFICIENCY", "In a round, get 5 Revives.")},
                 {"r45", new KeyValuePair<string, string>("SURVEILLANCE EFFICIENCY", "In a round, get 5 motion Sensor Assists")},
+                {"tanksuperiorityribbon", new KeyValuePair<string, string>("TANK SUPERIORITY", "Finish a Tank Superiority round")},
                 {"tanksuperiority2d", new KeyValuePair<string, string>("TANK SUPERIORITY WINNER", "Win a Tank Superiority round")},
+                {"conquest_dominationribbon", new KeyValuePair<string, string>("DOMINATION", "Finish a Domination round")},
                 {"conquest_domination2d", new KeyValuePair<string, string>("DOMINATION WINNER", "Win a Domination round")},
+                {"gmribbon", new KeyValuePair<string, string>("GUN MASTER", "Finish a Gun Master round")},
                 {"gunmaster2d", new KeyValuePair<string, string>("GUN MASTER WINNER", "Win a Gun Master round")},
                 {"tdmcqribbon", new KeyValuePair<string, string>("TDMCQ", "Finish a TDMCQ round")},
                 {"tdmcq2d", new KeyValuePair<string, string>("TDMCQ WINNER", "Win a TDMCQ round")},
                 {"scavengerribbon", new KeyValuePair<string, string>("SCAVENGER", "Finish a Scavenger round")},
-                {"scavenger2d", new KeyValuePair<string, string>("SCAVENGER WINNER", "Win a Scavenger round")}
+                {"scavenger2d", new KeyValuePair<string, string>("SCAVENGER WINNER", "Win a Scavenger round")},
+                {"r502", new KeyValuePair<string, string>("CAPTURE THE FLAG", "Finish a CTF round")},
+                {"r501", new KeyValuePair<string, string>("CAPTURE THE FLAG WINNER", "Win a CTF round")},
+                {"xp5_as", new KeyValuePair<string, string>("AIR SUPERIORITY", "Finish a Air Superiority round")},
+                {"xp5_aswinner", new KeyValuePair<string, string>("AIR SUPERIORITY WINNER", "Win a Air Superiority round")}
             };
 
             // Medals
@@ -129,7 +136,9 @@ namespace BattlelogMobile.Core.Service
                 {"conquest_domination2d", new KeyValuePair<string, string>("DOMINATION", "Obtain the Domination Winner Ribbon 50 times")},
                 {"gunmaster2d", new KeyValuePair<string, string>("GUN MASTER", "Obtain the Gun Master Ribbon 50 times")},
                 {"tdmcq2s", new KeyValuePair<string, string>("TDMCQ", "Obtain the TDMCQ Winner Ribbon 50 times")},
-                {"scavenger2d", new KeyValuePair<string, string>("SCAVENGER", "Obtain the Scavenger Winner Ribbon 50 times")}
+                {"scavenger2d", new KeyValuePair<string, string>("SCAVENGER", "Obtain the Scavenger Winner Ribbon 50 times")},
+                {"m501", new KeyValuePair<string, string>("CAPTURE THE FLAG", "Obtain the CTF Winner Ribbon 50 times")},
+                {"as", new KeyValuePair<string, string>("AIR SUPERIORITY", "Obtain the AS Winner Ribbon 50 times")}
             };
         }
 

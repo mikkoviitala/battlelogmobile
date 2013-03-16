@@ -12,7 +12,7 @@ namespace BattlelogMobile.Client.Converter
             if (value is int)
             {
                 int intValue = int.Parse(value.ToString());
-                return intValue >= 0 ? Visibility.Visible : Visibility.Collapsed;
+                return intValue > 0 ? Visibility.Visible : Visibility.Collapsed;
             }
             throw new ArgumentException("Value must be type of int", "value");
         }

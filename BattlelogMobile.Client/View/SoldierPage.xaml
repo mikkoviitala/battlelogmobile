@@ -342,7 +342,7 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="100" />
                                     <ColumnDefinition Width="140" />
-                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="150" />
                                 </Grid.ColumnDefinitions>
 
                                 <Image Grid.Column="0" Grid.RowSpan="2" Source="{Binding Path=Image}" 

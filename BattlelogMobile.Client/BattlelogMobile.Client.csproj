@@ -110,6 +110,7 @@
     <Compile Include="Converter\TimeSpanStringConverter.cs" />
     <Compile Include="GlobalLoading.cs" />
     <Compile Include="MetroGridHelper.cs" />
+    <Compile Include="ViewModel\SoldierViewModel.cs" />
     <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -117,11 +118,10 @@
     <Compile Include="Service\INavigationService.cs" />
     <Compile Include="Service\NavigationService.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
-    <Compile Include="View\WorkPage.xaml.cs">
-      <DependentUpon>WorkPage.xaml</DependentUpon>
+    <Compile Include="View\SoldierPage.xaml.cs">
+      <DependentUpon>SoldierPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\WorkViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\ViewHelper\WatermarkedTextbox.cs" />
   </ItemGroup>
@@ -134,9 +134,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\WorkPage.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\SoldierPage.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\generic.xaml">
       <Generator>MSBuild:Compile</Generator>
