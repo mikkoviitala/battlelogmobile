@@ -194,11 +194,11 @@ namespace BattlelogMobile.Core.Service
             ISoldier soldier = new Soldier()
             {
                 Rank = Convert.ToInt32(overviewStatsToken.SelectToken("rank").ToString()),
-                Skill = Convert.ToDouble(overviewStatsToken.SelectToken("elo").ToString()), // , CultureInfo.InvariantCulture
+                Skill = Convert.ToDouble(overviewStatsToken.SelectToken("elo").ToString()),
                 TimePlayed = TimeSpan.FromSeconds(Convert.ToDouble(overviewStatsToken.SelectToken("timePlayed").ToString(), CultureInfo.InvariantCulture)),
                 ScorePerMinute = Convert.ToDouble(overviewStatsToken.SelectToken("scorePerMinute").ToString()),
-                KillDeathRatio = Convert.ToDouble(overviewStatsToken.SelectToken("kdRatio").ToString()), // , CultureInfo.InvariantCulture
-                //Kills = Convert.ToInt32(overviewStatsToken.SelectToken("kills").ToString()),
+                KillDeathRatio = Math.Round((Convert.ToDouble(overviewStatsToken.SelectToken("kills").ToString()) / Convert.ToDouble(overviewStatsToken.SelectToken("deaths").ToString())), 2),
+                //KillDeathRatio = Convert.ToDouble(overviewStatsToken.SelectToken("kdRatio").ToString()),
                 Wins = Convert.ToInt32(overviewStatsToken.SelectToken("numWins").ToString()),
                 Losses = Convert.ToInt32(overviewStatsToken.SelectToken("numLosses").ToString()),
             };
@@ -297,7 +297,7 @@ namespace BattlelogMobile.Core.Service
                     Kills = Convert.ToInt32(vehiclesToken.SelectToken("kills").ToString()),
                     TimeIn = TimeSpan.FromSeconds(Convert.ToInt32(vehiclesToken.SelectToken("timeIn").ToString()))
                 };
-                string image = jObject.SelectToken("data").SelectToken("bf3GadgetsLocale").SelectToken("vehicles").SelectToken(guid).SelectToken("image") + ImageSuffix;
+                string image = jObject.SelectToken("data").SelectToken("gadgetsLocale").SelectToken("vehicles").SelectToken(guid).SelectToken("image") + ImageSuffix;
                 _imageRepository.Load(
                     Common.VehicleAndGadgetImageUrl, image, bitmap => { vehicle.Image = bitmap; });
                 vehicles.Add(vehicle);

@@ -74,6 +74,9 @@
       If you want to contribute in any way or just find out what is being developed for the next release, visit http://mikkoviitala.github.com/battlelogmobile
     </Item>
     <Item Title="History" Type="text">
+      v2.0.0.0
+      Adapted to generic Battlelog changes
+      
       v1.9.0.0
       Adapted to End Game DLC release
       Minor UI tweaks
