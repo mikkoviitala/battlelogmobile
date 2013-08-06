@@ -3,6 +3,7 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using BattlelogMobile.Core.Message;
 using GalaSoft.MvvmLight.Messaging;
 
@@ -30,7 +31,7 @@ namespace BattlelogMobile.Core.Service
 
         public CookieContainer CookieJar { get; set; }
 
-        public void RetrieveServerMessage(string url)
+        public async Task RetrieveServerMessage(string url)
         {
             var request = WebRequest.Create(new Uri(url)) as HttpWebRequest;
             if (request == null)
@@ -41,26 +42,25 @@ namespace BattlelogMobile.Core.Service
             request.UserAgent = UserAgent;
             request.CookieContainer = CookieJar;
 
-            request.BeginGetResponse(responseAsyncResult =>
+            var task = request.GetResponseAsync();
+
+            try
             {
-                try
-                {
-                    var response = (HttpWebResponse)request.EndGetResponse(responseAsyncResult);
-                    var responseStream = response.GetResponseStream();
-                    var reader = new StreamReader(responseStream);
-                    string message = reader.ReadToEnd();
-                    response.Close();
-                    if (message.Length > 0)
-                        Messenger.Default.Send(new DialogMessage(this, null, message, null));
-                }
-                catch (WebException we)
-                {
-                    // Omitted
-                }
-            }, null);
+                var response = (HttpWebResponse) await task.ConfigureAwait(false);
+                var responseStream = response.GetResponseStream();
+                var reader = new StreamReader(responseStream);
+                string message = reader.ReadToEnd();
+                response.Close();
+                if (message.Length > 0)
+                    Messenger.Default.Send(new DialogMessage(this, null, message, null));
+            }
+            catch (WebException we)
+            {
+                // Omitted
+            }
         }
 
-        public void ResolveUserIdAndPlatform(string url, IUserIdAndPlatformResolver userIdAndPlatformUserIdAndPlatformResolver)
+        public async void ResolveUserIdAndPlatform(string url, IUserIdAndPlatformResolver userIdAndPlatformUserIdAndPlatformResolver)
         {
             var request = WebRequest.Create(new Uri(url)) as HttpWebRequest;
             if (request == null)
@@ -71,20 +71,19 @@ namespace BattlelogMobile.Core.Service
             request.UserAgent = UserAgent;
             request.CookieContainer = CookieJar;
 
-            request.BeginGetResponse(responseAsyncResult =>
+            var task = request.GetResponseAsync();
+
+            try
             {
-                try
-                {
-                    var response = (HttpWebResponse)request.EndGetResponse(responseAsyncResult);
-                    var responseStream = response.GetResponseStream();
-                    userIdAndPlatformUserIdAndPlatformResolver.Resolve(responseStream);
-                    response.Close();
-                }
-                catch (WebException we)
-                {
-                    Messenger.Default.Send(new BattlelogResponseMessage(we.Message, false));
-                }
-            }, null);
+                var response = (HttpWebResponse) await task.ConfigureAwait(false);
+                var responseStream = response.GetResponseStream();
+                userIdAndPlatformUserIdAndPlatformResolver.Resolve(responseStream);
+                response.Close();
+            }
+            catch (WebException we)
+            {
+                Messenger.Default.Send(new BattlelogResponseMessage(we.Message, false));
+            }
 
             //var client = new SharpGIS.GZipWebClient();
             //client.OpenReadCompleted += (s, e) =>
