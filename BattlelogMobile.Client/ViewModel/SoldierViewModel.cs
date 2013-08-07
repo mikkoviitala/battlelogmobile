@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
+using BattlelogMobile.Core;
 using BattlelogMobile.Core.Message;
 using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Repository;
@@ -11,7 +12,6 @@ namespace BattlelogMobile.Client.ViewModel
 {
     public class SoldierViewModel : BaseViewModel
     {
-        private const string PreparingStatisticsMessage = "Preparing statistics";
         private ISoldier _soldier;
 
         public SoldierViewModel() : this(new BattlelogRepository(new DownloadService(ViewModelLocator.CookieJar)))
@@ -40,10 +40,11 @@ namespace BattlelogMobile.Client.ViewModel
             {
                 if (value != null)
                 {
-                    // TODO: Message was moved here from Register<BattlelogUpdateCompleteMessage> block
-                    // but this makes no sense, and even less when we have new version of stats update
+                    // TODO: 
+                    // Message was moved here from Register<BattlelogUpdateCompleteMessage> block
+                    // but this makes no sense, and even less when we have new version of stats update...
                     if (_soldier == null || _soldier.UpdateTime < value.UpdateTime)
-                        Messenger.Default.Send(new SoldierLoadedMessage(PreparingStatisticsMessage));
+                        Messenger.Default.Send(new SoldierLoadedMessage(Common.StatusInformationPreparingStatistics));
                     _soldier = value;
                     RaisePropertyChanged("Soldier");
                 }

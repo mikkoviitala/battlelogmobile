@@ -9,17 +9,17 @@ namespace BattlelogMobile.Client.Converter
     /// </summary>
     public class IntegerStringConverter : IValueConverter
     {
+        private const string AddEquals = "AddEquals";
         private const string ScoreFormat = "### ### ###";
 
         /// <summary>
-        /// Return value format is "### ### ###", provide "AddEquals" as
-        /// converter parameter if "=" sign in desired in from of the value
+        /// Return value format is "### ### ###", provide "AddEquals" as converter parameter if "=" sign in desired in front of the value
         /// </summary>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string formatted = (System.Convert.ToDouble(value, CultureInfo.InvariantCulture).ToString(ScoreFormat, CultureInfo.InvariantCulture)).Trim();
 
-            if (parameter != null && parameter.ToString().Equals("AddEquals"))
+            if (parameter != null && parameter.ToString().Equals(AddEquals))
                 formatted = "= " + formatted;
             else if (parameter != null)
                 formatted += parameter.ToString();

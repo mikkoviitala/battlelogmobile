@@ -28,8 +28,8 @@ namespace BattlelogMobile.Core.Model
         public int Width { get { return Group.Equals(MedalsGroup) ? MedalWidth : RibbonWidth; } }
         public int Height { get { return Group.Equals(MedalsGroup) ? MedalHeight : RibbonHeight; } }
 
-        public string Name { get { return AwardNameAndDescriptionMapper.Get(Code, Group).Key; } }
-        public string Description { get { return AwardNameAndDescriptionMapper.Get(Code, Group).Value; } }
+        public string Name { get { return AwardNameAndDescriptionMapper.Get(Code, Group).Item1; } }
+        public string Description { get { return AwardNameAndDescriptionMapper.Get(Code, Group).Item2; } }
 
         public override string ToString()
         {

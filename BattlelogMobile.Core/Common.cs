@@ -1,27 +1,36 @@
-﻿using System.Collections.Generic;
-
-namespace BattlelogMobile.Core
+﻿namespace BattlelogMobile.Core
 {
     public static class Common
     {
-        public const string CredentialsFile = "credentials.txt";
+        public const int TimeOutInSeconds = 90;
+        public const string LogInFailedReasonTimedOut = "Login request timed out!";
+        public const string LogInFailedReasonInvalidCredentials = "User credentials not accepted!";
+        public const string StatusInformationVerifyingCredential = "Verifying credentials";
+        public const string StatusInformationDownloading = "Downloading";
+        public const string StatusInformationPreparingStatistics = "Preparing statistics";
+        public const string ServerMessageUrl = "http://www.losninosdelsol.net/battlelogmobile/message.txt";
 
+        public const string HttpPostMethod = "POST";
+        public const string HttpGetMethod = "GET";
+        public const string HttpAccept = "*/*";
+        public const string HttpUserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0.2) Gecko/20100101 Firefox/6.0.2";
+        public const string HttpContentType = "application/x-www-form-urlencoded";
+
+        public const string CredentialsFile = "credentials.txt";
         public const string OverviewFile = "overview.txt";
         public const string VehiclesFile = "vehicles.txt";
         public const string WeaponsAndGadgetsFile = "weapons.txt";
         public const string UnlocksFile = "unlocks.txt";
 
         public const string EntryPageUrl = "http://battlelog.battlefield.com/bf3/";
-        // {0} for user id and {1} for platform
-        public const string OverviewPageUrl = "http://battlelog.battlefield.com/bf3/overviewPopulateStats/{0}/bf3-us-assault/{1}/";
+        public const string OverviewPageUrl = "http://battlelog.battlefield.com/bf3/overviewPopulateStats/{0}/bf3-us-assault/{1}/"; // {0} for user id and {1} for platform
         public const string VehiclesPageUrl = "http://battlelog.battlefield.com/bf3/vehiclesPopulateStats/{0}/{1}/";
         public const string GadgetsPageUrl = "http://battlelog.battlefield.com/bf3/weaponsPopulateStats/{0}/{1}/";
         public const string UnlocksPageUrl = "http://battlelog.battlefield.com/bf3/upcomingUnlocksPopulateStats/{0}/{1}/";
         //public const string BattleFeedPageUrl = "http://battlelog.battlefield.com/bf3/";
 
+        public const string GravatarImageUrl = "http://www.gravatar.com/avatar/{0}?s=52&d=http://battlelog-cdn.battlefield.com/public/base/shared/default-avatar-52.png?v=7909";
         //public const string GravatarImageUrl = "http://www.gravatar.com/avatar/{0}";
-        public const string GravatarImageUrl =
-            "http://www.gravatar.com/avatar/{0}?s=52&d=http://battlelog-cdn.battlefield.com/public/base/shared/default-avatar-52.png?v=7909";
         //public const string DefaultGravatarImage = "default-avatar-52.png";
         //public const string DefaultGravatarImageUrl = "http://battlelog-cdn.battlefield.com/public/base/shared/{0}?v=7909";
 

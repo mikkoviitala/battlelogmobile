@@ -10,7 +10,7 @@ using Tomers.Phone.Controls;
 namespace BattlelogMobile.Client.View
 {
     /// <summary>
-    /// Description for SoldierPage.
+    /// SoldierPage
     /// </summary>
     public partial class SoldierPage : PhoneApplicationPage
     {

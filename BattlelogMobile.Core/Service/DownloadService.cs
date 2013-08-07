@@ -2,7 +2,6 @@
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using BattlelogMobile.Core.Message;
 using GalaSoft.MvvmLight.Messaging;
@@ -14,14 +13,10 @@ namespace BattlelogMobile.Core.Service
     /// </summary>
     public class DownloadService : IDownloadService
     {
-        private const string DefaultMessage = "Downloading";
-        private const string Accept = "*/*";
-        private const string DefaultMethod = "GET";
-        private const string UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0.2) Gecko/20100101 Firefox/6.0.2";
         private readonly IsolatedStorageFile _isolatedStorage = IsolatedStorageFile.GetUserStoreForApplication();
 
-
-        private DownloadService() : this(new CookieContainer())
+        public DownloadService() 
+            : this(new CookieContainer())
         {}
 
         public DownloadService(CookieContainer cookieJar)
@@ -37,9 +32,9 @@ namespace BattlelogMobile.Core.Service
             if (request == null)
                 throw new ArgumentNullException();
 
-            request.Method = DefaultMethod;
-            request.Accept = Accept;
-            request.UserAgent = UserAgent;
+            request.Method = Common.HttpGetMethod;
+            request.Accept = Common.HttpAccept;
+            request.UserAgent = Common.HttpUserAgent;
             request.CookieContainer = CookieJar;
 
             var task = request.GetResponseAsync();
@@ -60,15 +55,15 @@ namespace BattlelogMobile.Core.Service
             }
         }
 
-        public async void ResolveUserIdAndPlatform(string url, IUserIdAndPlatformResolver userIdAndPlatformUserIdAndPlatformResolver)
+        public async void ResolveUserIdAndPlatform(string url, IUserIdAndPlatformResolver userIdAndPlatformResolver)
         {
             var request = WebRequest.Create(new Uri(url)) as HttpWebRequest;
             if (request == null)
                 throw new ArgumentNullException();
 
-            request.Method = DefaultMethod;
-            request.Accept = Accept;
-            request.UserAgent = UserAgent;
+            request.Method = Common.HttpGetMethod;
+            request.Accept = Common.HttpAccept;
+            request.UserAgent = Common.HttpUserAgent;
             request.CookieContainer = CookieJar;
 
             var task = request.GetResponseAsync();
@@ -77,7 +72,7 @@ namespace BattlelogMobile.Core.Service
             {
                 var response = (HttpWebResponse) await task.ConfigureAwait(false);
                 var responseStream = response.GetResponseStream();
-                userIdAndPlatformUserIdAndPlatformResolver.Resolve(responseStream);
+                userIdAndPlatformResolver.Resolve(responseStream);
                 response.Close();
             }
             catch (WebException we)
@@ -114,7 +109,7 @@ namespace BattlelogMobile.Core.Service
                         {
                             writer.Write(responseStream);
                             writer.Close();
-                            Messenger.Default.Send(new BattlelogResponseMessage(this, DefaultMessage, true));
+                            Messenger.Default.Send(new BattlelogResponseMessage(this, Common.StatusInformationDownloading, true));
                         }
                     }
                     catch (WebException we)
@@ -123,36 +118,6 @@ namespace BattlelogMobile.Core.Service
                     }
                 };
             client.DownloadStringAsync(new Uri(url), client);
-            client = null;
-            //var request = WebRequest.Create(new Uri(url)) as HttpWebRequest;
-            //if (request == null)
-            //    throw new ArgumentNullException();
-
-            //request.Method = DefaultMethod;
-            //request.Accept = Accept;
-            //request.UserAgent = UserAgent;
-            //request.CookieContainer = CookieJar;
-
-            //request.BeginGetResponse(responseAsyncResult =>
-            //{
-            //    try
-            //    {
-            //        var response = (HttpWebResponse)request.EndGetResponse(responseAsyncResult);
-            //        var responseStream = response.GetResponseStream();
-            //        using (var writer = _isolatedStorage.OpenFile(isolatedStorageFile, FileMode.Create))
-            //        {
-            //            byte[] bytesInStream = new byte[responseStream.Length];
-            //            responseStream.Read(bytesInStream, 0, bytesInStream.Length);
-            //            writer.Write(bytesInStream, 0, bytesInStream.Length);
-            //            writer.Close();
-            //            Messenger.Default.Send(new BattlelogResponseMessage(this, DefaultMessage, true));
-            //        }
-            //    }
-            //    catch (WebException we)
-            //    {
-            //        Messenger.Default.Send(new BattlelogResponseMessage(we.Message, false));
-            //    }
-            //}, null);
         }
     }
 }

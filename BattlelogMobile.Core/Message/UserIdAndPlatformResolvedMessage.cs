@@ -12,6 +12,7 @@ namespace BattlelogMobile.Core.Message
         }
 
         public long UserId { get; set; }
+
         public Platform Platform { get; set; }
     }
 }

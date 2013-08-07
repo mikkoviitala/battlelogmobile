@@ -5,7 +5,7 @@ using System.Device.Location;
 namespace BattlelogMobile.Client.View
 {
     /// <summary>
-    /// Mainapage
+    /// MainPage
     /// </summary>
     public partial class MainPage
     {
@@ -34,7 +34,6 @@ namespace BattlelogMobile.Client.View
                     } 
                 };
             _watcher.Start(); 
-
             //BattlelogMobileAds.ErrorOccurred += (sender, args) => System.Diagnostics.Debug.WriteLine(args.Error.ToString());
         }
 

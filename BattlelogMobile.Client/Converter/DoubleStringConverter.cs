@@ -12,7 +12,7 @@ namespace BattlelogMobile.Client.Converter
         private const string RatioFormat = "0.00";
 
         /// <summary>
-        /// Return value format is "0.00", provide desired suffix as converter parameter
+        /// Provide desired suffix as converter parameter, if any, return value format is "0.00"
         /// </summary>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

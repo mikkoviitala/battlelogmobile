@@ -9,7 +9,7 @@ namespace BattlelogMobile.Core.Message
 
         public BattlelogResponseMessage(object sender, string message, bool isOk)
         {
-            base.Sender = sender;
+            Sender = sender;
             Message = message;
             IsOk = isOk;
         }

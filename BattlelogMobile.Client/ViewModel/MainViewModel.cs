@@ -5,32 +5,27 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using BattlelogMobile.Client.Service;
 using BattlelogMobile.Core.Message;
 using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Repository;
 using BattlelogMobile.Core.Service;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
+using BattlelogMobile.Core;
 using ICredentials = BattlelogMobile.Core.Model.ICredentials;
 
 namespace BattlelogMobile.Client.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
-        private const int TimeOutInSeconds = 90;
-        private const string LogInFailedReasonTimedOut = "Login request timed out!";
-        private const string LogInFailedReasonInvalidCredentials = "User credentials not accepted!";
-        private const string StatusInformationVerifyingCredential = "Verifying credentials";
-        private const string ServerMessageUrl = "http://www.losninosdelsol.net/battlelogmobile/message.txt";
-
         private readonly INavigationService _navigationService = new NavigationService();
         private string _email;
         private string _password;
-        private bool _rememberMe;
         private string _logInFailedReason = string.Empty;
         private string _serverMessage = string.Empty;
         private bool _userInterfaceEnabled = true;
+        private bool _rememberMe;
         private bool _timedOut;
 
         public MainViewModel() : this(new FileCredentialsRepository())
@@ -47,11 +42,15 @@ namespace BattlelogMobile.Client.ViewModel
             LogInCommand = new RelayCommand(() => LogInCommandReceived(), CanExecuteLogInCommand);
             CredentialsRepository = credentialsRepository;
             LoadCredentials();
- 
-            (new DownloadService(ViewModelLocator.CookieJar)).RetrieveServerMessage(ServerMessageUrl);
+
+            var task = new Task(() => (new DownloadService(ViewModelLocator.CookieJar)).RetrieveServerMessage(Common.ServerMessageUrl));
+            task.Start();
+
+            //(new DownloadService(ViewModelLocator.CookieJar)).RetrieveServerMessage(Common.ServerMessageUrl);
         }
 
-        public ICredentialsRepository CredentialsRepository { get; private set; }
+        public ICredentialsRepository CredentialsRepository { get; set; }
+
         public RelayCommand LogInCommand { get; private set; }
 
         public string Email
@@ -177,7 +176,7 @@ namespace BattlelogMobile.Client.ViewModel
         private async Task LogInCommandReceived()
         {
             UserInterfaceEnabled = false;
-            StatusInformation = StatusInformationVerifyingCredential;
+            StatusInformation = Common.StatusInformationVerifyingCredential;
             SaveCredentials();
 
             var request = WebRequest.Create(ViewModelLocator.WebRequestLogInUri) as HttpWebRequest;
@@ -185,14 +184,14 @@ namespace BattlelogMobile.Client.ViewModel
                 throw new ArgumentNullException();
 
             request.Credentials = new NetworkCredential(Email, Password);
-            request.Method = "POST";
-            request.Accept = "*/*";
-            request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0.2) Gecko/20100101 Firefox/6.0.2";
-            request.ContentType = "application/x-www-form-urlencoded";
+            request.Method = Common.HttpPostMethod;
+            request.Accept = Common.HttpAccept;
+            request.UserAgent = Common.HttpUserAgent;
+            request.ContentType = Common.HttpContentType;
             request.CookieContainer = ViewModelLocator.CookieJar;
 
             _timedOut = false;
-            var dispatchTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(TimeOutInSeconds) };
+            var dispatchTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(Common.TimeOutInSeconds) };
             dispatchTimer.Tick += TimerTicked;
             dispatchTimer.Start();
 
@@ -215,7 +214,7 @@ namespace BattlelogMobile.Client.ViewModel
                     ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
                         StatusInformation = string.Empty);
                     ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                        LogInFailedReason = LogInFailedReasonTimedOut);
+                        LogInFailedReason = Common.LogInFailedReasonTimedOut);
                     return;
                 }
 
@@ -234,7 +233,7 @@ namespace BattlelogMobile.Client.ViewModel
                         ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
                             StatusInformation = string.Empty);
                         ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                            LogInFailedReason = LogInFailedReasonInvalidCredentials);
+                            LogInFailedReason = Common.LogInFailedReasonInvalidCredentials);
                     }
                 }
                 catch (WebException we)
@@ -262,17 +261,13 @@ namespace BattlelogMobile.Client.ViewModel
         /// </summary>
         private static string ConstructPostData(string email, string password)
         {
-            const string postDataRedirect = "|bf3|";
-            const string postDataRemember = "0";
-            const string postDataSubmit = "Sign in";
-            
             var postParams = new Dictionary<string, string>
             {
-                {"redirect", postDataRedirect },
-                {"email", email },
-                {"password", password },
-                {"remember", postDataRemember },
-                {"submit", postDataSubmit }
+                { "redirect", "|bf3|" },
+                { "email", email },
+                { "password", password },
+                { "remember", "0" },
+                { "submit", "Sign in" }
             };
 
             string postData = null;
@@ -291,7 +286,10 @@ namespace BattlelogMobile.Client.ViewModel
         private void TimerTicked(object sender, EventArgs e)
         {
             _timedOut = true;
-            (sender as DispatcherTimer).Stop();
+
+            var dispatcherTimer = sender as DispatcherTimer;
+            if (dispatcherTimer != null) 
+                dispatcherTimer.Stop();
         }
 
         /// <summary>
