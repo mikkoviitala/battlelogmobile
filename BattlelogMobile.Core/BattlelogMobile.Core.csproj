@@ -70,6 +70,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.0.7\lib\sl4-windowsphone71\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Polenter.SharpSerializer.Silverlight">
+      <HintPath>..\packages\SharpSerializer.2.18\lib\sl4-windowsphone71\Polenter.SharpSerializer.Silverlight.dll</HintPath>
+    </Reference>
     <Reference Include="SharpGIS.GZipWebClient">
       <HintPath>..\packages\SharpGIS.GZipWebClient.1.2\lib\sl40-wp71\SharpGIS.GZipWebClient.dll</HintPath>
     </Reference>
@@ -98,16 +101,13 @@
     <Compile Include="Message\SoldierVisibleMessage.cs" />
     <Compile Include="Message\UserIdAndPlatformResolvedMessage.cs" />
     <Compile Include="Model\Award.cs" />
-    <Compile Include="Model\Awards.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Credentials.cs" />
     <Compile Include="Model\IAward.cs" />
-    <Compile Include="Model\IAwards.cs" />
     <Compile Include="Model\ICredentials.cs" />
     <Compile Include="Model\IItem.cs" />
     <Compile Include="Model\IItems.cs" />
     <Compile Include="Model\IKitProgression.cs" />
-    <Compile Include="Model\IKitProgressions.cs" />
     <Compile Include="Model\IOther.cs" />
     <Compile Include="Model\IOthers.cs" />
     <Compile Include="Model\IStatistics.cs" />
@@ -116,7 +116,6 @@
     <Compile Include="Model\IUnlock.cs" />
     <Compile Include="Model\IUnlocks.cs" />
     <Compile Include="Model\KitProgression.cs" />
-    <Compile Include="Model\KitProgressions.cs" />
     <Compile Include="Model\Other.cs" />
     <Compile Include="Model\Others.cs" />
     <Compile Include="Model\Platform.cs" />

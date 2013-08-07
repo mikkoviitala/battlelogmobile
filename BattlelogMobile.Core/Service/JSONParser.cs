@@ -10,6 +10,7 @@ using BattlelogMobile.Core.Repository;
 using GalaSoft.MvvmLight.Messaging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Polenter.Serialization;
 
 namespace BattlelogMobile.Core.Service
 {
@@ -61,6 +62,15 @@ namespace BattlelogMobile.Core.Service
                 soldier.Weapons = ParseWeapons(Common.WeaponsAndGadgetsFile);
                 soldier.Gadgets = ParseGadgets(Common.WeaponsAndGadgetsFile);
                 //soldier.Unlocks = ParseUnlocks(Common.UnlocksFile);
+
+                //using (var appStorage = IsolatedStorageFile.GetUserStoreForApplication())
+                //{
+                //    using (var file = appStorage.OpenFile("test.bin", FileMode.OpenOrCreate))
+                //    {
+                //        var serializer = new SharpSerializer(true);
+                //        serializer.Serialize(soldier, file);
+                //    }
+                //}
 
                 return soldier;
             }
@@ -146,7 +156,8 @@ namespace BattlelogMobile.Core.Service
         }
 
         // Combine earned stars and current progress
-        private IKitProgressions ParseKitServiceStarProgressions(IEnumerable<JToken> kitServiceStarProgressToken, List<KeyValuePair<KitType, int>> serviceStars)
+        //private IKitProgressions ParseKitServiceStarProgressions(IEnumerable<JToken> kitServiceStarProgressToken, List<KeyValuePair<KitType, int>> serviceStars)
+        private IEnumerable<IKitProgression> ParseKitServiceStarProgressions(IEnumerable<JToken> kitServiceStarProgressToken, List<KeyValuePair<KitType, int>> serviceStars)
         {
             // Stars and current progress are on different tokens
             var progressions = new List<IKitProgression>();
@@ -170,7 +181,8 @@ namespace BattlelogMobile.Core.Service
                     ((int)p1.Type).ToString(CultureInfo.InvariantCulture).Substring(0, 1),
                         ((int)p2.Type).ToString(CultureInfo.InvariantCulture).Substring(0, 1)));
 
-            return new KitProgressions(progressions);
+            //return new KitProgressions(progressions);
+            return progressions;
         }
 
         // Number of service stars
@@ -248,7 +260,8 @@ namespace BattlelogMobile.Core.Service
         }
 
         // Latest awards (ribbons and medals)
-        private IAwards ParseAwards(IEnumerable<JToken> awardsToken)
+        //private IAwards ParseAwards(IEnumerable<JToken> awardsToken)
+        private IEnumerable<IAward> ParseAwards(IEnumerable<JToken> awardsToken)
         {
             var awards = new List<IAward>();
             foreach (var token in awardsToken)
@@ -270,7 +283,8 @@ namespace BattlelogMobile.Core.Service
                         bitmap => { award.Image = bitmap; }, MedalAwardSavePrefix + image);
                 awards.Add(award);
             }
-            return new Awards(awards);
+            //return new Awards(awards);
+            return awards;
         }
 
         // Vehicles (in another file)

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Media.Imaging;
 
@@ -24,7 +25,8 @@ namespace BattlelogMobile.Core.Model
             set { _bitmap = value; RaisePropertyChanged("RankImage"); }
         }
         public double Skill { get; set; }           // elo
-        public IKitProgressions KitProgressions { get; set; }
+        //public IKitProgressions KitProgressions { get; set; }
+        public IEnumerable<IKitProgression> KitProgressions { get; set; }
         public TimeSpan TimePlayed { get; set; }    // timePlayed
         public double ScorePerMinute { get; set; }     // scorePerMinute
         public double KillDeathRatio { get; set; }  // kdRatio
@@ -62,7 +64,9 @@ namespace BattlelogMobile.Core.Model
                 WinLoseRatio = 0d;
         }
 
-        public IAwards Awards { get; set; }
+        //public IAwards Awards { get; set; }
+        public IEnumerable<IAward> Awards { get; set; }
+
         public IStatistics Statistics { get; set; }
 
         public override string ToString()
