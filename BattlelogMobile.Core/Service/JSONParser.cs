@@ -90,7 +90,8 @@ namespace BattlelogMobile.Core.Service
         }
 
         // Kit scores, usage time and usage percentage
-        private IKits ParseKitScore(JToken scoreToken)
+        //private IKits ParseKitScore(JToken scoreToken)
+        private IEnumerable<IKit> ParseKitScore(JToken scoreToken)
         {
             var kits = new List<IKit>();
             // Kit score
@@ -132,7 +133,8 @@ namespace BattlelogMobile.Core.Service
                 var kitPercentage = Convert.ToDouble(parts[1], CultureInfo.InvariantCulture);
                 (kits.First(kitScore => kitScore.Type == kitType)).Percentage = kitPercentage;
             }
-            return new Kits(kits);
+            //return new Kits(kits);
+            return kits;
         }
 
         // Total score and "generic" multiplayer scores
@@ -142,14 +144,22 @@ namespace BattlelogMobile.Core.Service
             int totalScore = Convert.ToInt32(scoreToken.SelectToken("totalScore").ToString());
             score.TotalScore = totalScore;
 
-            IOthers others = new Others(
-                new List<IOther>()
+            //IOthers others = new Others(
+            //    new List<IOther>()
+            //        {
+            //            new Other("Vehicles", Convert.ToInt32(scoreToken.SelectToken("sc_vehicle").ToString())), 
+            //            new Other("Combat", Convert.ToInt32(scoreToken.SelectToken("combatScore").ToString())),
+            //            new Other("Awards", Convert.ToInt32(scoreToken.SelectToken("sc_award").ToString())),
+            //            new Other("Unlocks", Convert.ToInt32(scoreToken.SelectToken("sc_unlock").ToString()))
+            //        });
+
+            var others = new List<IOther>()
                     {
                         new Other("Vehicles", Convert.ToInt32(scoreToken.SelectToken("sc_vehicle").ToString())), 
                         new Other("Combat", Convert.ToInt32(scoreToken.SelectToken("combatScore").ToString())),
                         new Other("Awards", Convert.ToInt32(scoreToken.SelectToken("sc_award").ToString())),
                         new Other("Unlocks", Convert.ToInt32(scoreToken.SelectToken("sc_unlock").ToString()))
-                    });
+                    };
             
             score.Others = others;
             return score;
@@ -288,7 +298,8 @@ namespace BattlelogMobile.Core.Service
         }
 
         // Vehicles (in another file)
-        private IItems ParseVehicles(string file)
+        //private IItems ParseVehicles(string file)
+        private IEnumerable<IItem> ParseVehicles(string file)
         {
             var vehicles = new List<IItem>();
             string completeJson;
@@ -319,11 +330,13 @@ namespace BattlelogMobile.Core.Service
             var sortedAndFiltered = vehicles.OrderByDescending(v => v.Kills).ThenByDescending(v => v.TimeIn).
                 ThenBy(v => v.Slug).ThenBy(v => v.Name).Where(g => g.Kills > 0);
             
-            return new Items(sortedAndFiltered.ToList());
+            //return new Items(sortedAndFiltered.ToList());
+            return sortedAndFiltered;
         }
 
         // Gadgets (in another file)
-        private IItems ParseGadgets(string file)
+        //private IItems ParseGadgets(string file)
+        private IEnumerable<IItem> ParseGadgets(string file)
         {
             var gadgets = new List<IItem>();
             string completeJson;
@@ -375,11 +388,13 @@ namespace BattlelogMobile.Core.Service
             var sortedAndFiltered = gadgets.OrderByDescending(
                 g => g.Kills >= g.Performance ? g.Kills : g.Performance).ThenBy(g => g.Slug).ThenBy(g => g.Name); 
             
-            return new Items(sortedAndFiltered);
+            //return new Items(sortedAndFiltered);
+            return sortedAndFiltered;
         }
 
         // Weapons
-        private IItems ParseWeapons(string file)
+        //private IItems ParseWeapons(string file)
+        private IEnumerable<IItem> ParseWeapons(string file)
         {
             var weapons = new List<IItem>();
             string completeJson;
@@ -419,7 +434,8 @@ namespace BattlelogMobile.Core.Service
                     Where(g => g.Kills > 0);
 
             // For some reason e.g. M39EMR is twice is JSON ?
-            return new Items(sortedAndFiltered.Distinct(new ItemComparer()).ToList());
+            //return new Items(sortedAndFiltered.Distinct(new ItemComparer()).ToList());
+            return sortedAndFiltered.Distinct(new ItemComparer()).ToList();
         }
 
         //private IUnlocks ParseUnlocks(string file)

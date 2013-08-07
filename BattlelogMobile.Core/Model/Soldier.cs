@@ -51,10 +51,14 @@ namespace BattlelogMobile.Core.Model
 
         public double WinLoseRatio { get; set; }
         public IScore Score { get; set; }
-        public IItems Weapons { get; set; }
-        public IItems Vehicles { get; set; }
-        public IItems Gadgets { get; set; }
-        public IUnlocks Unlocks { get; set; }
+        //public IItems Weapons { get; set; }
+        public IEnumerable<IItem> Weapons { get; set; }
+        //public IItems Vehicles { get; set; }
+        public IEnumerable<IItem> Vehicles { get; set; }
+        //public IItems Gadgets { get; set; }
+        public IEnumerable<IItem> Gadgets { get; set; }
+        //public IUnlocks Unlocks { get; set; }
+        public IEnumerable<IUnlock> Unlocks { get; set; }
 
         private void CalculateWinLoseRatio()
         {
