@@ -65,6 +65,7 @@
       Geir-Tore Lindsve (riegetor @ Battlelog)
 
       Thanks to
+      David Hartveld
       Wade Williamson (RazorbacksWPS @ Battlelog)
       Terri Hyland (3ximius @ Battlelog)
       Loz Slater
@@ -74,44 +75,46 @@
       If you want to contribute in any way or just find out what is being developed for the next release, visit http://mikkoviitala.github.com/battlelogmobile
     </Item>
     <Item Title="History" Type="text">
-      v2.0.0.0
+      v2.1
+      
+      v2.0
       Adapted to generic Battlelog changes
       
-      v1.9.0.0
+      v1.9
       Adapted to End Game DLC release
       Minor UI tweaks
       Removed unnecessary access to device
 
-      v1.8.0.0
+      v1.8
       Adapted to BF3 Aftermath DLC release
       Fixed US/RU weapons not being displayed
       Tweaked weapon ordering on the list
       Improved gadget statistics
       Microsoft adds on login page
 
-      v1.7.0.0
+      v1.7
       Added Armored Kill ribbons and medals
       Changed application icons
 
-      v1.6.0.0
+      v1.6
       Adapted to BF3 Armored Kill DLC release
       Developer notifications on login page
 
-      v1.5.0.0
+      v1.5
       Changed some of the weapon names
       Fixed platform identification issues
       Fixed minor user interface issues
 
-      v1.4.0.0
+      v1.4
       Adapted to BF3 Premium and CQ DLC release
       Removed user credential encryption
 
-      v1.3.0.0
+      v1.3
       Changed weapon names to be more readable
       Fixed some weapons showing up multiple times
       Fixed some ribbons showing wrong image
 
-      v1.2.0.0
+      v1.2
       Faster login process
       Added more statistics
       Added encryption of user credentials
@@ -119,12 +122,12 @@
       Fixed minor user interface issues
       Fixed back button behaviour
 
-      v1.1.0.0
+      v1.1
       Fixed login problem for Xbox platform
       Fixed connection timeouts
       Fixed rank images over 45
 
-      v1.0.0.0
+      v1.0
       This is the initial release
     </Item>
   </Items>
