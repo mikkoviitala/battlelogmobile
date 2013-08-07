@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using BattlelogMobile.Client.Service;
@@ -43,7 +44,7 @@ namespace BattlelogMobile.Client.ViewModel
             Messenger.Default.Register<DialogMessage>(this, 
                 message => ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() => ServerMessage = message.Content));
 
-            LogInCommand = new RelayCommand(LogInCommandReceived, CanExecuteLogInCommand);
+            LogInCommand = new RelayCommand(() => LogInCommandReceived(), CanExecuteLogInCommand);
             CredentialsRepository = credentialsRepository;
             LoadCredentials();
  
@@ -173,7 +174,7 @@ namespace BattlelogMobile.Client.ViewModel
         /// <summary>
         /// Connect to battlelog and verify user credentials
         /// </summary>
-        private void LogInCommandReceived()
+        private async Task LogInCommandReceived()
         {
             UserInterfaceEnabled = false;
             StatusInformation = StatusInformationVerifyingCredential;
@@ -195,9 +196,9 @@ namespace BattlelogMobile.Client.ViewModel
             dispatchTimer.Tick += TimerTicked;
             dispatchTimer.Start();
 
-            request.BeginGetRequestStream(requestAsyncResult =>
+            var streamTask = request.GetRequestStreamAsync();
             {
-                var requestStream = request.EndGetRequestStream(requestAsyncResult);
+                var requestStream = await streamTask.ConfigureAwait(false);
                 using (var writer = new StreamWriter(requestStream))
                 {
                     writer.Write(ConstructPostData(Email, Password));
@@ -205,48 +206,47 @@ namespace BattlelogMobile.Client.ViewModel
                 }
 
                 // Got response
-                request.BeginGetResponse(responseAsyncResult =>
+                var responseTask = request.GetResponseAsync();
+
+                if (_timedOut)
                 {
-                    if (_timedOut)
+                    ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                        UserInterfaceEnabled = true);
+                    ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                        StatusInformation = string.Empty);
+                    ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                        LogInFailedReason = LogInFailedReasonTimedOut);
+                    return;
+                }
+
+                try
+                {
+                    var response = await responseTask.ConfigureAwait(false);
+                    if (response.ResponseUri.Equals(ViewModelLocator.WebRequestLogInResponseUri))
                     {
-                        ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                        // Send message signaling that JSON download can begin
+                        Messenger.Default.Send(new BattlelogCredentialsAcceptedMessage());
+                    }
+                    else
+                    {
+                        ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
                             UserInterfaceEnabled = true);
-                        ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                        ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
                             StatusInformation = string.Empty);
-                        ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                            LogInFailedReason = LogInFailedReasonTimedOut);
-                        return;
+                        ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                            LogInFailedReason = LogInFailedReasonInvalidCredentials);
                     }
-                    
-                    try
-                    {
-                        var response = request.EndGetResponse(responseAsyncResult);
-                        if (response.ResponseUri.Equals(ViewModelLocator.WebRequestLogInResponseUri))
-                        {
-                            // Send message signaling that JSON download can begin
-                            Messenger.Default.Send(new BattlelogCredentialsAcceptedMessage());
-                        }
-                        else
-                        {
-                            ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                                UserInterfaceEnabled = true);
-                            ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                                StatusInformation = string.Empty);
-                            ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                                LogInFailedReason = LogInFailedReasonInvalidCredentials);
-                        }
-                    }
-                    catch (WebException we)
-                    {
-                        ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                                StatusInformation = string.Empty);
-                        ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                            LogInFailedReason = we.Message);
-                        ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                            UserInterfaceEnabled = true);
-                    }
-                }, null);
-            }, null);
+                }
+                catch (WebException we)
+                {
+                    ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                        StatusInformation = string.Empty);
+                    ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                        LogInFailedReason = we.Message);
+                    ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                        UserInterfaceEnabled = true);
+                }
+            }
         }
 
         private bool CanExecuteLogInCommand()
