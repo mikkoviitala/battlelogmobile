@@ -76,6 +76,7 @@
     </Item>
     <Item Title="History" Type="text">
       v2.1
+      Minor performance improvements
       
       v2.0
       Adapted to generic Battlelog changes
