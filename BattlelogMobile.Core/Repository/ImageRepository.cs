@@ -2,6 +2,7 @@
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Net;
+using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Windows.Resources;
 
@@ -11,7 +12,7 @@ namespace BattlelogMobile.Core.Repository
     {
         private readonly IsolatedStorageFile _isolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication();
 
-        public void Load(string imageUrl, string imageName, Action<BitmapImage> callback, string imageSaveName = null)
+        public BitmapImage Load(string imageName)
         {
             BitmapImage image = null;
             if (_isolatedStorageFile.FileExists(imageName))
@@ -22,8 +23,15 @@ namespace BattlelogMobile.Core.Repository
                     image.SetSource(stream);
                 }
             }
+            return image;
+        }
+
+        public void Load(string imageUrl, string imageName, Action<BitmapImage> callback, string imageSaveName = null)
+        {
+            BitmapImage image = Load(imageName);
+
             if (image != null)
-                callback.Invoke(image);
+              callback.Invoke(image);
             else
                 Download(imageUrl, imageName, callback, imageSaveName);
         }

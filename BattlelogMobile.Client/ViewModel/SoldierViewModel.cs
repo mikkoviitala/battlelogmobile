@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Windows;
 using BattlelogMobile.Core;
 using BattlelogMobile.Core.Message;
@@ -7,6 +8,16 @@ using BattlelogMobile.Core.Repository;
 using System.Linq;
 using BattlelogMobile.Core.Service;
 using GalaSoft.MvvmLight.Messaging;
+using Microsoft.Phone.Shell;
+using System;
+using System.IO.IsolatedStorage;
+using System.Windows;
+using BattlelogMobile.Core.Message;
+using GalaSoft.MvvmLight.Messaging;
+using Microsoft.Phone.Controls;
+using Microsoft.Phone.Tasks;
+using Tomers.Phone.Controls;
+using BattlelogMobile.Client.ViewModel;
 
 namespace BattlelogMobile.Client.ViewModel
 {
@@ -23,12 +34,19 @@ namespace BattlelogMobile.Client.ViewModel
 
             // Credentials are ok, download information
             Messenger.Default.Register<BattlelogCredentialsAcceptedMessage>(this, message => 
-                BattlelogRepository.UpdateStorage());
+                {
+                    BattlelogRepository.CurrentUser = message.CurrentUser;
+                    BattlelogRepository.UpdateStorage(message.ForceUpdate);
+                });
 
             // Download complete, parse data
             Messenger.Default.Register<BattlelogUpdateCompleteMessage>(this, message => 
-                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() => 
-                    Soldier = BattlelogRepository.Load()));
+                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>  
+                { 
+                    var soldier = BattlelogRepository.Load(); 
+                    if (soldier != null) 
+                        Soldier = soldier; 
+                }));
         }
 
         public IBattlelogRepository BattlelogRepository { get; set; }
@@ -43,8 +61,8 @@ namespace BattlelogMobile.Client.ViewModel
                     // TODO: 
                     // Message was moved here from Register<BattlelogUpdateCompleteMessage> block
                     // but this makes no sense, and even less when we have new version of stats update...
-                    if (_soldier == null || _soldier.UpdateTime < value.UpdateTime)
-                        Messenger.Default.Send(new SoldierLoadedMessage(Common.StatusInformationPreparingStatistics));
+                    Messenger.Default.Send(new SoldierLoadedMessage(Common.StatusInformationPreparingStatistics));
+                    //Messenger.Default.Send(new SoldierLoadedMessage(string.Format("Updated {0}", value.UpdateTime.ToString(CultureInfo.InvariantCulture))));
                     _soldier = value;
                     RaisePropertyChanged("Soldier");
                 }

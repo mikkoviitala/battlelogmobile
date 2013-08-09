@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 
 namespace BattlelogMobile.Core.Model
@@ -14,6 +15,7 @@ namespace BattlelogMobile.Core.Model
         BitmapImage ServiceStarImage { get; set; }
         TimeSpan? TimeIn { get; set; }
         BitmapImage Image { get; set; }
+        string ImageName { get; set; }
 
         // Gadget related
         int Performance { get; set; }

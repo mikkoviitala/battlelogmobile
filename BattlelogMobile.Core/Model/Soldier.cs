@@ -1,3 +1,4 @@
+using Polenter.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -12,22 +13,21 @@ namespace BattlelogMobile.Core.Model
         private int _losses;
 
         public Soldier()
-        {
-            UpdateTime = DateTime.UtcNow;
-        }
-        
-        public DateTime UpdateTime { get; private set; }
+        {}
+
+        [ExcludeFromSerialization]
+        public DateTime UpdateTime { get; set; }
         public IUser User { get; set; }
         public int Rank { get; set; }               // rank
+        [ExcludeFromSerialization]
         public BitmapImage RankImage
         {
             get { return _bitmap; }
             set { _bitmap = value; RaisePropertyChanged("RankImage"); }
         }
-        public double Skill { get; set; }           // elo
-        public IEnumerable<IKitProgression> KitProgressions { get; set; }
+        public string RankImageName { get; set; }
         public TimeSpan TimePlayed { get; set; }    // timePlayed
-        public double ScorePerMinute { get; set; }     // scorePerMinute
+        public double Skill { get; set; }           // elo
         public double KillDeathRatio { get; set; }  // kdRatio
         public int Wins                             // numWins
         {
@@ -46,30 +46,17 @@ namespace BattlelogMobile.Core.Model
                 _losses = value;
                 CalculateWinLoseRatio();
             }
-        }             
-
+        }
+        [ExcludeFromSerialization]     
         public double WinLoseRatio { get; set; }
         public IScore Score { get; set; }
-        //public IItems Weapons { get; set; }
-        public IEnumerable<IItem> Weapons { get; set; }
-        //public IItems Vehicles { get; set; }
-        public IEnumerable<IItem> Vehicles { get; set; }
-        //public IItems Gadgets { get; set; }
-        public IEnumerable<IItem> Gadgets { get; set; }
-        //public IUnlocks Unlocks { get; set; }
-        public IEnumerable<IUnlock> Unlocks { get; set; }
-
-        private void CalculateWinLoseRatio()
-        {
-            if (_wins > 0 && _losses > 0)
-                WinLoseRatio = Convert.ToDouble(_wins, CultureInfo.InvariantCulture) / Convert.ToDouble(_losses, CultureInfo.InvariantCulture);
-            else
-                WinLoseRatio = 0d;
-        }
-
-        //public IAwards Awards { get; set; }
-        public IEnumerable<IAward> Awards { get; set; }
-
+        public double ScorePerMinute { get; set; }     // scorePerMinute
+        public List<IKitProgression> KitProgressions { get; set; }
+        public List<IItem> Weapons { get; set; }
+        public List<IItem> Vehicles { get; set; }
+        public List<IItem> Gadgets { get; set; }
+        public List<IAward> Awards { get; set; }
+        public List<IUnlock> Unlocks { get; set; }
         public IStatistics Statistics { get; set; }
 
         public override string ToString()
@@ -81,6 +68,14 @@ namespace BattlelogMobile.Core.Model
                     "TopWeapons={11}, TopVehicles=[{12}], TopGadgets=[{13}], Awards=[{14}], Statistics=[{15}]", 
                     User, Rank, TimePlayed.ToString(), Skill, KillDeathRatio, Wins, Losses, WinLoseRatio,
                     Score, ScorePerMinute, KitProgressions, Weapons, Vehicles, Gadgets, Awards, Statistics);
+        }
+
+        private void CalculateWinLoseRatio()
+        {
+            if (_wins > 0 && _losses > 0)
+                WinLoseRatio = Convert.ToDouble(_wins, CultureInfo.InvariantCulture) / Convert.ToDouble(_losses, CultureInfo.InvariantCulture);
+            else
+                WinLoseRatio = 0d;
         }
     }
 }

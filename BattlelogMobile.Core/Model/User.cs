@@ -1,3 +1,4 @@
+using Polenter.Serialization;
 using System.Windows.Media.Imaging;
 
 namespace BattlelogMobile.Core.Model
@@ -9,6 +10,7 @@ namespace BattlelogMobile.Core.Model
         public long Id { get; set; }                // userId
         public string Name { get; set; }            // username
         public string GravatarMd5 { get; set; }     // gravatarMd5
+        [ExcludeFromSerialization]
         public BitmapImage Image
         {
             get { return _bitmap; }

@@ -3,8 +3,8 @@ namespace BattlelogMobile.Core.Model
 {
     public interface IScore
     {
-        IEnumerable<IKit> Kits { get; set; }
-        IEnumerable<IOther> Others { get; set; }
+        List<IKit> Kits { get; set; }
+        List<IOther> Others { get; set; }
         int TotalScore { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Polenter.Serialization;
+using System;
 using System.Windows.Media.Imaging;
 
 namespace BattlelogMobile.Core.Model
@@ -8,6 +9,10 @@ namespace BattlelogMobile.Core.Model
     public class KitProgression : BaseModel, IKitProgression
     {
         private BitmapImage _bitmap;
+
+        public KitProgression()
+        {}
+
         public KitProgression(KitType type, int serviceStars, double progress)
         {
             Type = type;
@@ -17,6 +22,7 @@ namespace BattlelogMobile.Core.Model
 
         public KitType Type { get; set; }       
         public int ServiceStars { get; set; }
+        [ExcludeFromSerialization]
         public BitmapImage Image
         {
             get { return _bitmap; }

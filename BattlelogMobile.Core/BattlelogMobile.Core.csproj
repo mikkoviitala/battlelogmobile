@@ -97,6 +97,7 @@
     <Compile Include="Message\BattlelogCredentialsAcceptedMessage.cs" />
     <Compile Include="Message\BattlelogResponseMessage.cs" />
     <Compile Include="Message\BattlelogUpdateCompleteMessage.cs" />
+    <Compile Include="Message\SerializationFailedMessage.cs" />
     <Compile Include="Message\SoldierLoadedMessage.cs" />
     <Compile Include="Message\SoldierVisibleMessage.cs" />
     <Compile Include="Message\UserIdAndPlatformResolvedMessage.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Model\IOther.cs" />
     <Compile Include="Model\IStatistics.cs" />
     <Compile Include="Model\Item.cs" />
+    <Compile Include="Model\ItemComparer.cs" />
     <Compile Include="Model\IUnlock.cs" />
     <Compile Include="Model\KitProgression.cs" />
     <Compile Include="Model\Other.cs" />

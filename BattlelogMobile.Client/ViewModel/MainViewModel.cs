@@ -14,6 +14,7 @@ using BattlelogMobile.Core.Repository;
 using BattlelogMobile.Core.Service;
 using BattlelogMobile.Core;
 using ICredentials = BattlelogMobile.Core.Model.ICredentials;
+using Microsoft.Phone.Controls;
 
 namespace BattlelogMobile.Client.ViewModel
 {
@@ -36,8 +37,8 @@ namespace BattlelogMobile.Client.ViewModel
             Messenger.Default.Register<BattlelogResponseMessage>(this, BattlelogResponseMessageReceived);
             Messenger.Default.Register<SoldierLoadedMessage>(this, SoldierLoadedMessageReceived);
             Messenger.Default.Register<SoldierVisibleMessage>(this, SoldierVisibleMessageReceived);
-            Messenger.Default.Register<DialogMessage>(this, 
-                message => ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() => ServerMessage = message.Content));
+            Messenger.Default.Register<DialogMessage>(this, message => ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() => ServerMessage = message.Content));
+            Messenger.Default.Register<SerializationFailedMessage>(this, SerializationFailedMessageReceived);
 
             LogInCommand = new RelayCommand(() => LogInCommandReceived(), CanExecuteLogInCommand);
             CredentialsRepository = credentialsRepository;
@@ -88,8 +89,8 @@ namespace BattlelogMobile.Client.ViewModel
             get { return _userInterfaceEnabled; }
             set
             {
-                if (_userInterfaceEnabled != value)
-                    GlobalLoading.Instance.IsLoading = !value;
+                //if (_userInterfaceEnabled != value)
+                //    GlobalLoading.Instance.IsLoading = !value;
 
                 _userInterfaceEnabled = value;
                 RaisePropertyChanged("UserInterfaceEnabled"); 
@@ -102,7 +103,14 @@ namespace BattlelogMobile.Client.ViewModel
         public string StatusInformation
         {
             get { return GlobalLoading.Instance.Text; }
-            set { GlobalLoading.Instance.Text = value; }
+            set 
+            { 
+                GlobalLoading.Instance.Text = value; 
+                if (string.IsNullOrEmpty(value) && GlobalLoading.Instance.IsLoading)
+                    GlobalLoading.Instance.IsLoading = false;
+                else if (!string.IsNullOrEmpty(value) &&  !GlobalLoading.Instance.IsLoading)
+                    GlobalLoading.Instance.IsLoading = true;
+            }
         }
 
         public string LogInFailedReason
@@ -154,8 +162,23 @@ namespace BattlelogMobile.Client.ViewModel
         {
             ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
                 StatusInformation = message.Message);
-            ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                _navigationService.NavigateTo(ViewModelLocator.SoldierPageUri));
+
+            var currentPage = ((App)Application.Current).RootFrame.Content as PhoneApplicationPage;
+            if (currentPage.GetType() == typeof(BattlelogMobile.Client.View.MainPage))
+            {
+                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                    _navigationService.NavigateTo(ViewModelLocator.SoldierPageUri));
+            }
+            else
+            {
+                ResetControls();
+            }
+        }
+
+        private void SerializationFailedMessageReceived(SerializationFailedMessage message)
+        {
+            Task.Factory.StartNew(() => ResetControls());
+            MessageBox.Show(message.Message, "Oh noes!", MessageBoxButton.OK);
         }
 
         /// <summary>
@@ -163,6 +186,11 @@ namespace BattlelogMobile.Client.ViewModel
         /// This is in separate message since UI is slacking a little...
         /// </summary>
         private void SoldierVisibleMessageReceived(SoldierVisibleMessage message)
+        {
+            ResetControls();
+        }
+
+        private void ResetControls()
         {
             ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
                 StatusInformation = string.Empty);
@@ -223,8 +251,7 @@ namespace BattlelogMobile.Client.ViewModel
                     var response = await responseTask.ConfigureAwait(false);
                     if (response.ResponseUri.Equals(ViewModelLocator.WebRequestLogInResponseUri))
                     {
-                        // Send message signaling that JSON download can begin
-                        Messenger.Default.Send(new BattlelogCredentialsAcceptedMessage());
+                        Messenger.Default.Send(new BattlelogCredentialsAcceptedMessage(Email));
                     }
                     else
                     {

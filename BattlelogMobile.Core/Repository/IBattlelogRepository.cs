@@ -4,7 +4,8 @@ namespace BattlelogMobile.Core.Repository
 {
     public interface IBattlelogRepository
     {
-        void UpdateStorage();
+        string CurrentUser { get; set; }
+        void UpdateStorage(bool forceUpdate);
         ISoldier Load();
     }
 }

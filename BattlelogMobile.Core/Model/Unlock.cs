@@ -1,4 +1,5 @@
-﻿using System.Windows.Media.Imaging;
+﻿using Polenter.Serialization;
+using System.Windows.Media.Imaging;
 
 namespace BattlelogMobile.Core.Model
 {
@@ -9,6 +10,7 @@ namespace BattlelogMobile.Core.Model
         public string Parent { get; set; }
         public string Slug { get; set; }
         public int Completion { get; set; }
+        [ExcludeFromSerialization]
         public BitmapImage Image
         {
             get { return _image; }

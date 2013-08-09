@@ -3,8 +3,8 @@ namespace BattlelogMobile.Core.Model
 {
     public class Score : IScore
     {
-        public IEnumerable<IKit> Kits { get; set; }
-        public IEnumerable<IOther> Others { get; set; }
+        public List<IKit> Kits { get; set; }
+        public List<IOther> Others { get; set; }
         public int TotalScore { get; set; }
 
         public override string ToString()

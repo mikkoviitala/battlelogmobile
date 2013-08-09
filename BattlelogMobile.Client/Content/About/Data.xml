@@ -76,11 +76,14 @@
     </Item>
     <Item Title="History" Type="text">
       v2.1
-      Minor performance improvements
-      
+      New statistics available
+      Performance improvements
+      Added manual update functionality
+      Removed automatic update functionality
+
       v2.0
       Adapted to generic Battlelog changes
-      
+
       v1.9
       Adapted to End Game DLC release
       Minor UI tweaks

@@ -1,3 +1,4 @@
+using Polenter.Serialization;
 using System;
 using System.Windows.Media.Imaging;
 
@@ -26,11 +27,13 @@ namespace BattlelogMobile.Core.Model
         public int Score { get; set; }
         public TimeSpan Time { get; set; }
         public double Percentage { get; set; }
+        [ExcludeFromSerialization]
         public BitmapImage Image
         {
             get { return _bitmap; }
             set { _bitmap = value; RaisePropertyChanged("Image"); }
         }
+        public string ImageName { get; set; }
 
         public int CompareTo(object kit)
         {

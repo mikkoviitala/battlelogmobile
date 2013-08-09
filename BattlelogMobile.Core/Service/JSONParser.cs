@@ -16,19 +16,8 @@ namespace BattlelogMobile.Core.Service
 {
     public class JSONParser : IJSONParser<ISoldier>
     {
-        //private const string AmericanImageSuffix = "_american"; // Duplicate
-        //private const string RussianImageSuffix = "_russian";   // Duplicate
-        //private const string MedalAwardPrefix = "m";
-        //private const string RibbonAwardPrefix = "r";
-        private const string KillsToken = "kills";
-        private const string AwardGroup = "AwardGroup_Ribbons";
-        private const string RibbonAwardSavePrefix = "ribbon_";
-        private const string MedalAwardSavePrefix = "medal_";
-        private const string ImageSuffix = ".png";
-        private const string JSONParseFailedMessage = "Couldn't read soldier information";
         private readonly IsolatedStorageFile _isolatedStorage = IsolatedStorageFile.GetUserStoreForApplication();
         private readonly IImageRepository _imageRepository = new ImageRepository();
-        //private readonly List<string> _duplicateWeaponSlugs = new List<string>() { "M4", "M16A4" }; // Same as M4A1 and M16A3
 
         /// <summary>
         /// Here lies some nasty JSON parsing...
@@ -52,32 +41,23 @@ namespace BattlelogMobile.Core.Service
                 soldier.User = ParseUser(dataToken.SelectToken("user"));
 
                 var serviceStars = ParseServiceStars(overviewStatsToken.SelectToken("serviceStars"));
-                soldier.KitProgressions = ParseKitServiceStarProgressions(overviewStatsToken.SelectToken("serviceStarsProgress"), serviceStars);
+                soldier.KitProgressions = ParseKitServiceStarProgressions(overviewStatsToken.SelectToken("serviceStarsProgress"), serviceStars).ToList();
                 soldier.Score = ParseScore(overviewStatsToken);
-                soldier.Score.Kits = ParseKitScore(overviewStatsToken);
-                soldier.Awards = ParseAwards(dataToken.SelectToken("awards"));
+                soldier.Score.Kits = ParseKitScore(overviewStatsToken).ToList();
+                soldier.Awards = ParseAwards(dataToken.SelectToken("awards")).ToList();
                 soldier.Statistics = ParseStatistics(dataToken.SelectToken("overviewStats"));
 
-                soldier.Vehicles = ParseVehicles(Common.VehiclesFile);
-                soldier.Weapons = ParseWeapons(Common.WeaponsAndGadgetsFile);
-                soldier.Gadgets = ParseGadgets(Common.WeaponsAndGadgetsFile);
+                soldier.Vehicles = ParseVehicles(Common.VehiclesFile).ToList();
+                soldier.Weapons = ParseWeapons(Common.WeaponsAndGadgetsFile).ToList();
+                soldier.Gadgets = ParseGadgets(Common.WeaponsAndGadgetsFile).ToList();
                 //soldier.Unlocks = ParseUnlocks(Common.UnlocksFile);
-
-                //using (var appStorage = IsolatedStorageFile.GetUserStoreForApplication())
-                //{
-                //    using (var file = appStorage.OpenFile("test.bin", FileMode.OpenOrCreate))
-                //    {
-                //        var serializer = new SharpSerializer(true);
-                //        serializer.Serialize(soldier, file);
-                //    }
-                //}
 
                 return soldier;
             }
             catch (Exception e)
             {
                 if (e is JsonReaderException || e is IOException || e is ArgumentException || e is FormatException || e is NullReferenceException)
-                    Messenger.Default.Send(new BattlelogResponseMessage(JSONParseFailedMessage, false));
+                    Messenger.Default.Send(new BattlelogResponseMessage(Common.JSONParseFailedMessage, false));
                 else
                     throw;
                 return null;
@@ -100,11 +80,10 @@ namespace BattlelogMobile.Core.Service
                 string[] parts = kit.ToString().Split(':');
                 var kitType = (KitType)Convert.ToInt32(parts[0].Substring(parts[0].IndexOf('"') + 1, parts[0].LastIndexOf('"') - 1));
                 int kitScore = Convert.ToInt32(parts[1].Substring(parts[1].IndexOf('"') + 1, parts[1].LastIndexOf('"') - 2));
-                string kitImage = kitType.ToString().ToLowerInvariant() + ImageSuffix;
+                string kitImage = kitType.ToString().ToLowerInvariant() + Common.ImageSuffix;
 
-                var k = new Kit() {Type = kitType, Score = kitScore};
-                _imageRepository.Load(
-                    Common.KitImageUrl, kitImage, bitmap => { k.Image = bitmap; });
+                var k = new Kit() { Type = kitType, Score = kitScore, ImageName = kitImage };
+                _imageRepository.Load(Common.KitImageUrl, kitImage, bitmap => { k.Image = bitmap; });
                 kits.Add(k);   
             }
 
@@ -144,15 +123,6 @@ namespace BattlelogMobile.Core.Service
             int totalScore = Convert.ToInt32(scoreToken.SelectToken("totalScore").ToString());
             score.TotalScore = totalScore;
 
-            //IOthers others = new Others(
-            //    new List<IOther>()
-            //        {
-            //            new Other("Vehicles", Convert.ToInt32(scoreToken.SelectToken("sc_vehicle").ToString())), 
-            //            new Other("Combat", Convert.ToInt32(scoreToken.SelectToken("combatScore").ToString())),
-            //            new Other("Awards", Convert.ToInt32(scoreToken.SelectToken("sc_award").ToString())),
-            //            new Other("Unlocks", Convert.ToInt32(scoreToken.SelectToken("sc_unlock").ToString()))
-            //        });
-
             var others = new List<IOther>()
                     {
                         new Other("Vehicles", Convert.ToInt32(scoreToken.SelectToken("sc_vehicle").ToString())), 
@@ -182,8 +152,7 @@ namespace BattlelogMobile.Core.Service
                     numberOfServiceStars = serviceStar.Value;
                 
                 var kitProgression = new KitProgression(kitType, numberOfServiceStars, kitProgress);
-                _imageRepository.Load(
-                    Common.ServiceStarImageUrl, Common.ServiceStarImage, bitmap => { kitProgression.Image = bitmap; });
+                _imageRepository.Load(Common.ServiceStarImageUrl, Common.ServiceStarImage, bitmap => { kitProgression.Image = bitmap; });
                 progressions.Add(kitProgression);
             }
             progressions.Sort((p1, p2) =>
@@ -215,6 +184,7 @@ namespace BattlelogMobile.Core.Service
             //const string rankFormat = "00";
             ISoldier soldier = new Soldier()
             {
+                UpdateTime = DateTime.Now,
                 Rank = Convert.ToInt32(overviewStatsToken.SelectToken("rank").ToString()),
                 Skill = Convert.ToDouble(overviewStatsToken.SelectToken("elo").ToString()),
                 TimePlayed = TimeSpan.FromSeconds(Convert.ToDouble(overviewStatsToken.SelectToken("timePlayed").ToString(), CultureInfo.InvariantCulture)),
@@ -222,12 +192,13 @@ namespace BattlelogMobile.Core.Service
                 KillDeathRatio = Math.Round((Convert.ToDouble(overviewStatsToken.SelectToken("kills").ToString()) / Convert.ToDouble(overviewStatsToken.SelectToken("deaths").ToString())), 2),
                 //KillDeathRatio = Convert.ToDouble(overviewStatsToken.SelectToken("kdRatio").ToString()),
                 Wins = Convert.ToInt32(overviewStatsToken.SelectToken("numWins").ToString()),
-                Losses = Convert.ToInt32(overviewStatsToken.SelectToken("numLosses").ToString()),
+                Losses = Convert.ToInt32(overviewStatsToken.SelectToken("numLosses").ToString())
             };
 
             string image = soldier.Rank <= Common.MaxRank ?
-                    Common.RankImagePrefix + soldier.Rank.ToString(CultureInfo.InvariantCulture) + ImageSuffix :
-                    Common.RankServiceStarImagePrefix + (soldier.Rank - Common.MaxRank).ToString(CultureInfo.InvariantCulture) + ImageSuffix;
+                    Common.RankImagePrefix + soldier.Rank.ToString(CultureInfo.InvariantCulture) + Common.ImageSuffix :
+                    Common.RankServiceStarImagePrefix + (soldier.Rank - Common.MaxRank).ToString(CultureInfo.InvariantCulture) + Common.ImageSuffix;
+            soldier.RankImageName = image;
             _imageRepository.Load(Common.RankImageUrl, image, bitmap => { soldier.RankImage = bitmap; });
             return soldier;
         }
@@ -242,8 +213,7 @@ namespace BattlelogMobile.Core.Service
                 GravatarMd5 = userToken.SelectToken("gravatarMd5").ToString(),
             };
 
-            _imageRepository.Load(
-                Common.GravatarImageUrl, user.GravatarMd5, bitmap => { user.Image = bitmap; });
+            _imageRepository.Load(Common.GravatarImageUrl, user.GravatarMd5, bitmap => { user.Image = bitmap; });
             return user;
         }
 
@@ -282,15 +252,21 @@ namespace BattlelogMobile.Core.Service
                     Group = token.SelectToken("award").SelectToken("awardGroup").ToString()
                 };
 
-                string image = token.SelectToken("award").SelectToken("code") + ImageSuffix;
-                
-                //if (image.StartsWith(RibbonAwardPrefix))
-                if (string.CompareOrdinal(award.Group, AwardGroup) == 0)
-                    _imageRepository.Load(Common.RibbonAwardImageUrl, image, 
-                        bitmap => { award.Image = bitmap; }, RibbonAwardSavePrefix + image);
+                string image = token.SelectToken("award").SelectToken("code") + Common.ImageSuffix;
+                award.ImageName = image;
+
+                if (string.CompareOrdinal(award.Group, Common.AwardGroup) == 0)
+                {
+                    award.ImageUrl = Common.RibbonAwardImageUrl;
+                    award.ImageSaveName = Common.RibbonAwardSavePrefix + image;
+                    _imageRepository.Load(Common.RibbonAwardImageUrl, image, bitmap => { award.Image = bitmap; }, award.ImageSaveName);
+                }
                 else
-                    _imageRepository.Load(Common.MedalAwardImageUrl, image, 
-                        bitmap => { award.Image = bitmap; }, MedalAwardSavePrefix + image);
+                {
+                    award.ImageUrl = Common.MedalAwardImageUrl;
+                    award.ImageSaveName = Common.MedalAwardSavePrefix + image;
+                    _imageRepository.Load(Common.MedalAwardImageUrl, image, bitmap => { award.Image = bitmap; }, award.ImageSaveName);
+                }
                 awards.Add(award);
             }
             //return new Awards(awards);
@@ -322,9 +298,9 @@ namespace BattlelogMobile.Core.Service
                     Kills = Convert.ToInt32(vehiclesToken.SelectToken("kills").ToString()),
                     TimeIn = TimeSpan.FromSeconds(Convert.ToInt32(vehiclesToken.SelectToken("timeIn").ToString()))
                 };
-                string image = jObject.SelectToken("data").SelectToken("gadgetsLocale").SelectToken("vehicles").SelectToken(guid).SelectToken("image") + ImageSuffix;
-                _imageRepository.Load(
-                    Common.VehicleAndGadgetImageUrl, image, bitmap => { vehicle.Image = bitmap; });
+                string image = jObject.SelectToken("data").SelectToken("gadgetsLocale").SelectToken("vehicles").SelectToken(guid).SelectToken("image") + Common.ImageSuffix;
+                vehicle.ImageName = image;
+                _imageRepository.Load(Common.VehicleAndGadgetImageUrl, image, bitmap => { vehicle.Image = bitmap; });
                 vehicles.Add(vehicle);
             }
             var sortedAndFiltered = vehicles.OrderByDescending(v => v.Kills).ThenByDescending(v => v.TimeIn).
@@ -368,7 +344,7 @@ namespace BattlelogMobile.Core.Service
                         int amount = Convert.ToInt32(token.SelectToken("stat").ToString());
                         string unit = token.SelectToken("name").ToString();
 
-                        if (unit.Equals(KillsToken, StringComparison.OrdinalIgnoreCase))
+                        if (unit.Equals(Common.KillsToken, StringComparison.OrdinalIgnoreCase))
                         {
                             gadget.Kills = amount;
                         }
@@ -380,9 +356,9 @@ namespace BattlelogMobile.Core.Service
                     }
                 }
 
-                string image = jObject.SelectToken("data").SelectToken("gadgetsLocale").SelectToken("kititems").SelectToken(guid).SelectToken("image") + ImageSuffix;
-                _imageRepository.Load(
-                    Common.VehicleAndGadgetImageUrl, image, bitmap => { gadget.Image = bitmap; });
+                string image = jObject.SelectToken("data").SelectToken("gadgetsLocale").SelectToken("kititems").SelectToken(guid).SelectToken("image") + Common.ImageSuffix;
+                gadget.ImageName = image;
+                _imageRepository.Load(Common.VehicleAndGadgetImageUrl, image, bitmap => { gadget.Image = bitmap; });
                 gadgets.Add(gadget);
             }
             var sortedAndFiltered = gadgets.OrderByDescending(
@@ -417,16 +393,14 @@ namespace BattlelogMobile.Core.Service
                     Headshots = Convert.ToInt32(weaponsToken.SelectToken("headshots").ToString().ToUpperInvariant()),
                     ServiceStars = Convert.ToInt32(weaponsToken.SelectToken("serviceStars").ToString())
                 };
-                
-                string image = jObject.SelectToken("data").SelectToken("gadgetsLocale").SelectToken("weapons").SelectToken(guid).SelectToken("image") + ImageSuffix;
-                
-               //if (!image.Contains(AmericanImageSuffix) && (!image.Contains(RussianImageSuffix)) && !_duplicateWeaponSlugs.Contains(weapon.Slug))
-               //{
-                    _imageRepository.Load(
-                        Common.ServiceStarImageUrl, Common.ServiceStarImage, bitmap => { weapon.ServiceStarImage = bitmap; });
-                    _imageRepository.Load(
-                        Common.WeaponAndAccessoryImageUrl, image, bitmap => { weapon.Image = bitmap; });
-                    weapons.Add(weapon);
+
+                string image = jObject.SelectToken("data").SelectToken("gadgetsLocale").SelectToken("weapons").SelectToken(guid).SelectToken("image") + Common.ImageSuffix;
+                weapon.ImageName = image;
+                //if (!image.Contains(AmericanImageSuffix) && (!image.Contains(RussianImageSuffix)) && !_duplicateWeaponSlugs.Contains(weapon.Slug))
+                //{
+                _imageRepository.Load(Common.ServiceStarImageUrl, Common.ServiceStarImage, bitmap => { weapon.ServiceStarImage = bitmap; });
+                _imageRepository.Load(Common.WeaponAndAccessoryImageUrl, image, bitmap => { weapon.Image = bitmap; });
+                weapons.Add(weapon);
                 //}
             }
             var sortedAndFiltered = weapons.OrderByDescending(g => g.Kills).

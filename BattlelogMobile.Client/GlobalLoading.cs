@@ -59,6 +59,14 @@ namespace BattlelogMobile.Client
             set { _progressIndicator.Text = value; }
         }
 
+        public void Force(bool f)
+        {
+            _loadingCount = 0;
+            if (f)
+                _loadingCount = 1;
+            NotifyValueChanged();
+        }
+
         private void NotifyValueChanged()
         {
             if (_progressIndicator != null)
@@ -67,6 +75,8 @@ namespace BattlelogMobile.Client
 
                 if (_progressIndicator.IsVisible == false)
                     _progressIndicator.IsVisible = true;
+                else
+                    _progressIndicator.IsVisible = false;
             }
         }
     }

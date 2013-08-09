@@ -7,6 +7,7 @@
         public const string LogInFailedReasonInvalidCredentials = "User credentials not accepted!";
         public const string StatusInformationVerifyingCredential = "Verifying credentials";
         public const string StatusInformationDownloading = "Downloading";
+        public const string StatusInformationSeekingContent = "Seeking content";
         public const string StatusInformationPreparingStatistics = "Preparing statistics";
         public const string ServerMessageUrl = "http://www.losninosdelsol.net/battlelogmobile/message.txt";
 
@@ -16,6 +17,7 @@
         public const string HttpUserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0.2) Gecko/20100101 Firefox/6.0.2";
         public const string HttpContentType = "application/x-www-form-urlencoded";
 
+        //public const string SoldierFile = "soldier.bin";
         public const string CredentialsFile = "credentials.txt";
         public const string OverviewFile = "overview.txt";
         public const string VehiclesFile = "vehicles.txt";
@@ -46,5 +48,15 @@
 
         public const string ServiceStarImage = "servicestar-31x31.png";
         public const string ServiceStarImageUrl = "http://battlelog.battlefield.com/public/profile/bf3/stats/servicestars/{0}";
+
+        public const string KillsToken = "kills";
+        public const string AwardGroup = "AwardGroup_Ribbons";
+        public const string RibbonAwardSavePrefix = "ribbon_";
+        public const string MedalAwardSavePrefix = "medal_";
+        public const string ImageSuffix = ".png";
+        public const string JSONParseFailedMessage = "Couldn't read soldier information";
+
+        public const string SerializationFailed = "Something funky occured while saving your soldier... :(";
+        public const string DeserializationFailed = "Something funky occured while loading your soldier... :(";
     }
 }

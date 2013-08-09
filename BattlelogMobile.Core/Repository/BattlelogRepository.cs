@@ -3,6 +3,15 @@ using BattlelogMobile.Core.Message;
 using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Service;
 using GalaSoft.MvvmLight.Messaging;
+using System.IO.IsolatedStorage;
+using Polenter.Serialization;
+using System.IO;
+using System;
+using System.Linq;
+using Polenter.Serialization.Core;
+using System.Globalization;
+using System.Windows;
+using System.Windows.Navigation;
 
 namespace BattlelogMobile.Core.Repository
 {
@@ -11,13 +20,14 @@ namespace BattlelogMobile.Core.Repository
     /// </summary>
     public class BattlelogRepository : IBattlelogRepository
     {
-        private const string UserIdAndPlatformResolved = "Seeking content";
         private const int ExpectedResponseMessages = 3;
+        private readonly IsolatedStorageFile _storage = IsolatedStorageFile.GetUserStoreForApplication();
         private int _responseMessages = 0;
         private long? _userId;
         private Platform? _platform;
 
-        public BattlelogRepository() : this(new DownloadService(new CookieContainer()))
+        public BattlelogRepository() 
+            : this(new DownloadService(new CookieContainer()))
         {}
 
         public BattlelogRepository(IDownloadService downloadService)
@@ -29,13 +39,46 @@ namespace BattlelogMobile.Core.Repository
 
         public IDownloadService DownloadService { get; set; }
 
+        public string CurrentUser { get; set; }
+
+        public bool IsSerialized
+        {
+            get 
+            {
+                if (CurrentUser == null)
+                    return false;
+                return _storage.FileExists(CurrentUser);
+            }
+        }
+
         /// <summary>
         /// Update local storage
         /// </summary>
-        public void UpdateStorage()
+        public void UpdateStorage(bool forceUpdate = false)
         {
-            Reset();
-            DownloadService.ResolveUserIdAndPlatform(Common.EntryPageUrl, new UserIdAndPlatformResolver());
+            //forceUpdate = true;
+            if (forceUpdate)
+                ClearCache();
+
+            if (IsSerialized)
+            {
+                Messenger.Default.Send(new BattlelogUpdateCompleteMessage());
+            }
+            else
+            {
+                Reset();
+                DownloadService.ResolveUserIdAndPlatform(Common.EntryPageUrl, new UserIdAndPlatformResolver());
+            }
+        }
+
+        private void ClearCache()
+        {
+            if (IsSerialized)
+            {
+                if (CurrentUser != null)
+                    if (_storage.FileExists(CurrentUser))
+                        _storage.DeleteFile(CurrentUser);
+            }
         }
 
         private void Reset()
@@ -50,8 +93,18 @@ namespace BattlelogMobile.Core.Repository
         /// </summary>
         public ISoldier Load()
         {
-            var parser = new JSONParser();
-            return parser.Parse();
+            if (!IsSerialized)
+            {
+                var parser = new JSONParser();
+                ISoldier soldier = parser.Parse() as Soldier;
+                Serialize(soldier);
+                return soldier;
+            }
+
+            return Deserialize();
+
+            //var parser = new JSONParser();
+            //return parser.Parse();
         }
 
         /// <summary>
@@ -72,7 +125,7 @@ namespace BattlelogMobile.Core.Repository
         {
             _userId = message.UserId;
             _platform = message.Platform;
-            Messenger.Default.Send(new BattlelogResponseMessage(UserIdAndPlatformResolved, true));
+            Messenger.Default.Send(new BattlelogResponseMessage(Common.StatusInformationSeekingContent, true));
             GetFilesFromServer();
         }
 
@@ -84,7 +137,82 @@ namespace BattlelogMobile.Core.Repository
 
             _responseMessages++;
             if (_responseMessages == ExpectedResponseMessages)
+            {
+                _responseMessages = 0;
                 Messenger.Default.Send(new BattlelogUpdateCompleteMessage());
+            }
+        }
+
+        private void Serialize(ISoldier soldier)
+        {
+            using (var file = _storage.OpenFile(CurrentUser, FileMode.OpenOrCreate))
+            {
+                try
+                {
+                    var serializer = new SharpSerializer(true);
+                    serializer.Serialize(soldier as Soldier, file);
+                    file.Close();
+                }
+                catch (Exception)
+                {
+                    file.Close();
+                    ClearCache();
+                    Messenger.Default.Send(new SerializationFailedMessage(Common.SerializationFailed));
+                }
+            }
+        }
+
+        private ISoldier Deserialize()
+        {
+            ISoldier soldier;
+            using (var file = _storage.OpenFile(CurrentUser, FileMode.Open))
+            {
+                var serializer = new SharpSerializer(true);
+                try
+                {
+                    soldier = serializer.Deserialize(file) as Soldier;
+                    ApplyImages(soldier);
+                }
+                catch (Exception)
+                {
+                    file.Close();
+                    ClearCache();
+                    soldier = null;
+                    Messenger.Default.Send(new SerializationFailedMessage(Common.DeserializationFailed));
+                }
+            }
+            return soldier;
+        }
+
+        private void ApplyImages(ISoldier soldier)
+        {
+            var _imageRepository = new ImageRepository();
+
+            foreach (var kit in soldier.Score.Kits)
+                kit.Image = _imageRepository.Load(kit.ImageName);
+
+            foreach (var kitProgression in soldier.KitProgressions)
+                kitProgression.Image = _imageRepository.Load(Common.ServiceStarImage);
+
+            soldier.RankImage = _imageRepository.Load(soldier.RankImageName);
+
+            soldier.User.Image = _imageRepository.Load(soldier.User.GravatarMd5);
+
+            foreach (var award in soldier.Awards)
+                award.Image = _imageRepository.Load(award.ImageSaveName);
+
+            foreach (var vehicle in soldier.Vehicles)
+                vehicle.Image = _imageRepository.Load(vehicle.ImageName);
+
+            foreach (var gadget in soldier.Gadgets)
+                gadget.Image = _imageRepository.Load(gadget.ImageName);
+
+            var serviceStarImage = _imageRepository.Load(Common.ServiceStarImage);
+            foreach (var weapon in soldier.Weapons)
+            {
+                weapon.ServiceStarImage = serviceStarImage;
+                weapon.Image = _imageRepository.Load(weapon.ImageName);
+            }
         }
     }
 }

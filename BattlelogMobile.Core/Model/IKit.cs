@@ -10,5 +10,6 @@ namespace BattlelogMobile.Core.Model
         TimeSpan Time { get; set; }
         double Percentage { get; set; }
         BitmapImage Image { get; set; }
+        string ImageName { get; set; }
     }
 }

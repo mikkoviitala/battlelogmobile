@@ -52,7 +52,7 @@
     </toolkit:TransitionService.NavigationOutTransition>
     
     <Grid x:Name="LayoutRoot">
-        <controls:Panorama Title="{Binding ApplicationName}">
+        <controls:Panorama Title="{Binding ApplicationName}" Name="Panorama">
             <!-- Panoramaitem 1 / Overview -->
             <controls:PanoramaItem Header="Overview">
                 <Grid>
@@ -74,10 +74,10 @@
                     <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.User.Name}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
 
                     <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Rank" VerticalAlignment="Center" />
-                    <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0" >
-                        <Image Source="{Binding Soldier.User.Image}" Width="64" Height="64" HorizontalAlignment="Right" VerticalAlignment="Center" />
-                        <Image Source="{Binding Soldier.RankImage}" Width="64" Height="64" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0,-20,0" />
-                    </StackPanel>
+                    <!--<StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0" >-->
+                        <Image Grid.Row="1" Grid.Column="1"  Source="{Binding Soldier.User.Image}" Width="64" Height="64" VerticalAlignment="Center" />
+                        <Image Grid.Row="1" Grid.Column="1"  Source="{Binding Soldier.RankImage}" Width="64" Height="64" HorizontalAlignment="Right" VerticalAlignment="Center"  />
+                    <!--</StackPanel>-->
                     <!--<Image Grid.Row="1" Grid.Column="1" Source="{Binding Soldier.Rank, Converter={StaticResource StringBitmapImageConverter}, ConverterParameter=Rank}" Width="64" Height="64" Margin="95,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />-->
                     <!--<TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.Rank}" HorizontalAlignment="Right" VerticalAlignment="Center" />-->
 
@@ -100,8 +100,18 @@
 
             <!-- Score / Panorama item two -->
             <controls:PanoramaItem Header="Score">
-                <StackPanel Orientation="Vertical">
-                    <ListBox ItemsSource="{Binding Soldier.Score.Kits}" IsHitTestVisible="False">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="210" />
+                        <ColumnDefinition Width="200" />
+                    </Grid.ColumnDefinitions>
+
+                    <ListBox Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding Soldier.Score.Kits}" IsHitTestVisible="False">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -114,13 +124,13 @@
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Path=Type}" HorizontalAlignment="Left" />
                                     <Image Grid.Column="1" Source="{Binding Path=Image}" Width="26" Height="26" Margin="30,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                                    <TextBlock Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Path=Score, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" Margin="0,0,0,4" />
+                                    <TextBlock Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Path=Score, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" />
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <ListBox ItemsSource="{Binding Soldier.Score.Others}" IsHitTestVisible="False">
+                    <ListBox Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Soldier.Score.Others}" IsHitTestVisible="False">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -132,31 +142,22 @@
                                         <ColumnDefinition Width="200" />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Path=Type}" HorizontalAlignment="Left" />
-                                    <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Path=Score, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,0,4"/>
+                                    <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Path=Score, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" Grid.Column="1" />
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-
-                    <Grid Margin="10,0,0,0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="210" />
-                            <ColumnDefinition Width="200" />
-                        </Grid.ColumnDefinitions>
-                        <Rectangle Grid.ColumnSpan="2" Stroke="White" StrokeThickness="1" Fill="White" Width="410" Height="1" Margin="-5,0,0,-5" VerticalAlignment="Top" />
-                        <TextBlock Style="{StaticResource PhoneTextLargeStyle}" 
-                                   Text="Total Score" 
-                                   Margin="0,5,0,0"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Center" />
-                        <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                                   Text="{Binding Soldier.Score.TotalScore, Converter={StaticResource IntegerStringConverter}, ConverterParameter=AddEquals}" 
-                                   HorizontalAlignment="Right" VerticalAlignment="Center" />
-                    </Grid>
-                </StackPanel>
+                        
+                    <Rectangle Grid.Row="2" Grid.ColumnSpan="2" Stroke="White" StrokeThickness="1" Fill="White" Width="410" Height="1" VerticalAlignment="Top" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" 
+                                Text="Total Score" 
+                                
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
+                                Text="{Binding Soldier.Score.TotalScore, Converter={StaticResource IntegerStringConverter}, ConverterParameter=AddEquals}" 
+                                HorizontalAlignment="Right" VerticalAlignment="Center" />
+                </Grid>
             </controls:PanoramaItem>
 
             <!-- Kit progression / Panorama item three -->
@@ -518,12 +519,19 @@
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Mode="Minimized">
+        <shell:ApplicationBar IsVisible="True" x:Name="AppBar" Mode="Default"  IsMenuEnabled="True" >
             <shell:ApplicationBar.Buttons>
                 <shell:ApplicationBarIconButton
                     x:Name="AboutMenuItem" 
+                    IconUri="/Toolkit.Content/ApplicationBar.Refresh.png"
+                    Text="Update" 
+                    IsEnabled="False"
+                    Click="UpdateMenuItemClick"/>
+                <shell:ApplicationBarIconButton
+                    x:Name="UpdateMenuItem" 
                     IconUri="/Toolkit.Content/ApplicationBar.Questionmark.png"
-                    Text="about" 
+                    IsEnabled="False"
+                    Text="About" 
                     Click="AboutMenuItemClick"/>
             </shell:ApplicationBar.Buttons>
         </shell:ApplicationBar>

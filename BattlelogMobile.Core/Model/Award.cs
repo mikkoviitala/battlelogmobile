@@ -1,5 +1,6 @@
 using System.Windows.Media.Imaging;
 using BattlelogMobile.Core.Service;
+using Polenter.Serialization;
 
 namespace BattlelogMobile.Core.Model
 {
@@ -19,11 +20,15 @@ namespace BattlelogMobile.Core.Model
 
         public string Code { get; set; }         // code
         public string Group { get; set; }        // awardGroup
+        [ExcludeFromSerialization]
         public BitmapImage Image
         {
             get { return _bitmap; }
             set { _bitmap = value; RaisePropertyChanged("Image"); }
         }
+        public string ImageName { get; set; }
+        public string ImageSaveName { get; set; }
+        public string ImageUrl { get; set; }
 
         public int Width { get { return Group.Equals(MedalsGroup) ? MedalWidth : RibbonWidth; } }
         public int Height { get { return Group.Equals(MedalsGroup) ? MedalHeight : RibbonHeight; } }
