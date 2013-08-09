@@ -557,7 +557,7 @@
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
 
                     <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="MCOM destroyed" VerticalAlignment="Center" />
-                    <TextBlock Grid.Row="12" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
+                    <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
                                Text="{Binding Soldier.Statistics.MCOMDestroyed, Converter={StaticResource IntegerStringConverter}}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
 
@@ -568,7 +568,7 @@
 
                     <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Flags defended" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.FlagsDefended, Converter={StaticResource IntegerStringConverter}, ConverterParameter=m}" 
+                               Text="{Binding Soldier.Statistics.FlagsDefended, Converter={StaticResource IntegerStringConverter}}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
 
                     <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Avenger kills" VerticalAlignment="Center" />
