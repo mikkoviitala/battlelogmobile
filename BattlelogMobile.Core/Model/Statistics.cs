@@ -7,6 +7,7 @@ namespace BattlelogMobile.Core.Model
         public int KillAssists { get; set; }                // killAssists
         public int Deaths { get; set; }                     // deaths
         public double Accuracy { get; set; }                // accuracy
+        public int ShotsFired { get; set; }                 // shotsFired
         public double LongestHeadshot { get; set; }         // longestHeadshot
         public int KillStreakBonus { get; set; }            // killStreakBonus
         public int VehiclesDestroyed { get; set; }          // vehiclesDestroyed
@@ -16,6 +17,19 @@ namespace BattlelogMobile.Core.Model
         public int Revives { get; set; }                    // revives
         public int Heals { get; set; }                      // heals
         public int Resupplies { get; set; }                 // resupplies
+
+        public double Quits { get; set; }	                    // quitPercentage
+        public int MCOMDefendKills { get; set; }            // mcomDefendKills
+        public int MCOMDestroyed { get; set; }	            // mcomDestroy
+        public int FlagsCaptured { get; set; }              // flagCaptures
+        public int FlagsDefended { get; set; }              // flagDefend
+        public int AvengerKills { get; set; }               // avengerKills
+        public int SaviorKills { get; set; }                // saviorKills
+        public int DogtagsTaken	{ get; set; }               // dogtagsTaken
+        public int FlagsCapturedCTF { get; set; }           // flagrunner
+        public int NemesisStreak { get; set; }              // nemesisStreak
+        public int NemesisKills { get; set; }               // nemesisKills
+        public int SuppressionAssists { get; set; }         // suppressionAssists
 
         public override string ToString()
         {

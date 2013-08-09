@@ -64,6 +64,8 @@
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="182" />
@@ -87,14 +89,20 @@
                     <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Time played" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12,0,0,0" Width="166" />
                     <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.TimePlayed, Converter={StaticResource TimeSpanStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
 
-                    <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Score / min" VerticalAlignment="Center" />
-                    <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.ScorePerMinute}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+                    <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Accuracy" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.Statistics.Accuracy, Converter={StaticResource DoublePercentageStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
 
-                    <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="K / D ratio" VerticalAlignment="Center" />
-                    <TextBlock Grid.Row="5" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.KillDeathRatio, Converter={StaticResource DoubleStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+                    <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Score / min" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="5" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.ScorePerMinute}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
 
-                    <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="W / L ratio" VerticalAlignment="Center" />
-                    <TextBlock Grid.Row="6" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.WinLoseRatio, Converter={StaticResource DoubleStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+                    <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="K / D ratio" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="6" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.KillDeathRatio, Converter={StaticResource DoubleStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                    <TextBlock Grid.Row="7" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="W / L ratio" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="7" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.WinLoseRatio, Converter={StaticResource DoubleStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                    <TextBlock Grid.Row="8" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Quits" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="8" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.Statistics.Quits, Converter={StaticResource DoublePercentageStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
                 </Grid>
             </controls:PanoramaItem>
 
@@ -470,9 +478,9 @@
                                Text="{Binding Soldier.Statistics.Deaths, Converter={StaticResource IntegerStringConverter}}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
 
-                    <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Accuracy" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Shots fired" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.Accuracy, Converter={StaticResource DoublePercentageStringConverter}}" 
+                               Text="{Binding Soldier.Statistics.ShotsFired, Converter={StaticResource IntegerStringConverter}}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
 
                     <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Longest HS" VerticalAlignment="Center" />
@@ -480,7 +488,7 @@
                                Text="{Binding Soldier.Statistics.LongestHeadshot, Converter={StaticResource DoubleStringConverter}, ConverterParameter=m}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
 
-                    <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Streak bonus" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Kill streak" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
                                Text="{Binding Soldier.Statistics.KillStreakBonus, Converter={StaticResource IntegerStringConverter}}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
@@ -513,6 +521,89 @@
                     <TextBlock Grid.Row="10" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Resupplies" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="10" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
                                Text="{Binding Soldier.Statistics.Resupplies, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                </Grid>
+            </controls:PanoramaItem>
+
+<!--        
+        //public int DogtagsTaken	{ get; set; }               // 
+        //public int FlagsCapturedCTF { get; set; }           // 
+        //public int NemesisStreak { get; set; }              // 
+        //public int NemesisKills { get; set; }               // 
+        //public int SuppressionAssists { get; set; }         //-->
+            <!-- Statistics / Panorama item ten -->
+            <controls:PanoramaItem Header="Statistics">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="301" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="MCOM defend" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}"
+                               Text="{Binding Soldier.Statistics.MCOMDefendKills, Converter={StaticResource IntegerStringConverter}}" 
+                               HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="MCOM destroyed" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="12" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
+                               Text="{Binding Soldier.Statistics.MCOMDestroyed, Converter={StaticResource IntegerStringConverter}}" 
+                               HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Flags captured" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
+                               Text="{Binding Soldier.Statistics.FlagsCaptured, Converter={StaticResource IntegerStringConverter}}" 
+                               HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Flags defended" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
+                               Text="{Binding Soldier.Statistics.FlagsDefended, Converter={StaticResource IntegerStringConverter}, ConverterParameter=m}" 
+                               HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Avenger kills" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
+                               Text="{Binding Soldier.Statistics.AvengerKills, Converter={StaticResource IntegerStringConverter}}" 
+                               HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+                    <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Savior kills" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12,0,0,0" Width="200" />
+                    <TextBlock Grid.Row="5" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
+                               Text="{Binding Soldier.Statistics.SaviorKills, Converter={StaticResource IntegerStringConverter}}" 
+                               HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+                    <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Dogtags taken" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="6" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
+                               Text="{Binding Soldier.Statistics.DogtagsTaken, Converter={StaticResource IntegerStringConverter}}" 
+                               HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+                    <TextBlock Grid.Row="7" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Flags captured (CTF)" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="7" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
+                               Text="{Binding Soldier.Statistics.FlagsCapturedCTF}" 
+                               HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+                    <TextBlock Grid.Row="8" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Nemesis streak" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="8" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
+                               Text="{Binding Soldier.Statistics.NemesisStreak, Converter={StaticResource IntegerStringConverter}}" 
+                               HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+                    <TextBlock Grid.Row="9" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Nemesis kills" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="9" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
+                               Text="{Binding Soldier.Statistics.NemesisKills, Converter={StaticResource IntegerStringConverter}}" 
+                               HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+                    <TextBlock Grid.Row="10" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Suppression assists" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="10" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
+                               Text="{Binding Soldier.Statistics.SuppressionAssists, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" />
                 </Grid>
             </controls:PanoramaItem>
         </controls:Panorama>

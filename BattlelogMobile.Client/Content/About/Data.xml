@@ -76,10 +76,11 @@
     </Item>
     <Item Title="History" Type="text">
       v2.1
-      New statistics available
-      Performance improvements
+      Two pages of new statistics
+      All statistics are saved locally
       Added manual update functionality
       Removed automatic update functionality
+      Performance improvements
 
       v2.0
       Adapted to generic Battlelog changes

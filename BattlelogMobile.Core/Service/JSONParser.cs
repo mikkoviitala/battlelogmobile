@@ -234,7 +234,20 @@ namespace BattlelogMobile.Core.Service
                 Repairs = Convert.ToInt32(statisticsToken.SelectToken("repairs").ToString()),
                 Revives = Convert.ToInt32(statisticsToken.SelectToken("revives").ToString()),
                 Heals = Convert.ToInt32(statisticsToken.SelectToken("heals").ToString()),
-                Resupplies = Convert.ToInt32(statisticsToken.SelectToken("resupplies").ToString())
+                Resupplies = Convert.ToInt32(statisticsToken.SelectToken("resupplies").ToString()),
+                ShotsFired = Convert.ToInt32(statisticsToken.SelectToken("shotsFired").ToString()),
+                Quits = Convert.ToDouble(statisticsToken.SelectToken("quitPercentage").ToString()),
+                MCOMDefendKills = Convert.ToInt32(statisticsToken.SelectToken("mcomDefendKills").ToString()),
+                MCOMDestroyed = Convert.ToInt32(statisticsToken.SelectToken("mcomDestroy").ToString()),
+                FlagsCaptured = Convert.ToInt32(statisticsToken.SelectToken("flagCaptures").ToString()),
+                FlagsDefended = Convert.ToInt32(statisticsToken.SelectToken("flagDefend").ToString()),
+                AvengerKills = Convert.ToInt32(statisticsToken.SelectToken("avengerKills").ToString()),
+                SaviorKills = Convert.ToInt32(statisticsToken.SelectToken("saviorKills").ToString()),
+                DogtagsTaken = Convert.ToInt32(statisticsToken.SelectToken("dogtagsTaken").ToString()),
+                FlagsCapturedCTF = Convert.ToInt32(statisticsToken.SelectToken("flagrunner").ToString()),
+                NemesisStreak = Convert.ToInt32(statisticsToken.SelectToken("nemesisStreak").ToString()),
+                NemesisKills = Convert.ToInt32(statisticsToken.SelectToken("nemesisKills").ToString()),
+                SuppressionAssists = Convert.ToInt32(statisticsToken.SelectToken("suppressionAssists").ToString())
             };
             return statistics;
         }
