@@ -12,6 +12,7 @@ namespace BattlelogMobile.Core.Model
         BitmapImage RankImage { get; set; }             // Panorama 1
         string RankImageName { get; set; }
         TimeSpan TimePlayed { get; set; }               // Panorama 1
+        int RoundsPlayed { get; set; }
         double Skill { get; set; }                      // Panorama 1
         double KillDeathRatio { get; set; }             // Panorama 1
         int Wins { get; set; }

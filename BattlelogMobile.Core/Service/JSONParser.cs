@@ -188,6 +188,7 @@ namespace BattlelogMobile.Core.Service
                 Rank = Convert.ToInt32(overviewStatsToken.SelectToken("rank").ToString()),
                 Skill = Convert.ToDouble(overviewStatsToken.SelectToken("elo").ToString()),
                 TimePlayed = TimeSpan.FromSeconds(Convert.ToDouble(overviewStatsToken.SelectToken("timePlayed").ToString(), CultureInfo.InvariantCulture)),
+                RoundsPlayed = Convert.ToInt32(overviewStatsToken.SelectToken("numRounds").ToString()),
                 ScorePerMinute = Convert.ToDouble(overviewStatsToken.SelectToken("scorePerMinute").ToString()),
                 KillDeathRatio = Math.Round((Convert.ToDouble(overviewStatsToken.SelectToken("kills").ToString()) / Convert.ToDouble(overviewStatsToken.SelectToken("deaths").ToString())), 2),
                 //KillDeathRatio = Convert.ToDouble(overviewStatsToken.SelectToken("kdRatio").ToString()),
@@ -397,16 +398,22 @@ namespace BattlelogMobile.Core.Service
 
             foreach (var weaponsToken in jObject.SelectToken("data").SelectToken("mainWeaponStats"))
             {
-                string guid = weaponsToken.SelectToken("guid").ToString();
+                int kills = Convert.ToInt32(weaponsToken.SelectToken("kills").ToString());
+                if (kills == 0)
+                    continue;
+
                 var weapon = new Item()
                 {
                     Name = weaponsToken.SelectToken("name").ToString().ToUpperInvariant(),
                     Slug = weaponsToken.SelectToken("slug").ToString().ToUpperInvariant(),
-                    Kills = Convert.ToInt32(weaponsToken.SelectToken("kills").ToString()),
+                    Kills = kills,
                     Headshots = Convert.ToInt32(weaponsToken.SelectToken("headshots").ToString().ToUpperInvariant()),
-                    ServiceStars = Convert.ToInt32(weaponsToken.SelectToken("serviceStars").ToString())
+                    ServiceStars = Convert.ToInt32(weaponsToken.SelectToken("serviceStars").ToString()),
+                    ShotsFired = Convert.ToInt32(weaponsToken.SelectToken("shotsFired").ToString()),
+                    Accuracy = Convert.ToDouble(weaponsToken.SelectToken("accuracy").ToString()) * 100d
                 };
 
+                string guid = weaponsToken.SelectToken("guid").ToString();
                 string image = jObject.SelectToken("data").SelectToken("gadgetsLocale").SelectToken("weapons").SelectToken(guid).SelectToken("image") + Common.ImageSuffix;
                 weapon.ImageName = image;
                 //if (!image.Contains(AmericanImageSuffix) && (!image.Contains(RussianImageSuffix)) && !_duplicateWeaponSlugs.Contains(weapon.Slug))

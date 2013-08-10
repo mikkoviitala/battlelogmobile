@@ -27,6 +27,7 @@ namespace BattlelogMobile.Core.Model
         }
         public string RankImageName { get; set; }
         public TimeSpan TimePlayed { get; set; }    // timePlayed
+        public int RoundsPlayed { get; set; }
         public double Skill { get; set; }           // elo
         public double KillDeathRatio { get; set; }  // kdRatio
         public int Wins                             // numWins

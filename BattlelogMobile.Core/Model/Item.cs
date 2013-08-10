@@ -34,6 +34,9 @@ namespace BattlelogMobile.Core.Model
         }
         public string ImageName { get; set; }
 
+        public int ShotsFired { get; set; }
+        public double Accuracy { get; set; }
+
         public int Performance { get; set; }
         public string PerformanceDescription { get; set; }
 

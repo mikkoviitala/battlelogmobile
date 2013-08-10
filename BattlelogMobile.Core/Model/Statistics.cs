@@ -18,7 +18,7 @@ namespace BattlelogMobile.Core.Model
         public int Heals { get; set; }                      // heals
         public int Resupplies { get; set; }                 // resupplies
 
-        public double Quits { get; set; }	                    // quitPercentage
+        public double Quits { get; set; }	                // quitPercentage
         public int MCOMDefendKills { get; set; }            // mcomDefendKills
         public int MCOMDestroyed { get; set; }	            // mcomDestroy
         public int FlagsCaptured { get; set; }              // flagCaptures

@@ -17,6 +17,10 @@ namespace BattlelogMobile.Core.Model
         BitmapImage Image { get; set; }
         string ImageName { get; set; }
 
+        // Weapon related
+        int ShotsFired { get; set; }
+        double Accuracy { get; set; }
+
         // Gadget related
         int Performance { get; set; }
         string PerformanceDescription { get; set; }
