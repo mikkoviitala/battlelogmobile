@@ -39,6 +39,7 @@ namespace BattlelogMobile.Client.ViewModel
             Messenger.Default.Register<SoldierVisibleMessage>(this, SoldierVisibleMessageReceived);
             Messenger.Default.Register<DialogMessage>(this, message => ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() => ServerMessage = message.Content));
             Messenger.Default.Register<SerializationFailedMessage>(this, SerializationFailedMessageReceived);
+            //Messenger.Default.Register<UpdateRequestedMessage>(this, UpdateRequestedMessageReceived);
 
             LogInCommand = new RelayCommand(() => LogInCommandReceived(), CanExecuteLogInCommand);
             CredentialsRepository = credentialsRepository;
@@ -181,6 +182,12 @@ namespace BattlelogMobile.Client.ViewModel
             Task.Factory.StartNew(() => ResetControls());
             MessageBox.Show(message.Message, "Oh noes!", MessageBoxButton.OK);
         }
+
+        //private void UpdateRequestedMessageReceived(UpdateRequestedMessage message)
+        //{
+        //    ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+        //        StatusInformation = message.Message);
+        //}
 
         /// <summary>
         /// When soldier information is shown, reset login UI.

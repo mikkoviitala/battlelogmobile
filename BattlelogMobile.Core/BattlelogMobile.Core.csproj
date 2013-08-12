@@ -100,6 +100,7 @@
     <Compile Include="Message\SerializationFailedMessage.cs" />
     <Compile Include="Message\SoldierLoadedMessage.cs" />
     <Compile Include="Message\SoldierVisibleMessage.cs" />
+    <Compile Include="Message\UpdateRequestedMessage.cs" />
     <Compile Include="Message\UserIdAndPlatformResolvedMessage.cs" />
     <Compile Include="Model\Award.cs" />
     <Compile Include="Model\BaseModel.cs" />

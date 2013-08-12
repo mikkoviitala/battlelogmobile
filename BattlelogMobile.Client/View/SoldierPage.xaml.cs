@@ -81,6 +81,7 @@ namespace BattlelogMobile.Client.View
         private void UpdateMenuItemClick(object sender, EventArgs e)
         {
             ToggleUIState(false);
+            //Messenger.Default.Send(new UpdateRequestedMessage("Please wait..."));
             Messenger.Default.Send(new BattlelogCredentialsAcceptedMessage(ViewModelLocator.MainStatic.Email, true));
         }
 
