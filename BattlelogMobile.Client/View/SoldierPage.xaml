@@ -448,13 +448,13 @@
                                 <TextBlock Grid.Row="1" Grid.Column="1" 
                                            Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Top" Margin="0"
                                            Visibility="{Binding Performance, Converter={StaticResource IntegerVisibilityConverter}}">
-                                           <Run Text="{Binding Performance, Converter={StaticResource IntegerStringConverter}}" />
+                                           <Run Text="{Binding Performance}" />
                                            <Run Text="{Binding PerformanceDescription}" />
                                 </TextBlock>
                                 <TextBlock Grid.Row="2" Grid.Column="1" 
                                            Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Top" Margin="0"
                                            Visibility="{Binding Kills, Converter={StaticResource IntegerVisibilityConverter}}">
-                                           <Run Text="{Binding Kills, Converter={StaticResource IntegerStringConverter}}" />
+                                           <Run Text="{Binding Kills}" />
                                            <Run Text="kills" />
                                 </TextBlock>
                              </Grid>
