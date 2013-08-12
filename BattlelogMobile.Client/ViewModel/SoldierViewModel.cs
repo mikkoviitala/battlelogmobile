@@ -24,13 +24,18 @@ namespace BattlelogMobile.Client.ViewModel
     public class SoldierViewModel : BaseViewModel
     {
         private ISoldier _soldier;
+        private bool _backgroundEnabled;
 
-        public SoldierViewModel() : this(new BattlelogRepository(new DownloadService(ViewModelLocator.CookieJar)))
+        public SoldierViewModel() 
+            : this(new FileSettingsRepository(), new BattlelogRepository(new DownloadService(ViewModelLocator.CookieJar)))
         {}
 
-        public SoldierViewModel(IBattlelogRepository battlelogRepository)
+        public SoldierViewModel(ISettingsRepository settingsRepository, IBattlelogRepository battlelogRepository)
         {
+            SettingsRepository = settingsRepository;
             BattlelogRepository = battlelogRepository;
+
+            LoadSettings();
 
             // Credentials are ok, download information
             Messenger.Default.Register<BattlelogCredentialsAcceptedMessage>(this, message => 
@@ -50,6 +55,8 @@ namespace BattlelogMobile.Client.ViewModel
         }
 
         public IBattlelogRepository BattlelogRepository { get; set; }
+
+        public ISettingsRepository SettingsRepository { get; set; }
 
         public ISoldier Soldier
         {
@@ -112,6 +119,23 @@ namespace BattlelogMobile.Client.ViewModel
                     where kit.Type == KitType.Support || kit.Type == KitType.Recon
                     select kit);
             }
+        }
+
+        public bool BackgroundEnabled
+        {
+            get { return _backgroundEnabled; }
+            set 
+            {
+                if (_backgroundEnabled != value)
+                    SettingsRepository.Save(new Settings() { BackgroundEnabled = value } );
+                _backgroundEnabled = value;
+                RaisePropertyChanged("BackgroundEnabled"); }
+        }
+
+        private void LoadSettings()
+        {
+            var settings = SettingsRepository.Load();
+            _backgroundEnabled = settings.BackgroundEnabled;
         }
     }
 }

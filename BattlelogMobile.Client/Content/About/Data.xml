@@ -56,8 +56,7 @@
     <!-- The Title attribute defines the title of the pivot item -->
     <!-- Each Item can be a remote item (fetched from a Uri) or a local item (using its content), or both (local content is the fallback value if fetching the network content fails) -->
     <!-- Supported types are "text" and "xaml", where text is nicely formatted automatically, and XAML is handled by the built-in XamlReader -->
-    <Item Title="Contributions"
-          Type="text">
+    <Item Title="Contributions" Type="text">
       Lead Developer
       Mikko Viitala (Mustavuori @ Battlelog)
 
@@ -70,17 +69,19 @@
       Terri Hyland (3ximius @ Battlelog)
       Loz Slater
       James Havens
+      Background image Wallpaperswide.com, dante3200
+      
 
       Participate!
       If you want to contribute in any way or just find out what is being developed for the next release, visit http://mikkoviitala.github.com/battlelogmobile
     </Item>
     <Item Title="History" Type="text">
       v2.1
-      Lot of new statistics
-      All statistics are saved locally
-      Added manual update functionality
-      Removed automatic update functionality
       Performance improvements
+      New soldier statistics
+      All statistics are saved locally
+      Changed update logic
+      Added background image
 
       v2.0
       Adapted to generic Battlelog changes

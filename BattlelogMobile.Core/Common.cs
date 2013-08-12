@@ -9,7 +9,7 @@
         public const string StatusInformationDownloading = "Downloading";
         public const string StatusInformationSeekingContent = "Seeking content";
         public const string StatusInformationPreparingStatistics = "Preparing statistics";
-        public const string ServerMessageUrl = "http://www.losninosdelsol.net/battlelogmobile/message.txt";
+        public const string ServerMessageUrl = "http://www.losninosdelsol.net/battlelogmobile/message.txt?nocache={0}";
 
         public const string HttpPostMethod = "POST";
         public const string HttpGetMethod = "GET";

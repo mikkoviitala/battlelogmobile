@@ -18,7 +18,6 @@ namespace BattlelogMobile.Core.Repository
             StorageFile = storageFile;
         }
 
-
         public IsolatedStorageFile StorageFile { get; set; }
 
         public void Save(ICredentials credentials)
