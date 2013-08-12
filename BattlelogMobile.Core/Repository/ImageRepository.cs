@@ -28,7 +28,12 @@ namespace BattlelogMobile.Core.Repository
 
         public void Load(string imageUrl, string imageName, Action<BitmapImage> callback, string imageSaveName = null)
         {
-            BitmapImage image = Load(imageName);
+            BitmapImage image;
+            
+            if (imageSaveName != null)
+                image = Load(imageSaveName);
+            else
+                image = Load(imageName);
 
             if (image != null)
               callback.Invoke(image);
