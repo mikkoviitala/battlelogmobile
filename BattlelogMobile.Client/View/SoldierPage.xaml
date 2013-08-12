@@ -519,7 +519,7 @@
 
                     <TextBlock Grid.Row="7" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Vehicles destroyed" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="7" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.VehiclesDestroyed}" 
+                               Text="{Binding Soldier.Statistics.VehiclesDestroyed, Converter={StaticResource IntegerStringConverter}}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
 
                     <TextBlock Grid.Row="8" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Destroy assist" VerticalAlignment="Center"/>
@@ -596,7 +596,8 @@
 
                     <TextBlock Grid.Row="9" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Resupplies" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="9" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.Resupplies, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                               Text="{Binding Soldier.Statistics.Resupplies, Converter={StaticResource IntegerStringConverter}}" 
+                               HorizontalAlignment="Right" VerticalAlignment="Center" />
                 </Grid>
             </controls:PanoramaItem>
 
