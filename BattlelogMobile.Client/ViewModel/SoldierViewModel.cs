@@ -105,7 +105,7 @@ namespace BattlelogMobile.Client.ViewModel
             {
                 return new ObservableCollection<IKit>(
                     from kit in Soldier.Score.Kits
-                    where kit.Type == KitType.Assault || kit.Type == KitType.Engineer
+                    where kit.Type == KitType.Assault || kit.Type == KitType.Support
                     select kit);
             }
         }
@@ -116,7 +116,7 @@ namespace BattlelogMobile.Client.ViewModel
             {
                 return new ObservableCollection<IKit>(
                     from kit in Soldier.Score.Kits
-                    where kit.Type == KitType.Support || kit.Type == KitType.Recon
+                    where kit.Type == KitType.Engineer || kit.Type == KitType.Recon
                     select kit);
             }
         }
