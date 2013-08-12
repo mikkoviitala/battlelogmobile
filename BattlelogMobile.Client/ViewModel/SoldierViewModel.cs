@@ -83,7 +83,7 @@ namespace BattlelogMobile.Client.ViewModel
             {
                 return new ObservableCollection<IKitProgression>(
                     from kitProgression in Soldier.KitProgressions
-                    where kitProgression.Type == KitType.Assault || kitProgression.Type == KitType.Engineer
+                    where kitProgression.Type == KitType.Assault || kitProgression.Type == KitType.Support
                     select kitProgression);
             }
         }
@@ -94,7 +94,7 @@ namespace BattlelogMobile.Client.ViewModel
             {
                 return new ObservableCollection<IKitProgression>(
                     from kitProgression in Soldier.KitProgressions
-                    where kitProgression.Type == KitType.Support || kitProgression.Type == KitType.Recon
+                    where kitProgression.Type == KitType.Engineer || kitProgression.Type == KitType.Recon
                     select kitProgression);
             }
         }
