@@ -232,11 +232,11 @@ namespace BattlelogMobile.Client.ViewModel
             dispatchTimer.Start();
 
             var streamTask = request.GetRequestStreamAsync();
-            {
+            
                 var requestStream = await streamTask.ConfigureAwait(false);
                 using (var writer = new StreamWriter(requestStream))
                 {
-                    writer.Write(ConstructPostData(Email, Password));
+                    await writer.WriteAsync(ConstructPostData(Email, Password)).ConfigureAwait(false);
                     writer.Close();
                 }
 
@@ -280,7 +280,7 @@ namespace BattlelogMobile.Client.ViewModel
                     ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
                         UserInterfaceEnabled = true);
                 }
-            }
+            
         }
 
         private bool CanExecuteLogInCommand()
