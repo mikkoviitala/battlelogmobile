@@ -44,7 +44,7 @@ namespace BattlelogMobile.Core.Service
                 var response = (HttpWebResponse) await task.ConfigureAwait(false);
                 var responseStream = response.GetResponseStream();
                 var reader = new StreamReader(responseStream);
-                string message = reader.ReadToEnd();
+                string message = await reader.ReadToEndAsync().ConfigureAwait(false);
                 response.Close();
                 if (message.Length > 0)
                     Messenger.Default.Send(new DialogMessage(this, null, message, null));
