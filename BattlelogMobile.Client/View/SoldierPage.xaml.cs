@@ -194,7 +194,7 @@ namespace BattlelogMobile.Client.View
                     return;
 
                 MessageBox.Show(
-                    "Go to Battlelog website and change your Active Soldier to choose which statistics you'll receive.",
+                    "Go to Battlelog website and change your Active Soldier to control which statistics are shown on your mobile.",
                     "Pro tip!", MessageBoxButton.OK);
 
                 IsolatedStorageSettings.ApplicationSettings[TipPromptedKey] = true;
