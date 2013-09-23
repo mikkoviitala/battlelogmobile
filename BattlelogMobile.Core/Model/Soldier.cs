@@ -12,9 +12,6 @@ namespace BattlelogMobile.Core.Model
         private int _wins;
         private int _losses;
 
-        public Soldier()
-        {}
-
         [ExcludeFromSerialization]
         public DateTime UpdateTime { get; set; }
         public IUser User { get; set; }

@@ -122,7 +122,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converter\BoolVisibilityConverter.cs" />
-    <Compile Include="Converter\KillsAndAssistsStringConverter.cs" />
     <Compile Include="Converter\DoublePercentageStringConverter.cs" />
     <Compile Include="Converter\DoubleStringConverter.cs" />
     <Compile Include="Converter\IntegerStringConverter.cs" />

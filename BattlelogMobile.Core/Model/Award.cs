@@ -8,7 +8,7 @@ namespace BattlelogMobile.Core.Model
     public class Award : BaseModel, IAward
     {
         private BitmapImage _bitmap;
-        private const string RibbonsGroup = "AwardGroup_Ribbons";
+        //private const string RibbonsGroup = "AwardGroup_Ribbons";
         private const string MedalsGroup = "AwardGroup_Medals";
         
         // 1.2 * original size...

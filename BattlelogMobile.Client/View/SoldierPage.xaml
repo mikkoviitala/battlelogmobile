@@ -26,7 +26,7 @@
         <conv:TimeSpanStringConverter x:Key="TimeSpanStringConverter" />
         <conv:IntegerStringConverter x:Key="IntegerStringConverter" />
         <conv:DoublePercentageStringConverter x:Key="DoublePercentageStringConverter" />
-        <conv:KillsAndAssistsStringConverter x:Key="KillsAndAssistsStringConverter" />
+        <!--<conv:KillsAndAssistsStringConverter x:Key="KillsAndAssistsStringConverter" />-->
         <conv:IntegerVisibilityConverter x:Key="IntegerVisibilityConverter" />
     </phone:PhoneApplicationPage.Resources>
 
