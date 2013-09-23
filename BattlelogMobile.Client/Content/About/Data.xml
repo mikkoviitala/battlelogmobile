@@ -77,6 +77,10 @@
       If you want to contribute in any way or just find out what is being developed for the next release, visit http://mikkoviitala.github.com/battlelogmobile
     </Item>
     <Item Title="History" Type="text">
+      v2.2
+      Annoying tip prompts on startup
+      Fixed bug when showing new soldiers
+
       v2.1
       Performance improvements
       New soldier statistics

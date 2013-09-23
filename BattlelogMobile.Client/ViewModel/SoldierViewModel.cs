@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Windows;
 using BattlelogMobile.Core;
 using BattlelogMobile.Core.Message;
@@ -8,16 +7,6 @@ using BattlelogMobile.Core.Repository;
 using System.Linq;
 using BattlelogMobile.Core.Service;
 using GalaSoft.MvvmLight.Messaging;
-using Microsoft.Phone.Shell;
-using System;
-using System.IO.IsolatedStorage;
-using System.Windows;
-using BattlelogMobile.Core.Message;
-using GalaSoft.MvvmLight.Messaging;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Tasks;
-using Tomers.Phone.Controls;
-using BattlelogMobile.Client.ViewModel;
 
 namespace BattlelogMobile.Client.ViewModel
 {

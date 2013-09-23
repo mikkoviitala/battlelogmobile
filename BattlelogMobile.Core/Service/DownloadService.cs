@@ -49,7 +49,7 @@ namespace BattlelogMobile.Core.Service
                 if (message.Length > 0)
                     Messenger.Default.Send(new DialogMessage(this, null, message, null));
             }
-            catch (WebException we)
+            catch (WebException)
             {
                 // Omitted
             }

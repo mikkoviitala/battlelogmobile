@@ -10,7 +10,6 @@ using BattlelogMobile.Core.Repository;
 using GalaSoft.MvvmLight.Messaging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Polenter.Serialization;
 
 namespace BattlelogMobile.Core.Service
 {
@@ -79,7 +78,11 @@ namespace BattlelogMobile.Core.Service
             {
                 string[] parts = kit.ToString().Split(':');
                 var kitType = (KitType)Convert.ToInt32(parts[0].Substring(parts[0].IndexOf('"') + 1, parts[0].LastIndexOf('"') - 1));
-                int kitScore = Convert.ToInt32(parts[1].Substring(parts[1].IndexOf('"') + 1, parts[1].LastIndexOf('"') - 2));
+
+                int kitScore = 0;
+                if (parts[1].Contains("\""))
+                    kitScore = Convert.ToInt32(parts[1].Substring(parts[1].IndexOf('"') + 1, parts[1].LastIndexOf('"') - 2));
+                
                 string kitImage = kitType.ToString().ToLowerInvariant() + Common.ImageSuffix;
 
                 var k = new Kit() { Type = kitType, Score = kitScore, ImageName = kitImage };
@@ -98,9 +101,11 @@ namespace BattlelogMobile.Core.Service
             {
                 string[] parts = kit.ToString().Split(':');
                 var kitType = (KitType)Convert.ToInt32(parts[0].Substring(parts[0].IndexOf('"') + 1, parts[0].LastIndexOf('"') - 1));
-                var kitTime = TimeSpan.FromSeconds(
-                    Convert.ToDouble(parts[1].Substring(parts[1].IndexOf('"') + 1, parts[1].LastIndexOf('"') - 2),
-                        CultureInfo.InvariantCulture));
+
+                TimeSpan kitTime = TimeSpan.FromSeconds(0);
+                if (parts[1].Contains("\""))
+                    kitTime = TimeSpan.FromSeconds(
+                        Convert.ToDouble(parts[1].Substring(parts[1].IndexOf('"') + 1, parts[1].LastIndexOf('"') - 2), CultureInfo.InvariantCulture));
                 (kits.First(kitScore => kitScore.Type == kitType)).Time = kitTime;
             }
 

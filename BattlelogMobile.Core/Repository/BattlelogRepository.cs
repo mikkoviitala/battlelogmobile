@@ -7,11 +7,6 @@ using System.IO.IsolatedStorage;
 using Polenter.Serialization;
 using System.IO;
 using System;
-using System.Linq;
-using Polenter.Serialization.Core;
-using System.Globalization;
-using System.Windows;
-using System.Windows.Navigation;
 
 namespace BattlelogMobile.Core.Repository
 {
@@ -43,11 +38,9 @@ namespace BattlelogMobile.Core.Repository
 
         public bool IsSerialized
         {
-            get 
+            get
             {
-                if (CurrentUser == null)
-                    return false;
-                return _storage.FileExists(CurrentUser);
+                return CurrentUser != null && _storage.FileExists(CurrentUser);
             }
         }
 
@@ -73,12 +66,9 @@ namespace BattlelogMobile.Core.Repository
 
         private void ClearCache()
         {
-            if (IsSerialized)
-            {
-                if (CurrentUser != null)
-                    if (_storage.FileExists(CurrentUser))
-                        _storage.DeleteFile(CurrentUser);
-            }
+            if (CurrentUser != null)
+                if (_storage.FileExists(CurrentUser))
+                    _storage.DeleteFile(CurrentUser);
         }
 
         private void Reset()
@@ -145,7 +135,7 @@ namespace BattlelogMobile.Core.Repository
 
         private void Serialize(ISoldier soldier)
         {
-            using (var file = _storage.OpenFile(CurrentUser, FileMode.OpenOrCreate))
+            using (var file = _storage.OpenFile(CurrentUser, FileMode.Create))
             {
                 try
                 {

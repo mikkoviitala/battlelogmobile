@@ -30,6 +30,7 @@ namespace BattlelogMobile.Client.View
         private const string NextRatingPromptKey = "NextRatingPrompt";
         private const string RatingUniqueIdentifier = "RatingMsgPrompt";
         private const string InfoPromptedKey = "InfoPrompted";
+        private const string TipPromptedKey = "TipPrompted";
 
         private const int DefaultNextRatingPrompt = 5;
         private static bool _ratingPrompted;
@@ -64,6 +65,7 @@ namespace BattlelogMobile.Client.View
         {
             ToggleUIState(true);
             ShowInfoPrompt();
+            ShowTipPrompt();
             ShowRatingPrompt();
         }
 
@@ -172,6 +174,24 @@ namespace BattlelogMobile.Client.View
 
                     IsolatedStorageSettings.ApplicationSettings[InfoPromptedKey] = true;
                 });
+        }
+
+        private void ShowTipPrompt()
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                bool tipPrompted;
+                IsolatedStorageSettings.ApplicationSettings.TryGetValue(TipPromptedKey, out tipPrompted);
+
+                if (tipPrompted)
+                    return;
+
+                MessageBox.Show(
+                    "Go to Battlelog website and change your Active Soldier to choose which statistics you'll receive.",
+                    "Pro tip!", MessageBoxButton.OK);
+
+                IsolatedStorageSettings.ApplicationSettings[InfoPromptedKey] = true;
+            });
         }
     }
 }
