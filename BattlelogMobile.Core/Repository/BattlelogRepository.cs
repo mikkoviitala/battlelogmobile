@@ -135,26 +135,33 @@ namespace BattlelogMobile.Core.Repository
 
         private void Serialize(ISoldier soldier)
         {
+            bool errorOccured = false;
+
             using (var file = _storage.OpenFile(CurrentUser, FileMode.Create))
             {
                 try
                 {
                     var serializer = new SharpSerializer(true);
                     serializer.Serialize(soldier as Soldier, file);
-                    file.Close();
                 }
                 catch (Exception)
                 {
-                    file.Close();
-                    ClearCache();
-                    Messenger.Default.Send(new SerializationFailedMessage(Common.SerializationFailed));
+                    errorOccured = true;
                 }
+            }
+
+            if (errorOccured)
+            {
+                ClearCache();
+                Messenger.Default.Send(new SerializationFailedMessage(Common.SerializationFailed));
             }
         }
 
         private ISoldier Deserialize()
         {
-            ISoldier soldier;
+            ISoldier soldier = null;
+            bool errorOccured = false;
+
             using (var file = _storage.OpenFile(CurrentUser, FileMode.Open))
             {
                 var serializer = new SharpSerializer(true);
@@ -165,43 +172,47 @@ namespace BattlelogMobile.Core.Repository
                 }
                 catch (Exception)
                 {
-                    file.Close();
-                    ClearCache();
-                    soldier = null;
-                    Messenger.Default.Send(new SerializationFailedMessage(Common.DeserializationFailed));
+                    errorOccured = true;
                 }
             }
+
+            if (errorOccured)
+            {
+                ClearCache();
+                Messenger.Default.Send(new SerializationFailedMessage(Common.DeserializationFailed));
+            }
+
             return soldier;
         }
 
-        private void ApplyImages(ISoldier soldier)
+        private static void ApplyImages(ISoldier soldier)
         {
-            var _imageRepository = new ImageRepository();
+            var imageRepository = new ImageRepository();
 
             foreach (var kit in soldier.Score.Kits)
-                kit.Image = _imageRepository.Load(kit.ImageName);
+                kit.Image = imageRepository.Load(kit.ImageName);
 
             foreach (var kitProgression in soldier.KitProgressions)
-                kitProgression.Image = _imageRepository.Load(Common.ServiceStarImage);
+                kitProgression.Image = imageRepository.Load(Common.ServiceStarImage);
 
-            soldier.RankImage = _imageRepository.Load(soldier.RankImageName);
+            soldier.RankImage = imageRepository.Load(soldier.RankImageName);
 
-            soldier.User.Image = _imageRepository.Load(soldier.User.GravatarMd5);
+            soldier.User.Image = imageRepository.Load(soldier.User.GravatarMd5);
 
             foreach (var award in soldier.Awards)
-                award.Image = _imageRepository.Load(award.ImageSaveName);
+                award.Image = imageRepository.Load(award.ImageSaveName);
 
             foreach (var vehicle in soldier.Vehicles)
-                vehicle.Image = _imageRepository.Load(vehicle.ImageName);
+                vehicle.Image = imageRepository.Load(vehicle.ImageName);
 
             foreach (var gadget in soldier.Gadgets)
-                gadget.Image = _imageRepository.Load(gadget.ImageName);
+                gadget.Image = imageRepository.Load(gadget.ImageName);
 
-            var serviceStarImage = _imageRepository.Load(Common.ServiceStarImage);
+            var serviceStarImage = imageRepository.Load(Common.ServiceStarImage);
             foreach (var weapon in soldier.Weapons)
             {
                 weapon.ServiceStarImage = serviceStarImage;
-                weapon.Image = _imageRepository.Load(weapon.ImageName);
+                weapon.Image = imageRepository.Load(weapon.ImageName);
             }
         }
     }

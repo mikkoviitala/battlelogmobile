@@ -79,22 +79,6 @@ namespace BattlelogMobile.Core.Service
             {
                 Messenger.Default.Send(new BattlelogResponseMessage(we.Message, false));
             }
-
-            //var client = new SharpGIS.GZipWebClient();
-            //client.OpenReadCompleted += (s, e) =>
-            //    {
-            //        try
-            //        {
-            //            Stream stream = e.Result;
-            //            userIdAndPlatformUserIdAndPlatformResolver.Resolve(stream);
-            //            stream.Close();
-            //        }
-            //        catch (WebException we)
-            //        {
-            //            Messenger.Default.Send(new BattlelogResponseMessage(we.Message, false));
-            //        }
-            //    };
-            //client.OpenReadAsync(new Uri(url), client);
         }
 
         public void  GetFile(string url, string isolatedStorageFile)
@@ -108,9 +92,8 @@ namespace BattlelogMobile.Core.Service
                         using (var writer = new StreamWriter(_isolatedStorage.OpenFile(isolatedStorageFile, FileMode.Create)))
                         {
                             writer.Write(responseStream);
-                            writer.Close();
-                            Messenger.Default.Send(new BattlelogResponseMessage(this, Common.StatusInformationDownloading, true));
                         }
+                        Messenger.Default.Send(new BattlelogResponseMessage(this, Common.StatusInformationDownloading, true));
                     }
                     catch (WebException we)
                     {

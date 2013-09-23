@@ -2,7 +2,6 @@
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Net;
-using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Windows.Resources;
 
@@ -40,11 +39,6 @@ namespace BattlelogMobile.Core.Repository
             else
                 Download(imageUrl, imageName, callback, imageSaveName);
         }
-
-        //public void Save(string imageUrl)
-        //{
-        //    ThreadPool.QueueUserWorkItem(GetImage, imageUrl);
-        //}
 
         private void Download(string imageUrl, string imageName, Action<BitmapImage> callBack, string imageSaveName)
         {

@@ -56,7 +56,7 @@ namespace BattlelogMobile.Core.Service
             catch (Exception e)
             {
                 if (e is JsonReaderException || e is IOException || e is ArgumentException || e is FormatException || e is NullReferenceException)
-                    Messenger.Default.Send(new BattlelogResponseMessage(Common.JSONParseFailedMessage, false));
+                    Messenger.Default.Send(new BattlelogResponseMessage(Common.JsonParseFailedMessage, false));
                 else
                     throw;
                 return null;
@@ -339,7 +339,6 @@ namespace BattlelogMobile.Core.Service
             using (var reader = new StreamReader(_isolatedStorage.OpenFile(file, FileMode.Open)))
             {
                 completeJson = reader.ReadToEnd();
-                reader.Close();
             }
             JObject jObject = JObject.Parse(completeJson);
 
@@ -397,7 +396,6 @@ namespace BattlelogMobile.Core.Service
             using (var reader = new StreamReader(_isolatedStorage.OpenFile(file, FileMode.Open)))
             {
                 completeJson = reader.ReadToEnd();
-                reader.Close();
             }
             JObject jObject = JObject.Parse(completeJson);
 

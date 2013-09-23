@@ -54,7 +54,7 @@
         public const string RibbonAwardSavePrefix = "ribbon_";
         public const string MedalAwardSavePrefix = "medal_";
         public const string ImageSuffix = ".png";
-        public const string JSONParseFailedMessage = "Couldn't read soldier information";
+        public const string JsonParseFailedMessage = "Couldn't read soldier information";
 
         public const string SerializationFailed = "Something funky occured while saving your soldier... :(";
         public const string DeserializationFailed = "Something funky occured while loading your soldier... :(";

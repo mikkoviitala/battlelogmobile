@@ -61,8 +61,7 @@ namespace BattlelogMobile.Core.Service
             {
                 if (e is ArgumentException || e is FormatException)
                     return false;
-                else
-                    throw;
+                throw;
             }
         }
     }

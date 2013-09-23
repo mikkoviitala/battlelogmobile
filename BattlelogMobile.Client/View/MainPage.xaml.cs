@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Device.Location;
 
@@ -7,9 +8,9 @@ namespace BattlelogMobile.Client.View
     /// <summary>
     /// MainPage
     /// </summary>
-    public partial class MainPage
+    public partial class MainPage : IDisposable
     {
-        private readonly GeoCoordinateWatcher _watcher;
+        private GeoCoordinateWatcher _watcher;
 
         public MainPage()
         {
@@ -74,6 +75,24 @@ namespace BattlelogMobile.Client.View
             while (NavigationService.RemoveBackEntry() != null)
                 NavigationService.RemoveBackEntry();
             base.OnBackKeyPress(e);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_watcher != null)
+                {
+                    _watcher.Dispose();
+                    _watcher = null;
+                }
+            }
         }
     }
 }

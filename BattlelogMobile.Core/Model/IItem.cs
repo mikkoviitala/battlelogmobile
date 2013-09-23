@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 
 namespace BattlelogMobile.Core.Model

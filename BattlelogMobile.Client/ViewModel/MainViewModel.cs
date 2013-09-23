@@ -20,6 +20,7 @@ namespace BattlelogMobile.Client.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
+        private const string FailedMessageHeader = "Oh noes!";
         private readonly INavigationService _navigationService = new NavigationService();
         private string _email;
         private string _password;
@@ -39,20 +40,19 @@ namespace BattlelogMobile.Client.ViewModel
             Messenger.Default.Register<SoldierVisibleMessage>(this, SoldierVisibleMessageReceived);
             Messenger.Default.Register<DialogMessage>(this, message => ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() => ServerMessage = message.Content));
             Messenger.Default.Register<SerializationFailedMessage>(this, SerializationFailedMessageReceived);
-            //Messenger.Default.Register<UpdateRequestedMessage>(this, UpdateRequestedMessageReceived);
-
-            LogInCommand = new RelayCommand(() => LogInCommandReceived(), CanExecuteLogInCommand);
+            
             CredentialsRepository = credentialsRepository;
-            LoadCredentials();
+            LoadedCommand = new RelayCommand(LoadCredentials);
+            LogInCommand = new RelayCommand(() => LogInCommandReceived(), CanExecuteLogInCommand);
 
             var task = new Task(() => 
                 (new DownloadService(ViewModelLocator.CookieJar)).RetrieveServerMessage(string.Format(Common.ServerMessageUrl, DateTime.Now.Ticks.ToString())));
             task.Start();
-
-            //(new DownloadService(ViewModelLocator.CookieJar)).RetrieveServerMessage(Common.ServerMessageUrl);
         }
 
         public ICredentialsRepository CredentialsRepository { get; set; }
+
+        public RelayCommand LoadedCommand { get; set; }
 
         public RelayCommand LogInCommand { get; private set; }
 
@@ -91,9 +91,6 @@ namespace BattlelogMobile.Client.ViewModel
             get { return _userInterfaceEnabled; }
             set
             {
-                //if (_userInterfaceEnabled != value)
-                //    GlobalLoading.Instance.IsLoading = !value;
-
                 _userInterfaceEnabled = value;
                 RaisePropertyChanged("UserInterfaceEnabled"); 
                 LogInCommand.RaiseCanExecuteChanged();
@@ -166,7 +163,7 @@ namespace BattlelogMobile.Client.ViewModel
                 StatusInformation = message.Message);
 
             var currentPage = ((App)Application.Current).RootFrame.Content as PhoneApplicationPage;
-            if (currentPage.GetType() == typeof(BattlelogMobile.Client.View.MainPage))
+            if (currentPage != null && currentPage.GetType() == typeof(View.MainPage))
             {
                 ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
                     _navigationService.NavigateTo(ViewModelLocator.SoldierPageUri));
@@ -179,15 +176,9 @@ namespace BattlelogMobile.Client.ViewModel
 
         private void SerializationFailedMessageReceived(SerializationFailedMessage message)
         {
-            Task.Factory.StartNew(() => ResetControls());
-            MessageBox.Show(message.Message, "Oh noes!", MessageBoxButton.OK);
+            Task.Factory.StartNew(ResetControls);
+            MessageBox.Show(message.Message, FailedMessageHeader, MessageBoxButton.OK);
         }
-
-        //private void UpdateRequestedMessageReceived(UpdateRequestedMessage message)
-        //{
-        //    ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-        //        StatusInformation = message.Message);
-        //}
 
         /// <summary>
         /// When soldier information is shown, reset login UI.

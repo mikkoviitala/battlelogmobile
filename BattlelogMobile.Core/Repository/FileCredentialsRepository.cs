@@ -29,7 +29,6 @@ namespace BattlelogMobile.Core.Repository
                 writer.WriteLine(credentials.Email);
                 writer.WriteLine(credentials.Password);
                 writer.WriteLine(credentials.RememberMe);
-                writer.Close();
             }
             IsolatedStorageSettings.ApplicationSettings["IsEncrypted"] = false;
         }
@@ -47,7 +46,6 @@ namespace BattlelogMobile.Core.Repository
                     credentials.Password = isEncrypted ? _crypto.Decrypt(reader.ReadLine()) : reader.ReadLine();
                     credentials.RememberMe = !string.IsNullOrEmpty(credentials.Password) && Convert.ToBoolean(reader.ReadLine());
                 }
-                reader.Close();
             }
             
             if (credentials.Email == null || credentials.Password == null || credentials.Password.Length > 20)

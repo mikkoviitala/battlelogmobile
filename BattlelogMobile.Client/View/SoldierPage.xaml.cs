@@ -7,12 +7,9 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
 using Tomers.Phone.Controls;
 using BattlelogMobile.Client.ViewModel;
-using System.Threading.Tasks;
 using Microsoft.Phone.Shell;
-using System.Threading;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Controls;
 
 namespace BattlelogMobile.Client.View
 {
@@ -35,8 +32,10 @@ namespace BattlelogMobile.Client.View
         private const int DefaultNextRatingPrompt = 5;
         private static bool _ratingPrompted;
         private static bool _isUpdating = false;
-        private ImageBrush _brush = new ImageBrush() { ImageSource = new BitmapImage(new Uri(BackgroundUri, UriKind.Relative)), Opacity = 0.25d };
-        private Brush _blackBrush = new SolidColorBrush(Colors.Black);
+        private readonly ImageBrush _brush = new ImageBrush() { ImageSource = new BitmapImage(new Uri(BackgroundUri, UriKind.Relative)), Opacity = 0.25d };
+        private readonly Brush _blackBrush = new SolidColorBrush(Colors.Black);
+
+        private readonly SoldierViewModel _soldierViewModel;
 
         /// <summary>
         /// Initializes a new instance of the SoldierPage class.
@@ -44,6 +43,7 @@ namespace BattlelogMobile.Client.View
         public SoldierPage()
         {
             InitializeComponent();
+            _soldierViewModel = DataContext as SoldierViewModel;
             Messenger.Default.Register<SoldierLoadedMessage>(this, SoldierLoadedMessageReceived);
         }
 
@@ -83,7 +83,6 @@ namespace BattlelogMobile.Client.View
         private void UpdateMenuItemClick(object sender, EventArgs e)
         {
             ToggleUIState(false);
-            //Messenger.Default.Send(new UpdateRequestedMessage("Please wait..."));
             Messenger.Default.Send(new BattlelogCredentialsAcceptedMessage(ViewModelLocator.MainStatic.Email, true));
         }
 
@@ -95,18 +94,22 @@ namespace BattlelogMobile.Client.View
 
         private bool BackgroundEnabled
         {
-            get { return (DataContext as SoldierViewModel).BackgroundEnabled; }
-            set { (DataContext as SoldierViewModel).BackgroundEnabled = value; }
+            get
+            {
+                return _soldierViewModel != null && _soldierViewModel.BackgroundEnabled;
+            }
+            set
+            {
+                if (_soldierViewModel != null) 
+                    _soldierViewModel.BackgroundEnabled = value;
+            }
         }
 
         private void ToggleUIState(bool isEnabled)
         {
             _isUpdating = !isEnabled;
 
-            if (isEnabled)
-                Opacity = 1d;
-            else
-                Opacity = 0.5d;
+            Opacity = isEnabled ? 1d : 0.5d;
 
             Panorama.IsEnabled = isEnabled;
             foreach (ApplicationBarIconButton button in ApplicationBar.Buttons)
@@ -115,19 +118,23 @@ namespace BattlelogMobile.Client.View
 
         private void SetBackground()
         {
+            var button = ApplicationBar.Buttons[1] as ApplicationBarIconButton;
+            if (button == null)
+                return;
+
             if (BackgroundEnabled)
             {
                 Panorama.Background = _brush;
-                (ApplicationBar.Buttons[1] as ApplicationBarIconButton).IconUri = (new Uri(UncheckedUri, UriKind.Relative));
+                button.IconUri = (new Uri(UncheckedUri, UriKind.Relative));
             }
             else
             {
                 Panorama.Background = _blackBrush; 
-                (ApplicationBar.Buttons[1] as ApplicationBarIconButton).IconUri = (new Uri(CheckedUri, UriKind.Relative));
+                button.IconUri = (new Uri(CheckedUri, UriKind.Relative));
             }
         }
 
-        private void ShowRatingPrompt()
+        private static void ShowRatingPrompt()
         {
             if (_ratingPrompted)
                 return;
@@ -190,7 +197,7 @@ namespace BattlelogMobile.Client.View
                     "Go to Battlelog website and change your Active Soldier to choose which statistics you'll receive.",
                     "Pro tip!", MessageBoxButton.OK);
 
-                IsolatedStorageSettings.ApplicationSettings[InfoPromptedKey] = true;
+                IsolatedStorageSettings.ApplicationSettings[TipPromptedKey] = true;
             });
         }
     }
