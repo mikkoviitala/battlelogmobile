@@ -379,8 +379,10 @@ namespace BattlelogMobile.Core.Service
                 _imageRepository.Load(Common.VehicleAndGadgetImageUrl, image, bitmap => { gadget.Image = bitmap; });
                 gadgets.Add(gadget);
             }
-            var sortedAndFiltered = gadgets.OrderByDescending(
-                g => g.Kills >= g.Performance ? g.Kills : g.Performance).ThenBy(g => g.Slug).ThenBy(g => g.Name); 
+
+            var sortedAndFiltered = gadgets.Where(g => g.Kills > 0 || g.Performance > 0).
+                OrderByDescending(g => g.Kills >= g.Performance ? g.Kills : g.Performance).
+                ThenBy(g => g.Slug).ThenBy(g => g.Name); 
             
             //return new Items(sortedAndFiltered);
             return sortedAndFiltered;

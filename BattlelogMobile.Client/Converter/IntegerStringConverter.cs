@@ -23,7 +23,8 @@ namespace BattlelogMobile.Client.Converter
                 formatted = "= " + formatted;
             else if (parameter != null)
                 formatted += parameter.ToString();
-            return formatted;
+
+            return formatted.Length == 0 ? "0" : formatted;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

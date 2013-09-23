@@ -64,21 +64,35 @@ namespace BattlelogMobile.Core.Service
                 {"r44", new Tuple<string, string>("MEDICAL EFFICIENCY", "In a round, get 5 Revives.")},
                 {"r45", new Tuple<string, string>("SURVEILLANCE EFFICIENCY", "In a round, get 5 motion Sensor Assists")},
                 {"tanksuperiorityribbon", new Tuple<string, string>("TANK SUPERIORITY", "Finish a Tank Superiority round")},
+                {"xp3rnts", new Tuple<string, string>("TANK SUPERIORITY", "Finish a Tank Superiority round")},
                 {"tanksuperiority2d", new Tuple<string, string>("TANK SUPERIORITY WINNER", "Win a Tank Superiority round")},
+                {"xp3rts", new Tuple<string, string>("TANK SUPERIORITY WINNER", "Win a Tank Superiority round")},
                 {"conquest_dominationribbon", new Tuple<string, string>("DOMINATION", "Finish a Domination round")},
+                {"xp4rndom", new Tuple<string, string>("DOMINATION", "Finish a Domination round")},
                 {"conquest_domination2d", new Tuple<string, string>("DOMINATION WINNER", "Win a Domination round")},
+                {"xp3rdom", new Tuple<string, string>("DOMINATION WINNER", "Win a Domination round")},
                 {"gmribbon", new Tuple<string, string>("GUN MASTER", "Finish a Gun Master round")},
+                {"xp3rngm", new Tuple<string, string>("GUN MASTER", "Finish a Gun Master round")},
                 {"gunmaster2d", new Tuple<string, string>("GUN MASTER WINNER", "Win a Gun Master round")},
+                {"xp2rgm", new Tuple<string, string>("GUN MASTER WINNER", "Win a Gun Master round")},
                 {"tdmcqribbon", new Tuple<string, string>("TDMCQ", "Finish a TDMCQ round")},
+                {"xp2rntdmcq", new Tuple<string, string>("TDMCQ", "Finish a TDMCQ round")},
                 {"tdmcq2d", new Tuple<string, string>("TDMCQ WINNER", "Win a TDMCQ round")},
+                {"xp2rtdmc", new Tuple<string, string>("TDMCQ WINNER", "Win a TDMCQ round")},
                 {"scavengerribbon", new Tuple<string, string>("SCAVENGER", "Finish a Scavenger round")},
+                {"xp4rnscv", new Tuple<string, string>("SCAVENGER", "Finish a Scavenger round")},
                 {"scavenger2d", new Tuple<string, string>("SCAVENGER WINNER", "Win a Scavenger round")},
+                {"xp4rscav", new Tuple<string, string>("SCAVENGER WINNER", "Win a Scavenger round")},
                 {"r502", new Tuple<string, string>("CAPTURE THE FLAG", "Finish a CTF round")},
+                {"xp5r502", new Tuple<string, string>("CAPTURE THE FLAG", "Finish a CTF round")},
                 {"r501", new Tuple<string, string>("CAPTURE THE FLAG WINNER", "Win a CTF round")},
+                {"xp5r501", new Tuple<string, string>("CAPTURE THE FLAG WINNER", "Win a CTF round")},
                 {"xp5_as", new Tuple<string, string>("AIR SUPERIORITY", "Finish a Air Superiority round")},
-                {"xp5_aswinner", new Tuple<string, string>("AIR SUPERIORITY WINNER", "Win a Air Superiority round")}
+                {"xp5ras", new Tuple<string, string>("AIR SUPERIORITY", "Finish a Air Superiority round")},
+                {"xp5_aswinner", new Tuple<string, string>("AIR SUPERIORITY WINNER", "Win a Air Superiority round")},
+                {"xp5asw", new Tuple<string, string>("AIR SUPERIORITY WINNER", "Win a Air Superiority round")}
             };
-
+            
             // Medals
             MedalMapper = new Dictionary<string, Tuple<string, string>>
             {
@@ -133,12 +147,19 @@ namespace BattlelogMobile.Core.Service
                 {"m49", new Tuple<string, string>("JET SERVICE", "Spend 20 hours in Jets")},
                 {"m50", new Tuple<string, string>("STATIONARY SERVICE", "Spend 2 hours in Stationary Weapons")},
                 {"tank_superiority2d", new Tuple<string, string>("TANK SUPERIORITY", "Obtain the Tank Superiority Winner Ribbon 50 times")},
+                {"xp3mts", new Tuple<string, string>("TANK SUPERIORITY", "Obtain the Tank Superiority Winner Ribbon 50 times")},
                 {"conquest_domination2d", new Tuple<string, string>("DOMINATION", "Obtain the Domination Winner Ribbon 50 times")},
+                {"xp2mdom", new Tuple<string, string>("DOMINATION", "Obtain the Domination Winner Ribbon 50 times")},
                 {"gunmaster2d", new Tuple<string, string>("GUN MASTER", "Obtain the Gun Master Ribbon 50 times")},
+                {"xp2mgm", new Tuple<string, string>("GUN MASTER", "Obtain the Gun Master Winner Ribbon 50 times")},
                 {"tdmcq2s", new Tuple<string, string>("TDMCQ", "Obtain the TDMCQ Winner Ribbon 50 times")},
+                {"xp2mtdmcq", new Tuple<string, string>("TDMCQ", "Obtain the TDMCQ Winner Ribbon 50 times")},
                 {"scavenger2d", new Tuple<string, string>("SCAVENGER", "Obtain the Scavenger Winner Ribbon 50 times")},
+                {"xp4mscv", new Tuple<string, string>("SCAVENGER", "Obtain the Scavenger Winner Ribbon 50 times")},
                 {"m501", new Tuple<string, string>("CAPTURE THE FLAG", "Obtain the CTF Winner Ribbon 50 times")},
-                {"as", new Tuple<string, string>("AIR SUPERIORITY", "Obtain the AS Winner Ribbon 50 times")}
+                {"xp5m501", new Tuple<string, string>("CAPTURE THE FLAG", "Obtain the CTF Winner Ribbon 50 times")},
+                {"as", new Tuple<string, string>("AIR SUPERIORITY", "Obtain the Air Superiority Winner Ribbon 50 times")},
+                {"xp5mas", new Tuple<string, string>("AIR SUPERIORITY", "Obtain the Air Superiority Winner Ribbon 50 times")}
             };
         }
 

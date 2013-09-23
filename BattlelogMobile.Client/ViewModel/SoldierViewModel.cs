@@ -61,6 +61,10 @@ namespace BattlelogMobile.Client.ViewModel
                     //Messenger.Default.Send(new SoldierLoadedMessage(string.Format("Updated {0}", value.UpdateTime.ToString(CultureInfo.InvariantCulture))));
                     _soldier = value;
                     RaisePropertyChanged("Soldier");
+                    RaisePropertyChanged("FirstTwoKitProgressions");
+                    RaisePropertyChanged("LastTwoKitProgressions");
+                    RaisePropertyChanged("FirstTwoKits");
+                    RaisePropertyChanged("LastTwoKits");
                 }
             }
         }
