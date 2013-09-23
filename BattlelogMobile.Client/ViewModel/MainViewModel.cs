@@ -42,8 +42,9 @@ namespace BattlelogMobile.Client.ViewModel
             Messenger.Default.Register<SerializationFailedMessage>(this, SerializationFailedMessageReceived);
             
             CredentialsRepository = credentialsRepository;
-            LoadedCommand = new RelayCommand(LoadCredentials);
+            //LoadedCommand = new RelayCommand(LoadCredentials);
             LogInCommand = new RelayCommand(() => LogInCommandReceived(), CanExecuteLogInCommand);
+            LoadCredentials();
 
             var task = new Task(() => 
                 (new DownloadService(ViewModelLocator.CookieJar)).RetrieveServerMessage(string.Format(Common.ServerMessageUrl, DateTime.Now.Ticks.ToString())));
@@ -52,7 +53,7 @@ namespace BattlelogMobile.Client.ViewModel
 
         public ICredentialsRepository CredentialsRepository { get; set; }
 
-        public RelayCommand LoadedCommand { get; set; }
+        //public RelayCommand LoadedCommand { get; set; }
 
         public RelayCommand LogInCommand { get; private set; }
 
@@ -62,6 +63,7 @@ namespace BattlelogMobile.Client.ViewModel
             set
             {
                 _email = value; 
+                RaisePropertyChanged("Email");
                 LogInCommand.RaiseCanExecuteChanged();
             }
         }
@@ -72,6 +74,7 @@ namespace BattlelogMobile.Client.ViewModel
             set
             {
                 _password = value; 
+                RaisePropertyChanged("Password");
                 LogInCommand.RaiseCanExecuteChanged();
             }
         }

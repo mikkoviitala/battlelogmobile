@@ -69,7 +69,7 @@ namespace BattlelogMobile.Client.View
             if (bindingExpression != null)
                 bindingExpression.UpdateSource();
         }
-
+        
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
             while (NavigationService.RemoveBackEntry() != null)
