@@ -52,6 +52,7 @@
               Label="Support:" />
       </Links>
     </MainItem>
+    
     <!-- For each additional pivot item, add a separate Item entry. Ideas for items are: license, tutorial or help, version history, show room for other apps from you etc. -->
     <!-- The Title attribute defines the title of the pivot item -->
     <!-- Each Item can be a remote item (fetched from a Uri) or a local item (using its content), or both (local content is the fallback value if fetching the network content fails) -->
@@ -76,8 +77,10 @@
       Participate!
       If you want to contribute in any way or just find out what is being developed for the next release, visit http://mikkoviitala.github.com/battlelogmobile
     </Item>
+    
     <Item Title="History" Type="text">
       v2.2
+      Adapted to generic Battlelog changes
       Annoying tip prompts on startup
       Fixed bug when showing new soldiers
 
@@ -140,6 +143,27 @@
 
       v1.0
       This is the initial release
+    </Item>
+    
+    <Item Title="Donate" Type="xaml">
+      <Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+        <StackPanel>
+          <TextBlock HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Margin="0,35,0,50">
+            You can support development of Battlelog Mobile by clicking on adds or by donating sum of your choice.
+          </TextBlock>
+
+          <HyperlinkButton HorizontalAlignment="Center" Width="244" Height="94" TargetName="_blank"
+                         NavigateUri="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=RWXXHM9QLFSRJ">
+            <HyperlinkButton.Background>
+              <ImageBrush ImageSource="/paypal.png"/>
+            </HyperlinkButton.Background>
+          </HyperlinkButton>
+
+          <TextBlock Style="{StaticResource PhoneTextSubtleStyle}" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Margin="0,45,0,0">
+            ( I promise, I'll spend it on beer! )
+          </TextBlock>
+        </StackPanel>
+      </Grid>
     </Item>
   </Items>
 </About>

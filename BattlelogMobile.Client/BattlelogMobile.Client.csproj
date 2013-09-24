@@ -138,6 +138,9 @@
     <Compile Include="Service\INavigationService.cs" />
     <Compile Include="Service\NavigationService.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="View\Page1.xaml.cs">
+      <DependentUpon>Page1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SoldierPage.xaml.cs">
       <DependentUpon>SoldierPage.xaml</DependentUpon>
     </Compile>
@@ -153,6 +156,10 @@
     <Page Include="View\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Page1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SoldierPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -171,6 +178,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="paypal.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Uncheck.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
