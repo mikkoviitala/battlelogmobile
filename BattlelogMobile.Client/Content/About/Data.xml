@@ -80,8 +80,8 @@
     
     <Item Title="History" Type="text">
       v2.2
-      Adapted to generic Battlelog changes
       Annoying tip prompts on startup
+      Fixed "unknown" awards
       Fixed bug when showing new soldiers
 
       v2.1
