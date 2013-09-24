@@ -20,25 +20,34 @@ namespace BattlelogMobile.Core.Model
 
         public string Code { get; set; }         // code
         public string Group { get; set; }        // awardGroup
+
         [ExcludeFromSerialization]
         public BitmapImage Image
         {
             get { return _bitmap; }
             set { _bitmap = value; RaisePropertyChanged("Image"); }
         }
-        public string ImageName { get; set; }
-        public string ImageSaveName { get; set; }
-        public string ImageUrl { get; set; }
+
+        public string ImageName { get { return AwardPropertyMapper.Get(Code, Group).Item3; } }
+        public string ImageSaveName
+        {
+            get
+            {
+                if (Group.Equals(MedalsGroup))
+                    return string.Format("{0}{1}", Common.MedalAwardSavePrefix, ImageName);
+                return string.Format("{0}{1}", Common.RibbonAwardSavePrefix, ImageName);
+            }
+        }
 
         public int Width { get { return Group.Equals(MedalsGroup) ? MedalWidth : RibbonWidth; } }
         public int Height { get { return Group.Equals(MedalsGroup) ? MedalHeight : RibbonHeight; } }
 
-        public string Name { get { return AwardNameAndDescriptionMapper.Get(Code, Group).Item1; } }
-        public string Description { get { return AwardNameAndDescriptionMapper.Get(Code, Group).Item2; } }
+        public string Name { get { return AwardPropertyMapper.Get(Code, Group).Item1; } }
+        public string Description { get { return AwardPropertyMapper.Get(Code, Group).Item2; } }
 
         public override string ToString()
         {
-            return string.Format("Code={0}, Group={1}, Image={2}", Code, Group, Image);
+            return string.Format("Code={0}, Group={1}", Code, Group);
         }
     }
 }

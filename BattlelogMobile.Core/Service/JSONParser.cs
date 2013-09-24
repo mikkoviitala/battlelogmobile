@@ -271,24 +271,13 @@ namespace BattlelogMobile.Core.Service
                     Group = token.SelectToken("award").SelectToken("awardGroup").ToString()
                 };
 
-                string image = token.SelectToken("award").SelectToken("code") + Common.ImageSuffix;
-                award.ImageName = image;
+                string baseUrl = string.CompareOrdinal(award.Group, Common.AwardGroup) == 0 ? Common.RibbonAwardImageUrl : Common.MedalAwardImageUrl;
 
-                if (string.CompareOrdinal(award.Group, Common.AwardGroup) == 0)
-                {
-                    award.ImageUrl = Common.RibbonAwardImageUrl;
-                    award.ImageSaveName = Common.RibbonAwardSavePrefix + image;
-                    _imageRepository.Load(Common.RibbonAwardImageUrl, image, bitmap => { award.Image = bitmap; }, award.ImageSaveName);
-                }
-                else
-                {
-                    award.ImageUrl = Common.MedalAwardImageUrl;
-                    award.ImageSaveName = Common.MedalAwardSavePrefix + image;
-                    _imageRepository.Load(Common.MedalAwardImageUrl, image, bitmap => { award.Image = bitmap; }, award.ImageSaveName);
-                }
+                _imageRepository.Load(baseUrl, award.ImageName, bitmap => { award.Image = bitmap; }, award.ImageSaveName);
+
                 awards.Add(award);
             }
-            //return new Awards(awards);
+
             return awards;
         }
 

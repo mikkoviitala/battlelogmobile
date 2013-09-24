@@ -7,9 +7,8 @@ namespace BattlelogMobile.Core.Model
         string Code { get; set; }
         string Group { get; set; }
         BitmapImage Image { get; set; }
-        string ImageName { get; set; }
-        string ImageSaveName { get; set; }
-        string ImageUrl { get; set; }
+        string ImageName { get; }
+        string ImageSaveName { get; }
         int Width { get; }
         int Height { get; }
         string Name { get; }

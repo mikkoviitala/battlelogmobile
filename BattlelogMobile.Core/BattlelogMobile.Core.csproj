@@ -141,7 +141,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ISettingsRepository.cs" />
     <Compile Include="Repository\FileSettingsRepository.cs" />
-    <Compile Include="Service\AwardNameAndDescriptionMapper.cs" />
+    <Compile Include="Service\AwardPropertyMapper.cs" />
     <Compile Include="Service\CryptoService.cs" />
     <Compile Include="Service\DownloadService.cs" />
     <Compile Include="Service\IDownloadService.cs" />
