@@ -7,7 +7,7 @@
     {
         Unknown = -1,
         PC = 1,
-        XBOX = 2,
+        XBOX360 = 2,
         PS3 = 4
     }
 }
