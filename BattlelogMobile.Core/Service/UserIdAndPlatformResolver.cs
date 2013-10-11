@@ -24,8 +24,7 @@ namespace BattlelogMobile.Core.Service
             using (var reader = new StreamReader(stream))
             {
                 string buffer = reader.ReadToEnd();
-                bool resolvedIdAndPlatform = 
-                    Resolve(buffer, DogtagsBlockStart);
+                bool resolvedIdAndPlatform = Resolve(buffer, DogtagsBlockStart);
                 if (!resolvedIdAndPlatform)
                     Resolve(buffer, UnlocksBlockStart);
 
@@ -39,21 +38,21 @@ namespace BattlelogMobile.Core.Service
             }
         }
 
-        private bool Resolve(string buffer, string dogtagsBlockStart)
+        private bool Resolve(string buffer, string htmlBlock)
         {
             try
             {
-                int startPosition = buffer.IndexOf(dogtagsBlockStart, StringComparison.Ordinal);
-                buffer = buffer.Substring(startPosition + dogtagsBlockStart.Length);
+                int startPosition = buffer.IndexOf(htmlBlock, StringComparison.Ordinal);
+                buffer = buffer.Substring(startPosition + htmlBlock.Length);
                 _userId = Convert.ToInt64(buffer.Substring(0, buffer.IndexOf("/", StringComparison.Ordinal)));
 
                 buffer = buffer.Substring(_userId.ToString(CultureInfo.InvariantCulture).Length + 1);
-                string platformBlock = buffer.Substring(0, buffer.IndexOf("/", StringComparison.Ordinal));
+                string platformString    = buffer.Substring(0, buffer.IndexOf("/", StringComparison.Ordinal));
                 
-                if (platformBlock == EaId)
+                if (platformString == EaId)
                     _platform = Platform.PC;
                 else
-                    _platform = (Platform) Enum.Parse(typeof (Platform), platformBlock, true);
+                    _platform = (Platform) Enum.Parse(typeof (Platform), platformString, true);
                 
                 return true;
             }

@@ -79,7 +79,10 @@
     </Item>
     
     <Item Title="History" Type="text">
-      v2.2
+      v2.2.2
+      Adapted to general Battlelog changes
+      
+      v2.2.1
       Annoying tip prompts on startup
       Fixed "unknown" awards
       Fixed bug when showing new soldiers
