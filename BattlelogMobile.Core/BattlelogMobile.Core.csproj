@@ -121,6 +121,7 @@
     <Compile Include="Model\IUnlock.cs" />
     <Compile Include="Model\KitProgression.cs" />
     <Compile Include="Model\Other.cs" />
+    <Compile Include="Model\Overview.cs" />
     <Compile Include="Model\Platform.cs" />
     <Compile Include="Model\Settings.cs" />
     <Compile Include="Model\Statistics.cs" />

@@ -22,12 +22,6 @@
     shell:SystemTray.IsVisible="True"
     DataContext="{Binding Main, Source={StaticResource Locator}}">
 
-    <!--<i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=LoadedCommand}" PassEventArgsToCommand="False" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>-->
-
     <phone:PhoneApplicationPage.Resources>
         <conv:StringLengthVisibilityConverter x:Key="StringLengthVisibilityConverter" />
         <Style x:Key="WatermarkStyle" TargetType="ContentControl">
@@ -79,6 +73,7 @@
                     <watermark:WatermarkedTextBox Watermark="Origin™ account" IsEnabled="{Binding UserInterfaceEnabled}" 
                              Margin="12,0,0,0" Height="72" HorizontalAlignment="Left" VerticalAlignment="Top" Width="308"
                              Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=Explicit}" TextChanged="TextChangedUpdateTrigger" 
+                             InputScope="EmailNameOrAddress"
                              WatermarkStyle="{StaticResource WatermarkStyle}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
