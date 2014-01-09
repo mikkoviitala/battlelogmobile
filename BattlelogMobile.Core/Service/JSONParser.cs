@@ -92,21 +92,13 @@ namespace BattlelogMobile.Core.Service
 
             var data = JsonConvert.DeserializeObject<WeaponsData>(jObject.SelectToken("data").ToString());
             data.Weapons = data.Weapons.OrderByDescending(g => g.Kills).
-                ThenByDescending(g => g.Headshots).ThenBy(g => g.Slug).ThenBy(g => g.Name).
-                    Where(g => g.Kills > 0).ToList();
+                ThenByDescending(g => g.Headshots).ThenBy(g => g.Slug).ThenBy(g => g.Name).Where(g => g.Kills > 0).ToList();
             data.Weapons = data.Weapons.Distinct(new ItemComparer()).ToList();
 
             foreach (var weapon in data.Weapons)
             {
-                int kills = Convert.ToInt32(weapon.Kills);
-                if (kills == 0)
-                    continue;
-
                 string imageName = jObject.SelectToken("data").SelectToken("gadgetsLocale").SelectToken("weapons").SelectToken(weapon.Guid).SelectToken("image") + Common.ImageSuffix;
                 weapon.ImageName = imageName;
-
-                _imageRepository.Load(Common.ServiceStarImageUrl, Common.ServiceStarImage, bitmap => { weapon.ServiceStarImage = bitmap; });
-                _imageRepository.Load(Common.WeaponAndAccessoryImageUrl, weapon.ImageName, bitmap => { weapon.Image = bitmap; });
             }
 
             _battlefieldData.Weapons = data.Weapons;

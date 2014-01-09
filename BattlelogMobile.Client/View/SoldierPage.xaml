@@ -410,7 +410,7 @@
                                     <Run Text="shots" />
                                 </TextBlock>
                                 <TextBlock Grid.Row="2" Grid.Column="2" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Right">
-                                    <Run Text="{Binding Accuracy, Converter={StaticResource DoublePercentageStringConverter}}" />
+                                    <Run Text="{Binding Accuracy, Converter={StaticResource DoublePercentageStringConverter}, ConverterParameter=100}" />
                                     <Run Text="hit" />
                                 </TextBlock>
                             </Grid>
@@ -660,18 +660,18 @@
                     x:Name="AboutMenuItem" 
                     IconUri="/Toolkit.Content/ApplicationBar.Refresh.png"
                     Text="Update" 
-                    IsEnabled="False"
+                    IsEnabled="True"
                     Click="UpdateMenuItemClick"/>
                 <shell:ApplicationBarIconButton
                     x:Name="BackgroundMenuItem" 
                     IconUri="/Toolkit.Content/ApplicationBar.Uncheck.png"
                     Text="Background" 
-                    IsEnabled="False"
+                    IsEnabled="True"
                     Click="BackgroundMenuItemClick"/>
                 <shell:ApplicationBarIconButton
                     x:Name="UpdateMenuItem" 
                     IconUri="/Toolkit.Content/ApplicationBar.Questionmark.png"
-                    IsEnabled="False"
+                    IsEnabled="True"
                     Text="About" 
                     Click="AboutMenuItemClick"/>
             </shell:ApplicationBar.Buttons>

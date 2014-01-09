@@ -55,7 +55,7 @@ namespace BattlelogMobile.Core.Service
             }
         }
 
-        public async void ResolveUserIdAndPlatform(string url, IUserIdAndPlatformResolver userIdAndPlatformResolver)
+        public async Task ResolveUserIdAndPlatform(string url, IUserIdAndPlatformResolver userIdAndPlatformResolver)
         {
             var request = WebRequest.Create(new Uri(url)) as HttpWebRequest;
             if (request == null)
@@ -81,26 +81,20 @@ namespace BattlelogMobile.Core.Service
             }
         }
 
-        public void  GetFile(string url, string isolatedStorageFile)
+        public async Task GetFile(string url, string isolatedStorageFile)
         {
             var client = new SharpGIS.GZipWebClient();
-            client.DownloadStringCompleted += (s, e) =>
-                {
-                    try
-                    {
-                        var responseStream = e.Result;
-                        using (var writer = new StreamWriter(_isolatedStorage.OpenFile(isolatedStorageFile, FileMode.Create)))
-                        {
-                            writer.Write(responseStream);
-                        }
-                        Messenger.Default.Send(new BattlelogResponseMessage(this, Common.StatusInformationDownloading, true));
-                    }
-                    catch (WebException we)
-                    {
-                        Messenger.Default.Send(new BattlelogResponseMessage(we.Message, false));
-                    }
-                };
-            client.DownloadStringAsync(new Uri(url), client);
+            try
+            {
+                string responseStream = await client.DownloadStringTaskAsync(new Uri(url));
+                using (var writer = new StreamWriter(_isolatedStorage.OpenFile(isolatedStorageFile, FileMode.Create)))
+                    await writer.WriteAsync(responseStream);
+                Messenger.Default.Send(new BattlelogResponseMessage(this, Common.StatusInformationDownloading, true));
+            }
+            catch (WebException we)
+            {
+                Messenger.Default.Send(new BattlelogResponseMessage(we.Message, false));
+            }
         }
     }
 }

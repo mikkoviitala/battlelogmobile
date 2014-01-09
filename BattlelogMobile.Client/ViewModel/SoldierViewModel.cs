@@ -27,20 +27,21 @@ namespace BattlelogMobile.Client.ViewModel
             LoadSettings();
 
             // Credentials are ok, download information
-            Messenger.Default.Register<BattlelogCredentialsAcceptedMessage>(this, message => 
+            Messenger.Default.Register<BattlelogCredentialsAcceptedMessage>(this, async message => 
                 {
                     BattlelogRepository.CurrentUser = message.CurrentUser;
-                    BattlelogRepository.UpdateStorage(message.ForceUpdate);
+                    await BattlelogRepository.UpdateStorage(message.ForceUpdate);
                 });
 
             // Download complete, parse data
-            Messenger.Default.Register<BattlelogUpdateCompleteMessage>(this, message => 
-                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>  
-                    {
-                        var battlefieldData = BattlelogRepository.LoadBattlefieldData();
-                        if (battlefieldData != null)
-                            Data = battlefieldData;
-                    }));
+            Messenger.Default.Register<BattlelogUpdateCompleteMessage>(this, async message =>
+                {
+                    var battlefieldData = await BattlelogRepository.LoadBattlefieldData();
+                    if (battlefieldData == null)
+                        return;
+                    
+                    ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() => Data = battlefieldData);
+                });
         }
 
         public BattlelogRepository BattlelogRepository { get; set; }
@@ -56,33 +57,9 @@ namespace BattlelogMobile.Client.ViewModel
                 RaisePropertyChanged("Data");
 
                 Messenger.Default.Send(new SoldierLoadedMessage(Common.StatusInformationPreparingStatistics));
-                //Soldier = new Soldier();
             }
         }
 
-        //public ISoldier Soldier
-        //{
-        //    get { return null; }
-        //    set
-        //    {
-        //        if (value != null)
-        //        {
-        //            // TODO: 
-        //            // Message was moved here from Register<BattlelogUpdateCompleteMessage> block
-        //            // but this makes no sense, and even less when we have new version of stats update...
-        //            Messenger.Default.Send(new SoldierLoadedMessage(Common.StatusInformationPreparingStatistics));
-        //            //Messenger.Default.Send(new SoldierLoadedMessage(string.Format("Updated {0}", value.UpdateTime.ToString(CultureInfo.InvariantCulture))));
-                    
-        //            RaisePropertyChanged("Soldier");
-        //            RaisePropertyChanged("FirstTwoKitProgressions");
-        //            RaisePropertyChanged("LastTwoKitProgressions");
-        //            RaisePropertyChanged("FirstTwoKits");
-        //            RaisePropertyChanged("LastTwoKits");
-        //        }
-        //    }
-        //}
-
-        // Stooopid workaround for showing two listboxes side by side on UI.... and same below
         public ObservableCollection<KitServiceStar> FirstTwoKitProgressions
         {
             get

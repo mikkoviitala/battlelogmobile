@@ -17,7 +17,10 @@ namespace BattlelogMobile.Client.Converter
         /// </summary>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (System.Convert.ToDouble(value).ToString(PercentageFormat, CultureInfo.InvariantCulture)) + Suffix;
+            int multiplier = 1;
+            if (parameter != null)
+                int.TryParse(parameter as string, out multiplier);
+            return ((System.Convert.ToDouble(value) * multiplier).ToString(PercentageFormat, CultureInfo.InvariantCulture)) + Suffix;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

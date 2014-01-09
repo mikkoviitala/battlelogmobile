@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO.IsolatedStorage;
 using System.Windows;
+using System.Windows.Threading;
+using BattlelogMobile.Core;
 using BattlelogMobile.Core.Message;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Phone.Controls;
@@ -47,11 +49,6 @@ namespace BattlelogMobile.Client.View
             Messenger.Default.Register<SoldierLoadedMessage>(this, SoldierLoadedMessageReceived);
         }
 
-        private void SoldierLoadedMessageReceived(SoldierLoadedMessage message)
-        {
-            ToggleUIState(true);
-        }
-
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -64,9 +61,21 @@ namespace BattlelogMobile.Client.View
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
             ToggleUIState(true);
-            ShowInfoPrompt();
-            ShowTipPrompt();
-            ShowRatingPrompt();
+
+            var dispatchTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(2) };
+            dispatchTimer.Tick += (o, args) =>
+                {
+                    dispatchTimer.Stop();
+                    ShowInfoPrompt();
+                    ShowTipPrompt();
+                    ShowRatingPrompt();
+                };
+            dispatchTimer.Start();
+        }
+
+        private void SoldierLoadedMessageReceived(SoldierLoadedMessage message)
+        {
+            ToggleUIState(true);
         }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
@@ -86,6 +95,20 @@ namespace BattlelogMobile.Client.View
             Messenger.Default.Send(new BattlelogCredentialsAcceptedMessage(ViewModelLocator.MainStatic.Email, true));
         }
 
+        private void ToggleUIState(bool isEnabled)
+        {
+            foreach (ApplicationBarIconButton button in ApplicationBar.Buttons)
+                button.IsEnabled = isEnabled;
+
+            _isUpdating = !isEnabled;
+
+            //Opacity = isEnabled ? 1d : 0.5d;
+
+            //Pivot.IsEnabled = isEnabled;
+            //foreach (PanoramaItem item in Pivot.Items)
+            //    item.IsEnabled = isEnabled;
+        }
+
         private void BackgroundMenuItemClick(object sender, EventArgs e)
         {
             BackgroundEnabled = !BackgroundEnabled;
@@ -103,25 +126,6 @@ namespace BattlelogMobile.Client.View
                 if (_soldierViewModel != null) 
                     _soldierViewModel.BackgroundEnabled = value;
             }
-        }
-
-        private void ToggleUIState(bool isEnabled)
-        {
-            foreach (ApplicationBarIconButton button in ApplicationBar.Buttons)
-                button.IsEnabled = isEnabled;
-
-            return;
-
-            _isUpdating = !isEnabled;
-
-            Opacity = isEnabled ? 1d : 0.5d;
-
-            Pivot.IsEnabled = isEnabled;
-            foreach (PanoramaItem item in Pivot.Items)
-                item.IsEnabled = isEnabled;
-
-            foreach (ApplicationBarIconButton button in ApplicationBar.Buttons)
-                button.IsEnabled = isEnabled;
         }
 
         private void SetBackground()

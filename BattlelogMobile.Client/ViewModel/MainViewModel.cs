@@ -48,10 +48,6 @@ namespace BattlelogMobile.Client.ViewModel
             LogInCommand = new RelayCommand(() => LogInCommandReceived(), CanExecuteLogInCommand);
             LoadCredentials();
 
-            Email = "mikko.viitala@nbl.fi";
-            Password = "sammakko";
-            RememberMe = true;
-
             var task = new Task(() => 
                 (new DownloadService(ViewModelLocator.CookieJar)).RetrieveServerMessage(string.Format(Common.ServerMessageUrl, DateTime.Now.Ticks.ToString())));
             task.Start();
@@ -253,54 +249,53 @@ namespace BattlelogMobile.Client.ViewModel
 
             var streamTask = request.GetRequestStreamAsync();
             
-                var requestStream = await streamTask.ConfigureAwait(false);
-                using (var writer = new StreamWriter(requestStream))
+            var requestStream = await streamTask.ConfigureAwait(false);
+            using (var writer = new StreamWriter(requestStream))
+            {
+                await writer.WriteAsync(ConstructPostData(Email, Password)).ConfigureAwait(false);
+                writer.Close();
+            }
+
+            // Got response
+            var responseTask = request.GetResponseAsync();
+
+            if (_timedOut)
+            {
+                ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                    UserInterfaceEnabled = true);
+                ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                    StatusInformation = string.Empty);
+                ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                    LogInFailedReason = Common.LogInFailedReasonTimedOut);
+                return;
+            }
+
+            try
+            {
+                var response = await responseTask.ConfigureAwait(false);
+                if (response.ResponseUri.Equals(ViewModelLocator.WebRequestLogInResponseUri))
                 {
-                    await writer.WriteAsync(ConstructPostData(Email, Password)).ConfigureAwait(false);
-                    writer.Close();
+                    Messenger.Default.Send(new BattlelogCredentialsAcceptedMessage(Email));
                 }
-
-                // Got response
-                var responseTask = request.GetResponseAsync();
-
-                if (_timedOut)
+                else
                 {
                     ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
                         UserInterfaceEnabled = true);
                     ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
                         StatusInformation = string.Empty);
                     ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                        LogInFailedReason = Common.LogInFailedReasonTimedOut);
-                    return;
+                        LogInFailedReason = Common.LogInFailedReasonInvalidCredentials);
                 }
-
-                try
-                {
-                    var response = await responseTask.ConfigureAwait(false);
-                    if (response.ResponseUri.Equals(ViewModelLocator.WebRequestLogInResponseUri))
-                    {
-                        Messenger.Default.Send(new BattlelogCredentialsAcceptedMessage(Email));
-                    }
-                    else
-                    {
-                        ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                            UserInterfaceEnabled = true);
-                        ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                            StatusInformation = string.Empty);
-                        ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                            LogInFailedReason = Common.LogInFailedReasonInvalidCredentials);
-                    }
-                }
-                catch (WebException we)
-                {
-                    ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                        StatusInformation = string.Empty);
-                    ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                        LogInFailedReason = we.Message);
-                    ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                        UserInterfaceEnabled = true);
-                }
-            
+            }
+            catch (WebException we)
+            {
+                ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                    StatusInformation = string.Empty);
+                ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                    LogInFailedReason = we.Message);
+                ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                    UserInterfaceEnabled = true);
+            }
         }
 
         private bool CanExecuteLogInCommand()

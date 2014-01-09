@@ -159,14 +159,11 @@ namespace BattlelogMobile.Core.Model
                 _imageName = value;
                 RaisePropertyChanged("ImageName");
 
-                Task.Factory.StartNew(() =>
-                    {
                         var r = new ImageRepository();
                         if (TimeIn != null)
                             DispatcherHelper.CheckBeginInvokeOnUI(() => r.Load(Common.VehicleAndGadgetImageUrl, _imageName, bitmap => Image = bitmap));
                         else
                             DispatcherHelper.CheckBeginInvokeOnUI(() => r.Load(Common.WeaponAndAccessoryImageUrl, _imageName, bitmap => Image = bitmap));
-                    });
             }
         }
 
