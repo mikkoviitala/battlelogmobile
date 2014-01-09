@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Navigation;
+using GalaSoft.MvvmLight.Threading;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using BattlelogMobile.Client.ViewModel;
@@ -51,6 +52,7 @@ namespace BattlelogMobile.Client
                 // and consume battery power when the user is not using the phone.
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
+            DispatcherHelper.Initialize();
         }
 
         // Code to execute when the application is launching (eg, from Start)

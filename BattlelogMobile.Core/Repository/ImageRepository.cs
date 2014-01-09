@@ -7,7 +7,7 @@ using System.Windows.Resources;
 
 namespace BattlelogMobile.Core.Repository
 {
-    public class ImageRepository : IImageRepository
+    public class ImageRepository
     {
         private readonly IsolatedStorageFile _isolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication();
 

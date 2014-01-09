@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Repository;
 using BattlelogMobile.Core.Service;
 using BattlelogMobile.Core;
-using ICredentials = BattlelogMobile.Core.Model.ICredentials;
+using ICredentials = BattlelogMobile.Core.Model.Credentials;
 using Microsoft.Phone.Controls;
 
 namespace BattlelogMobile.Client.ViewModel
@@ -24,6 +25,8 @@ namespace BattlelogMobile.Client.ViewModel
         private readonly INavigationService _navigationService = new NavigationService();
         private string _email;
         private string _password;
+        private SupportedGame _game = SupportedGame.Battlefield3;
+        private readonly ObservableCollection<SupportedGame> _games = new ObservableCollection<SupportedGame> { SupportedGame.Battlefield3, SupportedGame.Battlefield4 };
         private string _logInFailedReason = string.Empty;
         private string _serverMessage = string.Empty;
         private bool _userInterfaceEnabled = true;
@@ -33,7 +36,7 @@ namespace BattlelogMobile.Client.ViewModel
         public MainViewModel() : this(new FileCredentialsRepository())
         {}
 
-        public MainViewModel(ICredentialsRepository credentialsRepository)
+        public MainViewModel(FileCredentialsRepository credentialsRepository)
         {
             Messenger.Default.Register<BattlelogResponseMessage>(this, BattlelogResponseMessageReceived);
             Messenger.Default.Register<SoldierLoadedMessage>(this, SoldierLoadedMessageReceived);
@@ -42,18 +45,19 @@ namespace BattlelogMobile.Client.ViewModel
             Messenger.Default.Register<SerializationFailedMessage>(this, SerializationFailedMessageReceived);
             
             CredentialsRepository = credentialsRepository;
-            //LoadedCommand = new RelayCommand(LoadCredentials);
             LogInCommand = new RelayCommand(() => LogInCommandReceived(), CanExecuteLogInCommand);
             LoadCredentials();
+
+            Email = "mikko.viitala@nbl.fi";
+            Password = "sammakko";
+            RememberMe = true;
 
             var task = new Task(() => 
                 (new DownloadService(ViewModelLocator.CookieJar)).RetrieveServerMessage(string.Format(Common.ServerMessageUrl, DateTime.Now.Ticks.ToString())));
             task.Start();
         }
 
-        public ICredentialsRepository CredentialsRepository { get; set; }
-
-        //public RelayCommand LoadedCommand { get; set; }
+        public FileCredentialsRepository CredentialsRepository { get; set; }
 
         public RelayCommand LogInCommand { get; private set; }
 
@@ -77,6 +81,28 @@ namespace BattlelogMobile.Client.ViewModel
                 RaisePropertyChanged("Password");
                 LogInCommand.RaiseCanExecuteChanged();
             }
+        }
+
+        public SupportedGame Game
+        {
+            get { return _game; }
+            set
+            {
+                _game = value;
+                RaisePropertyChanged("Game");
+                LogInCommand.RaiseCanExecuteChanged();
+
+                if (_game == SupportedGame.Battlefield4)
+                {
+                    Messenger.Default.Send(new NotificationMessage(this, "Battlefield 4 support will be there in next release, keep eye on updates!"));
+                    Game = SupportedGame.Battlefield3;
+                }
+            }
+        }
+
+        public ObservableCollection<SupportedGame> Games
+        {
+            get { return _games; }
         }
 
         public bool RememberMe
@@ -331,6 +357,7 @@ namespace BattlelogMobile.Client.ViewModel
             {
                 Email = credentials.Email;
                 Password = credentials.Password;
+                Game = credentials.Game;
                 RememberMe = credentials.RememberMe;
             }
         }
@@ -345,6 +372,7 @@ namespace BattlelogMobile.Client.ViewModel
             {
                 credentials.Email = Email;
                 credentials.Password = Password;
+                credentials.Game = Game;
                 credentials.RememberMe = RememberMe;
             }
             CredentialsRepository.Save(credentials);

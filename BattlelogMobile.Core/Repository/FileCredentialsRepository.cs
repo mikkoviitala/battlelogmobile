@@ -6,7 +6,7 @@ using BattlelogMobile.Core.Service;
 
 namespace BattlelogMobile.Core.Repository
 {
-    public class FileCredentialsRepository : ICredentialsRepository 
+    public class FileCredentialsRepository
     {
         private readonly CryptoService _crypto = new CryptoService();
 
@@ -20,7 +20,7 @@ namespace BattlelogMobile.Core.Repository
 
         public IsolatedStorageFile StorageFile { get; set; }
 
-        public void Save(ICredentials credentials)
+        public void Save(Credentials credentials)
         {
             using (var writer = new StreamWriter(StorageFile.OpenFile(Common.CredentialsFile, FileMode.Create, FileAccess.Write)))
             {
@@ -33,9 +33,9 @@ namespace BattlelogMobile.Core.Repository
             IsolatedStorageSettings.ApplicationSettings["IsEncrypted"] = false;
         }
 
-        public ICredentials Load()
+        public Credentials Load()
         {
-            ICredentials credentials = new Credentials();
+            Credentials credentials = new Credentials();
             using (var reader = new StreamReader(StorageFile.OpenFile(Common.CredentialsFile, FileMode.OpenOrCreate, FileAccess.Read)))
             {
                 bool isEncrypted;

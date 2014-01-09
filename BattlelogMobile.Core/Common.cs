@@ -1,7 +1,11 @@
-﻿namespace BattlelogMobile.Core
+﻿using BattlelogMobile.Core.Model;
+
+namespace BattlelogMobile.Core
 {
     public static class Common
     {
+        
+
         public const int TimeOutInSeconds = 90;
         public const string LogInFailedReasonTimedOut = "Login request timed out!";
         public const string LogInFailedReasonInvalidCredentials = "User credentials not accepted!";

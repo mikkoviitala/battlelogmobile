@@ -65,6 +65,7 @@
       Geir-Tore Lindsve (riegetor @ Battlelog)
 
       Thanks to
+      Jukka Avikainen
       Semih Okur
       David Hartveld
       Wade Williamson
@@ -80,9 +81,11 @@
     
     <Item Title="History" Type="text">
       v2.3
-      Performance improvements
+      Added new statistics
+      Changed and tweaked layout
       Changed login keyboard layout
-      Fixed kit scores not always updating 
+      Fixed kit scores not always updating
+      Internal changes for upcoming BF4 support
 
       v2.2
       Adapted to general Battlelog changes

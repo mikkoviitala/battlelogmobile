@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Device.Location;
+using BattlelogMobile.Client.ViewModel;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace BattlelogMobile.Client.View
 {
@@ -34,7 +37,14 @@ namespace BattlelogMobile.Client.View
                         }
                     } 
                 };
-            _watcher.Start(); 
+            _watcher.Start();
+
+            Messenger.Default.Register<NotificationMessage>(this, message =>
+                {
+                    if (message.Sender.GetType() == typeof (MainViewModel))
+                        MessageBox.Show(message.Notification, "Aw, Snap!", MessageBoxButton.OK);
+                });
+
             //BattlelogMobileAds.ErrorOccurred += (sender, args) => System.Diagnostics.Debug.WriteLine(args.Error.ToString());
         }
 

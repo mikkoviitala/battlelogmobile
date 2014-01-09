@@ -12,14 +12,14 @@ namespace BattlelogMobile.Client.ViewModel
 {
     public class SoldierViewModel : BaseViewModel
     {
-        private ISoldier _soldier;
+        private BattlefieldData _battlefieldData;
         private bool _backgroundEnabled;
 
-        public SoldierViewModel() 
+        public SoldierViewModel()
             : this(new FileSettingsRepository(), new BattlelogRepository(new DownloadService(ViewModelLocator.CookieJar)))
         {}
 
-        public SoldierViewModel(ISettingsRepository settingsRepository, IBattlelogRepository battlelogRepository)
+        public SoldierViewModel(FileSettingsRepository settingsRepository, BattlelogRepository battlelogRepository)
         {
             SettingsRepository = settingsRepository;
             BattlelogRepository = battlelogRepository;
@@ -36,79 +36,92 @@ namespace BattlelogMobile.Client.ViewModel
             // Download complete, parse data
             Messenger.Default.Register<BattlelogUpdateCompleteMessage>(this, message => 
                 ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>  
-                { 
-                    var soldier = BattlelogRepository.Load(); 
-                    if (soldier != null) 
-                        Soldier = soldier; 
-                }));
+                    {
+                        var battlefieldData = BattlelogRepository.LoadBattlefieldData();
+                        if (battlefieldData != null)
+                            Data = battlefieldData;
+                    }));
         }
 
-        public IBattlelogRepository BattlelogRepository { get; set; }
+        public BattlelogRepository BattlelogRepository { get; set; }
 
-        public ISettingsRepository SettingsRepository { get; set; }
+        public FileSettingsRepository SettingsRepository { get; set; }
 
-        public ISoldier Soldier
+        public BattlefieldData Data
         {
-            get { return _soldier; }
+            get { return _battlefieldData; }
             set
             {
-                if (value != null)
-                {
-                    // TODO: 
-                    // Message was moved here from Register<BattlelogUpdateCompleteMessage> block
-                    // but this makes no sense, and even less when we have new version of stats update...
-                    Messenger.Default.Send(new SoldierLoadedMessage(Common.StatusInformationPreparingStatistics));
-                    //Messenger.Default.Send(new SoldierLoadedMessage(string.Format("Updated {0}", value.UpdateTime.ToString(CultureInfo.InvariantCulture))));
-                    _soldier = value;
-                    RaisePropertyChanged("Soldier");
-                    RaisePropertyChanged("FirstTwoKitProgressions");
-                    RaisePropertyChanged("LastTwoKitProgressions");
-                    RaisePropertyChanged("FirstTwoKits");
-                    RaisePropertyChanged("LastTwoKits");
-                }
+                _battlefieldData = value;
+                RaisePropertyChanged("Data");
+
+                Messenger.Default.Send(new SoldierLoadedMessage(Common.StatusInformationPreparingStatistics));
+                //Soldier = new Soldier();
             }
         }
 
+        //public ISoldier Soldier
+        //{
+        //    get { return null; }
+        //    set
+        //    {
+        //        if (value != null)
+        //        {
+        //            // TODO: 
+        //            // Message was moved here from Register<BattlelogUpdateCompleteMessage> block
+        //            // but this makes no sense, and even less when we have new version of stats update...
+        //            Messenger.Default.Send(new SoldierLoadedMessage(Common.StatusInformationPreparingStatistics));
+        //            //Messenger.Default.Send(new SoldierLoadedMessage(string.Format("Updated {0}", value.UpdateTime.ToString(CultureInfo.InvariantCulture))));
+                    
+        //            RaisePropertyChanged("Soldier");
+        //            RaisePropertyChanged("FirstTwoKitProgressions");
+        //            RaisePropertyChanged("LastTwoKitProgressions");
+        //            RaisePropertyChanged("FirstTwoKits");
+        //            RaisePropertyChanged("LastTwoKits");
+        //        }
+        //    }
+        //}
+
         // Stooopid workaround for showing two listboxes side by side on UI.... and same below
-        public ObservableCollection<IKitProgression> FirstTwoKitProgressions
+        public ObservableCollection<KitServiceStar> FirstTwoKitProgressions
         {
             get
             {
-                return new ObservableCollection<IKitProgression>(
-                    from kitProgression in Soldier.KitProgressions
+                return new ObservableCollection<KitServiceStar>(
+                    from kitProgression in Data.Overview.KitServiceStars
                     where kitProgression.Type == KitType.Assault || kitProgression.Type == KitType.Support
                     select kitProgression);
             }
         }
 
-        public ObservableCollection<IKitProgression> LastTwoKitProgressions
+        public ObservableCollection<KitServiceStar> LastTwoKitProgressions
         {
             get
             {
-                return new ObservableCollection<IKitProgression>(
-                    from kitProgression in Soldier.KitProgressions
+                return new ObservableCollection<KitServiceStar>(
+                    from kitProgression in Data.Overview.KitServiceStars 
                     where kitProgression.Type == KitType.Engineer || kitProgression.Type == KitType.Recon
                     select kitProgression);
             }
         }
 
-        public ObservableCollection<IKit> FirstTwoKits
+        public ObservableCollection<KitServiceStar> FirstTwoKits
         {
             get
             {
-                return new ObservableCollection<IKit>(
-                    from kit in Soldier.Score.Kits
+                return new ObservableCollection<KitServiceStar>(
+                    from kit in Data.Overview.KitServiceStars
                     where kit.Type == KitType.Assault || kit.Type == KitType.Support
                     select kit);
             }
         }
 
-        public ObservableCollection<IKit> LastTwoKits
+        public ObservableCollection<KitServiceStar> LastTwoKits
         {
             get
             {
-                return new ObservableCollection<IKit>(
-                    from kit in Soldier.Score.Kits
+                return new ObservableCollection<KitServiceStar>(
+                    from kit in Data.Overview.KitServiceStars
                     where kit.Type == KitType.Engineer || kit.Type == KitType.Recon
                     select kit);
             }

@@ -24,10 +24,16 @@
 
     <phone:PhoneApplicationPage.Resources>
         <conv:StringLengthVisibilityConverter x:Key="StringLengthVisibilityConverter" />
+        
         <Style x:Key="WatermarkStyle" TargetType="ContentControl">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="Margin" Value="3,0" />
         </Style>
+
+        <!--<DataTemplate x:Name="lpkItemTemplate">
+            <TextBlock Text="{Binding Country}" />
+        </DataTemplate>-->
+
     </phone:PhoneApplicationPage.Resources>
 
     <toolkit:TransitionService.NavigationInTransition>
@@ -71,17 +77,28 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Email:" Style="{StaticResource PhoneTextLargeStyle}" VerticalAlignment="Center" Margin="12,0,42,0" />
                     <watermark:WatermarkedTextBox Watermark="Origin™ account" IsEnabled="{Binding UserInterfaceEnabled}" 
-                             Margin="12,0,0,0" Height="72" HorizontalAlignment="Left" VerticalAlignment="Top" Width="308"
+                             Margin="12,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="308"
                              Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=Explicit}" TextChanged="TextChangedUpdateTrigger" 
                              InputScope="EmailNameOrAddress"
                              WatermarkStyle="{StaticResource WatermarkStyle}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Password:" Style="{StaticResource PhoneTextLargeStyle}" VerticalAlignment="Center" Margin="12,0,-1,0" />
-                    <PasswordBox Margin="2,0,0,0" Height="72" HorizontalAlignment="Left" Name="Password" VerticalAlignment="Top" Width="308" 
+                    <PasswordBox Margin="2,0,0,0" HorizontalAlignment="Left" Name="Password" VerticalAlignment="Top" Width="308" 
                                  IsEnabled="{Binding UserInterfaceEnabled}" 
                                  Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=Explicit}" 
                                  PasswordChanged="PasswordChangedUpdateTrigger"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Game:" Style="{StaticResource PhoneTextLargeStyle}" VerticalAlignment="Top" Margin="12,10,-1,0" />
+                    <toolkit:ListPicker Margin="60,0,0,0" HorizontalAlignment="Left" Name="Games"  VerticalAlignment="Top" Width="285"
+                            SelectionMode="Single" 
+                            ExpansionMode="ExpansionAllowed"
+                            ItemsSource="{Binding Games}"
+                            SelectedItem="{Binding Game, Mode=TwoWay}"
+                            IsEnabled="{Binding UserInterfaceEnabled}">
+                    </toolkit:ListPicker>
+                    
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Content="Remember me"
@@ -107,12 +124,13 @@
                            AdUnitId="98660" 
                            ApplicationId="f67396f2-e07b-4c5b-9757-7b680e5d39ad"
                            IsAutoCollapseEnabled="True"
-                           IsAutoRefreshEnabled="True" />
+                           IsAutoRefreshEnabled="True"
+                           IsEnabled="{Binding UserInterfaceEnabled}" />
         </StackPanel>
 
         <HyperlinkButton Grid.Row="3" Margin="0,-20,0,10" NavigateUri="mailto:battlelogmobile@inbox.com?subject=Battlelog Mobile Support request" 
                          Content="Support &amp; Feedback" TargetName="_blank" Width="300" 
-                         Foreground="{StaticResource PhoneAccentBrush}" />
+                         Foreground="{StaticResource PhoneAccentBrush}" IsEnabled="{Binding UserInterfaceEnabled}" />
 
 	</Grid>
 </phone:PhoneApplicationPage>

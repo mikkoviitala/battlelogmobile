@@ -26,7 +26,6 @@
         <conv:TimeSpanStringConverter x:Key="TimeSpanStringConverter" />
         <conv:IntegerStringConverter x:Key="IntegerStringConverter" />
         <conv:DoublePercentageStringConverter x:Key="DoublePercentageStringConverter" />
-        <!--<conv:KillsAndAssistsStringConverter x:Key="KillsAndAssistsStringConverter" />-->
         <conv:IntegerVisibilityConverter x:Key="IntegerVisibilityConverter" />
     </phone:PhoneApplicationPage.Resources>
 
@@ -52,13 +51,19 @@
     </toolkit:TransitionService.NavigationOutTransition>
     
     <Grid x:Name="LayoutRoot">
-        <controls:Panorama Title="{Binding ApplicationName}" Name="Panorama">
-            <!-- Panoramaitem 1 / Overview -->
-            <controls:PanoramaItem Header="Overview">
+        <controls:Pivot x:Name="Pivot">
+            <controls:Pivot.Title>
+                <StackPanel>
+                    <TextBlock Text="{Binding ApplicationName}" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="60" Margin="-2"/>
+                    <TextBlock Text="{Binding ApplicationVersion}" Style="{StaticResource PhoneTextNormalStyle}" Margin="0"/>
+                </StackPanel>
+            </controls:Pivot.Title>
+            <!-- Pivotitem 1 / Overview -->
+            <controls:PivotItem Header="Overview">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition />
-                        <RowDefinition Height="64" />
+                        <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
@@ -74,106 +79,122 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Name" VerticalAlignment="Center" />
-                    <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.User.Name}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.User.UserName}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
 
                     <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Rank" VerticalAlignment="Center" />
-                    <!--<StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0" >-->
-                        <Image Grid.Row="1" Grid.Column="1"  Source="{Binding Soldier.User.Image}" Width="64" Height="64" VerticalAlignment="Center" />
-                        <Image Grid.Row="1" Grid.Column="1"  Source="{Binding Soldier.RankImage}" Width="64" Height="64" HorizontalAlignment="Right" VerticalAlignment="Center"  />
-                    <!--</StackPanel>-->
-                    <!--<Image Grid.Row="1" Grid.Column="1" Source="{Binding Soldier.Rank, Converter={StaticResource StringBitmapImageConverter}, ConverterParameter=Rank}" Width="64" Height="64" Margin="95,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />-->
-                    <!--<TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.Rank}" HorizontalAlignment="Right" VerticalAlignment="Center" />-->
+                    <Image Grid.Row="1" Grid.Column="1"  Source="{Binding Data.User.GravatarImage}" Width="64" Height="64" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Overview.Rank}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+                    <!--<Image Grid.Row="1" Grid.Column="1"  Source="{Binding Data.Overview.RankImage}" Width="64" Height="64" HorizontalAlignment="Right" VerticalAlignment="Center"  />-->
 
                     <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Skill" VerticalAlignment="Center" />
-                    <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.Skill}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+                    <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Overview.Skill}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
 
                     <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Time played" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                    <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.TimePlayed, Converter={StaticResource TimeSpanStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+                    <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Overview.TimePlayed, Converter={StaticResource TimeSpanStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
 
                     <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Rounds played" VerticalAlignment="Center" HorizontalAlignment="Left"  />
-                    <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.RoundsPlayed, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+                    <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Overview.RoundsPlayed, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
 
                     <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Accuracy" VerticalAlignment="Center" />
-                    <TextBlock Grid.Row="5" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.Statistics.Accuracy, Converter={StaticResource DoublePercentageStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+                    <TextBlock Grid.Row="5" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Overview.Accuracy, Converter={StaticResource DoublePercentageStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
 
                     <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Score / min" VerticalAlignment="Center" />
-                    <TextBlock Grid.Row="6" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.ScorePerMinute}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+                    <TextBlock Grid.Row="6" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Overview.ScorePerMinute}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
 
                     <TextBlock Grid.Row="7" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="K / D ratio" VerticalAlignment="Center" />
-                    <TextBlock Grid.Row="7" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.KillDeathRatio, Converter={StaticResource DoubleStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+                    <TextBlock Grid.Row="7" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Overview.KillDeathRatio, Converter={StaticResource DoubleStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
 
                     <TextBlock Grid.Row="8" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="W / L ratio" VerticalAlignment="Center" />
-                    <TextBlock Grid.Row="8" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.WinLoseRatio, Converter={StaticResource DoubleStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+                    <TextBlock Grid.Row="8" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Overview.WinLoseRatio, Converter={StaticResource DoubleStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
 
                     <TextBlock Grid.Row="9" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Quits" VerticalAlignment="Center" />
-                    <TextBlock Grid.Row="9" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Soldier.Statistics.Quits, Converter={StaticResource DoublePercentageStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+                    <TextBlock Grid.Row="9" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Overview.Quits, Converter={StaticResource DoublePercentageStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
                 </Grid>
-            </controls:PanoramaItem>
+            </controls:PivotItem>
 
-            <!-- Score / Panorama item two -->
-            <controls:PanoramaItem Header="Score">
+            <!-- Score / Pivot item two -->
+            <controls:PivotItem Header="Score">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="210" />
-                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
 
-                    <ListBox Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding Soldier.Score.Kits}" IsHitTestVisible="False">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="210" />
-                                        <ColumnDefinition Width="200" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Path=Type}" HorizontalAlignment="Left" />
-                                    <Image Grid.Column="1" Source="{Binding Path=Image}" Width="26" Height="26" Margin="30,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                                    <TextBlock Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Path=Score, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" />
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                    <StackPanel Grid.Row="0" Grid.ColumnSpan="2" >
+                        <ListBox ItemsSource="{Binding Data.Overview.KitServiceStars}" IsHitTestVisible="False">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="235" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <TextBlock Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Path=Type}" HorizontalAlignment="Left" />
+                                        <Image Grid.Column="1" Source="{Binding Path=Image}" Width="26" Height="26" Margin="30,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                        <TextBlock Grid.Column="2" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Path=Score, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                    
+                    <StackPanel Grid.Row="1" Grid.Column="0">
+                        <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="Vehicles" HorizontalAlignment="Left" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="1">
+                        <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Overview.Vehicles, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" TextAlignment="Right" />
+                    </StackPanel>
+                    
+                    <StackPanel Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" IsHitTestVisible="False">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="210" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
 
-                    <ListBox Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Soldier.Score.Others}" IsHitTestVisible="False">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="210" />
-                                        <ColumnDefinition Width="200" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Path=Type}" HorizontalAlignment="Left" />
-                                    <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Path=Score, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" Grid.Column="1" />
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                        
-                    <Rectangle Grid.Row="2" Grid.ColumnSpan="2" Stroke="White" StrokeThickness="1" Fill="White" Width="410" Height="1" VerticalAlignment="Top" />
-                    <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" 
-                                Text="Total Score" 
-                                
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center" />
-                    <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                                Text="{Binding Soldier.Score.TotalScore, Converter={StaticResource IntegerStringConverter}, ConverterParameter=AddEquals}" 
+                            <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Combat" HorizontalAlignment="Left" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Overview.Combat, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" />
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Awards" HorizontalAlignment="Left" />
+                            <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Overview.Awards, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" />
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Unlocks" HorizontalAlignment="Left" />
+                            <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Overview.Unlocks, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" />
+                        </Grid>
+                    </StackPanel>
+
+                    <Rectangle Grid.Row="3" Grid.ColumnSpan="2" Stroke="White" StrokeThickness="1" Fill="White" Margin="10,0,10,0" Height="1" VerticalAlignment="Top" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" 
+                                Text="Total Score" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
+                                Text="{Binding Data.Overview.TotalScore, Converter={StaticResource IntegerStringConverter}, ConverterParameter=AddEquals}" 
                                 HorizontalAlignment="Right" VerticalAlignment="Center" />
                 </Grid>
-            </controls:PanoramaItem>
+            </controls:PivotItem>
 
-            <!-- Kit progression / Panorama item three -->
-            <controls:PanoramaItem Header="Progression">
+            <!-- Kit progression / Pivot item three -->
+            <controls:PivotItem Header="Progression">
                 <Grid x:Name="ProgressGrid" Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
@@ -184,20 +205,22 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
 
+                    <!--Soldier.KitProgressions-->
                     <amq:SerialChart 
                         Grid.Row="0" 
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         ValueFormatString="0.00"
                         VerticalAlignment="Top"
-                        DataSource="{Binding Soldier.KitProgressions}" 
+                        DataSource="{Binding Data.Overview.KitServiceStars}" 
                         CategoryValueMemberPath="Type"
                         AxisForeground="White"
-                        PlotAreaBackground="Black"
+                        PlotAreaBackground="Transparent"
+                        Opacity="0.75"
                         GridStroke="DarkGray"
                         IsHitTestVisible="False">
                         <amq:SerialChart.Graphs>
-                            <amq:ColumnGraph ValueMemberPath="Progress" Title="Completion %" Brush="#8000FF00" ColumnWidthAllocation="0.7" />
+                            <amq:ColumnGraph ValueMemberPath="Progression" Title="Completion %" Brush="#8000FF00" ColumnWidthAllocation="0.7" />
                         </amq:SerialChart.Graphs>
                     </amq:SerialChart>
 
@@ -214,8 +237,8 @@
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Type}" />
                                     <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-                                        <Image Source="{Binding Path=Image}" Width="30" Height="30" VerticalAlignment="Center" />
-                                        <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding ServiceStars}" />
+                                        <Image Source="{Binding ServiceStarImage}" Width="30" Height="30" VerticalAlignment="Center" />
+                                        <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Stars}" />
                                     </StackPanel>
                                 </Grid>
                             </DataTemplate>
@@ -235,18 +258,18 @@
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Type}" />
                                     <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-                                        <Image Source="{Binding Path=Image}" Width="30" Height="30" VerticalAlignment="Center" />
-                                        <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding ServiceStars}" />
+                                        <Image Source="{Binding ServiceStarImage}" Width="30" Height="30" VerticalAlignment="Center" />
+                                        <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Stars}" />
                                     </StackPanel>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
-            </controls:PanoramaItem>
+            </controls:PivotItem>
 
-            <!-- Kit usages / Panorama item four -->
-            <controls:PanoramaItem Header="Kit usage">
+            <!-- Kit usages / Pivot item four -->
+            <controls:PivotItem Header="Kit usage">
                 <Grid x:Name="KitUsageGrid">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
@@ -261,9 +284,10 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
-                        DataSource="{Binding Soldier.Score.Kits}"
+                        DataSource="{Binding Data.Overview.KitServiceStars}"
                         TitleMemberPath="Type" 
                         ValueMemberPath="Percentage"
+                        Opacity="0.75"
                         IsHitTestVisible="False">
                         <amq:PieChart.Brushes>
                             <SolidColorBrush Color="#26729a" />
@@ -315,11 +339,11 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
-            </controls:PanoramaItem>
+            </controls:PivotItem>
 
-            <!-- Lastest awards / Panorama item five -->
-            <controls:PanoramaItem Header="Latest awards">
-                <ListBox ItemsSource="{Binding Soldier.Awards}" IsHitTestVisible="False">
+            <!-- Lastest awards / Pivot item five -->
+            <controls:PivotItem Header="Latest awards">
+                <ListBox ItemsSource="{Binding Data.Awards}" IsHitTestVisible="False">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -331,23 +355,29 @@
                                     <ColumnDefinition Width="130" />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding Path=Name}" Grid.ColumnSpan="2" Style="{StaticResource PhoneTextLargeStyle}" />
+                                <TextBlock Text="{Binding Award.Name}" Grid.ColumnSpan="2" Style="{StaticResource PhoneTextLargeStyle}" />
                                 <Image Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,5,5,0"
-                                       Source="{Binding Path=Image}" Width="{Binding Path=Width}" Height="{Binding Path=Height}" />
+                                       Source="{Binding Award.Image}" Width="{Binding Award.Width}" Height="{Binding Award.Height}" />
                                 <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Center"
-                                           Text="{Binding Description}" TextWrapping="Wrap" />
+                                           Text="{Binding Award.Description}" TextWrapping="Wrap" />
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-            </controls:PanoramaItem>
+            </controls:PivotItem>
 
-            <!-- Top weapons / Panorama item six -->
-            <controls:PanoramaItem Header="Weapons">
-                <ListBox Margin="12,0,0,0" ItemsSource="{Binding Soldier.Weapons}">
+            <!-- Top weapons / Pivot item six -->
+            <controls:PivotItem Header="Weapons">
+                <ListBox ItemsSource="{Binding Data.Weapons}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Margin" Value="0,0,0,10"></Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Grid Margin="0,0,0,6">
+                            <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
@@ -356,16 +386,17 @@
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="145" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Image Grid.Column="0" Grid.RowSpan="2" Source="{Binding Path=Image}" 
+                                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Source="{Binding Image}" 
                                        Width="90" Height="54" Margin="0,0,25,0" VerticalAlignment="Center" />
+
+                                <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding DisplayName}" />
+                                <Image Grid.Row="0" Grid.Column="2" Source="{Binding Path=ServiceStarImage}" Margin="0,0,45,0" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding ServiceStars}" HorizontalAlignment="Right" />
                                 
-                                <TextBlock Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Path=DisplayName}" />
-                                <TextBlock Grid.Column="2" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Path=ServiceStars}" HorizontalAlignment="Right" />
-                                <Image Grid.Column="2" Source="{Binding Path=ServiceStarImage}" Width="30" Height="30" Margin="0,0,40,0" HorizontalAlignment="Right" VerticalAlignment="Center" />
                                 <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextNormalStyle}">
                                     <Run Text="{Binding Kills}" />
                                     <Run Text="kills" />
@@ -382,17 +413,21 @@
                                     <Run Text="{Binding Accuracy, Converter={StaticResource DoublePercentageStringConverter}}" />
                                     <Run Text="hit" />
                                 </TextBlock>
-
-                                <!---->
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-            </controls:PanoramaItem>
+            </controls:PivotItem>
 
-           <!-- Top vehicles / Panoramaitem 7 -->
-            <controls:PanoramaItem Header="Vehicles">
-                <ListBox Margin="12,0,12,0" ItemsSource="{Binding Soldier.Vehicles}">
+           <!-- Top vehicles / Pivotitem 7 -->
+            <controls:PivotItem Header="Vehicles">
+                <ListBox ItemsSource="{Binding Data.Vehicles}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Margin" Value="0,0,0,10"></Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -401,19 +436,23 @@
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="160" />
-                                    <ColumnDefinition Width="145" />
-                                    <ColumnDefinition Width="145" />
+                                    <ColumnDefinition Width="165" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" 
-                                       Source="{Binding Path=Image}" 
-                                       Width="147" Height="88" Margin="0,0,25,0" VerticalAlignment="Top" />
-                                <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Path=DisplayName}" VerticalAlignment="Bottom" />
+                                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Source="{Binding Image}" 
+                                        Width="147" Height="88" Margin="0,0,15,0" VerticalAlignment="Top" />
+
+                                <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding DisplayName}" />
+                                <Image Grid.Row="0" Grid.Column="2" Source="{Binding Path=ServiceStarImage}" Margin="0,-8,45,0" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding ServiceStars}" HorizontalAlignment="Right" />
+
                                 <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Top">
-                                    <Run Text="{Binding Path=Kills, Converter={StaticResource IntegerStringConverter}}" />
+                                    <Run Text="{Binding Kills}" />
                                     <Run Text="kills" />
                                 </TextBlock>
+
                                 <TextBlock Grid.Row="1" Grid.Column="2" Style="{StaticResource PhoneTextNormalStyle}" 
                                            Text="{Binding TimeIn, Converter={StaticResource TimeSpanStringConverter}}" 
                                            HorizontalAlignment="Left" VerticalAlignment="Top" />
@@ -421,11 +460,17 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-            </controls:PanoramaItem>
+            </controls:PivotItem>
 
-            <!-- Top gadgets / Panoramaitem 8 -->
-            <controls:PanoramaItem Header="Gadgets">
-                <ListBox Margin="12,0,12,0" ItemsSource="{Binding Soldier.Gadgets}">
+            <!-- Top gadgets / Pivotitem 8 -->
+            <controls:PivotItem Header="Gadgets">
+                <ListBox ItemsSource="{Binding Data.Gadgets}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Margin" Value="0,0,0,10"></Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -439,32 +484,32 @@
                                     <ColumnDefinition Width="302" />
                                 </Grid.ColumnDefinitions>
 
-                                <Image Source="{Binding Path=Image}" 
+                                <Image Source="{Binding Image}" 
                                        Grid.RowSpan="3"
                                        Width="147" Height="88" Margin="0,0,25,0" VerticalAlignment="Center" />
                                 <TextBlock Grid.Row="0" Grid.Column="1"
                                            Style="{StaticResource PhoneTextLargeStyle}" 
-                                           Text="{Binding Path=DisplayName}" VerticalAlignment="Bottom" Margin="0" />
+                                           Text="{Binding DisplayName}" VerticalAlignment="Bottom" Margin="0" />
                                 <TextBlock Grid.Row="1" Grid.Column="1" 
                                            Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Top" Margin="0"
-                                           Visibility="{Binding Performance, Converter={StaticResource IntegerVisibilityConverter}}">
-                                           <Run Text="{Binding Performance}" />
-                                           <Run Text="{Binding PerformanceDescription}" />
+                                           Visibility="{Binding Performances[0].Stat, Converter={StaticResource IntegerVisibilityConverter}}">
+                                           <Run Text="{Binding Performances[0].Stat}" />
+                                           <Run Text="{Binding Performances[0].Name}" />
                                 </TextBlock>
                                 <TextBlock Grid.Row="2" Grid.Column="1" 
                                            Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Top" Margin="0"
-                                           Visibility="{Binding Kills, Converter={StaticResource IntegerVisibilityConverter}}">
-                                           <Run Text="{Binding Kills}" />
-                                           <Run Text="kills" />
+                                           Visibility="{Binding Performances[1].Stat, Converter={StaticResource IntegerVisibilityConverter}}">
+                                           <Run Text="{Binding Performances[1].Stat}" />
+                                           <Run Text="{Binding Performances[1].Name}" />
                                 </TextBlock>
                              </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-            </controls:PanoramaItem>
+            </controls:PivotItem>
 
-            <!-- Statistics / Panorama item nine -->
-            <controls:PanoramaItem Header="Statistics">
+            <!-- Statistics / Pivot item nine -->
+            <controls:PivotItem Header="Statistics">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -485,57 +530,57 @@
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Kills" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.Kills, Converter={StaticResource IntegerStringConverter}}" 
+                               Text="{Binding Data.Overview.Kills, Converter={StaticResource IntegerStringConverter}}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
 
                     <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Kill assists" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.KillAssists, Converter={StaticResource IntegerStringConverter}}" 
+                               Text="{Binding Data.Overview.KillAssists, Converter={StaticResource IntegerStringConverter}}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
 
                     <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Kill streak" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.KillStreakBonus, Converter={StaticResource IntegerStringConverter}}" 
+                               Text="{Binding Data.Overview.KillStreakBonus, Converter={StaticResource IntegerStringConverter}}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
 
                     <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Deaths" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}"
-                               Text="{Binding Soldier.Statistics.Deaths, Converter={StaticResource IntegerStringConverter}}" 
+                               Text="{Binding Data.Overview.Deaths, Converter={StaticResource IntegerStringConverter}}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
 
                     <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Longest headshot" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.LongestHeadshot, Converter={StaticResource DoubleStringConverter}, ConverterParameter=m}" 
+                               Text="{Binding Data.Overview.LongestHeadshot, Converter={StaticResource DoubleStringConverter}, ConverterParameter=m}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
 
                     <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Shots fired" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="5" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.ShotsFired, Converter={StaticResource IntegerStringConverter}}" 
+                               Text="{Binding Data.Overview.ShotsFired, Converter={StaticResource IntegerStringConverter}}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
 
-                    <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Suppression assist" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Shots hit" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="6" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.SuppressionAssists, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                               Text="{Binding Data.Overview.ShotsHit, Converter={StaticResource IntegerStringConverter}}" 
+                               HorizontalAlignment="Right" VerticalAlignment="Center" />
 
-                    <TextBlock Grid.Row="7" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Vehicles destroyed" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="7" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Suppression assist" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="7" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.VehiclesDestroyed, Converter={StaticResource IntegerStringConverter}}" 
-                               HorizontalAlignment="Right" VerticalAlignment="Center" />
+                               Text="{Binding Data.Overview.SuppressionAssists, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" />
 
-                    <TextBlock Grid.Row="8" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Destroy assist" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="8" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Vehicles destroyed" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="8" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.VehiclesDestroyedAssists, Converter={StaticResource IntegerStringConverter}}" 
+                               Text="{Binding Data.Overview.VehiclesDestroyed, Converter={StaticResource IntegerStringConverter}}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
 
-                    <TextBlock Grid.Row="9" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Squad bonus" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="9" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Destroy assist" VerticalAlignment="Center"/>
                     <TextBlock Grid.Row="9" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.SquadScoreBonus, Converter={StaticResource IntegerStringConverter}}" 
+                               Text="{Binding Data.Overview.VehiclesDestroyedAssists, Converter={StaticResource IntegerStringConverter}}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
                 </Grid>
-            </controls:PanoramaItem>
+            </controls:PivotItem>
 
-            <!-- Statistics / Panorama item ten -->
-            <controls:PanoramaItem Header="Statistics">
+            <!-- Statistics / Pivot item ten -->
+            <controls:PivotItem Header="Statistics">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -556,99 +601,56 @@
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Nemesis kills" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.NemesisKills, Converter={StaticResource IntegerStringConverter}}" 
+                               Text="{Binding Data.Overview.NemesisKills, Converter={StaticResource IntegerStringConverter}}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
 
                     <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Nemesis streak" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.NemesisStreak, Converter={StaticResource IntegerStringConverter}}" 
+                               Text="{Binding Data.Overview.NemesisStreak, Converter={StaticResource IntegerStringConverter}}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
 
                     <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Avenger kills" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.AvengerKills, Converter={StaticResource IntegerStringConverter}}" 
+                               Text="{Binding Data.Overview.AvengerKills, Converter={StaticResource IntegerStringConverter}}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
 
                     <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Savior kills" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12,0,0,0" Width="200" />
                     <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.SaviorKills, Converter={StaticResource IntegerStringConverter}}" 
+                               Text="{Binding Data.Overview.SaviorKills, Converter={StaticResource IntegerStringConverter}}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
 
                     <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Dogtags taken" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.DogtagsTaken, Converter={StaticResource IntegerStringConverter}}" 
+                               Text="{Binding Data.Overview.DogtagsTaken, Converter={StaticResource IntegerStringConverter}}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
 
-                    <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Repairs" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Repairs" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="5" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
+                               Text="{Binding Data.Overview.Repairs, Converter={StaticResource IntegerStringConverter}}" 
+                               HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+                    <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Revives" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="6" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.Repairs, Converter={StaticResource IntegerStringConverter}}" 
+                               Text="{Binding Data.Overview.Revives, Converter={StaticResource IntegerStringConverter}}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
 
-                    <TextBlock Grid.Row="7" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Revives" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="7" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Heals" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="7" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.Revives, Converter={StaticResource IntegerStringConverter}}" 
+                               Text="{Binding Data.Overview.Heals, Converter={StaticResource IntegerStringConverter}}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
 
-                    <TextBlock Grid.Row="8" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Heals" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="8" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Resupplies" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="8" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.Heals, Converter={StaticResource IntegerStringConverter}}" 
+                               Text="{Binding Data.Overview.Resupplies, Converter={StaticResource IntegerStringConverter}}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
 
-                    <TextBlock Grid.Row="9" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Resupplies" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="9" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Squad bonus" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="9" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.Resupplies, Converter={StaticResource IntegerStringConverter}}" 
+                               Text="{Binding Data.Overview.SquadScoreBonus, Converter={StaticResource IntegerStringConverter}}" 
                                HorizontalAlignment="Right" VerticalAlignment="Center" />
                 </Grid>
-            </controls:PanoramaItem>
-
-            <!-- Statistics / Panorama item eleven -->
-            <!--<controls:PanoramaItem Header="Statistics">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="286" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Flags captured (ctf)" VerticalAlignment="Center" />
-                    <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.FlagsCapturedCTF, Converter={StaticResource IntegerStringConverter}}" 
-                               HorizontalAlignment="Right" VerticalAlignment="Center" />
-
-                    <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Flags captured" VerticalAlignment="Center" />
-                    <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.FlagsCaptured, Converter={StaticResource IntegerStringConverter}}" 
-                               HorizontalAlignment="Right" VerticalAlignment="Center" />
-
-                    <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Flags defended" VerticalAlignment="Center" />
-                    <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.FlagsDefended, Converter={StaticResource IntegerStringConverter}}" 
-                               HorizontalAlignment="Right" VerticalAlignment="Center" />
-
-                    <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="MCOM destroyed" VerticalAlignment="Center" />
-                    <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
-                               Text="{Binding Soldier.Statistics.MCOMDestroyed, Converter={StaticResource IntegerStringConverter}}" 
-                               HorizontalAlignment="Right" VerticalAlignment="Center" />
-
-                    <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="MCOM defend" VerticalAlignment="Center" />
-                    <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}"
-                               Text="{Binding Soldier.Statistics.MCOMDefendKills, Converter={StaticResource IntegerStringConverter}}" 
-                               HorizontalAlignment="Right" VerticalAlignment="Center" />
-
-                </Grid>
-            </controls:PanoramaItem>-->
-        </controls:Panorama>
+            </controls:PivotItem>
+        </controls:Pivot>
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>

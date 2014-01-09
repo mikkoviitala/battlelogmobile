@@ -11,7 +11,7 @@ namespace BattlelogMobile.Core.Service
     /// <summary>
     /// Download files over http and store locally
     /// </summary>
-    public class DownloadService : IDownloadService
+    public class DownloadService
     {
         private readonly IsolatedStorageFile _isolatedStorage = IsolatedStorageFile.GetUserStoreForApplication();
 

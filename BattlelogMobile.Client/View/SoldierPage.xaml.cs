@@ -18,7 +18,7 @@ namespace BattlelogMobile.Client.View
     /// </summary>
     public partial class SoldierPage : PhoneApplicationPage
     {
-        private const string BackgroundUri = @"/PanoramaBackground.jpg";
+        private const string BackgroundUri = @"/PivotBackground.jpg";
         private const string CheckedUri = "/Toolkit.Content/ApplicationBar.Check.png";
         private const string UncheckedUri = "/Toolkit.Content/ApplicationBar.Uncheck.png";
         private const string AboutUri = "/YourLastAboutDialog;component/AboutPage.xaml";
@@ -32,7 +32,7 @@ namespace BattlelogMobile.Client.View
         private const int DefaultNextRatingPrompt = 5;
         private static bool _ratingPrompted;
         private static bool _isUpdating = false;
-        private readonly ImageBrush _brush = new ImageBrush() { ImageSource = new BitmapImage(new Uri(BackgroundUri, UriKind.Relative)), Opacity = 0.25d };
+        private readonly ImageBrush _brush = new ImageBrush() { ImageSource = new BitmapImage(new Uri(BackgroundUri, UriKind.Relative)), Opacity = 0.25d, Stretch = Stretch.None };
         private readonly Brush _blackBrush = new SolidColorBrush(Colors.Black);
 
         private readonly SoldierViewModel _soldierViewModel;
@@ -107,11 +107,19 @@ namespace BattlelogMobile.Client.View
 
         private void ToggleUIState(bool isEnabled)
         {
+            foreach (ApplicationBarIconButton button in ApplicationBar.Buttons)
+                button.IsEnabled = isEnabled;
+
+            return;
+
             _isUpdating = !isEnabled;
 
             Opacity = isEnabled ? 1d : 0.5d;
 
-            Panorama.IsEnabled = isEnabled;
+            Pivot.IsEnabled = isEnabled;
+            foreach (PanoramaItem item in Pivot.Items)
+                item.IsEnabled = isEnabled;
+
             foreach (ApplicationBarIconButton button in ApplicationBar.Buttons)
                 button.IsEnabled = isEnabled;
         }
@@ -124,12 +132,12 @@ namespace BattlelogMobile.Client.View
 
             if (BackgroundEnabled)
             {
-                Panorama.Background = _brush;
+                Pivot.Background = _brush;
                 button.IconUri = (new Uri(UncheckedUri, UriKind.Relative));
             }
             else
             {
-                Panorama.Background = _blackBrush; 
+                Pivot.Background = _blackBrush; 
                 button.IconUri = (new Uri(CheckedUri, UriKind.Relative));
             }
         }

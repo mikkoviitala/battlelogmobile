@@ -5,9 +5,9 @@ using Microsoft.Phone.Shell;
 
 namespace BattlelogMobile.Client
 {
-    public class GlobalLoading : INotifyPropertyChanged
+    public class GlobalLoading //: INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        //public event PropertyChangedEventHandler PropertyChanged;
 
         private ProgressIndicator _progressIndicator;
         private static GlobalLoading _instance;

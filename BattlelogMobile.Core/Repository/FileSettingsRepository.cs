@@ -3,7 +3,7 @@ using System.IO.IsolatedStorage;
 
 namespace BattlelogMobile.Core.Repository
 {
-    public class FileSettingsRepository : ISettingsRepository
+    public class FileSettingsRepository
     {
         private const string Key = "BackgroundEnabled";
 
@@ -18,14 +18,14 @@ namespace BattlelogMobile.Core.Repository
 
         public IsolatedStorageFile StorageFile { get; set; }
 
-        public void Save(ISettings settings)
+        public void Save(Settings settings)
         {
             IsolatedStorageSettings.ApplicationSettings[Key] = settings.BackgroundEnabled;
         }
 
-        public ISettings Load()
+        public Settings Load()
         {
-            ISettings settings = new Settings();
+            Settings settings = new Settings();
             bool backgroundEnabled = true;
 
             if (IsolatedStorageSettings.ApplicationSettings.Contains(Key))

@@ -1,11 +1,15 @@
+using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using BattlelogMobile.Core.Repository;
 using BattlelogMobile.Core.Service;
+using GalaSoft.MvvmLight.Threading;
+using Newtonsoft.Json;
 using Polenter.Serialization;
 
 namespace BattlelogMobile.Core.Model
 {
     // data - awards
-    public class Award : BaseModel, IAward
+    public class Award : BaseModel
     {
         private BitmapImage _bitmap;
         //private const string RibbonsGroup = "AwardGroup_Ribbons";
@@ -17,9 +21,46 @@ namespace BattlelogMobile.Core.Model
 
         private const int MedalWidth = (int)(1.2 * 52);
         private const int MedalHeight = (int)(1.2 * 52);
+        private string _code;
+        private string _group;
 
-        public string Code { get; set; }         // code
-        public string Group { get; set; }        // awardGroup
+        [JsonProperty(PropertyName = "code")]
+        public string Code
+        {
+            get { return _code; }
+            set 
+            { 
+                _code = value; 
+                RaisePropertyChanged("Code");
+                ResolveImage();
+            }
+        }       
+        [JsonProperty(PropertyName = "awardGroup")]
+        public string Group
+        {
+            get { return _group; }
+            set
+            {
+                _group = value;
+                RaisePropertyChanged("Group");
+                ResolveImage();
+            }
+        }
+
+        private void ResolveImage()
+        {
+            if (string.IsNullOrWhiteSpace(_code) || string.IsNullOrWhiteSpace(_group))
+                return;
+
+            string baseUrl = string.CompareOrdinal(Group, Common.AwardGroup) == 0 ? Common.RibbonAwardImageUrl : Common.MedalAwardImageUrl;
+
+            Task.Factory.StartNew(() =>
+            {
+                var r = new ImageRepository();
+                DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                    r.Load(baseUrl, ImageName, bitmap => Image = bitmap, ImageSaveName));
+            });
+        }
 
         [ExcludeFromSerialization]
         public BitmapImage Image

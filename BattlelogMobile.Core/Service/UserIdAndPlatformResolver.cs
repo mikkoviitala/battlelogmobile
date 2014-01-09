@@ -11,7 +11,7 @@ namespace BattlelogMobile.Core.Service
     // If it fails, a retry will be performed from the /unlocks/ block.
     public class UserIdAndPlatformResolver : IUserIdAndPlatformResolver 
     {
-        private const string UnableToParse = "Unable to retrieve user id, please contact support to resolve this issue.";
+        private const string UnableToParse = "Unable to retrieve user id, please contact support using email link below to resolve this issue.";
         private const string DogtagsBlockStart = "/dogtags/";
         private const string UnlocksBlockStart = "/unlocks/";
         private const string EaId = "cem_ea_id";
