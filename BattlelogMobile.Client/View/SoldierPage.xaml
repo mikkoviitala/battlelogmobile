@@ -391,7 +391,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Source="{Binding Image}" 
-                                       Width="90" Height="54" Margin="0,0,25,0" VerticalAlignment="Center" />
+                                       Width="90" Height="54" Margin="0,0,25,0" VerticalAlignment="Top" />
 
                                 <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding DisplayName}" />
                                 <Image Grid.Row="0" Grid.Column="2" Source="{Binding Path=ServiceStarImage}" Margin="0,0,45,0" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" />
@@ -486,7 +486,7 @@
 
                                 <Image Source="{Binding Image}" 
                                        Grid.RowSpan="3"
-                                       Width="147" Height="88" Margin="0,0,25,0" VerticalAlignment="Center" />
+                                       Width="147" Height="88" Margin="0,0,25,0" VerticalAlignment="Top" />
                                 <TextBlock Grid.Row="0" Grid.Column="1"
                                            Style="{StaticResource PhoneTextLargeStyle}" 
                                            Text="{Binding DisplayName}" VerticalAlignment="Bottom" Margin="0" />
