@@ -15,6 +15,7 @@ namespace BattlelogMobile.Core.Message
         }
 
         public string Message { get; private set; }
+
         public bool IsOk { get; private set; }
     }
 }

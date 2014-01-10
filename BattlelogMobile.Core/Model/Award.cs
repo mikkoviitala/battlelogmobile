@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using BattlelogMobile.Core.Repository;
 using BattlelogMobile.Core.Service;
@@ -8,11 +7,10 @@ using Polenter.Serialization;
 
 namespace BattlelogMobile.Core.Model
 {
-    // data - awards
     public class Award : BaseModel
     {
+        private static readonly ImageRepository Repo = new ImageRepository();
         private BitmapImage _bitmap;
-        //private const string RibbonsGroup = "AwardGroup_Ribbons";
         private const string MedalsGroup = "AwardGroup_Medals";
         
         // 1.2 * original size...
@@ -53,13 +51,7 @@ namespace BattlelogMobile.Core.Model
                 return;
 
             string baseUrl = string.CompareOrdinal(Group, Common.AwardGroup) == 0 ? Common.RibbonAwardImageUrl : Common.MedalAwardImageUrl;
-
-            Task.Factory.StartNew(() =>
-            {
-                var r = new ImageRepository();
-                DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                    r.Load(baseUrl, ImageName, bitmap => Image = bitmap, ImageSaveName));
-            });
+            DispatcherHelper.CheckBeginInvokeOnUI(() => Repo.Load(baseUrl, ImageName, bitmap => Image = bitmap, ImageSaveName));
         }
 
         [ExcludeFromSerialization]
@@ -83,12 +75,9 @@ namespace BattlelogMobile.Core.Model
         public int Width { get { return Group.Equals(MedalsGroup) ? MedalWidth : RibbonWidth; } }
         public int Height { get { return Group.Equals(MedalsGroup) ? MedalHeight : RibbonHeight; } }
 
-        public string Name { get { return AwardPropertyMapper.Get(Code, Group).Item1; } }
-        public string Description { get { return AwardPropertyMapper.Get(Code, Group).Item2; } }
 
-        public override string ToString()
-        {
-            return string.Format("Code={0}, Group={1}", Code, Group);
-        }
+        public string Name { get { return AwardPropertyMapper.Get(Code, Group).Item1; } }
+
+        public string Description { get { return AwardPropertyMapper.Get(Code, Group).Item2; } }
     }
 }

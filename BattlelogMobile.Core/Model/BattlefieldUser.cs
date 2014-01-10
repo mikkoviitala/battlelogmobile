@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
+﻿using System.Windows.Media.Imaging;
 using BattlelogMobile.Core.Repository;
 using GalaSoft.MvvmLight.Threading;
 using Newtonsoft.Json;
@@ -9,6 +8,8 @@ namespace BattlelogMobile.Core.Model
 {
     public class BattlefieldUser : BaseModel
     {
+        private static readonly ImageRepository Repo = new ImageRepository();
+
         private long _userId;
         [JsonProperty(PropertyName = "userId")]
         public long UserId
@@ -42,13 +43,7 @@ namespace BattlelogMobile.Core.Model
             {
                 _gravatarMd5 = value;
                 RaisePropertyChanged("GravatarMd5");
-
-                Task.Factory.StartNew(() =>
-                    {
-                        var r = new ImageRepository();
-                        DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                                                              r.Load(Common.GravatarImageUrl, GravatarMd5, bitmap => GravatarImage = bitmap)); 
-                    });
+                DispatcherHelper.CheckBeginInvokeOnUI(() => Repo.Load(Common.GravatarImageUrl, GravatarMd5, bitmap => GravatarImage = bitmap)); 
             }
         }
 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using BattlelogMobile.Core.Repository;
 using GalaSoft.MvvmLight.Threading;
@@ -14,6 +13,8 @@ namespace BattlelogMobile.Core.Model
 {
     public class Overview : BaseModel
     {
+        private static readonly ImageRepository Repo = new ImageRepository();
+
         private int _rank;
         [JsonProperty(PropertyName = "rank")]
         public int Rank
@@ -42,13 +43,7 @@ namespace BattlelogMobile.Core.Model
                     return;
 
                 _rankImageName = value;
-
-                Task.Factory.StartNew(() =>
-                    {
-                        var r = new ImageRepository();
-                        DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                                                              r.Load(Common.RankImageUrl, _rankImageName, bitmap => RankImage = bitmap));
-                    });
+                DispatcherHelper.CheckBeginInvokeOnUI(() => Repo.Load(Common.RankImageUrl, _rankImageName, bitmap => RankImage = bitmap));
             }
         }
 

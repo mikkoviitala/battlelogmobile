@@ -5,9 +5,6 @@ namespace BattlelogMobile.Core.Model
 {
     public class BattlefieldData : BaseModel
     {
-        public BattlefieldData()
-        {}
-
         private Overview _overview;
         [JsonProperty(PropertyName = "overviewStats")]
         public Overview Overview

@@ -44,8 +44,6 @@ namespace BattlelogMobile.Client.View
                     if (message.Sender.GetType() == typeof (MainViewModel))
                         MessageBox.Show(message.Notification, "Aw, Snap!", MessageBoxButton.OK);
                 });
-
-            //BattlelogMobileAds.ErrorOccurred += (sender, args) => System.Diagnostics.Debug.WriteLine(args.Error.ToString());
         }
 
         private void TextChangedUpdateTrigger(object sender, TextChangedEventArgs e)
@@ -53,7 +51,7 @@ namespace BattlelogMobile.Client.View
             UpdateSource(sender);
         }
 
-        private void PasswordChangedUpdateTrigger(object sender, System.Windows.RoutedEventArgs e)
+        private void PasswordChangedUpdateTrigger(object sender, RoutedEventArgs e)
         {
             UpdateSource(sender);
         }

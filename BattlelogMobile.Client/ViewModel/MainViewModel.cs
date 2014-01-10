@@ -14,7 +14,7 @@ using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Repository;
 using BattlelogMobile.Core.Service;
 using BattlelogMobile.Core;
-using ICredentials = BattlelogMobile.Core.Model.Credentials;
+using Credentials = BattlelogMobile.Core.Model.Credentials;
 using Microsoft.Phone.Controls;
 
 namespace BattlelogMobile.Client.ViewModel
@@ -48,9 +48,7 @@ namespace BattlelogMobile.Client.ViewModel
             LogInCommand = new RelayCommand(() => LogInCommandReceived(), CanExecuteLogInCommand);
             LoadCredentials();
 
-            var task = new Task(() => 
-                (new DownloadService(ViewModelLocator.CookieJar)).RetrieveServerMessage(string.Format(Common.ServerMessageUrl, DateTime.Now.Ticks.ToString())));
-            task.Start();
+            Task.Factory.StartNew(() => (new DownloadService(ViewModelLocator.CookieJar)).RetrieveServerMessage(string.Format(Common.ServerMessageUrl, DateTime.Now.Ticks.ToString())));
         }
 
         public FileCredentialsRepository CredentialsRepository { get; set; }
@@ -85,14 +83,15 @@ namespace BattlelogMobile.Client.ViewModel
             set
             {
                 _game = value;
-                RaisePropertyChanged("Game");
-                LogInCommand.RaiseCanExecuteChanged();
 
                 if (_game == SupportedGame.Battlefield4)
                 {
                     Messenger.Default.Send(new NotificationMessage(this, "Battlefield 4 support will be there in next release, keep eye on updates!"));
-                    Game = SupportedGame.Battlefield3;
+                    _game = SupportedGame.Battlefield3;
                 }
+
+                RaisePropertyChanged("Game");
+                LogInCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -225,7 +224,7 @@ namespace BattlelogMobile.Client.ViewModel
         /// <summary>
         /// Connect to battlelog and verify user credentials
         /// </summary>
-        private async Task LogInCommandReceived()
+        private async void LogInCommandReceived()
         {
             UserInterfaceEnabled = false;
             StatusInformation = Common.StatusInformationVerifyingCredential;
@@ -347,7 +346,7 @@ namespace BattlelogMobile.Client.ViewModel
         /// </summary>
         private void LoadCredentials()
         {
-            ICredentials credentials = CredentialsRepository.Load();
+            Credentials credentials = CredentialsRepository.Load();
             if (credentials.RememberMe)
             {
                 Email = credentials.Email;
@@ -362,7 +361,7 @@ namespace BattlelogMobile.Client.ViewModel
         /// </summary>
         private void SaveCredentials()
         {
-            ICredentials credentials = new Credentials();
+            Credentials credentials = new Credentials();
             if (RememberMe)
             {
                 credentials.Email = Email;

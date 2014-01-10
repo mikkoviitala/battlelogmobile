@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Reflection;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace BattlelogMobile.Client.ViewModel
 {
@@ -14,7 +15,6 @@ namespace BattlelogMobile.Client.ViewModel
         public static readonly string ApplicationName = "Battlelog Mobile";
         public static readonly Uri LogInPageUri = new Uri("/View/MainPage.xaml", UriKind.Relative);
         public static readonly Uri SoldierPageUri = new Uri("/View/SoldierPage.xaml", UriKind.Relative);
-        public static readonly Uri CopyrightPageUri = new Uri("/View/CopyrightPage.xaml", UriKind.Relative);
 
         public static readonly Uri WebRequestLogInUri = new Uri("https://battlelog.battlefield.com/bf3/gate/login/");
         public static readonly Uri WebRequestLogInResponseUri = new Uri("http://battlelog.battlefield.com/bf3/");
@@ -24,33 +24,24 @@ namespace BattlelogMobile.Client.ViewModel
 
         public ViewModelLocator()
         {
-            Create();
-        }
-
-        public static void Create()
-        {
-            if (MainStatic == null)
-                MainStatic = new MainViewModel();
-            if (SoldierStatic == null)
-                SoldierStatic = new SoldierViewModel();
+            if (Main == null)
+                Main = new MainViewModel();
+            if (Soldier == null)
+                Soldier = new SoldierViewModel();
         }
 
         public static void Cleanup()
         {
-            MainStatic.Cleanup();
-            SoldierStatic.Cleanup();
-            MainStatic = null;
-            SoldierStatic = null;
+            Messenger.Default.Unregister(Main);
+            Messenger.Default.Unregister(Soldier);
+            Main = null;
+            Soldier = null;
         }
 
-        public static MainViewModel MainStatic { get; private set; }
-
-        public static SoldierViewModel SoldierStatic { get; private set; }
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed for data binding purposes.")]
+        public static MainViewModel Main { get; private set; }
 
         [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed for data binding purposes.")]
-        public MainViewModel Main { get { return MainStatic; } }
-
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed for data binding purposes.")]
-        public SoldierViewModel Soldier { get { return SoldierStatic; } }
+        public static SoldierViewModel Soldier { get; private set; }
     }
 }

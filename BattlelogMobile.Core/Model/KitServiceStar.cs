@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
+﻿using System.Windows.Media.Imaging;
 using BattlelogMobile.Core.Repository;
 using GalaSoft.MvvmLight.Threading;
 using Newtonsoft.Json;
@@ -9,13 +8,11 @@ namespace BattlelogMobile.Core.Model
 {
     public class KitServiceStar : BaseModel
     {
+        private static readonly ImageRepository Repo = new ImageRepository();
+
         public KitServiceStar()
         {
-            Task.Factory.StartNew(() =>
-                {
-                    var r = new ImageRepository();
-                    DispatcherHelper.CheckBeginInvokeOnUI(() => r.Load(Common.ServiceStarImageUrl, Common.ServiceStarImage, bitmap => ServiceStarImage = bitmap));
-                });
+            DispatcherHelper.CheckBeginInvokeOnUI(() => Repo.Load(Common.ServiceStarImageUrl, Common.ServiceStarImage, bitmap => ServiceStarImage = bitmap));
         }
 
         public KitServiceStar(KitType kitType, int score, int stars, double progression, double percentage)
@@ -38,12 +35,7 @@ namespace BattlelogMobile.Core.Model
                 RaisePropertyChanged("Type");
 
                 string imageName = string.Format("{0}{1}", Type.ToString().ToLowerInvariant(), Common.ImageSuffix);
-
-                Task.Factory.StartNew(() =>
-                    {
-                        var r = new ImageRepository();
-                        DispatcherHelper.CheckBeginInvokeOnUI(() => r.Load(Common.KitImageUrl, imageName, bitmap => Image = bitmap));
-                    });
+                DispatcherHelper.CheckBeginInvokeOnUI(() => Repo.Load(Common.KitImageUrl, imageName, bitmap => Image = bitmap));
             }
         }
 

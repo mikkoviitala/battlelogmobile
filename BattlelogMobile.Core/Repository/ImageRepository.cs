@@ -2,6 +2,7 @@
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Net;
+using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Windows.Resources;
 
@@ -25,55 +26,52 @@ namespace BattlelogMobile.Core.Repository
             return image;
         }
 
-        public void Load(string imageUrl, string imageName, Action<BitmapImage> callback, string imageSaveName = null)
+        public async void Load(string imageUrl, string imageName, Action<BitmapImage> callback, string imageSaveName = null)
         {
-            BitmapImage image;
-            
-            if (imageSaveName != null)
-                image = Load(imageSaveName);
-            else
-                image = Load(imageName);
+            BitmapImage image = Load(imageSaveName ?? imageName);
 
-            if (image != null)
-              callback.Invoke(image);
-            else
-                Download(imageUrl, imageName, callback, imageSaveName);
+            if (image == null)
+                image = await Download(imageUrl, imageName, imageSaveName);
+            
+            callback.Invoke(image);
         }
 
-        private void Download(string imageUrl, string imageName, Action<BitmapImage> callBack, string imageSaveName)
+        private async Task<BitmapImage> Download(string imageUrl, string imageName, string imageSaveName)
         {
-            var imageUri = new Uri(string.Format(imageUrl, imageName));
+            Stream imageStream = null;
 
             var client = new WebClient();
-            client.OpenReadCompleted += (s, e) =>
+            try
             {
-                try
-                {
-                    var streamResourseInfo = new StreamResourceInfo(e.Result, null);
-                    var streamReader = new StreamReader(streamResourseInfo.Stream);
-                    byte[] imageBytes;
-                    using (var binaryReader = new BinaryReader(streamReader.BaseStream))
-                    {
-                        imageBytes = binaryReader.ReadBytes((int)streamReader.BaseStream.Length);
-                    }
+                var imageUri = new Uri(string.Format(imageUrl, imageName));
+                imageStream = await client.OpenReadTaskAsync(imageUri);
+            }
+            catch (Exception ex)
+            {
+                // Let it fail if not something catastrophic
+                if (!(ex is WebException))
+                    throw;
+            }
 
-                    string name = imageSaveName ?? imageName;
-                    using (var stream = _isolatedStorageFile.CreateFile(name))
-                    {
-                        stream.Write(imageBytes, 0, imageBytes.Length);
-                        var image = new BitmapImage();
-                        image.SetSource(stream);
-                        callBack.Invoke(image);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Let it fail if not something catastrophic
-                    if (!(ex is WebException))
-                        throw;
-                }
-            };
-            client.OpenReadAsync(imageUri, client);
+            if (imageStream == null)
+                return null;
+
+            var streamResourceInfo = new StreamResourceInfo(imageStream, null);
+            var streamReader = new StreamReader(streamResourceInfo.Stream);
+               
+            byte[] imageBytes;
+            using (var binaryReader = new BinaryReader(streamReader.BaseStream))
+                imageBytes = binaryReader.ReadBytes((int) streamReader.BaseStream.Length);
+
+            var image = new BitmapImage();
+            string name = imageSaveName ?? imageName;
+            using (var stream = _isolatedStorageFile.CreateFile(name))
+            {
+                stream.Write(imageBytes, 0, imageBytes.Length);
+                image.SetSource(stream);
+            }
+
+            return image;
         }
     }
 }

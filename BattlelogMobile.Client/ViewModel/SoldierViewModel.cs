@@ -110,7 +110,7 @@ namespace BattlelogMobile.Client.ViewModel
             set 
             {
                 if (_backgroundEnabled != value)
-                    SettingsRepository.Save(new Settings() { BackgroundEnabled = value } );
+                    SettingsRepository.Save(new Settings { BackgroundEnabled = value } );
                 _backgroundEnabled = value;
                 RaisePropertyChanged("BackgroundEnabled"); }
         }

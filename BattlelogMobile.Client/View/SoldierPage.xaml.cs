@@ -2,7 +2,6 @@
 using System.IO.IsolatedStorage;
 using System.Windows;
 using System.Windows.Threading;
-using BattlelogMobile.Core;
 using BattlelogMobile.Core.Message;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Phone.Controls;
@@ -34,7 +33,7 @@ namespace BattlelogMobile.Client.View
         private const int DefaultNextRatingPrompt = 5;
         private static bool _ratingPrompted;
         private static bool _isUpdating = false;
-        private readonly ImageBrush _brush = new ImageBrush() { ImageSource = new BitmapImage(new Uri(BackgroundUri, UriKind.Relative)), Opacity = 0.25d, Stretch = Stretch.None };
+        private readonly ImageBrush _brush = new ImageBrush { ImageSource = new BitmapImage(new Uri(BackgroundUri, UriKind.Relative)), Opacity = 0.25d, Stretch = Stretch.None };
         private readonly Brush _blackBrush = new SolidColorBrush(Colors.Black);
 
         private readonly SoldierViewModel _soldierViewModel;
@@ -92,7 +91,7 @@ namespace BattlelogMobile.Client.View
         private void UpdateMenuItemClick(object sender, EventArgs e)
         {
             ToggleUIState(false);
-            Messenger.Default.Send(new BattlelogCredentialsAcceptedMessage(ViewModelLocator.MainStatic.Email, true));
+            Messenger.Default.Send(new BattlelogCredentialsAcceptedMessage(ViewModelLocator.Main.Email, true));
         }
 
         private void ToggleUIState(bool isEnabled)
@@ -101,12 +100,6 @@ namespace BattlelogMobile.Client.View
                 button.IsEnabled = isEnabled;
 
             _isUpdating = !isEnabled;
-
-            //Opacity = isEnabled ? 1d : 0.5d;
-
-            //Pivot.IsEnabled = isEnabled;
-            //foreach (PanoramaItem item in Pivot.Items)
-            //    item.IsEnabled = isEnabled;
         }
 
         private void BackgroundMenuItemClick(object sender, EventArgs e)

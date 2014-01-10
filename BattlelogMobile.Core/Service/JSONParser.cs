@@ -5,7 +5,6 @@ using System.IO.IsolatedStorage;
 using System.Linq;
 using BattlelogMobile.Core.Message;
 using BattlelogMobile.Core.Model;
-using BattlelogMobile.Core.Repository;
 using GalaSoft.MvvmLight.Messaging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -15,7 +14,6 @@ namespace BattlelogMobile.Core.Service
     public class JSONParser
     {
         private readonly IsolatedStorageFile _isolatedStorage = IsolatedStorageFile.GetUserStoreForApplication();
-        private readonly ImageRepository _imageRepository = new ImageRepository();
         private BattlefieldData _battlefieldData = new BattlefieldData();
 
         /// <summary>

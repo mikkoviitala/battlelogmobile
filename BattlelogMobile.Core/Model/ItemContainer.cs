@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using BattlelogMobile.Core.Repository;
 using BattlelogMobile.Core.Service;
@@ -11,13 +10,11 @@ namespace BattlelogMobile.Core.Model
 {
     public class ItemContainer : BaseModel
     {
+        private static readonly ImageRepository Repo = new ImageRepository();
+
         public ItemContainer()
         {
-            Task.Factory.StartNew(() =>
-                {
-                    var r = new ImageRepository();
-                    DispatcherHelper.CheckBeginInvokeOnUI(() => r.Load(Common.ServiceStarImageUrl, Common.ServiceStarImage, bitmap => ServiceStarImage = bitmap));
-                });    
+            DispatcherHelper.CheckBeginInvokeOnUI(() => Repo.Load(Common.ServiceStarImageUrl, Common.ServiceStarImage, bitmap => ServiceStarImage = bitmap));
         }
 
         private string _guid;
@@ -159,11 +156,10 @@ namespace BattlelogMobile.Core.Model
                 _imageName = value;
                 RaisePropertyChanged("ImageName");
 
-                        var r = new ImageRepository();
-                        if (TimeIn != null)
-                            DispatcherHelper.CheckBeginInvokeOnUI(() => r.Load(Common.VehicleAndGadgetImageUrl, _imageName, bitmap => Image = bitmap));
-                        else
-                            DispatcherHelper.CheckBeginInvokeOnUI(() => r.Load(Common.WeaponAndAccessoryImageUrl, _imageName, bitmap => Image = bitmap));
+                if (TimeIn != null)
+                    DispatcherHelper.CheckBeginInvokeOnUI(() => Repo.Load(Common.VehicleAndGadgetImageUrl, _imageName, bitmap => Image = bitmap));
+                else
+                    DispatcherHelper.CheckBeginInvokeOnUI(() => Repo.Load(Common.WeaponAndAccessoryImageUrl, _imageName, bitmap => Image = bitmap));
             }
         }
 

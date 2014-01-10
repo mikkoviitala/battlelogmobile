@@ -139,7 +139,6 @@ namespace System.Windows
                 Debug.WriteLine("Dear developer:");
                 Debug.WriteLine("Unfortunately the design overlay feature requires that the root frame visual");
                 Debug.WriteLine("be a Border or a Grid. So the overlay grid just isn't going to happen.");
-                return;
             }
         }
 
@@ -172,8 +171,8 @@ namespace System.Windows
                     {
                         Width = 25,
                         Height = 25,
-                        VerticalAlignment = System.Windows.VerticalAlignment.Top,
-                        HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
+                        VerticalAlignment = VerticalAlignment.Top,
+                        HorizontalAlignment = HorizontalAlignment.Left,
                         Margin = new Thickness(x, y, 0, 0),
                         IsHitTestVisible = false,
                         Fill = brush,

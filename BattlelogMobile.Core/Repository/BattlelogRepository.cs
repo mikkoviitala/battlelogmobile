@@ -165,7 +165,6 @@ namespace BattlelogMobile.Core.Repository
                 try
                 {
                     data = serializer.Deserialize(file) as BattlefieldData;
-                    //ApplyImages(data);
                 }
                 catch (Exception)
                 {
@@ -181,36 +180,5 @@ namespace BattlelogMobile.Core.Repository
 
             return data;
         }
-
-        //private static void ApplyImages(BattlefieldData data)
-        //{
-            //var imageRepository = new ImageRepository();
-
-            //foreach (var kit in data.Score.Kits)
-            //    kit.Image = imageRepository.Load(kit.ImageName);
-
-            //foreach (var kitProgression in data.KitProgressions)
-            //    kitProgression.Image = imageRepository.Load(Common.ServiceStarImage);
-
-            //data.RankImage = imageRepository.Load(data.RankImageName);
-
-            //data.User.Image = imageRepository.Load(data.User.GravatarMd5);
-
-            //foreach (var award in data.Awards)
-            //    award.Image = imageRepository.Load(award.ImageSaveName);
-
-            //foreach (var vehicle in data.Vehicles)
-            //    vehicle.Image = imageRepository.Load(vehicle.ImageName);
-
-            //foreach (var gadget in data.Gadgets)
-            //    gadget.Image = imageRepository.Load(gadget.ImageName);
-
-            //var serviceStarImage = imageRepository.Load(Common.ServiceStarImage);
-            //foreach (var weapon in data.Weapons)
-            //{
-            //    weapon.ServiceStarImage = serviceStarImage;
-            //    weapon.Image = imageRepository.Load(weapon.ImageName);
-            //}
-        //}
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using BattlelogMobile.Core.Repository;
 using BattlelogMobile.Core.Service;
@@ -11,6 +10,8 @@ namespace BattlelogMobile.Core.Model
 {
     public class GadgetContainer : BaseModel
     {
+        private static readonly ImageRepository Repo = new ImageRepository();
+
         private string _guid;
         [JsonProperty(PropertyName = "guid")]
         public string Guid
@@ -91,12 +92,7 @@ namespace BattlelogMobile.Core.Model
             {
                 _imageName = value;
                 RaisePropertyChanged("ImageName");
-
-                Task.Factory.StartNew(() =>
-                    {
-                        var r = new ImageRepository();
-                        DispatcherHelper.CheckBeginInvokeOnUI(() => r.Load(Common.VehicleAndGadgetImageUrl, _imageName, bitmap => Image = bitmap));
-                    });
+                DispatcherHelper.CheckBeginInvokeOnUI(() => Repo.Load(Common.VehicleAndGadgetImageUrl, _imageName, bitmap => Image = bitmap));
             }
         }
     }
