@@ -4,6 +4,7 @@ using System.IO.IsolatedStorage;
 using System.Net;
 using System.Threading.Tasks;
 using BattlelogMobile.Core.Message;
+using BattlelogMobile.Core.Model;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace BattlelogMobile.Core.Service
@@ -55,8 +56,10 @@ namespace BattlelogMobile.Core.Service
             }
         }
 
-        public async Task ResolveUserIdAndPlatform(string url, IUserIdAndPlatformResolver userIdAndPlatformResolver)
+        public async Task<BattlelogUser> ResolveUserIdAndPlatform(string url, IUserIdAndPlatformResolver userIdAndPlatformResolver)
         {
+            BattlelogUser user = null;
+
             var request = WebRequest.Create(new Uri(url)) as HttpWebRequest;
             if (request == null)
                 throw new ArgumentNullException();
@@ -72,13 +75,14 @@ namespace BattlelogMobile.Core.Service
             {
                 var response = (HttpWebResponse) await task.ConfigureAwait(false);
                 var responseStream = response.GetResponseStream();
-                userIdAndPlatformResolver.Resolve(responseStream);
+                user = userIdAndPlatformResolver.Resolve(responseStream);
                 response.Close();
             }
             catch (WebException we)
             {
                 Messenger.Default.Send(new BattlelogResponseMessage(we.Message, false));
             }
+            return user;
         }
 
         public async Task<bool> GetFile(string url, string isolatedStorageFile)
@@ -90,7 +94,6 @@ namespace BattlelogMobile.Core.Service
                 using (var writer = new StreamWriter(_isolatedStorage.OpenFile(isolatedStorageFile, FileMode.Create)))
                     await writer.WriteAsync(responseStream);
                 return true;
-                //Messenger.Default.Send(new BattlelogResponseMessage(this, Common.StatusInformationDownloading, true));
             }
             catch (WebException we)
             {

@@ -15,53 +15,50 @@ namespace BattlelogMobile.Core.Service
         private const string DogtagsBlockStart = "/dogtags/";
         private const string UnlocksBlockStart = "/unlocks/";
         private const string EaId = "cem_ea_id";
-        private long _userId;
-        private Platform _platform;
 
-        public void Resolve(Stream stream)
+        public BattlelogUser Resolve(Stream stream)
         {
-            _platform = Platform.Unknown;
             using (var reader = new StreamReader(stream))
             {
                 string buffer = reader.ReadToEnd();
-                bool resolvedIdAndPlatform = Resolve(buffer, DogtagsBlockStart);
-                if (!resolvedIdAndPlatform)
-                    Resolve(buffer, UnlocksBlockStart);
+                var user = Resolve(buffer, DogtagsBlockStart);
+                if (user == null || !user.IsValid)
+                    user = Resolve(buffer, UnlocksBlockStart);
 
-                if (_userId <= 0 || _platform == Platform.Unknown)
-                {
+                if (user != null && user.IsValid)
+                    Messenger.Default.Send(new UserIdAndPlatformResolvedMessage(user));
+                else
                     Messenger.Default.Send(new BattlelogResponseMessage(UnableToParse, false));
-                    return;
-                }
 
-                Messenger.Default.Send(new UserIdAndPlatformResolvedMessage(_userId, _platform));
+                return user;
             }
         }
 
-        private bool Resolve(string buffer, string htmlBlock)
+        private BattlelogUser Resolve(string buffer, string htmlBlock)
         {
             try
             {
                 int startPosition = buffer.IndexOf(htmlBlock, StringComparison.Ordinal);
                 buffer = buffer.Substring(startPosition + htmlBlock.Length);
-                _userId = Convert.ToInt64(buffer.Substring(0, buffer.IndexOf("/", StringComparison.Ordinal)));
+                long userId = Convert.ToInt64(buffer.Substring(0, buffer.IndexOf("/", StringComparison.Ordinal)));
 
-                buffer = buffer.Substring(_userId.ToString(CultureInfo.InvariantCulture).Length + 1);
-                string platformString    = buffer.Substring(0, buffer.IndexOf("/", StringComparison.Ordinal));
-                
+                buffer = buffer.Substring(userId.ToString(CultureInfo.InvariantCulture).Length + 1);
+                string platformString = buffer.Substring(0, buffer.IndexOf("/", StringComparison.Ordinal));
+
+                var platform = Platform.Unknown;
                 if (platformString == EaId)
-                    _platform = Platform.PC;
+                    platform = Platform.PC;
                 else
-                    _platform = (Platform) Enum.Parse(typeof (Platform), platformString, true);
+                    platform = (Platform) Enum.Parse(typeof (Platform), platformString, true);
                 
-                return true;
+                return new BattlelogUser(userId, platform);
             }
             catch (Exception e)
             {
                 if (e is ArgumentException || e is FormatException)
-                    return false;
-                throw;
+                    throw;
             }
+            return null;
         }
     }
 }

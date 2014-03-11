@@ -5,14 +5,11 @@ namespace BattlelogMobile.Core.Message
 {
     public class UserIdAndPlatformResolvedMessage : MessageBase
     {
-        public UserIdAndPlatformResolvedMessage(long userId, Platform platform)
+        public UserIdAndPlatformResolvedMessage(BattlelogUser user)
         {
-            UserId = userId;
-            Platform = platform;
+            User = user;
         }
 
-        public long UserId { get; set; }
-
-        public Platform Platform { get; set; }
+        public BattlelogUser User { get; set; }
     }
 }

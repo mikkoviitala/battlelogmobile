@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Windows;
-using BattlelogMobile.Core;
-using BattlelogMobile.Core.Message;
 using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Repository;
-using BattlelogMobile.Core.Service;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Messaging;
 
 namespace BattlelogMobile.Client.ViewModel
 {

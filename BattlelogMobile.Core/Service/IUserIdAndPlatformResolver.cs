@@ -1,9 +1,10 @@
 using System.IO;
+using BattlelogMobile.Core.Model;
 
 namespace BattlelogMobile.Core.Service
 {
     public interface IUserIdAndPlatformResolver
     {
-        void Resolve(Stream stream);
+        BattlelogUser Resolve(Stream stream);
     }
 }

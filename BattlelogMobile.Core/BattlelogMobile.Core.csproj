@@ -102,6 +102,7 @@
     <Compile Include="Model\AwardContainer.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\BattlefieldUser.cs" />
+    <Compile Include="Model\BattlelogUser.cs" />
     <Compile Include="Model\Credentials.cs" />
     <Compile Include="Model\GadgetContainer.cs" />
     <Compile Include="Model\GadgetsData.cs" />

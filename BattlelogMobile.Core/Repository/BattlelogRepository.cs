@@ -16,11 +16,8 @@ namespace BattlelogMobile.Core.Repository
     /// </summary>
     public class BattlelogRepository
     {
-        private const int ExpectedResponseMessages = 3;
         private readonly IsolatedStorageFile _storage = IsolatedStorageFile.GetUserStoreForApplication();
-        private int _responseMessages = 0;
-        private long? _userId;
-        private Platform? _platform;
+        private BattlelogUser _battlelogUser;
 
         public BattlelogRepository() 
             : this(new DownloadService(new CookieContainer()))
@@ -28,20 +25,16 @@ namespace BattlelogMobile.Core.Repository
 
         public BattlelogRepository(DownloadService downloadService)
         {
-            Messenger.Default.Register<UserIdAndPlatformResolvedMessage>(this, UserIdAndPlatformResolvedMessageReceived);
-            //Messenger.Default.Register<BattlelogResponseMessage>(this, BattlelogResponseMessageReceived);
             DownloadService = downloadService;
         }
 
         public DownloadService DownloadService { get; set; }
 
-        public string CurrentUser { get; set; }
-
         public bool IsSerialized
         {
             get
             {
-                return CurrentUser != null && _storage.FileExists(CurrentUser);
+                return _battlelogUser != null && _battlelogUser.IsValid && _storage.FileExists(_battlelogUser.UserId.Value.ToString());
             }
         }
 
@@ -50,7 +43,6 @@ namespace BattlelogMobile.Core.Repository
         /// </summary>
         public async Task UpdateStorage(bool forceUpdate = false)
         {
-            //forceUpdate = true;
             if (forceUpdate)
                 ClearCache();
 
@@ -60,23 +52,17 @@ namespace BattlelogMobile.Core.Repository
             }
             else
             {
-                Reset();
-                await DownloadService.ResolveUserIdAndPlatform(Common.EntryPageUrl, new UserIdAndPlatformResolver());
+                _battlelogUser = await DownloadService.ResolveUserIdAndPlatform(Common.EntryPageUrl, new UserIdAndPlatformResolver());
+                if (_battlelogUser != null && _battlelogUser.IsValid)
+                    await GetFilesFromServer();
             }
         }
 
         private void ClearCache()
         {
-            if (CurrentUser != null)
-                if (_storage.FileExists(CurrentUser))
-                    _storage.DeleteFile(CurrentUser);
-        }
-
-        private void Reset()
-        {
-            _responseMessages = 0;
-            _userId = null;
-            _platform = null;
+            if (_battlelogUser != null && _battlelogUser.IsValid)
+                if (_storage.FileExists(_battlelogUser.StorageFile))
+                    _storage.DeleteFile(_battlelogUser.StorageFile);
         }
 
         public Task<BattlefieldData> LoadBattlefieldData()
@@ -100,46 +86,23 @@ namespace BattlelogMobile.Core.Repository
         /// </summary>
         private async Task GetFilesFromServer()
         {
-            if (_userId == null || _platform == null)
-                return;
+            Messenger.Default.Send(new BattlelogResponseMessage(Common.StatusInformationSeekingContent, true));
 
-            bool downloaded = await DownloadService.GetFile(string.Format(Common.OverviewPageUrl, _userId, (int)_platform), Common.OverviewFile);
+            bool downloaded = await DownloadService.GetFile(string.Format(Common.OverviewPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.OverviewFile);
             if (downloaded)
-                downloaded = await DownloadService.GetFile(string.Format(Common.VehiclesPageUrl, _userId, (int)_platform), Common.VehiclesFile);
+                downloaded = await DownloadService.GetFile(string.Format(Common.VehiclesPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.VehiclesFile);
             if (downloaded)
-                downloaded = await DownloadService.GetFile(string.Format(Common.GadgetsPageUrl, _userId, (int)_platform), Common.WeaponsAndGadgetsFile);
+                downloaded = await DownloadService.GetFile(string.Format(Common.GadgetsPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.WeaponsAndGadgetsFile);
             
             if (downloaded)
                 Messenger.Default.Send(new BattlelogUpdateCompleteMessage());
         }
 
-        private async void UserIdAndPlatformResolvedMessageReceived(UserIdAndPlatformResolvedMessage message)
-        {
-            _userId = message.UserId;
-            _platform = message.Platform;
-            Messenger.Default.Send(new BattlelogResponseMessage(Common.StatusInformationSeekingContent, true));
-            await GetFilesFromServer();
-        }
-
-        // Listen for download completions, send message to UI when all done
-        //private void BattlelogResponseMessageReceived(BattlelogResponseMessage message)
-        //{
-        //    if (message.Sender == null || (message.Sender.GetType() != (typeof(DownloadService))))
-        //        return;
-
-        //    _responseMessages++;
-        //    if (_responseMessages == ExpectedResponseMessages)
-        //    {
-        //        _responseMessages = 0;
-        //        Messenger.Default.Send(new BattlelogUpdateCompleteMessage());
-        //    }
-        //}
-
         private void Serialize(BattlefieldData data)
         {
             bool errorOccured = false;
 
-            using (var file = _storage.OpenFile(CurrentUser, FileMode.Create))
+            using (var file = _storage.OpenFile(_battlelogUser.StorageFile, FileMode.Create))
             {
                 try
                 {
@@ -164,7 +127,7 @@ namespace BattlelogMobile.Core.Repository
             BattlefieldData data = null;
             bool errorOccured = false;
 
-            using (var file = _storage.OpenFile(CurrentUser, FileMode.Open))
+            using (var file = _storage.OpenFile(_battlelogUser.StorageFile, FileMode.Open))
             {
                 var serializer = new SharpSerializer(true);
                 try

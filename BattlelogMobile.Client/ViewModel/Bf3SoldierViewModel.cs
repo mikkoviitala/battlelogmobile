@@ -32,7 +32,6 @@ namespace BattlelogMobile.Client.ViewModel
                     if (message.Game != SupportedGame.Battlefield3)
                         return;
 
-                    BattlelogRepository.CurrentUser = message.CurrentUser;
                     await BattlelogRepository.UpdateStorage(message.ForceUpdate);
                 });
 
