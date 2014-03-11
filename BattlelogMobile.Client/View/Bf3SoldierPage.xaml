@@ -476,7 +476,6 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                     <RowDefinition />
-                                    <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="168" />
@@ -489,18 +488,21 @@
                                 <TextBlock Grid.Row="0" Grid.Column="1"
                                            Style="{StaticResource PhoneTextLargeStyle}" 
                                            Text="{Binding DisplayName}" VerticalAlignment="Bottom" Margin="0" />
-                                <TextBlock Grid.Row="1" Grid.Column="1" 
-                                           Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Top" Margin="0"
-                                           Visibility="{Binding Performances[0].Stat, Converter={StaticResource IntegerVisibilityConverter}}">
-                                           <Run Text="{Binding Performances[0].Stat}" />
-                                           <Run Text="{Binding Performances[0].Name}" />
-                                </TextBlock>
-                                <TextBlock Grid.Row="2" Grid.Column="1" 
-                                           Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Top" Margin="0"
-                                           Visibility="{Binding Performances[1].Stat, Converter={StaticResource IntegerVisibilityConverter}}">
-                                           <Run Text="{Binding Performances[1].Stat}" />
-                                           <Run Text="{Binding Performances[1].Name}" />
-                                </TextBlock>
+                                
+                                <StackPanel Grid.Row="1" Grid.Column="1">
+                                <ItemsControl ItemsSource="{Binding Performances}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Grid.Row="1" Grid.Column="1" 
+                                               Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Top" Margin="0"
+                                               Visibility="{Binding Stat, Converter={StaticResource IntegerVisibilityConverter}}">
+                                               <Run Text="{Binding Stat}" />
+                                               <Run Text="{Binding Name}" />
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                </StackPanel>
                              </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
