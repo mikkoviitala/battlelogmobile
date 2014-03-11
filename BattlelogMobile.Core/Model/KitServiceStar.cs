@@ -11,12 +11,9 @@ namespace BattlelogMobile.Core.Model
         private static readonly ImageRepository Repo = new ImageRepository();
 
         public KitServiceStar()
-        {
-            DispatcherHelper.CheckBeginInvokeOnUI(() => Repo.Load(Common.ServiceStarImageUrl, Common.ServiceStarImage, bitmap => ServiceStarImage = bitmap));
-        }
+        {}
 
         public KitServiceStar(KitType kitType, int score, int stars, double progression, double percentage)
-            :this()
         {
             Type = kitType;
             Score = score;
@@ -80,19 +77,6 @@ namespace BattlelogMobile.Core.Model
             {
                 _percentage = value;
                 RaisePropertyChanged("Percentage");
-            }
-        }
-
-        private BitmapImage _serviceStarImage;
-        [JsonIgnore]
-        [ExcludeFromSerialization]
-        public BitmapImage ServiceStarImage
-        {
-            get { return _serviceStarImage; }
-            set
-            {
-                _serviceStarImage = value;
-                RaisePropertyChanged("ServiceStarImage");
             }
         }
 

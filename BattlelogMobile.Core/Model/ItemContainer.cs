@@ -12,11 +12,6 @@ namespace BattlelogMobile.Core.Model
     {
         private static readonly ImageRepository Repo = new ImageRepository();
 
-        public ItemContainer()
-        {
-            DispatcherHelper.CheckBeginInvokeOnUI(() => Repo.Load(Common.ServiceStarImageUrl, Common.ServiceStarImage, bitmap => ServiceStarImage = bitmap));
-        }
-
         private string _guid;
         [JsonProperty(PropertyName = "guid")]
         public string Guid
@@ -92,19 +87,6 @@ namespace BattlelogMobile.Core.Model
             {
                 _serviceStars = value;
                 RaisePropertyChanged("ServiceStars");
-            }
-        }
-
-        private BitmapImage _serviceStarImage;
-        [JsonIgnore]
-        [ExcludeFromSerialization]
-        public BitmapImage ServiceStarImage
-        {
-            get { return _serviceStarImage; }
-            set
-            {
-                _serviceStarImage = value; 
-                RaisePropertyChanged("ServiceStarImage");
             }
         }
 

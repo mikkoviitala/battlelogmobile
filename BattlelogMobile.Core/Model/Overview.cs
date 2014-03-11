@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Windows.Media.Imaging;
 using BattlelogMobile.Core.Repository;
-using GalaSoft.MvvmLight.Threading;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Polenter.Serialization;
@@ -24,39 +21,6 @@ namespace BattlelogMobile.Core.Model
             {
                 _rank = value;
                 RaisePropertyChanged("Rank");
-
-                string imageName = _rank <= Common.MaxRank ?
-                                       Common.RankImagePrefix + _rank.ToString(CultureInfo.InvariantCulture) + Common.ImageSuffix :
-                                       Common.RankServiceStarImagePrefix + (_rank - Common.MaxRank).ToString(CultureInfo.InvariantCulture) + Common.ImageSuffix;
-                RankImageName = imageName;
-            }
-        }
-
-        private string _rankImageName;
-        [JsonIgnore]
-        public string RankImageName
-        {
-            get { return _rankImageName; }
-            set
-            {
-                if (value == null || value == _rankImageName)
-                    return;
-
-                _rankImageName = value;
-                DispatcherHelper.CheckBeginInvokeOnUI(() => Repo.Load(Common.RankImageUrl, _rankImageName, bitmap => RankImage = bitmap));
-            }
-        }
-
-        private BitmapImage _rankImage;
-        [JsonIgnore]
-        [ExcludeFromSerialization]
-        public BitmapImage RankImage
-        {
-            get { return _rankImage; }
-            set
-            {
-                _rankImage = value;
-                RaisePropertyChanged("RankImage");
             }
         }
 
