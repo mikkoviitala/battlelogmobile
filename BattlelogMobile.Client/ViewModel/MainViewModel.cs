@@ -182,13 +182,7 @@ namespace BattlelogMobile.Client.ViewModel
             var currentPage = ((App)Application.Current).RootFrame.Content as PhoneApplicationPage;
             if (currentPage != null && currentPage.GetType() == typeof(View.MainPage))
             {
-                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                    {
-                        if (message.Game == SupportedGame.Battlefield3)
-                            _navigationService.NavigateTo(ViewModelLocator.Bf3SoldierPageUri);
-                        else
-                            _navigationService.NavigateTo(ViewModelLocator.Bf4SoldierPageUri);
-                    });
+                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() => _navigationService.NavigateTo(ViewModelLocator.SoldierPageUri));
             }
             else
             {

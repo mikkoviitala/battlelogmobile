@@ -114,9 +114,6 @@
     <Compile Include="MetroGridHelper.cs" />
     <Compile Include="ViewModel\Bf4SoldierViewModel.cs" />
     <Compile Include="ViewModel\Bf3SoldierViewModel.cs" />
-    <Compile Include="View\Bf4SoldierPage.xaml.cs">
-      <DependentUpon>Bf4SoldierPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -124,8 +121,8 @@
     <Compile Include="Service\INavigationService.cs" />
     <Compile Include="Service\NavigationService.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
-    <Compile Include="View\Bf3SoldierPage.xaml.cs">
-      <DependentUpon>Bf3SoldierPage.xaml</DependentUpon>
+    <Compile Include="View\SoldierPage.xaml.cs">
+      <DependentUpon>SoldierPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -136,15 +133,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="View\Bf4SoldierPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="View\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\Bf3SoldierPage.xaml">
+    <Page Include="View\SoldierPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -205,6 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Images\Common\" />
+    <Folder Include="UserControl\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />

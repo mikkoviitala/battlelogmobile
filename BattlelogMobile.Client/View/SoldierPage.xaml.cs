@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 namespace BattlelogMobile.Client.View
 {
 
-    public partial class Bf3SoldierPage : PhoneApplicationPage
+    public partial class SoldierPage : PhoneApplicationPage
     {
         private const string BackgroundUri = @"/PivotBackground.jpg";
         private const string CheckedUri = "/Toolkit.Content/ApplicationBar.Check.png";
@@ -37,7 +37,7 @@ namespace BattlelogMobile.Client.View
 
         private readonly Bf3SoldierViewModel _soldierViewModel;
 
-        public Bf3SoldierPage()
+        public SoldierPage()
         {
             InitializeComponent();
             _soldierViewModel = DataContext as Bf3SoldierViewModel;

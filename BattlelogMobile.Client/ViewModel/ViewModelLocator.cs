@@ -15,8 +15,7 @@ namespace BattlelogMobile.Client.ViewModel
     {
         public static readonly string ApplicationName = "Battlelog Mobile";
         public static readonly Uri LogInPageUri = new Uri("/View/MainPage.xaml", UriKind.Relative);
-        public static readonly Uri Bf3SoldierPageUri = new Uri("/View/Bf3SoldierPage.xaml", UriKind.Relative);
-        public static readonly Uri Bf4SoldierPageUri = new Uri("/View/Bf4SoldierPage.xaml", UriKind.Relative);
+        public static readonly Uri SoldierPageUri = new Uri("/View/SoldierPage.xaml", UriKind.Relative);
 
         public static readonly Uri Bf3LogInUri = new Uri("https://battlelog.battlefield.com/bf3/gate/login/");
         public static readonly Uri Bf3LogInResponseUri = new Uri("http://battlelog.battlefield.com/bf3/");
