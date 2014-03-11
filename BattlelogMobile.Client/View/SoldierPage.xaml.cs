@@ -55,6 +55,27 @@ namespace BattlelogMobile.Client.View
             Messenger.Default.Send(new SoldierVisibleMessage());
         }
 
+        private void PageLoaded(object sender, RoutedEventArgs e)
+        {
+            ToggleUIState(true);
+
+            var dispatchTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(2) };
+            dispatchTimer.Tick += (o, args) =>
+            {
+                dispatchTimer.Stop();
+                ShowInfoPrompt();
+                ShowTipPrompt();
+                ShowRatingPrompt();
+            };
+            dispatchTimer.Start();
+        }
+
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            if (_isUpdating)
+                e.Cancel = true;
+        }
+
         public bool BackgroundEnabled
         {
             get { return _backgroundEnabled; }
@@ -64,31 +85,10 @@ namespace BattlelogMobile.Client.View
                 _settingsRepository.Save(new Settings { BackgroundEnabled = value });
             }
         }
-
-        private void PageLoaded(object sender, RoutedEventArgs e)
-        {
-            ToggleUIState(true);
-
-            var dispatchTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(2) };
-            dispatchTimer.Tick += (o, args) =>
-                {
-                    dispatchTimer.Stop();
-                    ShowInfoPrompt();
-                    ShowTipPrompt();
-                    ShowRatingPrompt();
-                };
-            dispatchTimer.Start();
-        }
-
+        
         private void SoldierLoadedMessageReceived(SoldierLoadedMessage message)
         {
             ToggleUIState(true);
-        }
-
-        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
-        {
-            if (_isUpdating)
-                e.Cancel = true;
         }
 
         private void AboutMenuItemClick(object sender, EventArgs e)
@@ -124,12 +124,12 @@ namespace BattlelogMobile.Client.View
 
             if (BackgroundEnabled)
             {
-                Pivot.Background = _brush;
+                LayoutRoot.Background = _brush;
                 button.IconUri = (new Uri(UncheckedUri, UriKind.Relative));
             }
             else
             {
-                Pivot.Background = _blackBrush; 
+                LayoutRoot.Background = _blackBrush; 
                 button.IconUri = (new Uri(CheckedUri, UriKind.Relative));
             }
         }

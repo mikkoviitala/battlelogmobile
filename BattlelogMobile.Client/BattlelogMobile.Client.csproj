@@ -74,6 +74,7 @@
     <Reference Include="Microsoft.Phone.Controls.Toolkit">
       <HintPath>..\packages\SilverlightToolkitWP.4.2011.12.14\lib\sl4-windowsphone71\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.16\lib\sl4-windowsphone71\Microsoft.Threading.Tasks.dll</HintPath>
@@ -112,6 +113,9 @@
     <Compile Include="Converter\TimeSpanStringConverter.cs" />
     <Compile Include="GlobalLoading.cs" />
     <Compile Include="MetroGridHelper.cs" />
+    <Compile Include="UserControl\Bf3UserControl.xaml.cs">
+      <DependentUpon>Bf3UserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\Bf4SoldierViewModel.cs" />
     <Compile Include="ViewModel\Bf3SoldierViewModel.cs" />
     <Compile Include="View\MainPage.xaml.cs">
@@ -133,6 +137,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="UserControl\Bf3UserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -198,7 +206,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Images\Common\" />
-    <Folder Include="UserControl\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
