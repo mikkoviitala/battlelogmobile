@@ -674,7 +674,7 @@
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" x:Name="AppBar" Mode="Minimized" IsMenuEnabled="True" >
+        <shell:ApplicationBar IsVisible="True" x:Name="AppBar" Mode="Minimized" IsMenuEnabled="True"  >
             <shell:ApplicationBar.Buttons>
                 <shell:ApplicationBarIconButton
                     x:Name="AboutMenuItem" 
@@ -685,7 +685,7 @@
                 <shell:ApplicationBarIconButton
                     x:Name="BackgroundMenuItem" 
                     IconUri="/Toolkit.Content/ApplicationBar.Uncheck.png"
-                    Text="Background" 
+                    Text="Image" 
                     IsEnabled="True"
                     Click="BackgroundMenuItemClick"/>
                 <shell:ApplicationBarIconButton

@@ -11,18 +11,18 @@ namespace BattlelogMobile.Client.ViewModel
     public class Bf3SoldierViewModel : BaseViewModel
     {
         private Battlefield3Data _battlefield3Data;
-        private bool _backgroundEnabled;
+        //private bool _backgroundEnabled;
 
         public Bf3SoldierViewModel()
-            : this(new FileSettingsRepository(), new BattlelogRepository(new DownloadService(ViewModelLocator.CookieJar)))
+            : this(new BattlelogRepository(new DownloadService(ViewModelLocator.CookieJar)))
         {}
 
-        public Bf3SoldierViewModel(FileSettingsRepository settingsRepository, BattlelogRepository battlelogRepository)
+        public Bf3SoldierViewModel(BattlelogRepository battlelogRepository)
         {
-            SettingsRepository = settingsRepository;
+            //SettingsRepository = settingsRepository;
             BattlelogRepository = battlelogRepository;
 
-            LoadSettings();
+            //LoadSettings();
 
             // Credentials are ok, download information
             Messenger.Default.Register<BattlelogCredentialsAcceptedMessage>(this, async message =>
@@ -46,7 +46,7 @@ namespace BattlelogMobile.Client.ViewModel
 
         public BattlelogRepository BattlelogRepository { get; set; }
 
-        public FileSettingsRepository SettingsRepository { get; set; }
+        //public FileSettingsRepository SettingsRepository { get; set; }
 
         public Battlefield3Data Data
         {
@@ -60,21 +60,21 @@ namespace BattlelogMobile.Client.ViewModel
             }
         }
 
-        public bool BackgroundEnabled
-        {
-            get { return _backgroundEnabled; }
-            set 
-            {
-                if (_backgroundEnabled != value)
-                    SettingsRepository.Save(new Settings { BackgroundEnabled = value } );
-                _backgroundEnabled = value;
-                RaisePropertyChanged("BackgroundEnabled"); }
-        }
+        //public bool BackgroundEnabled
+        //{
+        //    get { return _backgroundEnabled; }
+        //    set 
+        //    {
+        //        if (_backgroundEnabled != value)
+        //            SettingsRepository.Save(new Settings { BackgroundEnabled = value } );
+        //        _backgroundEnabled = value;
+        //        RaisePropertyChanged("BackgroundEnabled"); }
+        //}
 
-        private void LoadSettings()
-        {
-            var settings = SettingsRepository.Load();
-            _backgroundEnabled = settings.BackgroundEnabled;
-        }
+        //private void LoadSettings()
+        //{
+        //    var settings = SettingsRepository.Load();
+        //    _backgroundEnabled = settings.BackgroundEnabled;
+        //}
     }
 }

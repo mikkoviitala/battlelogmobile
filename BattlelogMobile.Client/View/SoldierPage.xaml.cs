@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Threading;
 using BattlelogMobile.Core.Message;
 using BattlelogMobile.Core.Model;
+using BattlelogMobile.Core.Repository;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
@@ -31,16 +32,17 @@ namespace BattlelogMobile.Client.View
 
         private const int DefaultNextRatingPrompt = 5;
         private static bool _ratingPrompted;
-        private static bool _isUpdating = false;
+        private static bool _isUpdating;
         private readonly ImageBrush _brush = new ImageBrush { ImageSource = new BitmapImage(new Uri(BackgroundUri, UriKind.Relative)), Opacity = 0.25d, Stretch = Stretch.None };
         private readonly Brush _blackBrush = new SolidColorBrush(Colors.Black);
 
-        private readonly Bf3SoldierViewModel _soldierViewModel;
+        private readonly FileSettingsRepository _settingsRepository = new FileSettingsRepository();
+        private bool _backgroundEnabled;
 
         public SoldierPage()
         {
             InitializeComponent();
-            _soldierViewModel = DataContext as Bf3SoldierViewModel;
+            BackgroundEnabled = (_settingsRepository.Load()).BackgroundEnabled;
             Messenger.Default.Register<SoldierLoadedMessage>(this, SoldierLoadedMessageReceived);
         }
 
@@ -51,6 +53,16 @@ namespace BattlelogMobile.Client.View
 
             SetBackground();
             Messenger.Default.Send(new SoldierVisibleMessage());
+        }
+
+        public bool BackgroundEnabled
+        {
+            get { return _backgroundEnabled; }
+            set
+            {
+                _backgroundEnabled = value;
+                _settingsRepository.Save(new Settings { BackgroundEnabled = value });
+            }
         }
 
         private void PageLoaded(object sender, RoutedEventArgs e)
@@ -102,19 +114,6 @@ namespace BattlelogMobile.Client.View
         {
             BackgroundEnabled = !BackgroundEnabled;
             SetBackground();
-        }
-
-        private bool BackgroundEnabled
-        {
-            get
-            {
-                return _soldierViewModel != null && _soldierViewModel.BackgroundEnabled;
-            }
-            set
-            {
-                if (_soldierViewModel != null) 
-                    _soldierViewModel.BackgroundEnabled = value;
-            }
         }
 
         private void SetBackground()
