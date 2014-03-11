@@ -43,6 +43,8 @@
     </toolkit:TransitionService.NavigationOutTransition>
     
     <Grid x:Name="LayoutRoot">
+        <!--work around listener to enable/disable appbar icon-->
+        <CheckBox IsEnabled="{Binding AppBarEnabled}" IsEnabledChanged="ToggleAppBarSate" Visibility="Collapsed" />
         <userControl:Bf3UserControl />
     </Grid>
 
@@ -57,7 +59,9 @@
         <appBarUtils:AppBarItemCommand Id="Refresh" Text="{Binding Path=LocalizedResources.AppBarRefresh, Source={StaticResource LocalizedStrings}}" Command="{Binding RefreshTargetsCommand}" />
         <appBarUtils:AppBarItemCommand Id="Search" Text="{Binding Path=LocalizedResources.AppBarSearch, Source={StaticResource LocalizedStrings}}" Command="{Binding SearchTargetsCommand}" />
     </i:Interaction.Behaviors>-->
+
     
+
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" x:Name="AppBar" Mode="Minimized" IsMenuEnabled="True">
             <shell:ApplicationBar.Buttons>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO.IsolatedStorage;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Threading;
 using BattlelogMobile.Core.Message;
 using BattlelogMobile.Core.Model;
@@ -43,7 +44,7 @@ namespace BattlelogMobile.Client.View
         {
             InitializeComponent();
             BackgroundEnabled = (_settingsRepository.Load()).BackgroundEnabled;
-            Messenger.Default.Register<SoldierLoadedMessage>(this, SoldierLoadedMessageReceived);
+            //Messenger.Default.Register<SoldierLoadedMessage>(this, SoldierLoadedMessageReceived);
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -57,7 +58,7 @@ namespace BattlelogMobile.Client.View
 
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
-            ToggleUIState(true);
+            //ToggleUIState(true);
 
             var dispatchTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(2) };
             dispatchTimer.Tick += (o, args) =>
@@ -86,10 +87,10 @@ namespace BattlelogMobile.Client.View
             }
         }
         
-        private void SoldierLoadedMessageReceived(SoldierLoadedMessage message)
-        {
-            ToggleUIState(true);
-        }
+        //private void SoldierLoadedMessageReceived(SoldierLoadedMessage message)
+        //{
+        //    ToggleUIState(true);
+        //}
 
         private void AboutMenuItemClick(object sender, EventArgs e)
         {
@@ -108,6 +109,11 @@ namespace BattlelogMobile.Client.View
                 button.IsEnabled = isEnabled;
 
             _isUpdating = !isEnabled;
+        }
+
+        private void ToggleAppBarSate(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            ToggleUIState((sender as CheckBox).IsEnabled);
         }
 
         private void BackgroundMenuItemClick(object sender, EventArgs e)
@@ -200,5 +206,7 @@ namespace BattlelogMobile.Client.View
                 IsolatedStorageSettings.ApplicationSettings[TipPromptedKey] = true;
             });
         }
+
+
     }
 }

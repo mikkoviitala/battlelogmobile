@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using BattlelogMobile.Core.Message;
 using BattlelogMobile.Core.Model;
@@ -10,6 +12,7 @@ using BattlelogMobile.Core.Repository;
 using BattlelogMobile.Core.Service;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using Microsoft.Phone.Shell;
 
 namespace BattlelogMobile.Client.ViewModel
 {
@@ -25,10 +28,11 @@ namespace BattlelogMobile.Client.ViewModel
         {
             BattlelogRepository = battlelogRepository;
 
-            UpdateCommand = new RelayCommand(() =>
+            UpdateCommand = new RelayCommand(async () =>
                 {
-                    //ToggleUIState(false);
-                    Update();
+                    AppBarEnabled = false;
+                    await Update();
+                    AppBarEnabled = true;
                 });
 
             // Download complete, parse data
@@ -42,6 +46,13 @@ namespace BattlelogMobile.Client.ViewModel
             });
         }
 
+        private bool _appBarEnabled = true;
+        public bool AppBarEnabled
+        {
+            get { return _appBarEnabled; }
+            set { _appBarEnabled = value; RaisePropertyChanged("AppBarEnabled"); }
+        }
+
         public ICommand UpdateCommand { get; set; }
 
         public BattlelogRepository BattlelogRepository { get; set; }
@@ -52,10 +63,12 @@ namespace BattlelogMobile.Client.ViewModel
             set { _supportedGame = value; }
         }
 
-        public async void Update()
+        public async Task Update()
         {
             //if (Game == SupportedGame.Battlefield3)
                 await BattlelogRepository.UpdateStorage(true);
         }
+
+
     }
 }
