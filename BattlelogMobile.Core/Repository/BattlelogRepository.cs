@@ -29,7 +29,7 @@ namespace BattlelogMobile.Core.Repository
         public BattlelogRepository(DownloadService downloadService)
         {
             Messenger.Default.Register<UserIdAndPlatformResolvedMessage>(this, UserIdAndPlatformResolvedMessageReceived);
-            Messenger.Default.Register<BattlelogResponseMessage>(this, BattlelogResponseMessageReceived);
+            //Messenger.Default.Register<BattlelogResponseMessage>(this, BattlelogResponseMessageReceived);
             DownloadService = downloadService;
         }
 
@@ -103,9 +103,14 @@ namespace BattlelogMobile.Core.Repository
             if (_userId == null || _platform == null)
                 return;
 
-            await DownloadService.GetFile(string.Format(Common.OverviewPageUrl, _userId, (int)_platform), Common.OverviewFile);
-            await DownloadService.GetFile(string.Format(Common.VehiclesPageUrl, _userId, (int)_platform), Common.VehiclesFile);
-            await DownloadService.GetFile(string.Format(Common.GadgetsPageUrl, _userId, (int)_platform), Common.WeaponsAndGadgetsFile);
+            bool downloaded = await DownloadService.GetFile(string.Format(Common.OverviewPageUrl, _userId, (int)_platform), Common.OverviewFile);
+            if (downloaded)
+                downloaded = await DownloadService.GetFile(string.Format(Common.VehiclesPageUrl, _userId, (int)_platform), Common.VehiclesFile);
+            if (downloaded)
+                downloaded = await DownloadService.GetFile(string.Format(Common.GadgetsPageUrl, _userId, (int)_platform), Common.WeaponsAndGadgetsFile);
+            
+            if (downloaded)
+                Messenger.Default.Send(new BattlelogUpdateCompleteMessage());
         }
 
         private async void UserIdAndPlatformResolvedMessageReceived(UserIdAndPlatformResolvedMessage message)
@@ -117,18 +122,18 @@ namespace BattlelogMobile.Core.Repository
         }
 
         // Listen for download completions, send message to UI when all done
-        private void BattlelogResponseMessageReceived(BattlelogResponseMessage message)
-        {
-            if (message.Sender == null || (message.Sender.GetType() != (typeof(DownloadService))))
-                return;
+        //private void BattlelogResponseMessageReceived(BattlelogResponseMessage message)
+        //{
+        //    if (message.Sender == null || (message.Sender.GetType() != (typeof(DownloadService))))
+        //        return;
 
-            _responseMessages++;
-            if (_responseMessages == ExpectedResponseMessages)
-            {
-                _responseMessages = 0;
-                Messenger.Default.Send(new BattlelogUpdateCompleteMessage());
-            }
-        }
+        //    _responseMessages++;
+        //    if (_responseMessages == ExpectedResponseMessages)
+        //    {
+        //        _responseMessages = 0;
+        //        Messenger.Default.Send(new BattlelogUpdateCompleteMessage());
+        //    }
+        //}
 
         private void Serialize(BattlefieldData data)
         {
