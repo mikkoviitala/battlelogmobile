@@ -61,7 +61,7 @@
       Lead Developer
       Mikko Viitala (Mustavuori @ Battlelog)
 
-      Developers
+      Developer
       Geir-Tore Lindsve (riegetor @ Battlelog)
 
       Thanks to
@@ -80,6 +80,10 @@
     </Item>
     
     <Item Title="History" Type="text">
+      v3.0
+      Added initial support for BF4
+      Adapted to generic Battlelog changes
+
       v2.3
       Added new statistics
       Changed and tweaked layout
