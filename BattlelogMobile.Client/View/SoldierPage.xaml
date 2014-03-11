@@ -199,16 +199,10 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
 
                     <!--Soldier.KitProgressions-->
                     <amq:SerialChart 
                         Grid.Row="0" 
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
                         ValueFormatString="0.00"
                         VerticalAlignment="Top"
                         DataSource="{Binding Data.Overview.KitServiceStars}" 
@@ -223,7 +217,32 @@
                         </amq:SerialChart.Graphs>
                     </amq:SerialChart>
 
-                    <ListBox Grid.Row="1" Grid.Column="0" Width="400" Margin="0" ItemsSource="{Binding FirstTwoKitProgressions}" IsHitTestVisible="False">
+                    <toolkit:WrapPanel Grid.Row="1" Orientation="Horizontal">
+                        <ItemsControl Margin="0" IsHitTestVisible="False" ItemsSource="{Binding Data.Overview.KitServiceStars}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <toolkit:WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="145" />
+                                            <ColumnDefinition Width="75" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Type}" />
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                            <Image Source="\Assets\Images\Battlefield3\servicestar-31x31.png" Width="30" Height="30" VerticalAlignment="Center" />
+                                            <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Stars}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </toolkit:WrapPanel>
+                    
+                    <!--<ListBox Grid.Row="1" Grid.Column="0" Width="400" Margin="0" ItemsSource="{Binding FirstTwoKitProgressions}" IsHitTestVisible="False">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -263,7 +282,7 @@
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
-                    </ListBox>
+                    </ListBox>-->
                 </Grid>
             </controls:PivotItem>
 
@@ -490,18 +509,18 @@
                                            Text="{Binding DisplayName}" VerticalAlignment="Bottom" Margin="0" />
                                 
                                 <StackPanel Grid.Row="1" Grid.Column="1">
-                                <ItemsControl ItemsSource="{Binding Performances}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Grid.Row="1" Grid.Column="1" 
-                                               Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Top" Margin="0"
-                                               Visibility="{Binding Stat, Converter={StaticResource IntegerVisibilityConverter}}">
-                                               <Run Text="{Binding Stat}" />
-                                               <Run Text="{Binding Name}" />
-                                            </TextBlock>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
+                                    <ItemsControl ItemsSource="{Binding Performances}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Grid.Row="1" Grid.Column="1" 
+                                                   Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Top" Margin="0"
+                                                   Visibility="{Binding Stat, Converter={StaticResource IntegerVisibilityConverter}}">
+                                                   <Run Text="{Binding Stat}" />
+                                                   <Run Text="{Binding Name}" />
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
                                 </StackPanel>
                              </Grid>
                         </DataTemplate>

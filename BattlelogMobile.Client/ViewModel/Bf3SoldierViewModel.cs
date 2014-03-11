@@ -1,10 +1,8 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
+﻿using System.Windows;
 using BattlelogMobile.Core;
 using BattlelogMobile.Core.Message;
 using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Repository;
-using System.Linq;
 using BattlelogMobile.Core.Service;
 using GalaSoft.MvvmLight.Messaging;
 
@@ -59,50 +57,6 @@ namespace BattlelogMobile.Client.ViewModel
                 RaisePropertyChanged("Data");
 
                 Messenger.Default.Send(new SoldierLoadedMessage(Common.StatusInformationPreparingStatistics, SupportedGame.Battlefield3));
-            }
-        }
-
-        public ObservableCollection<KitServiceStar> FirstTwoKitProgressions
-        {
-            get
-            {
-                return new ObservableCollection<KitServiceStar>(
-                    from kitProgression in Data.Overview.KitServiceStars
-                    where kitProgression.Type == KitType.Assault || kitProgression.Type == KitType.Support
-                    select kitProgression);
-            }
-        }
-
-        public ObservableCollection<KitServiceStar> LastTwoKitProgressions
-        {
-            get
-            {
-                return new ObservableCollection<KitServiceStar>(
-                    from kitProgression in Data.Overview.KitServiceStars 
-                    where kitProgression.Type == KitType.Engineer || kitProgression.Type == KitType.Recon
-                    select kitProgression);
-            }
-        }
-
-        public ObservableCollection<KitServiceStar> FirstTwoKits
-        {
-            get
-            {
-                return new ObservableCollection<KitServiceStar>(
-                    from kit in Data.Overview.KitServiceStars
-                    where kit.Type == KitType.Assault || kit.Type == KitType.Support
-                    select kit);
-            }
-        }
-
-        public ObservableCollection<KitServiceStar> LastTwoKits
-        {
-            get
-            {
-                return new ObservableCollection<KitServiceStar>(
-                    from kit in Data.Overview.KitServiceStars
-                    where kit.Type == KitType.Engineer || kit.Type == KitType.Recon
-                    select kit);
             }
         }
 
