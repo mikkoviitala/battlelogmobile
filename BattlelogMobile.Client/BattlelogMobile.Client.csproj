@@ -112,7 +112,11 @@
     <Compile Include="Converter\TimeSpanStringConverter.cs" />
     <Compile Include="GlobalLoading.cs" />
     <Compile Include="MetroGridHelper.cs" />
-    <Compile Include="ViewModel\SoldierViewModel.cs" />
+    <Compile Include="ViewModel\Bf4SoldierViewModel.cs" />
+    <Compile Include="ViewModel\Bf3SoldierViewModel.cs" />
+    <Compile Include="View\Bf4SoldierPage.xaml.cs">
+      <DependentUpon>Bf4SoldierPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -120,8 +124,8 @@
     <Compile Include="Service\INavigationService.cs" />
     <Compile Include="Service\NavigationService.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
-    <Compile Include="View\SoldierPage.xaml.cs">
-      <DependentUpon>SoldierPage.xaml</DependentUpon>
+    <Compile Include="View\Bf3SoldierPage.xaml.cs">
+      <DependentUpon>Bf3SoldierPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -132,11 +136,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="View\Bf4SoldierPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\SoldierPage.xaml">
+    <Page Include="View\Bf3SoldierPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -153,16 +161,19 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Images\Battlefield3\servicestar-31x31.png" />
     <Content Include="paypal.png" />
     <Content Include="PivotBackground.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="StoreWrapper.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="Toolkit.Content\ApplicationBar.Uncheck.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Background.png" />
     <Resource Include="ApplicationIcon.png" />
-    <Content Include="PanoramaBackground.jpg" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -187,8 +198,14 @@
       <Project>{ED3F380C-DDB1-4248-946F-F2B7ABA005D6}</Project>
       <Name>BattlelogMobile.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\StoreLauncher\StoreLauncher.csproj">
+      <Project>{197E7BF3-EFA9-49B4-8060-6418E7BA9EA0}</Project>
+      <Name>StoreLauncher</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Assets\Images\Common\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

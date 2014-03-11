@@ -45,7 +45,7 @@ namespace BattlelogMobile.Client.ViewModel
             Messenger.Default.Register<SerializationFailedMessage>(this, SerializationFailedMessageReceived);
             
             CredentialsRepository = credentialsRepository;
-            LogInCommand = new RelayCommand(() => LogInCommandReceived(), CanExecuteLogInCommand);
+            LogInCommand = new RelayCommand(LogInCommandReceived, CanExecuteLogInCommand);
             LoadCredentials();
 
             Task.Factory.StartNew(() => (new DownloadService(ViewModelLocator.CookieJar)).RetrieveServerMessage(string.Format(Common.ServerMessageUrl, DateTime.Now.Ticks.ToString())));
@@ -83,13 +83,6 @@ namespace BattlelogMobile.Client.ViewModel
             set
             {
                 _game = value;
-
-                if (_game == SupportedGame.Battlefield4)
-                {
-                    Messenger.Default.Send(new NotificationMessage(this, "Battlefield 4 support will be there in next release, keep eye on updates!"));
-                    _game = SupportedGame.Battlefield3;
-                }
-
                 RaisePropertyChanged("Game");
                 LogInCommand.RaiseCanExecuteChanged();
             }
@@ -190,7 +183,12 @@ namespace BattlelogMobile.Client.ViewModel
             if (currentPage != null && currentPage.GetType() == typeof(View.MainPage))
             {
                 ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                    _navigationService.NavigateTo(ViewModelLocator.SoldierPageUri));
+                    {
+                        if (message.Game == SupportedGame.Battlefield3)
+                            _navigationService.NavigateTo(ViewModelLocator.Bf3SoldierPageUri);
+                        else
+                            _navigationService.NavigateTo(ViewModelLocator.Bf4SoldierPageUri);
+                    });
             }
             else
             {
@@ -226,11 +224,13 @@ namespace BattlelogMobile.Client.ViewModel
         /// </summary>
         private async void LogInCommandReceived()
         {
+            //await PurchaseProduct();
+
             UserInterfaceEnabled = false;
             StatusInformation = Common.StatusInformationVerifyingCredential;
             SaveCredentials();
 
-            var request = WebRequest.Create(ViewModelLocator.WebRequestLogInUri) as HttpWebRequest;
+            var request = WebRequest.Create(ViewModelLocator.Bf3LogInUri) as HttpWebRequest;
             if (request == null)
                 throw new ArgumentNullException();
 
@@ -272,9 +272,9 @@ namespace BattlelogMobile.Client.ViewModel
             try
             {
                 var response = await responseTask.ConfigureAwait(false);
-                if (response.ResponseUri.Equals(ViewModelLocator.WebRequestLogInResponseUri))
+                if (response.ResponseUri.Equals(ViewModelLocator.Bf3LogInResponseUri) || response.ResponseUri.Equals(ViewModelLocator.Bf4LogInResponseUri))
                 {
-                    Messenger.Default.Send(new BattlelogCredentialsAcceptedMessage(Email));
+                    Messenger.Default.Send(new BattlelogCredentialsAcceptedMessage(Email, Game));
                 }
                 else
                 {
@@ -294,6 +294,24 @@ namespace BattlelogMobile.Client.ViewModel
                     LogInFailedReason = we.Message);
                 ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
                     UserInterfaceEnabled = true);
+            }
+        }
+
+        private async Task PurchaseProduct()
+        {
+            try
+            {
+                var license = ViewModelLocator.Store.LicenseInformation.ProductLicenses["bf4"];
+
+                if (!license.IsActive)
+                    ViewModelLocator.Store.RequestProductPurchaseAsync(license.ProductId, false);
+
+                //if (license.IsActive)
+                //    ViewModelLocator.Store.ReportProductFulfillment(license.ProductId);
+            }
+            catch (Exception ex)
+            {
+                // When the user does not complete the purchase (e.g. cancels or navigates back from the Purchase Page), an exception with an HRESULT of E_FAIL is expected.
             }
         }
 

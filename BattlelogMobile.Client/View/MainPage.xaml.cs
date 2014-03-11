@@ -5,6 +5,7 @@ using System.Windows.Data;
 using System.Device.Location;
 using BattlelogMobile.Client.ViewModel;
 using GalaSoft.MvvmLight.Messaging;
+using StoreLauncher;
 
 namespace BattlelogMobile.Client.View
 {
