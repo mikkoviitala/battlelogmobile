@@ -98,8 +98,8 @@ namespace BattlelogMobile.Client.View
 
         private void UpdateMenuItemClick(object sender, EventArgs e)
         {
-            ToggleUIState(false);
-            (DataContext as SoldierViewModel).Update();
+            //ToggleUIState(false);
+            //(DataContext as SoldierViewModel).Update();
         }
 
         private void ToggleUIState(bool isEnabled)

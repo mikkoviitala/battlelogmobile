@@ -277,7 +277,6 @@ namespace BattlelogMobile.Client.ViewModel
                 {
                     ViewModelLocator.Soldier.Game = Game;
                     ViewModelLocator.Soldier.Update();
-                    //Messenger.Default.Send(new BattlelogCredentialsAcceptedMessage(Email, Game));
                 }
                 else
                 {

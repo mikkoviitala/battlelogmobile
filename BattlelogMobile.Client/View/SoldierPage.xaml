@@ -5,12 +5,11 @@
         xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
-        xmlns:amq="clr-namespace:AmCharts.Windows.QuickCharts;assembly=AmCharts.Windows.QuickCharts.WP"
-        xmlns:conv="clr-namespace:BattlelogMobile.Client.Converter"
         xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
         xmlns:userControl="clr-namespace:BattlelogMobile.Client.UserControl"
-        FontFamily="{StaticResource PhoneFontFamilyNormal}"
+                            xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:appBarUtils="clr-namespace:AppBarUtils;assembly=AppBarUtils"
+                            FontFamily="{StaticResource PhoneFontFamilyNormal}"
         FontSize="{StaticResource PhoneFontSizeNormal}"
         Foreground="{StaticResource PhoneForegroundBrush}"
         Loaded="PageLoaded"
@@ -47,15 +46,25 @@
         <userControl:Bf3UserControl />
     </Grid>
 
+    <!--<phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar>
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/refresh.png" IsEnabled="True" Text="Refresh" />
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/feature.search.png" IsEnabled="True" Text="Search"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+    <i:Interaction.Behaviors>
+        <appBarUtils:AppBarItemCommand Id="Refresh" Text="{Binding Path=LocalizedResources.AppBarRefresh, Source={StaticResource LocalizedStrings}}" Command="{Binding RefreshTargetsCommand}" />
+        <appBarUtils:AppBarItemCommand Id="Search" Text="{Binding Path=LocalizedResources.AppBarSearch, Source={StaticResource LocalizedStrings}}" Command="{Binding SearchTargetsCommand}" />
+    </i:Interaction.Behaviors>-->
+    
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" x:Name="AppBar" Mode="Minimized" IsMenuEnabled="True"  >
+        <shell:ApplicationBar IsVisible="True" x:Name="AppBar" Mode="Minimized" IsMenuEnabled="True">
             <shell:ApplicationBar.Buttons>
                 <shell:ApplicationBarIconButton
-                    x:Name="AboutMenuItem" 
                     IconUri="/Toolkit.Content/ApplicationBar.Refresh.png"
                     Text="Update" 
-                    IsEnabled="True"
-                    Click="UpdateMenuItemClick"/>
+                    IsEnabled="True" />
                 <shell:ApplicationBarIconButton
                     x:Name="BackgroundMenuItem" 
                     IconUri="/Toolkit.Content/ApplicationBar.Uncheck.png"
@@ -71,4 +80,9 @@
             </shell:ApplicationBar.Buttons>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
+
+    <i:Interaction.Behaviors>
+        <appBarUtils:AppBarItemCommand Id="Update" Text="Update"
+        IconUri="/Toolkit.Content/ApplicationBar.Refresh.png" Command="{Binding UpdateCommand}"/>
+    </i:Interaction.Behaviors>
 </phone:PhoneApplicationPage>

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Input;
 using BattlelogMobile.Core.Message;
 using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Repository;
 using BattlelogMobile.Core.Service;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace BattlelogMobile.Client.ViewModel
@@ -23,6 +25,12 @@ namespace BattlelogMobile.Client.ViewModel
         {
             BattlelogRepository = battlelogRepository;
 
+            UpdateCommand = new RelayCommand(() =>
+                {
+                    //ToggleUIState(false);
+                    Update();
+                });
+
             // Download complete, parse data
             Messenger.Default.Register<BattlelogUpdateCompleteMessage>(this, async message =>
             {
@@ -33,6 +41,8 @@ namespace BattlelogMobile.Client.ViewModel
                 ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() => ViewModelLocator.Bf3Soldier.Data = battlefieldData);
             });
         }
+
+        public ICommand UpdateCommand { get; set; }
 
         public BattlelogRepository BattlelogRepository { get; set; }
 
