@@ -31,19 +31,19 @@ namespace BattlelogMobile.Client.ViewModel
             UpdateCommand = new RelayCommand(async () =>
                 {
                     AppBarEnabled = false;
-                    await Update();
+                    await Update(true);
                     AppBarEnabled = true;
                 });
 
             // Download complete, parse data
-            Messenger.Default.Register<BattlelogUpdateCompleteMessage>(this, async message =>
-            {
-                var battlefieldData = await BattlelogRepository.LoadBattlefield3Data();
-                if (battlefieldData == null)
-                    return;
+            //Messenger.Default.Register<BattlelogUpdateCompleteMessage>(this, async message =>
+            //{
+            //    var battlefieldData = await BattlelogRepository.LoadBattlefield3Data();
+            //    if (battlefieldData == null)
+            //        return;
 
-                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() => ViewModelLocator.Bf3Soldier.Data = battlefieldData);
-            });
+            //    ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() => ViewModelLocator.Bf3Soldier.Data = battlefieldData);
+            //});
         }
 
         private bool _appBarEnabled = true;
@@ -63,10 +63,16 @@ namespace BattlelogMobile.Client.ViewModel
             set { _supportedGame = value; }
         }
 
-        public async Task Update()
+        public async Task Update(bool forceUpdate = false)
         {
+            await BattlelogRepository.UpdateStorage(forceUpdate);
+            var battlefieldData = await BattlelogRepository.LoadBattlefield3Data();
+            if (battlefieldData == null)
+                return;
+
+            ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() => ViewModelLocator.Bf3Soldier.Data = battlefieldData);
             //if (Game == SupportedGame.Battlefield3)
-                await BattlelogRepository.UpdateStorage(true);
+            //    await BattlelogRepository.UpdateStorage(true);
         }
 
 
