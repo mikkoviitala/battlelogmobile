@@ -219,12 +219,19 @@ namespace BattlelogMobile.Client.ViewModel
         private async void LogInCommandReceived()
         {
             //await PurchaseProduct();
+            LogIn(Game);
+        }
 
+        private async void LogIn(SupportedGame game)
+        {
             UserInterfaceEnabled = false;
             StatusInformation = Common.StatusInformationVerifyingCredential;
             SaveCredentials();
 
-            var request = WebRequest.Create(ViewModelLocator.Bf3LogInUri) as HttpWebRequest;
+            Uri requestUri = game == SupportedGame.Battlefield3 ? ViewModelLocator.Bf3LogInUri : ViewModelLocator.Bf4LogInUri;
+            Uri responseUri = game == SupportedGame.Battlefield3 ? ViewModelLocator.Bf3LogInResponseUri : ViewModelLocator.Bf4LogInResponseUri;
+
+            var request = WebRequest.Create(requestUri) as HttpWebRequest;
             if (request == null)
                 throw new ArgumentNullException();
 
@@ -241,11 +248,11 @@ namespace BattlelogMobile.Client.ViewModel
             dispatchTimer.Start();
 
             var streamTask = request.GetRequestStreamAsync();
-            
+
             var requestStream = await streamTask.ConfigureAwait(false);
             using (var writer = new StreamWriter(requestStream))
             {
-                await writer.WriteAsync(ConstructPostData(Email, Password)).ConfigureAwait(false);
+                await writer.WriteAsync(ConstructPostData(Email, Password, Game)).ConfigureAwait(false);
                 writer.Close();
             }
 
@@ -254,11 +261,11 @@ namespace BattlelogMobile.Client.ViewModel
 
             if (_timedOut)
             {
-                ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
                     UserInterfaceEnabled = true);
-                ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
                     StatusInformation = string.Empty);
-                ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
                     LogInFailedReason = Common.LogInFailedReasonTimedOut);
                 return;
             }
@@ -266,27 +273,29 @@ namespace BattlelogMobile.Client.ViewModel
             try
             {
                 var response = await responseTask.ConfigureAwait(false);
-                if (response.ResponseUri.Equals(ViewModelLocator.Bf3LogInResponseUri) || response.ResponseUri.Equals(ViewModelLocator.Bf4LogInResponseUri))
+                if (response.ResponseUri.Equals(responseUri))
                 {
-                    Messenger.Default.Send(new BattlelogCredentialsAcceptedMessage(Email, Game));
+                    ViewModelLocator.Soldier.Game = Game;
+                    ViewModelLocator.Soldier.Update();
+                    //Messenger.Default.Send(new BattlelogCredentialsAcceptedMessage(Email, Game));
                 }
                 else
                 {
-                    ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                    ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
                         UserInterfaceEnabled = true);
-                    ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                    ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
                         StatusInformation = string.Empty);
-                    ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                    ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
                         LogInFailedReason = Common.LogInFailedReasonInvalidCredentials);
                 }
             }
             catch (WebException we)
             {
-                ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
                     StatusInformation = string.Empty);
-                ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
                     LogInFailedReason = we.Message);
-                ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
+                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
                     UserInterfaceEnabled = true);
             }
         }
@@ -320,24 +329,40 @@ namespace BattlelogMobile.Client.ViewModel
         /// <summary>
         /// Create and encode login POST data
         /// </summary>
-        private static string ConstructPostData(string email, string password)
+        private static string ConstructPostData(string email, string password, SupportedGame game)
         {
-            var postParams = new Dictionary<string, string>
-            {
-                { "redirect", "|bf3|" },
-                { "email", email },
-                { "password", password },
-                { "remember", "0" },
-                { "submit", "Sign in" }
-            };
-
             string postData = null;
+            Dictionary<string, string> postParams;
+
+            if (game == SupportedGame.Battlefield3)
+            {
+                postParams = new Dictionary<string, string>
+                    {
+                        {"redirect", "|bf3|"},
+                        {"email", email},
+                        {"password", password},
+                        {"remember", "0"},
+                        {"submit", "Sign in"}
+                    };
+            }
+            else
+            {
+                postParams = new Dictionary<string, string>
+                    {
+                        {"redirect", "|bf4|"},
+                        {"email", email},
+                        {"password", password},
+                        {"remember", "0"},
+                        {"submit", "Log in"}
+                    };
+            }
             foreach (var param in postParams)
             {
                 if (postData != null)
                     postData += "&";
                 postData += HttpUtility.UrlEncode(param.Key) + "=" + HttpUtility.UrlEncode(param.Value);
             }
+
             return postData;
         }
 

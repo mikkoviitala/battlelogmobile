@@ -21,30 +21,7 @@ namespace BattlelogMobile.Client.ViewModel
 
         public Bf4SoldierViewModel(FileSettingsRepository settingsRepository, BattlelogRepository battlelogRepository)
         {
-            //SettingsRepository = settingsRepository;
-            //BattlelogRepository = battlelogRepository;
-
-            //LoadSettings();
-
-            // Credentials are ok, download information
-            //Messenger.Default.Register<BattlelogCredentialsAcceptedMessage>(this, async message =>
-            //    {
-            //        if (message.Game == SupportedGame.Battlefield3)
-            //            return;
-
-            //        BattlelogRepository.CurrentUser = message.CurrentUser;
-            //        await BattlelogRepository.UpdateStorage(message.ForceUpdate);
-            //    });
-
-            //// Download complete, parse data
-            //Messenger.Default.Register<BattlelogUpdateCompleteMessage>(this, async message =>
-            //    {
-            //        var battlefieldData = await BattlelogRepository.LoadBattlefieldData();
-            //        if (battlefieldData == null)
-            //            return;
-                    
-            //        ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() => Data = battlefieldData);
-            //    });
+ 
         }
 
         public BattlelogRepository BattlelogRepository { get; set; }

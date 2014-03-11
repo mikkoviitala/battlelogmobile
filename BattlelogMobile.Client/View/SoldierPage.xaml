@@ -9,8 +9,8 @@
         xmlns:amq="clr-namespace:AmCharts.Windows.QuickCharts;assembly=AmCharts.Windows.QuickCharts.WP"
         xmlns:conv="clr-namespace:BattlelogMobile.Client.Converter"
         xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-                            xmlns:userControl="clr-namespace:BattlelogMobile.Client.UserControl"
-                            FontFamily="{StaticResource PhoneFontFamilyNormal}"
+        xmlns:userControl="clr-namespace:BattlelogMobile.Client.UserControl"
+        FontFamily="{StaticResource PhoneFontFamilyNormal}"
         FontSize="{StaticResource PhoneFontSizeNormal}"
         Foreground="{StaticResource PhoneForegroundBrush}"
         Loaded="PageLoaded"
@@ -20,9 +20,7 @@
         mc:Ignorable="d"
         d:DesignWidth="480"
         d:DesignHeight="696"
-       >
-
-    
+        DataContext="{Binding Soldier, Source={StaticResource Locator}}">
 
     <toolkit:TransitionService.NavigationInTransition>
         <toolkit:NavigationInTransition>

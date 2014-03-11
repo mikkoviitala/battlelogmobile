@@ -20,8 +20,8 @@ namespace BattlelogMobile.Client.ViewModel
         public static readonly Uri Bf3LogInUri = new Uri("https://battlelog.battlefield.com/bf3/gate/login/");
         public static readonly Uri Bf3LogInResponseUri = new Uri("http://battlelog.battlefield.com/bf3/");
 
-        public static readonly Uri Bf4LogInUri = new Uri("http://www.google.com");
-        public static readonly Uri Bf4LogInResponseUri = new Uri("http://www.google.com");
+        public static readonly Uri Bf4LogInUri = new Uri("https://battlelog.battlefield.com:443/bf4/gate/login/");
+        public static readonly Uri Bf4LogInResponseUri = new Uri("http://battlelog.battlefield.com/bf4/");
 
         public static CookieContainer CookieJar = new CookieContainer();
 
@@ -31,6 +31,8 @@ namespace BattlelogMobile.Client.ViewModel
         {
             if (Main == null)
                 Main = new MainViewModel();
+            if (Soldier == null)
+                Soldier = new SoldierViewModel();
             if (Bf3Soldier == null)
                 Bf3Soldier = new Bf3SoldierViewModel();
             if (Bf4Soldier == null)
@@ -43,15 +45,20 @@ namespace BattlelogMobile.Client.ViewModel
         public static void Cleanup()
         {
             Messenger.Default.Unregister(Main);
+            Messenger.Default.Unregister(Soldier);
             Messenger.Default.Unregister(Bf3Soldier);
             Messenger.Default.Unregister(Bf4Soldier);
             Main = null;
+            Soldier = null;
             Bf3Soldier = null;
             Bf4Soldier = null;
         }
 
         [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed for data binding purposes.")]
         public static MainViewModel Main { get; private set; }
+
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed for data binding purposes.")]
+        public static SoldierViewModel Soldier { get; private set; }
 
         [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed for data binding purposes.")]
         public static Bf3SoldierViewModel Bf3Soldier { get; private set; }
