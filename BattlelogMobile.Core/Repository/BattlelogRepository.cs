@@ -34,7 +34,7 @@ namespace BattlelogMobile.Core.Repository
         {
             get
             {
-                return _battlelogUser != null && _battlelogUser.IsValid && _storage.FileExists(_battlelogUser.UserId.Value.ToString());
+                return _battlelogUser != null && _battlelogUser.IsValid && _storage.FileExists(_battlelogUser.StorageFile);
             }
         }
 
