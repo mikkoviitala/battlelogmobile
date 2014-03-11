@@ -126,7 +126,6 @@
     <Compile Include="Service\CryptoService.cs" />
     <Compile Include="Service\DownloadService.cs" />
     <Compile Include="Repository\ImageRepository.cs" />
-    <Compile Include="Service\IUserIdAndPlatformResolver.cs" />
     <Compile Include="Service\JSONParser.cs" />
     <Compile Include="Service\UserIdAndPlatformResolver.cs" />
     <Compile Include="Service\ItemNameMapper.cs" />

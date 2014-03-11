@@ -9,7 +9,7 @@ namespace BattlelogMobile.Core.Service
 {
     // The Resolve method will first try to resolve userId and platform from the /dogtags/ block. 
     // If it fails, a retry will be performed from the /unlocks/ block.
-    public class UserIdAndPlatformResolver : IUserIdAndPlatformResolver 
+    public class UserIdAndPlatformResolver
     {
         private const string UnableToParse = "Unable to retrieve user id, please contact support using email link below to resolve this issue.";
         private const string DogtagsBlockStart = "/dogtags/";

@@ -56,7 +56,7 @@ namespace BattlelogMobile.Core.Service
             }
         }
 
-        public async Task<BattlelogUser> ResolveUserIdAndPlatform(string url, IUserIdAndPlatformResolver userIdAndPlatformResolver)
+        public async Task<BattlelogUser> ResolveUserIdAndPlatform(string url, UserIdAndPlatformResolver userIdAndPlatformResolver)
         {
             BattlelogUser user = null;
 
