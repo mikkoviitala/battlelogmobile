@@ -3,6 +3,7 @@ using System.IO.IsolatedStorage;
 using System.Windows;
 using System.Windows.Threading;
 using BattlelogMobile.Core.Message;
+using BattlelogMobile.Core.Model;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
@@ -14,10 +15,8 @@ using System.Windows.Media.Imaging;
 
 namespace BattlelogMobile.Client.View
 {
-    /// <summary>
-    /// SoldierPage
-    /// </summary>
-    public partial class SoldierPage : PhoneApplicationPage
+
+    public partial class Bf3SoldierPage : PhoneApplicationPage
     {
         private const string BackgroundUri = @"/PivotBackground.jpg";
         private const string CheckedUri = "/Toolkit.Content/ApplicationBar.Check.png";
@@ -36,15 +35,12 @@ namespace BattlelogMobile.Client.View
         private readonly ImageBrush _brush = new ImageBrush { ImageSource = new BitmapImage(new Uri(BackgroundUri, UriKind.Relative)), Opacity = 0.25d, Stretch = Stretch.None };
         private readonly Brush _blackBrush = new SolidColorBrush(Colors.Black);
 
-        private readonly SoldierViewModel _soldierViewModel;
+        private readonly Bf3SoldierViewModel _soldierViewModel;
 
-        /// <summary>
-        /// Initializes a new instance of the SoldierPage class.
-        /// </summary>
-        public SoldierPage()
+        public Bf3SoldierPage()
         {
             InitializeComponent();
-            _soldierViewModel = DataContext as SoldierViewModel;
+            _soldierViewModel = DataContext as Bf3SoldierViewModel;
             Messenger.Default.Register<SoldierLoadedMessage>(this, SoldierLoadedMessageReceived);
         }
 
@@ -91,7 +87,7 @@ namespace BattlelogMobile.Client.View
         private void UpdateMenuItemClick(object sender, EventArgs e)
         {
             ToggleUIState(false);
-            Messenger.Default.Send(new BattlelogCredentialsAcceptedMessage(ViewModelLocator.Main.Email, true));
+            Messenger.Default.Send(new BattlelogCredentialsAcceptedMessage(ViewModelLocator.Main.Email, SupportedGame.Battlefield3, true));
         }
 
         private void ToggleUIState(bool isEnabled)

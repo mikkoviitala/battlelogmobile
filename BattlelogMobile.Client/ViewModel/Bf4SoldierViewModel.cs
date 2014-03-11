@@ -1,47 +1,58 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
 using System.Windows;
 using BattlelogMobile.Core;
 using BattlelogMobile.Core.Message;
 using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Repository;
-using System.Linq;
 using BattlelogMobile.Core.Service;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace BattlelogMobile.Client.ViewModel
 {
-    public class SoldierViewModel : BaseViewModel
+    public class Bf4SoldierViewModel : ViewModelBase
     {
         private BattlefieldData _battlefieldData;
         private bool _backgroundEnabled;
 
-        public SoldierViewModel()
-            : this(new FileSettingsRepository(), new BattlelogRepository(new DownloadService(ViewModelLocator.CookieJar)))
-        {}
+        //public Bf4SoldierViewModel()
+        //    : this(new FileSettingsRepository(), new BattlelogRepository(new DownloadService(ViewModelLocator.CookieJar)))
+        //{}
 
-        public SoldierViewModel(FileSettingsRepository settingsRepository, BattlelogRepository battlelogRepository)
+        public Bf4SoldierViewModel()
+            : this(null, null)
+        { }
+
+        public Bf4SoldierViewModel(FileSettingsRepository settingsRepository, BattlelogRepository battlelogRepository)
         {
-            SettingsRepository = settingsRepository;
-            BattlelogRepository = battlelogRepository;
+            //SettingsRepository = settingsRepository;
+            //BattlelogRepository = battlelogRepository;
 
-            LoadSettings();
+            //LoadSettings();
 
             // Credentials are ok, download information
-            Messenger.Default.Register<BattlelogCredentialsAcceptedMessage>(this, async message => 
-                {
-                    BattlelogRepository.CurrentUser = message.CurrentUser;
-                    await BattlelogRepository.UpdateStorage(message.ForceUpdate);
-                });
+            //Messenger.Default.Register<BattlelogCredentialsAcceptedMessage>(this, async message =>
+            //    {
+            //        if (message.Game == SupportedGame.Battlefield3)
+            //            return;
 
-            // Download complete, parse data
-            Messenger.Default.Register<BattlelogUpdateCompleteMessage>(this, async message =>
-                {
-                    var battlefieldData = await BattlelogRepository.LoadBattlefieldData();
-                    if (battlefieldData == null)
-                        return;
+            //        BattlelogRepository.CurrentUser = message.CurrentUser;
+            //        await BattlelogRepository.UpdateStorage(message.ForceUpdate);
+            //    });
+
+            //// Download complete, parse data
+            //Messenger.Default.Register<BattlelogUpdateCompleteMessage>(this, async message =>
+            //    {
+            //        var battlefieldData = await BattlelogRepository.LoadBattlefieldData();
+            //        if (battlefieldData == null)
+            //            return;
                     
-                    ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() => Data = battlefieldData);
-                });
+            //        ((App) Application.Current).RootFrame.Dispatcher.BeginInvoke(() => Data = battlefieldData);
+            //    });
         }
 
         public BattlelogRepository BattlelogRepository { get; set; }
@@ -56,7 +67,7 @@ namespace BattlelogMobile.Client.ViewModel
                 _battlefieldData = value;
                 RaisePropertyChanged("Data");
 
-                Messenger.Default.Send(new SoldierLoadedMessage(Common.StatusInformationPreparingStatistics));
+                //Messenger.Default.Send(new SoldierLoadedMessage(Common.StatusInformationPreparingStatistics, SupportedGame.Battlefield3));
             }
         }
 
