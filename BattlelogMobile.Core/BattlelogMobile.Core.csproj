@@ -112,7 +112,7 @@
     <Compile Include="Model\Performance.cs" />
     <Compile Include="Model\SupportedGame.cs" />
     <Compile Include="Model\ItemComparer.cs" />
-    <Compile Include="Model\BattlefieldData.cs" />
+    <Compile Include="Model\Battlefield3Data.cs" />
     <Compile Include="Model\Platform.cs" />
     <Compile Include="Model\Settings.cs" />
     <Compile Include="Model\VehiclesData.cs" />
