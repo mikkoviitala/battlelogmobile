@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace BattlelogMobile.Core.Model
 {
-    public class BattlefieldData : BaseModel
+    public class Battlefield3Data : BaseModel
     {
         private Overview _overview;
         [JsonProperty(PropertyName = "overviewStats")]

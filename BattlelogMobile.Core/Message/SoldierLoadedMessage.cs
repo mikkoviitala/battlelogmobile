@@ -1,5 +1,4 @@
-﻿using System;
-using BattlelogMobile.Core.Model;
+﻿using BattlelogMobile.Core.Model;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace BattlelogMobile.Core.Message

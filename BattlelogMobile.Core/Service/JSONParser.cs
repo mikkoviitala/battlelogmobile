@@ -14,13 +14,13 @@ namespace BattlelogMobile.Core.Service
     public class JSONParser
     {
         private readonly IsolatedStorageFile _isolatedStorage = IsolatedStorageFile.GetUserStoreForApplication();
-        private BattlefieldData _battlefieldData = new BattlefieldData();
+        private Battlefield3Data _battlefield3Data = new Battlefield3Data();
 
         /// <summary>
         /// Here lies some nasty JSON parsing...
         /// </summary>
         /// <returns></returns>
-        public BattlefieldData Parse()
+        public Battlefield3Data Parse()
         {
             IsolatedStorageFileStream resource = null;
             
@@ -33,18 +33,18 @@ namespace BattlelogMobile.Core.Service
                 JObject jObject = JObject.Parse(completeJson);
                 var dataToken = jObject.SelectToken("data");
 
-                _battlefieldData = JsonConvert.DeserializeObject<BattlefieldData>(dataToken.ToString());
+                _battlefield3Data = JsonConvert.DeserializeObject<Battlefield3Data>(dataToken.ToString());
 
                 ParseVehicles(Common.VehiclesFile);
                 ParseWeapons(Common.WeaponsAndGadgetsFile);
                 ParseGadgets(Common.WeaponsAndGadgetsFile);
 
-               _battlefieldData.Overview.KitServiceStars.Sort((p1, p2) =>
+               _battlefield3Data.Overview.KitServiceStars.Sort((p1, p2) =>
                string.CompareOrdinal(
                    ((int)p1.Type).ToString(CultureInfo.InvariantCulture).Substring(0, 1),
                        ((int)p2.Type).ToString(CultureInfo.InvariantCulture).Substring(0, 1)));
 
-                return _battlefieldData;
+                return _battlefield3Data;
             }
             catch (Exception e)
             {
@@ -78,7 +78,7 @@ namespace BattlelogMobile.Core.Service
                 vehicle.ImageName = imageName;
             }
             
-            _battlefieldData.Vehicles = data.Vehicles;
+            _battlefield3Data.Vehicles = data.Vehicles;
         }
 
         private void ParseWeapons(string file)
@@ -99,7 +99,7 @@ namespace BattlelogMobile.Core.Service
                 weapon.ImageName = imageName;
             }
 
-            _battlefieldData.Weapons = data.Weapons;
+            _battlefield3Data.Weapons = data.Weapons;
         }
 
         private void ParseGadgets(string file)
@@ -119,7 +119,7 @@ namespace BattlelogMobile.Core.Service
                 gadget.ImageName = imageName;
             }
 
-            _battlefieldData.Gadgets = data.Gadgets;
+            _battlefield3Data.Gadgets = data.Gadgets;
         }
     }
 }

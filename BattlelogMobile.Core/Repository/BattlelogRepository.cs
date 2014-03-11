@@ -65,7 +65,7 @@ namespace BattlelogMobile.Core.Repository
                     _storage.DeleteFile(_battlelogUser.StorageFile);
         }
 
-        public Task<BattlefieldData> LoadBattlefieldData()
+        public Task<Battlefield3Data> LoadBattlefield3Data()
         {
             if (!IsSerialized)
             {
@@ -98,7 +98,7 @@ namespace BattlelogMobile.Core.Repository
                 Messenger.Default.Send(new BattlelogUpdateCompleteMessage());
         }
 
-        private void Serialize(BattlefieldData data)
+        private void Serialize(Battlefield3Data data)
         {
             bool errorOccured = false;
 
@@ -122,9 +122,9 @@ namespace BattlelogMobile.Core.Repository
             }
         }
 
-        private BattlefieldData Deserialize()
+        private Battlefield3Data Deserialize()
         {
-            BattlefieldData data = null;
+            Battlefield3Data data = null;
             bool errorOccured = false;
 
             using (var file = _storage.OpenFile(_battlelogUser.StorageFile, FileMode.Open))
@@ -132,7 +132,7 @@ namespace BattlelogMobile.Core.Repository
                 var serializer = new SharpSerializer(true);
                 try
                 {
-                    data = serializer.Deserialize(file) as BattlefieldData;
+                    data = serializer.Deserialize(file) as Battlefield3Data;
                 }
                 catch (Exception)
                 {

@@ -12,7 +12,7 @@ namespace BattlelogMobile.Client.ViewModel
 {
     public class Bf3SoldierViewModel : BaseViewModel
     {
-        private BattlefieldData _battlefieldData;
+        private Battlefield3Data _battlefield3Data;
         private bool _backgroundEnabled;
 
         public Bf3SoldierViewModel()
@@ -38,7 +38,7 @@ namespace BattlelogMobile.Client.ViewModel
             // Download complete, parse data
             Messenger.Default.Register<BattlelogUpdateCompleteMessage>(this, async message =>
                 {
-                    var battlefieldData = await BattlelogRepository.LoadBattlefieldData();
+                    var battlefieldData = await BattlelogRepository.LoadBattlefield3Data();
                     if (battlefieldData == null)
                         return;
                     
@@ -50,12 +50,12 @@ namespace BattlelogMobile.Client.ViewModel
 
         public FileSettingsRepository SettingsRepository { get; set; }
 
-        public BattlefieldData Data
+        public Battlefield3Data Data
         {
-            get { return _battlefieldData; }
+            get { return _battlefield3Data; }
             set
             {
-                _battlefieldData = value;
+                _battlefield3Data = value;
                 RaisePropertyChanged("Data");
 
                 Messenger.Default.Send(new SoldierLoadedMessage(Common.StatusInformationPreparingStatistics, SupportedGame.Battlefield3));
