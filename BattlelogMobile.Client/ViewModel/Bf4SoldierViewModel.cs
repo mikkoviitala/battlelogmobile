@@ -36,7 +36,6 @@ namespace BattlelogMobile.Client.ViewModel
                 _battlefield3Data = value;
                 RaisePropertyChanged("Data");
 
-                //Messenger.Default.Send(new SoldierLoadedMessage(Common.StatusInformationPreparingStatistics, SupportedGame.Battlefield3));
             }
         }
 

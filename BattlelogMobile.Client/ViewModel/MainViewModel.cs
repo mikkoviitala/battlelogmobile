@@ -39,7 +39,6 @@ namespace BattlelogMobile.Client.ViewModel
         public MainViewModel(FileCredentialsRepository credentialsRepository)
         {
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageReceived);
-            Messenger.Default.Register<SoldierLoadedMessage>(this, SoldierLoadedMessageReceived);
             Messenger.Default.Register<SoldierVisibleMessage>(this, SoldierVisibleMessageReceived);
             Messenger.Default.Register<DialogMessage>(this, DialogMessageReceived);
             
@@ -166,24 +165,6 @@ namespace BattlelogMobile.Client.ViewModel
                 DispatcherHelper.CheckBeginInvokeOnUI(() => StatusInformation = string.Empty);
                 DispatcherHelper.CheckBeginInvokeOnUI(() => LogInFailedReason = notification);
                 DispatcherHelper.CheckBeginInvokeOnUI(() => UserInterfaceEnabled = true);
-            }
-        }
-
-        /// <summary>
-        /// Soldier information is downloaded and parsed
-        /// </summary>
-        private void SoldierLoadedMessageReceived(SoldierLoadedMessage message)
-        {
-            DispatcherHelper.CheckBeginInvokeOnUI(() => StatusInformation = message.Message);
-
-            var currentPage = ((App)Application.Current).RootFrame.Content as PhoneApplicationPage;
-            if (currentPage != null && currentPage.GetType() == typeof(View.MainPage))
-            {
-                DispatcherHelper.CheckBeginInvokeOnUI(() => _navigationService.NavigateTo(ViewModelLocator.SoldierPageUri));
-            }
-            else
-            {
-                ResetControls();
             }
         }
 

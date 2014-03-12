@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using BattlelogMobile.Client.Service;
 using BattlelogMobile.Core.Message;
 using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Repository;
@@ -71,7 +72,12 @@ namespace BattlelogMobile.Client.ViewModel
             if (battlefieldData == null)
                 return;
 
-            DispatcherHelper.CheckBeginInvokeOnUI(() => ViewModelLocator.Bf3Soldier.Data = battlefieldData);
+            DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                {
+                    ViewModelLocator.Bf3Soldier.Data = battlefieldData;
+                    INavigationService _navigationService = new NavigationService();
+                    _navigationService.NavigateTo(ViewModelLocator.SoldierPageUri);
+                });
             //if (Game == SupportedGame.Battlefield3)
             //    await BattlelogRepository.UpdateStorage(true);
         }

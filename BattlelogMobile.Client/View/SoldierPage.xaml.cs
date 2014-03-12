@@ -44,7 +44,6 @@ namespace BattlelogMobile.Client.View
         {
             InitializeComponent();
             BackgroundEnabled = (_settingsRepository.Load()).BackgroundEnabled;
-            //Messenger.Default.Register<SoldierLoadedMessage>(this, SoldierLoadedMessageReceived);
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -87,20 +86,9 @@ namespace BattlelogMobile.Client.View
             }
         }
         
-        //private void SoldierLoadedMessageReceived(SoldierLoadedMessage message)
-        //{
-        //    ToggleUIState(true);
-        //}
-
         private void AboutMenuItemClick(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri(AboutUri, UriKind.Relative));
-        }
-
-        private void UpdateMenuItemClick(object sender, EventArgs e)
-        {
-            //ToggleUIState(false);
-            //(DataContext as SoldierViewModel).Update();
         }
 
         private void ToggleUIState(bool isEnabled)
