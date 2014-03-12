@@ -92,7 +92,6 @@
   <ItemGroup>
     <Compile Include="Common.cs" />
     <Compile Include="Message\BattlelogUpdateCompleteMessage.cs" />
-    <Compile Include="Message\SerializationFailedMessage.cs" />
     <Compile Include="Message\SoldierLoadedMessage.cs" />
     <Compile Include="Message\SoldierVisibleMessage.cs" />
     <Compile Include="Message\UserIdAndPlatformResolvedMessage.cs" />

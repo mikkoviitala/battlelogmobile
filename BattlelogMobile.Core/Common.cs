@@ -56,5 +56,6 @@
 
         public const string ProggressIndicator = "ProgressIndicator";
         public const string DeveloperInformation = "DeveloperInformation";
+        public const string FailedMessageHeader = "Oh noes!";
     }
 }

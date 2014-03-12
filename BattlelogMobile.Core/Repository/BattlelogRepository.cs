@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
+using System.Windows;
 using BattlelogMobile.Core.Message;
 using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Service;
@@ -120,7 +121,9 @@ namespace BattlelogMobile.Core.Repository
             if (errorOccured)
             {
                 ClearCache();
-                Messenger.Default.Send(new SerializationFailedMessage(Common.SerializationFailed));
+                Messenger.Default.Send(
+                    new DialogMessage(this, Common.SerializationFailed, result => {}) 
+                        { Caption = Common.FailedMessageHeader, Button = MessageBoxButton.OK});
             }
         }
 
@@ -145,7 +148,9 @@ namespace BattlelogMobile.Core.Repository
             if (errorOccured)
             {
                 ClearCache();
-                Messenger.Default.Send(new SerializationFailedMessage(Common.DeserializationFailed));
+                Messenger.Default.Send(
+                    new DialogMessage(this, Common.DeserializationFailed, result => { }) 
+                        { Caption = Common.FailedMessageHeader, Button = MessageBoxButton.OK });
             }
 
             return data;

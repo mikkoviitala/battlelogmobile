@@ -21,7 +21,6 @@ namespace BattlelogMobile.Client.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
-        private const string FailedMessageHeader = "Oh noes!";
         private readonly INavigationService _navigationService = new NavigationService();
         private string _email;
         private string _password;
@@ -41,7 +40,7 @@ namespace BattlelogMobile.Client.ViewModel
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageReceived);
             Messenger.Default.Register<SoldierLoadedMessage>(this, SoldierLoadedMessageReceived);
             Messenger.Default.Register<SoldierVisibleMessage>(this, SoldierVisibleMessageReceived);
-            Messenger.Default.Register<SerializationFailedMessage>(this, SerializationFailedMessageReceived);
+            Messenger.Default.Register<DialogMessage>(this, DialogMessageReceived);
             
             CredentialsRepository = credentialsRepository;
             LogInCommand = new RelayCommand(LogInCommandReceived, CanExecuteLogInCommand);
@@ -191,10 +190,10 @@ namespace BattlelogMobile.Client.ViewModel
             }
         }
 
-        private void SerializationFailedMessageReceived(SerializationFailedMessage message)
+        private void DialogMessageReceived(DialogMessage message)
         {
             Task.Factory.StartNew(ResetControls);
-            MessageBox.Show(message.Message, FailedMessageHeader, MessageBoxButton.OK);
+            ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() => MessageBox.Show(message.Content, message.Caption, message.Button));
         }
 
         /// <summary>
