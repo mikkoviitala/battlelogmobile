@@ -25,9 +25,7 @@ namespace BattlelogMobile.Core.Service
                 if (user == null || !user.IsValid)
                     user = Resolve(buffer, UnlocksBlockStart);
 
-                if (user != null && user.IsValid)
-                    Messenger.Default.Send(new UserIdAndPlatformResolvedMessage(user));
-                else
+                if (user == null || !user.IsValid)
                     Messenger.Default.Send(new NotificationMessage(this, UnableToParse));
 
                 return user;
