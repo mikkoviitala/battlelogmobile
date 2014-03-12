@@ -14,6 +14,7 @@ using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Repository;
 using BattlelogMobile.Core.Service;
 using BattlelogMobile.Core;
+using GalaSoft.MvvmLight.Threading;
 using Credentials = BattlelogMobile.Core.Model.Credentials;
 using Microsoft.Phone.Controls;
 
@@ -154,20 +155,17 @@ namespace BattlelogMobile.Client.ViewModel
 
             if (target == Common.ProggressIndicator)
             {
-                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() => StatusInformation = notification);
+                DispatcherHelper.CheckBeginInvokeOnUI(() => StatusInformation = notification);
             }
             else if (target == Common.DeveloperInformation)
             {
-                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() => ServerMessage = notification);
+                DispatcherHelper.CheckBeginInvokeOnUI(() => ServerMessage = notification);
             }
             else
             {
-                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                    StatusInformation = string.Empty);
-                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                    LogInFailedReason = notification);
-                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                    UserInterfaceEnabled = true);
+                DispatcherHelper.CheckBeginInvokeOnUI(() => StatusInformation = string.Empty);
+                DispatcherHelper.CheckBeginInvokeOnUI(() => LogInFailedReason = notification);
+                DispatcherHelper.CheckBeginInvokeOnUI(() => UserInterfaceEnabled = true);
             }
         }
 
@@ -176,13 +174,12 @@ namespace BattlelogMobile.Client.ViewModel
         /// </summary>
         private void SoldierLoadedMessageReceived(SoldierLoadedMessage message)
         {
-            ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                StatusInformation = message.Message);
+            DispatcherHelper.CheckBeginInvokeOnUI(() => StatusInformation = message.Message);
 
             var currentPage = ((App)Application.Current).RootFrame.Content as PhoneApplicationPage;
             if (currentPage != null && currentPage.GetType() == typeof(View.MainPage))
             {
-                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() => _navigationService.NavigateTo(ViewModelLocator.SoldierPageUri));
+                DispatcherHelper.CheckBeginInvokeOnUI(() => _navigationService.NavigateTo(ViewModelLocator.SoldierPageUri));
             }
             else
             {
@@ -193,7 +190,7 @@ namespace BattlelogMobile.Client.ViewModel
         private void DialogMessageReceived(DialogMessage message)
         {
             Task.Factory.StartNew(ResetControls);
-            ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() => MessageBox.Show(message.Content, message.Caption, message.Button));
+            DispatcherHelper.CheckBeginInvokeOnUI(() => MessageBox.Show(message.Content, message.Caption, message.Button));
         }
 
         /// <summary>
@@ -207,10 +204,8 @@ namespace BattlelogMobile.Client.ViewModel
 
         private void ResetControls()
         {
-            ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                StatusInformation = string.Empty);
-            ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                UserInterfaceEnabled = true);
+            DispatcherHelper.CheckBeginInvokeOnUI(() => StatusInformation = string.Empty);
+            DispatcherHelper.CheckBeginInvokeOnUI(() => UserInterfaceEnabled = true);
         }
 
         /// <summary>
@@ -261,12 +256,9 @@ namespace BattlelogMobile.Client.ViewModel
 
             if (_timedOut)
             {
-                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                    UserInterfaceEnabled = true);
-                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                    StatusInformation = string.Empty);
-                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                    LogInFailedReason = Common.LogInFailedReasonTimedOut);
+                DispatcherHelper.CheckBeginInvokeOnUI(() => UserInterfaceEnabled = true);
+                DispatcherHelper.CheckBeginInvokeOnUI(() => StatusInformation = string.Empty);
+                DispatcherHelper.CheckBeginInvokeOnUI(() => LogInFailedReason = Common.LogInFailedReasonTimedOut);
                 return;
             }
 
@@ -280,22 +272,16 @@ namespace BattlelogMobile.Client.ViewModel
                 }
                 else
                 {
-                    ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                        UserInterfaceEnabled = true);
-                    ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                        StatusInformation = string.Empty);
-                    ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                        LogInFailedReason = Common.LogInFailedReasonInvalidCredentials);
+                    DispatcherHelper.CheckBeginInvokeOnUI(() => UserInterfaceEnabled = true);
+                    DispatcherHelper.CheckBeginInvokeOnUI(() => StatusInformation = string.Empty);
+                    DispatcherHelper.CheckBeginInvokeOnUI(() => LogInFailedReason = Common.LogInFailedReasonInvalidCredentials);
                 }
             }
             catch (WebException we)
             {
-                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                    StatusInformation = string.Empty);
-                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                    LogInFailedReason = we.Message);
-                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                    UserInterfaceEnabled = true);
+                DispatcherHelper.CheckBeginInvokeOnUI(() => StatusInformation = string.Empty);
+                DispatcherHelper.CheckBeginInvokeOnUI(() => LogInFailedReason = we.Message);
+                DispatcherHelper.CheckBeginInvokeOnUI(() => UserInterfaceEnabled = true);
             }
         }
 

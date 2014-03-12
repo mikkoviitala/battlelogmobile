@@ -12,6 +12,7 @@ using BattlelogMobile.Core.Repository;
 using BattlelogMobile.Core.Service;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using GalaSoft.MvvmLight.Threading;
 using Microsoft.Phone.Shell;
 
 namespace BattlelogMobile.Client.ViewModel
@@ -70,7 +71,7 @@ namespace BattlelogMobile.Client.ViewModel
             if (battlefieldData == null)
                 return;
 
-            ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() => ViewModelLocator.Bf3Soldier.Data = battlefieldData);
+            DispatcherHelper.CheckBeginInvokeOnUI(() => ViewModelLocator.Bf3Soldier.Data = battlefieldData);
             //if (Game == SupportedGame.Battlefield3)
             //    await BattlelogRepository.UpdateStorage(true);
         }
