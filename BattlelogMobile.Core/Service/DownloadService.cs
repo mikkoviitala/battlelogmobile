@@ -48,7 +48,7 @@ namespace BattlelogMobile.Core.Service
                 string message = await reader.ReadToEndAsync().ConfigureAwait(false);
                 response.Close();
                 if (message.Length > 0)
-                    Messenger.Default.Send(new DialogMessage(this, null, message, null));
+                    Messenger.Default.Send(new NotificationMessage(this, Common.DeveloperInformation, message));
             }
             catch (WebException)
             {
@@ -80,7 +80,7 @@ namespace BattlelogMobile.Core.Service
             }
             catch (WebException we)
             {
-                Messenger.Default.Send(new BattlelogResponseMessage(we.Message, false));
+                Messenger.Default.Send(new NotificationMessage(this, we.Message));
             }
             return user;
         }
@@ -97,7 +97,7 @@ namespace BattlelogMobile.Core.Service
             }
             catch (WebException we)
             {
-                Messenger.Default.Send(new BattlelogResponseMessage(we.Message, false));
+                Messenger.Default.Send(new NotificationMessage(this, we.Message));
             }
             return false;
         }

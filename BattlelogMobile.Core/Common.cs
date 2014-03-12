@@ -53,5 +53,8 @@
 
         public const string SerializationFailed = "Something funky occured while saving your soldier... :(";
         public const string DeserializationFailed = "Something funky occured while loading your soldier... :(";
+
+        public const string ProggressIndicator = "ProgressIndicator";
+        public const string DeveloperInformation = "DeveloperInformation";
     }
 }

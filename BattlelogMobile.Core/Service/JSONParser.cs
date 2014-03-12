@@ -49,7 +49,7 @@ namespace BattlelogMobile.Core.Service
             catch (Exception e)
             {
                 if (e is JsonReaderException || e is IOException || e is ArgumentException || e is FormatException || e is NullReferenceException)
-                    Messenger.Default.Send(new BattlelogResponseMessage(Common.JsonParseFailedMessage, false));
+                    Messenger.Default.Send(new NotificationMessage(this, Common.JsonParseFailedMessage));
                 else
                     throw;
                 return null;

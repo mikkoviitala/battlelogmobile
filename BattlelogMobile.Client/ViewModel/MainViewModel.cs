@@ -38,10 +38,9 @@ namespace BattlelogMobile.Client.ViewModel
 
         public MainViewModel(FileCredentialsRepository credentialsRepository)
         {
-            Messenger.Default.Register<BattlelogResponseMessage>(this, BattlelogResponseMessageReceived);
+            Messenger.Default.Register<NotificationMessage>(this, NotificationMessageReceived);
             Messenger.Default.Register<SoldierLoadedMessage>(this, SoldierLoadedMessageReceived);
             Messenger.Default.Register<SoldierVisibleMessage>(this, SoldierVisibleMessageReceived);
-            Messenger.Default.Register<DialogMessage>(this, message => ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() => ServerMessage = message.Content));
             Messenger.Default.Register<SerializationFailedMessage>(this, SerializationFailedMessageReceived);
             
             CredentialsRepository = credentialsRepository;
@@ -149,23 +148,25 @@ namespace BattlelogMobile.Client.ViewModel
             }
         }
 
-        /// <summary>
-        /// Update UI when web requests complete
-        /// </summary>
-        /// <param name="message"></param>
-        private void BattlelogResponseMessageReceived(BattlelogResponseMessage message)
+        private void NotificationMessageReceived(NotificationMessage message)
         {
-            if (message.IsOk)
+            string target = (string) message.Target;
+            string notification = message.Notification;
+
+            if (target == Common.ProggressIndicator)
             {
-                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                    StatusInformation = message.Message);
+                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() => StatusInformation = notification);
+            }
+            else if (target == Common.DeveloperInformation)
+            {
+                ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() => ServerMessage = notification);
             }
             else
             {
                 ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
                     StatusInformation = string.Empty);
                 ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
-                    LogInFailedReason = message.Message);
+                    LogInFailedReason = notification);
                 ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() =>
                     UserInterfaceEnabled = true);
             }

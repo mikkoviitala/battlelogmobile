@@ -28,7 +28,7 @@ namespace BattlelogMobile.Core.Service
                 if (user != null && user.IsValid)
                     Messenger.Default.Send(new UserIdAndPlatformResolvedMessage(user));
                 else
-                    Messenger.Default.Send(new BattlelogResponseMessage(UnableToParse, false));
+                    Messenger.Default.Send(new NotificationMessage(this, UnableToParse));
 
                 return user;
             }

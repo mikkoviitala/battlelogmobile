@@ -39,12 +39,6 @@ namespace BattlelogMobile.Client.View
                     } 
                 };
             _watcher.Start();
-
-            Messenger.Default.Register<NotificationMessage>(this, message =>
-                {
-                    if (message.Sender.GetType() == typeof (MainViewModel))
-                        MessageBox.Show(message.Notification, "Aw, Snap!", MessageBoxButton.OK);
-                });
         }
 
         private void TextChangedUpdateTrigger(object sender, TextChangedEventArgs e)

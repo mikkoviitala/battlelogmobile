@@ -43,7 +43,7 @@ namespace BattlelogMobile.Core.Repository
         /// </summary>
         public async Task UpdateStorage(bool forceUpdate = false)
         {
-            Messenger.Default.Send(new BattlelogResponseMessage(Common.StatusInformationSeekingContent, true));
+            Messenger.Default.Send(new NotificationMessage(this, Common.ProggressIndicator, Common.StatusInformationSeekingContent));
 
             if (forceUpdate)
                 ClearCache();
@@ -88,7 +88,7 @@ namespace BattlelogMobile.Core.Repository
         /// </summary>
         private async Task GetFilesFromServer()
         {
-            Messenger.Default.Send(new BattlelogResponseMessage(Common.StatusInformationDownloading, true));
+            Messenger.Default.Send(new NotificationMessage(this, Common.ProggressIndicator, Common.StatusInformationDownloading));
 
             bool downloaded = await DownloadService.GetFile(string.Format(Common.OverviewPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.OverviewFile);
             if (downloaded)
