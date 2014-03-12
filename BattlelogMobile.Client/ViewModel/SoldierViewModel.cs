@@ -75,8 +75,7 @@ namespace BattlelogMobile.Client.ViewModel
             DispatcherHelper.CheckBeginInvokeOnUI(() =>
                 {
                     ViewModelLocator.Bf3Soldier.Data = battlefieldData;
-                    INavigationService _navigationService = new NavigationService();
-                    _navigationService.NavigateTo(ViewModelLocator.SoldierPageUri);
+                    ViewModelLocator.Navigation.NavigateTo(ViewModelLocator.SoldierPageUri);
                 });
             //if (Game == SupportedGame.Battlefield3)
             //    await BattlelogRepository.UpdateStorage(true);

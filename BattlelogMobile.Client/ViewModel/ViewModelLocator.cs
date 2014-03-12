@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Reflection;
+using BattlelogMobile.Client.Service;
 using GalaSoft.MvvmLight.Messaging;
 using StoreLauncher;
 
@@ -16,6 +17,7 @@ namespace BattlelogMobile.Client.ViewModel
         public static readonly string ApplicationName = "Battlelog Mobile";
         public static readonly Uri LogInPageUri = new Uri("/View/MainPage.xaml", UriKind.Relative);
         public static readonly Uri SoldierPageUri = new Uri("/View/SoldierPage.xaml", UriKind.Relative);
+        public static readonly Uri AboutPageUri = new Uri("/YourLastAboutDialog;component/AboutPage.xaml", UriKind.Relative);
 
         public static readonly Uri Bf3LogInUri = new Uri("https://battlelog.battlefield.com/bf3/gate/login/");
         public static readonly Uri Bf3LogInResponseUri = new Uri("http://battlelog.battlefield.com/bf3/");
@@ -37,6 +39,8 @@ namespace BattlelogMobile.Client.ViewModel
                 Bf3Soldier = new Bf3SoldierViewModel();
             if (Bf4Soldier == null)
                 Bf4Soldier = new Bf4SoldierViewModel();
+            if (Navigation == null)
+                Navigation = new NavigationService();
 
             if (Environment.OSVersion.Version.Major >= 8)
                 Store = StoreLauncher.StoreLauncher.GetStoreInterface("StoreWrapper.Store, StoreWrapper, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null");
@@ -52,6 +56,7 @@ namespace BattlelogMobile.Client.ViewModel
             Soldier = null;
             Bf3Soldier = null;
             Bf4Soldier = null;
+            Navigation = null;
         }
 
         [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed for data binding purposes.")]
@@ -67,5 +72,7 @@ namespace BattlelogMobile.Client.ViewModel
         public static Bf4SoldierViewModel Bf4Soldier { get; private set; }
 
         public static StoreBase Store { get; private set; }
+
+        public static INavigationService Navigation { get; private set; }
     }
 }

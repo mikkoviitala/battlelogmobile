@@ -22,7 +22,6 @@ namespace BattlelogMobile.Client.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
-        private readonly INavigationService _navigationService = new NavigationService();
         private string _email;
         private string _password;
         private SupportedGame _game = SupportedGame.Battlefield3;

@@ -3,6 +3,7 @@ using System.IO.IsolatedStorage;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using BattlelogMobile.Core;
 using BattlelogMobile.Core.Message;
 using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Repository;
@@ -23,7 +24,6 @@ namespace BattlelogMobile.Client.View
         private const string BackgroundUri = @"/PivotBackground.jpg";
         private const string CheckedUri = "/Toolkit.Content/ApplicationBar.Check.png";
         private const string UncheckedUri = "/Toolkit.Content/ApplicationBar.Uncheck.png";
-        private const string AboutUri = "/YourLastAboutDialog;component/AboutPage.xaml";
 
         private const string AppLaunchesKey = "AppLaunches";
         private const string NextRatingPromptKey = "NextRatingPrompt";
@@ -88,7 +88,7 @@ namespace BattlelogMobile.Client.View
         
         private void AboutMenuItemClick(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri(AboutUri, UriKind.Relative));
+            ViewModelLocator.Navigation.NavigateTo(ViewModelLocator.AboutPageUri);
         }
 
         private void ToggleUIState(bool isEnabled)
