@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
-using BattlelogMobile.Core.Message;
 using BattlelogMobile.Core.Model;
 using GalaSoft.MvvmLight.Messaging;
 

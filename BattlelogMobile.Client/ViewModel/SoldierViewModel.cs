@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Threading.Tasks;
 using System.Windows.Input;
-using BattlelogMobile.Client.Service;
-using BattlelogMobile.Core.Message;
 using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Repository;
 using BattlelogMobile.Core.Service;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
-using Microsoft.Phone.Shell;
 
 namespace BattlelogMobile.Client.ViewModel
 {
@@ -36,16 +26,6 @@ namespace BattlelogMobile.Client.ViewModel
                     await Update(true);
                     AppBarEnabled = true;
                 });
-
-            // Download complete, parse data
-            //Messenger.Default.Register<BattlelogUpdateCompleteMessage>(this, async message =>
-            //{
-            //    var battlefieldData = await BattlelogRepository.LoadBattlefield3Data();
-            //    if (battlefieldData == null)
-            //        return;
-
-            //    ((App)Application.Current).RootFrame.Dispatcher.BeginInvoke(() => ViewModelLocator.Bf3Soldier.Data = battlefieldData);
-            //});
         }
 
         private bool _appBarEnabled = true;

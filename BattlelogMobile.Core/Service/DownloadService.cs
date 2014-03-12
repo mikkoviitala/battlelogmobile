@@ -3,7 +3,6 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using System.Net;
 using System.Threading.Tasks;
-using BattlelogMobile.Core.Message;
 using BattlelogMobile.Core.Model;
 using GalaSoft.MvvmLight.Messaging;
 

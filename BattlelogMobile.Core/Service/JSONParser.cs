@@ -3,7 +3,6 @@ using System.Globalization;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Linq;
-using BattlelogMobile.Core.Message;
 using BattlelogMobile.Core.Model;
 using GalaSoft.MvvmLight.Messaging;
 using Newtonsoft.Json;

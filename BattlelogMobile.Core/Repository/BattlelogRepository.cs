@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
-using BattlelogMobile.Core.Message;
 using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Service;
 using GalaSoft.MvvmLight.Messaging;
@@ -49,11 +48,7 @@ namespace BattlelogMobile.Core.Repository
             if (forceUpdate)
                 ClearCache();
 
-            if (IsSerialized)
-            {
-                Messenger.Default.Send(new BattlelogUpdateCompleteMessage());
-            }
-            else
+            if (!IsSerialized)
             {
                 _battlelogUser = await DownloadService.ResolveUserIdAndPlatform(Common.EntryPageUrl, new UserIdAndPlatformResolver());
                 if (_battlelogUser != null && _battlelogUser.IsValid)
@@ -91,14 +86,9 @@ namespace BattlelogMobile.Core.Repository
         {
             Messenger.Default.Send(new NotificationMessage(this, Common.ProggressIndicator, Common.StatusInformationDownloading));
 
-            bool downloaded = await DownloadService.GetFile(string.Format(Common.OverviewPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.OverviewFile);
-            if (downloaded)
-                downloaded = await DownloadService.GetFile(string.Format(Common.VehiclesPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.VehiclesFile);
-            if (downloaded)
-                downloaded = await DownloadService.GetFile(string.Format(Common.GadgetsPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.WeaponsAndGadgetsFile);
-            
-            if (downloaded)
-                Messenger.Default.Send(new BattlelogUpdateCompleteMessage());
+            await DownloadService.GetFile(string.Format(Common.OverviewPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.OverviewFile);
+            await DownloadService.GetFile(string.Format(Common.VehiclesPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.VehiclesFile);
+            await DownloadService.GetFile(string.Format(Common.GadgetsPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.WeaponsAndGadgetsFile);
         }
 
         private void Serialize(Battlefield3Data data)
