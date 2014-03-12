@@ -1,5 +1,5 @@
 ﻿<UserControl x:Class="BattlelogMobile.Client.UserControl.Bf3UserControl"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -18,6 +18,14 @@
         Background="Transparent"
         DataContext="{Binding Bf3Soldier, Source={StaticResource Locator}}">
 
+    <!--
+    
+    
+    TODO: Add header indicating name of teh game...
+    
+    
+    -->
+    
     <UserControl.Resources>
         <conv:DoubleStringConverter x:Key="DoubleStringConverter" />
         <conv:TimeSpanStringConverter x:Key="TimeSpanStringConverter" />
@@ -34,6 +42,7 @@
                     <TextBlock Text="{Binding ApplicationVersion}" Style="{StaticResource PhoneTextNormalStyle}" Margin="0"/>
                 </StackPanel>
             </controls:Pivot.Title>
+            
             <!-- Pivotitem 1 / Overview -->
             <controls:PivotItem Header="Overview">
                 <Grid>

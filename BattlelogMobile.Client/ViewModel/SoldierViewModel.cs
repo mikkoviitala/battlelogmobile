@@ -10,7 +10,7 @@ namespace BattlelogMobile.Client.ViewModel
 {
     public class SoldierViewModel : BaseViewModel
     {
-        private SupportedGame _supportedGame = SupportedGame.Unknown;
+        private bool _appBarEnabled = true;
 
         public SoldierViewModel()
             :this(new BattlelogRepository(new DownloadService(ViewModelLocator.CookieJar)))
@@ -18,6 +18,7 @@ namespace BattlelogMobile.Client.ViewModel
 
         public SoldierViewModel(BattlelogRepository battlelogRepository)
         {
+            Game = SupportedGame.Unknown;
             BattlelogRepository = battlelogRepository;
 
             UpdateCommand = new RelayCommand(async () =>
@@ -28,7 +29,6 @@ namespace BattlelogMobile.Client.ViewModel
                 });
         }
 
-        private bool _appBarEnabled = true;
         public bool AppBarEnabled
         {
             get { return _appBarEnabled; }
@@ -39,14 +39,12 @@ namespace BattlelogMobile.Client.ViewModel
 
         public BattlelogRepository BattlelogRepository { get; set; }
 
-        public SupportedGame Game
-        {
-            get { return _supportedGame; }
-            set { _supportedGame = value; }
-        }
+        public SupportedGame Game { get; set; }
 
         public async Task Update(bool forceUpdate = false)
         {
+            // TODO: Untangle this logic right here
+
             await BattlelogRepository.UpdateStorage(forceUpdate);
             var battlefieldData = await BattlelogRepository.LoadBattlefield3Data();
             if (battlefieldData == null)
@@ -60,7 +58,5 @@ namespace BattlelogMobile.Client.ViewModel
             //if (Game == SupportedGame.Battlefield3)
             //    await BattlelogRepository.UpdateStorage(true);
         }
-
-
     }
 }

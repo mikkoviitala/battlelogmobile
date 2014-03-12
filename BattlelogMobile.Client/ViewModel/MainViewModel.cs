@@ -233,6 +233,8 @@ namespace BattlelogMobile.Client.ViewModel
                 if (response.ResponseUri.Equals(responseUri))
                 {
                     ViewModelLocator.Soldier.Game = Game;
+
+                    //TODO: Make it update on it's own...
                     ViewModelLocator.Soldier.Update();
                 }
                 else
@@ -277,6 +279,7 @@ namespace BattlelogMobile.Client.ViewModel
         /// </summary>
         private static string ConstructPostData(string email, string password, SupportedGame game)
         {
+            // TODO: Combine params maybe?!
             string postData = null;
             Dictionary<string, string> postParams;
 

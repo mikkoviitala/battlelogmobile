@@ -18,7 +18,7 @@ namespace BattlelogMobile.Client.View
 
     public partial class SoldierPage : PhoneApplicationPage
     {
-        private const string BackgroundUri = @"/PivotBackground.jpg";
+        private const string BackgroundUri = "/PivotBackground.jpg";
         private const string CheckedUri = "/Toolkit.Content/ApplicationBar.Check.png";
         private const string UncheckedUri = "/Toolkit.Content/ApplicationBar.Uncheck.png";
 
@@ -31,9 +31,10 @@ namespace BattlelogMobile.Client.View
         private const int DefaultNextRatingPrompt = 5;
         private static bool _ratingPrompted;
         private static bool _isUpdating;
-        private readonly ImageBrush _brush = new ImageBrush { ImageSource = new BitmapImage(new Uri(BackgroundUri, UriKind.Relative)), Opacity = 0.25d, Stretch = Stretch.None };
         private readonly Brush _blackBrush = new SolidColorBrush(Colors.Black);
-
+        private readonly ImageBrush _brush = new ImageBrush 
+            { ImageSource = new BitmapImage(new Uri(BackgroundUri, UriKind.Relative)), Opacity = 0.25d, Stretch = Stretch.None };
+ 
         private readonly FileSettingsRepository _settingsRepository = new FileSettingsRepository();
         private bool _backgroundEnabled;
 
@@ -73,6 +74,7 @@ namespace BattlelogMobile.Client.View
             }
         }
         
+        //TODO: Refactor as Commands
         private void AboutMenuItemClick(object sender, EventArgs e)
         {
             ViewModelLocator.Navigation.NavigateTo(ViewModelLocator.AboutPageUri);
@@ -181,7 +183,5 @@ namespace BattlelogMobile.Client.View
                 IsolatedStorageSettings.ApplicationSettings[TipPromptedKey] = true;
             });
         }
-
-
     }
 }

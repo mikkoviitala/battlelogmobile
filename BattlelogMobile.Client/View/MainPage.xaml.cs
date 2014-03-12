@@ -3,15 +3,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Device.Location;
-using BattlelogMobile.Client.ViewModel;
-using GalaSoft.MvvmLight.Messaging;
-using StoreLauncher;
 
 namespace BattlelogMobile.Client.View
 {
-    /// <summary>
-    /// MainPage
-    /// </summary>
     public partial class MainPage : IDisposable
     {
         private GeoCoordinateWatcher _watcher;
@@ -41,12 +35,7 @@ namespace BattlelogMobile.Client.View
             _watcher.Start();
         }
 
-        private void TextChangedUpdateTrigger(object sender, TextChangedEventArgs e)
-        {
-            UpdateSource(sender);
-        }
-
-        private void PasswordChangedUpdateTrigger(object sender, RoutedEventArgs e)
+        private void InputChangedUpdateTrigger(object sender, EventArgs e)
         {
             UpdateSource(sender);
         }
@@ -83,7 +72,6 @@ namespace BattlelogMobile.Client.View
         public void Dispose()
         {
             Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose(bool disposing)

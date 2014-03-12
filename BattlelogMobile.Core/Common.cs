@@ -8,7 +8,6 @@
         public const string StatusInformationVerifyingCredential = "Verifying credentials";
         public const string StatusInformationDownloading = "Downloading";
         public const string StatusInformationSeekingContent = "Seeking content";
-        //public const string StatusInformationPreparingStatistics = "Preparing statistics";
         public const string ServerMessageUrl = "http://www.losninosdelsol.net/battlelogmobile/message.txt?nocache={0}";
 
         public const string HttpPostMethod = "POST";
@@ -40,9 +39,6 @@
         public const string RibbonAwardImageUrl = "http://eaassets-a.akamaihd.net/bl-cdn/cdnprefix/a162802f7633bb6127b7d9bda2b88f65c/public/profile/bf3/stats/ribbons/s/{0}"; //"http://battlelog-cdn.battlefield.com/public/profile/bf3/stats/ribbons/s/{0}?v=3173239";
         public const string MedalAwardImageUrl = "http://eaassets-a.akamaihd.net/bl-cdn/cdnprefix/a162802f7633bb6127b7d9bda2b88f65c/public/profile/bf3/stats/medals/s/{0}"; //"http://battlelog-cdn.battlefield.com/public/profile/bf3/stats/medals/s/{0}?v=3173239";
         public const string VehicleAndGadgetImageUrl = "http://eaassets-a.akamaihd.net/bl-cdn/cdnprefix/a162802f7633bb6127b7d9bda2b88f65c/public/profile/bf3/stats/items_147x88/{0}"; //"http://battlelog-cdn.battlefield.com/public/profile/bf3/stats/items_147x88/{0}?v=3173239";
-
-        //public const string ServiceStarImage = "servicestar-31x31.png";
-        //public const string ServiceStarImageUrl = "http://battlelog.battlefield.com/public/profile/bf3/stats/servicestars/{0}";
 
         public const string KillsToken = "kills";
         public const string AwardGroup = "AwardGroup_Ribbons";

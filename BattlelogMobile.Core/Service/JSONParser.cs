@@ -15,10 +15,6 @@ namespace BattlelogMobile.Core.Service
         private readonly IsolatedStorageFile _isolatedStorage = IsolatedStorageFile.GetUserStoreForApplication();
         private Battlefield3Data _battlefield3Data = new Battlefield3Data();
 
-        /// <summary>
-        /// Here lies some nasty JSON parsing...
-        /// </summary>
-        /// <returns></returns>
         public Battlefield3Data Parse()
         {
             IsolatedStorageFileStream resource = null;

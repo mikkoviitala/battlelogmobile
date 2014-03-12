@@ -71,8 +71,10 @@ namespace BattlelogMobile.Client.ViewModel
         [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed for data binding purposes.")]
         public static Bf4SoldierViewModel Bf4Soldier { get; private set; }
 
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed for data binding purposes.")]
         public static StoreBase Store { get; private set; }
 
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed for data binding purposes.")]
         public static INavigationService Navigation { get; private set; }
     }
 }

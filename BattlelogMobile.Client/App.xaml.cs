@@ -13,11 +13,7 @@ namespace BattlelogMobile.Client
     public partial class App
     {
         // Easy access to the root frame
-        public PhoneApplicationFrame RootFrame
-        {
-            get;
-            private set;
-        }
+        public PhoneApplicationFrame RootFrame { get;  private set; }
 
         // Constructor
         public App()
@@ -37,7 +33,7 @@ namespace BattlelogMobile.Client
             if (System.Diagnostics.Debugger.IsAttached)
             {
                 // Display the current frame rate counters.
-                Current.Host.Settings.EnableFrameRateCounter = true;
+                Current.Host.Settings.EnableFrameRateCounter = false;
 
                 // Show the areas of the app that are being redrawn in each frame.
                 //Application.Current.Host.Settings.EnableRedrawRegions = true;

@@ -22,16 +22,10 @@
 
     <phone:PhoneApplicationPage.Resources>
         <conv:StringLengthVisibilityConverter x:Key="StringLengthVisibilityConverter" />
-        
         <Style x:Key="WatermarkStyle" TargetType="ContentControl">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="Margin" Value="3,0" />
         </Style>
-
-        <!--<DataTemplate x:Name="lpkItemTemplate">
-            <TextBlock Text="{Binding Country}" />
-        </DataTemplate>-->
-
     </phone:PhoneApplicationPage.Resources>
 
     <toolkit:TransitionService.NavigationInTransition>
@@ -76,7 +70,7 @@
                     <TextBlock Text="Email:" Style="{StaticResource PhoneTextLargeStyle}" VerticalAlignment="Center" Margin="12,0,42,0" />
                     <watermark:WatermarkedTextBox Watermark="Origin™ account" IsEnabled="{Binding UserInterfaceEnabled}" 
                              Margin="12,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="308"
-                             Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=Explicit}" TextChanged="TextChangedUpdateTrigger" 
+                             Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=Explicit}" TextChanged="InputChangedUpdateTrigger" 
                              InputScope="EmailNameOrAddress"
                              WatermarkStyle="{StaticResource WatermarkStyle}"/>
                 </StackPanel>
@@ -85,7 +79,7 @@
                     <PasswordBox Margin="2,0,0,0" HorizontalAlignment="Left" Name="Password" VerticalAlignment="Top" Width="308" 
                                  IsEnabled="{Binding UserInterfaceEnabled}" 
                                  Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=Explicit}" 
-                                 PasswordChanged="PasswordChangedUpdateTrigger"/>
+                                 PasswordChanged="InputChangedUpdateTrigger"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Game:" Style="{StaticResource PhoneTextLargeStyle}" VerticalAlignment="Top" Margin="12,10,-1,0" />

@@ -181,15 +181,12 @@
     </Content>
     <Resource Include="Background.png" />
     <Resource Include="ApplicationIcon.png" />
-    <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Questionmark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
     <Content Include="Content\About\Data.xml">
       <SubType>Designer</SubType>
     </Content>
