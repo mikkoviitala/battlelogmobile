@@ -3,11 +3,8 @@ using System.IO.IsolatedStorage;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using BattlelogMobile.Core;
-using BattlelogMobile.Core.Message;
 using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Repository;
-using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
 using Tomers.Phone.Controls;
@@ -44,21 +41,11 @@ namespace BattlelogMobile.Client.View
         {
             InitializeComponent();
             BackgroundEnabled = (_settingsRepository.Load()).BackgroundEnabled;
-        }
-
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            Visibility = Visibility.Visible;
-
             SetBackground();
-            Messenger.Default.Send(new SoldierVisibleMessage());
         }
 
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
-            //ToggleUIState(true);
-
             var dispatchTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(2) };
             dispatchTimer.Tick += (o, args) =>
             {

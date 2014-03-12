@@ -8,15 +8,12 @@ using System.Windows;
 using System.Windows.Threading;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using BattlelogMobile.Client.Service;
-using BattlelogMobile.Core.Message;
 using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Repository;
 using BattlelogMobile.Core.Service;
 using BattlelogMobile.Core;
 using GalaSoft.MvvmLight.Threading;
 using Credentials = BattlelogMobile.Core.Model.Credentials;
-using Microsoft.Phone.Controls;
 
 namespace BattlelogMobile.Client.ViewModel
 {
@@ -38,7 +35,6 @@ namespace BattlelogMobile.Client.ViewModel
         public MainViewModel(FileCredentialsRepository credentialsRepository)
         {
             Messenger.Default.Register<NotificationMessage>(this, NotificationMessageReceived);
-            Messenger.Default.Register<SoldierVisibleMessage>(this, SoldierVisibleMessageReceived);
             Messenger.Default.Register<DialogMessage>(this, DialogMessageReceived);
             
             CredentialsRepository = credentialsRepository;
@@ -161,25 +157,15 @@ namespace BattlelogMobile.Client.ViewModel
             }
             else
             {
-                DispatcherHelper.CheckBeginInvokeOnUI(() => StatusInformation = string.Empty);
+                ResetControls();
                 DispatcherHelper.CheckBeginInvokeOnUI(() => LogInFailedReason = notification);
-                DispatcherHelper.CheckBeginInvokeOnUI(() => UserInterfaceEnabled = true);
             }
         }
 
         private void DialogMessageReceived(DialogMessage message)
         {
-            Task.Factory.StartNew(ResetControls);
-            DispatcherHelper.CheckBeginInvokeOnUI(() => MessageBox.Show(message.Content, message.Caption, message.Button));
-        }
-
-        /// <summary>
-        /// When soldier information is shown, reset login UI.
-        /// This is in separate message since UI is slacking a little...
-        /// </summary>
-        private void SoldierVisibleMessageReceived(SoldierVisibleMessage message)
-        {
             ResetControls();
+            DispatcherHelper.CheckBeginInvokeOnUI(() => MessageBox.Show(message.Content, message.Caption, message.Button));
         }
 
         private void ResetControls()
@@ -231,17 +217,16 @@ namespace BattlelogMobile.Client.ViewModel
                 writer.Close();
             }
 
-            // Got response
-            var responseTask = request.GetResponseAsync();
-
+            ResetControls();
             if (_timedOut)
             {
-                DispatcherHelper.CheckBeginInvokeOnUI(() => UserInterfaceEnabled = true);
-                DispatcherHelper.CheckBeginInvokeOnUI(() => StatusInformation = string.Empty);
+                ResetControls();
                 DispatcherHelper.CheckBeginInvokeOnUI(() => LogInFailedReason = Common.LogInFailedReasonTimedOut);
                 return;
             }
 
+            // Got response
+            var responseTask = request.GetResponseAsync();
             try
             {
                 var response = await responseTask.ConfigureAwait(false);
@@ -252,16 +237,12 @@ namespace BattlelogMobile.Client.ViewModel
                 }
                 else
                 {
-                    DispatcherHelper.CheckBeginInvokeOnUI(() => UserInterfaceEnabled = true);
-                    DispatcherHelper.CheckBeginInvokeOnUI(() => StatusInformation = string.Empty);
                     DispatcherHelper.CheckBeginInvokeOnUI(() => LogInFailedReason = Common.LogInFailedReasonInvalidCredentials);
                 }
             }
             catch (WebException we)
             {
-                DispatcherHelper.CheckBeginInvokeOnUI(() => StatusInformation = string.Empty);
                 DispatcherHelper.CheckBeginInvokeOnUI(() => LogInFailedReason = we.Message);
-                DispatcherHelper.CheckBeginInvokeOnUI(() => UserInterfaceEnabled = true);
             }
         }
 
