@@ -217,7 +217,6 @@ namespace BattlelogMobile.Client.ViewModel
                 writer.Close();
             }
 
-            ResetControls();
             if (_timedOut)
             {
                 ResetControls();
@@ -233,9 +232,8 @@ namespace BattlelogMobile.Client.ViewModel
                 if (response.ResponseUri.Equals(responseUri))
                 {
                     ViewModelLocator.Soldier.Game = Game;
-
                     //TODO: Make it update on it's own...
-                    ViewModelLocator.Soldier.Update();
+                    await ViewModelLocator.Soldier.Update();
                 }
                 else
                 {

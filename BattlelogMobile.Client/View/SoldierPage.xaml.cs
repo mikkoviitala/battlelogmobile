@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Threading;
 using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Repository;
+using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
 using Tomers.Phone.Controls;
@@ -56,6 +57,12 @@ namespace BattlelogMobile.Client.View
                 ShowRatingPrompt();
             };
             dispatchTimer.Start();
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            Messenger.Default.Send(new NotificationMessage(this, string.Empty));
         }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
