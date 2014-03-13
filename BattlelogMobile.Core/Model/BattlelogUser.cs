@@ -18,7 +18,7 @@
 
         public Platform? Platform { get; set; }
 
-        public SupportedGame Game { get { return SupportedGame.Battlefield3; } }
+        public SupportedGame Game { get; set; }
 
         public bool IsValid
         {

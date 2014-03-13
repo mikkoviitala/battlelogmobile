@@ -6,25 +6,41 @@ using GalaSoft.MvvmLight.Messaging;
 
 namespace BattlelogMobile.Core.Service
 {
-    // The Resolve method will first try to resolve userId and platform from the /dogtags/ block. 
-    // If it fails, a retry will be performed from the /unlocks/ block.
     public class UserIdAndPlatformResolver
     {
         private const string UnableToParse = "Unable to retrieve user id, please contact support using email link below to resolve this issue.";
         private const string DogtagsBlockStart = "/dogtags/";
         private const string UnlocksBlockStart = "/unlocks/";
+        private const string StatsBlockStart = "/stats/";
         private const string EaId = "cem_ea_id";
+        private SupportedGame _game = SupportedGame.Unknown;
+
+        public UserIdAndPlatformResolver(SupportedGame game)
+        {
+            _game = game;
+        }
 
         public BattlelogUser Resolve(Stream stream)
         {
             using (var reader = new StreamReader(stream))
             {
                 string buffer = reader.ReadToEnd();
-                var user = Resolve(buffer, DogtagsBlockStart);
-                if (user == null || !user.IsValid)
-                    user = Resolve(buffer, UnlocksBlockStart);
+                BattlelogUser user = null;
 
-                if (user == null || !user.IsValid)
+                if (_game == SupportedGame.Battlefield3)
+                {
+                    user = Resolve(buffer, DogtagsBlockStart);
+                    if (user == null || !user.IsValid)
+                        user = Resolve(buffer, UnlocksBlockStart);
+                }
+                else
+                {
+                    user = Resolve(buffer, StatsBlockStart);
+                }
+
+                if (user != null && user.IsValid)
+                    user.Game = _game;
+                else
                     Messenger.Default.Send(new NotificationMessage(this, UnableToParse));
 
                 return user;

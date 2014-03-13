@@ -22,11 +22,13 @@
         public const string WeaponsAndGadgetsFile = "weapons.txt";
         public const string UnlocksFile = "unlocks.txt";
 
-        public const string EntryPageUrl = "http://battlelog.battlefield.com/bf3/";
-        public const string OverviewPageUrl = "http://battlelog.battlefield.com/bf3/overviewPopulateStats/{0}/bf3-us-assault/{1}/"; // {0} for user id and {1} for platform
-        public const string VehiclesPageUrl = "http://battlelog.battlefield.com/bf3/vehiclesPopulateStats/{0}/{1}/";
-        public const string GadgetsPageUrl = "http://battlelog.battlefield.com/bf3/weaponsPopulateStats/{0}/{1}/";
-        public const string UnlocksPageUrl = "http://battlelog.battlefield.com/bf3/upcomingUnlocksPopulateStats/{0}/{1}/";
+        public const string Bf3EntryPageUrl = "http://battlelog.battlefield.com/bf3/";
+        public const string Bf3OverviewPageUrl = "http://battlelog.battlefield.com/bf3/overviewPopulateStats/{0}/bf3-us-assault/{1}/"; // {0} for user id and {1} for platform
+        public const string Bf3VehiclesPageUrl = "http://battlelog.battlefield.com/bf3/vehiclesPopulateStats/{0}/{1}/";
+        public const string Bf3GadgetsPageUrl = "http://battlelog.battlefield.com/bf3/weaponsPopulateStats/{0}/{1}/";
+        public const string Bf3UnlocksPageUrl = "http://battlelog.battlefield.com/bf3/upcomingUnlocksPopulateStats/{0}/{1}/";
+
+        public const string Bf4EntryPageUrl = "http://battlelog.battlefield.com/bf4/";
 
         public const string GravatarImageUrl = "http://www.gravatar.com/avatar/{0}?s=52&d=http://battlelog-cdn.battlefield.com/public/base/shared/default-avatar-52.png?v=7909";
 

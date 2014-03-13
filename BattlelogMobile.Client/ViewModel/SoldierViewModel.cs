@@ -62,7 +62,8 @@ namespace BattlelogMobile.Client.ViewModel
         {
             // TODO: Untangle this logic right here
 
-            bool success = await BattlelogRepository.UpdateStorage(forceUpdate);
+            //bool success = await BattlelogRepository.UpdateStorage(forceUpdate);
+            bool success = await BattlelogRepository.UpdateStorage(_game, forceUpdate);
             if (!success)
                 return;
 

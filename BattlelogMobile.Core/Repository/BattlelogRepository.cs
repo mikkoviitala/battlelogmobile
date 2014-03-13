@@ -41,7 +41,7 @@ namespace BattlelogMobile.Core.Repository
         /// <summary>
         /// Update local storage
         /// </summary>
-        public async Task<bool> UpdateStorage(bool forceUpdate = false)
+        public async Task<bool> UpdateStorage(SupportedGame game, bool forceUpdate = false)
         {
             Messenger.Default.Send(new NotificationMessage(this, Common.ProggressIndicator, Common.StatusInformationSeekingContent));
 
@@ -50,10 +50,11 @@ namespace BattlelogMobile.Core.Repository
 
             if (!IsSerialized)
             {
-                _battlelogUser = await DownloadService.ResolveUserIdAndPlatform(Common.EntryPageUrl, new UserIdAndPlatformResolver());
+                //_battlelogUser = await DownloadService.ResolveUserIdAndPlatform(Common.Bf3EntryPageUrl, new UserIdAndPlatformResolver());
+                _battlelogUser = await DownloadService.ResolveUserIdAndPlatform(Common.Bf4EntryPageUrl, new UserIdAndPlatformResolver(game));
                 if (_battlelogUser == null || !_battlelogUser.IsValid)
                     return false;
-                await GetFilesFromServer();
+                await GetFilesFromServer(game);
             }
             return true;
         }
@@ -84,13 +85,20 @@ namespace BattlelogMobile.Core.Repository
         /// <summary>
         ///  When user id and platform are resolved, tell download service to get JSON streams 
         /// </summary>
-        private async Task GetFilesFromServer()
+        private async Task GetFilesFromServer(SupportedGame game)
         {
             Messenger.Default.Send(new NotificationMessage(this, Common.ProggressIndicator, Common.StatusInformationDownloading));
 
-            await DownloadService.GetFile(string.Format(Common.OverviewPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.OverviewFile);
-            await DownloadService.GetFile(string.Format(Common.VehiclesPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.VehiclesFile);
-            await DownloadService.GetFile(string.Format(Common.GadgetsPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.WeaponsAndGadgetsFile);
+            if (game == SupportedGame.Battlefield3)
+            {
+                await DownloadService.GetFile(string.Format(Common.Bf3OverviewPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.OverviewFile);
+                await DownloadService.GetFile(string.Format(Common.Bf3VehiclesPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.VehiclesFile);
+                await DownloadService.GetFile(string.Format(Common.Bf3GadgetsPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.WeaponsAndGadgetsFile);
+            }
+            else
+            {
+                
+            }
         }
 
         private void Serialize(Battlefield3Data data)
