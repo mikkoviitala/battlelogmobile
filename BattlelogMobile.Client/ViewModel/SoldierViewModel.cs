@@ -62,7 +62,10 @@ namespace BattlelogMobile.Client.ViewModel
         {
             // TODO: Untangle this logic right here
 
-            await BattlelogRepository.UpdateStorage(forceUpdate);
+            bool success = await BattlelogRepository.UpdateStorage(forceUpdate);
+            if (!success)
+                return;
+
             var battlefieldData = await BattlelogRepository.LoadBattlefield3Data();
             if (battlefieldData == null)
                 return;

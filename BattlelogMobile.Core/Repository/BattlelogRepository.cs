@@ -41,7 +41,7 @@ namespace BattlelogMobile.Core.Repository
         /// <summary>
         /// Update local storage
         /// </summary>
-        public async Task UpdateStorage(bool forceUpdate = false)
+        public async Task<bool> UpdateStorage(bool forceUpdate = false)
         {
             Messenger.Default.Send(new NotificationMessage(this, Common.ProggressIndicator, Common.StatusInformationSeekingContent));
 
@@ -51,9 +51,11 @@ namespace BattlelogMobile.Core.Repository
             if (!IsSerialized)
             {
                 _battlelogUser = await DownloadService.ResolveUserIdAndPlatform(Common.EntryPageUrl, new UserIdAndPlatformResolver());
-                if (_battlelogUser != null && _battlelogUser.IsValid)
-                    await GetFilesFromServer();
+                if (_battlelogUser == null || !_battlelogUser.IsValid)
+                    return false;
+                await GetFilesFromServer();
             }
+            return true;
         }
 
         private void ClearCache()

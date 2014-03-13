@@ -11,9 +11,9 @@ namespace BattlelogMobile.Core.Service
     public class UserIdAndPlatformResolver
     {
         private const string UnableToParse = "Unable to retrieve user id, please contact support using email link below to resolve this issue.";
-        private const string DogtagsBlockStart = "/dodgtags/";
-        private const string UnlocksBlockStart = "/udnlocks/";
-        private const string EaId = "cedm_ea_id";
+        private const string DogtagsBlockStart = "/dogtags/";
+        private const string UnlocksBlockStart = "/unlocks/";
+        private const string EaId = "cem_ea_id";
 
         public BattlelogUser Resolve(Stream stream)
         {
