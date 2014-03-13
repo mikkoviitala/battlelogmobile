@@ -59,12 +59,6 @@ namespace BattlelogMobile.Client.View
             dispatchTimer.Start();
         }
 
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            Messenger.Default.Send(new NotificationMessage(this, string.Empty));
-        }
-
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
             if (_isUpdating)

@@ -45,6 +45,7 @@
     <Grid x:Name="LayoutRoot">
         <!--work around listener to enable/disable appbar icon-->
         <CheckBox IsEnabled="{Binding AppBarEnabled}" IsEnabledChanged="ToggleAppBarSate" Visibility="Collapsed" />
+        <!--<userControl:Bf3UserControl />-->
         <userControl:Bf3UserControl />
     </Grid>
 

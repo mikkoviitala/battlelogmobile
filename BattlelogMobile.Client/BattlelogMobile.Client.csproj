@@ -121,6 +121,9 @@
     <Compile Include="UserControl\Bf3UserControl.xaml.cs">
       <DependentUpon>Bf3UserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControl\Bf4UserControl.xaml.cs">
+      <DependentUpon>Bf4UserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\Bf4SoldierViewModel.cs" />
     <Compile Include="ViewModel\Bf3SoldierViewModel.cs" />
     <Compile Include="ViewModel\SoldierViewModel.cs" />
@@ -146,6 +149,10 @@
     <Page Include="UserControl\Bf3UserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControl\Bf4UserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>

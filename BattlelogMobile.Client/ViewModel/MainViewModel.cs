@@ -231,9 +231,9 @@ namespace BattlelogMobile.Client.ViewModel
                 var response = await responseTask.ConfigureAwait(false);
                 if (response.ResponseUri.Equals(responseUri))
                 {
-                    ViewModelLocator.Soldier.Game = Game;
+                    DispatcherHelper.CheckBeginInvokeOnUI(() => ViewModelLocator.Soldier.Game = Game);
                     //TODO: Make it update on it's own...
-                    await ViewModelLocator.Soldier.Update();
+                    //await ViewModelLocator.Soldier.Update();
                 }
                 else
                 {
