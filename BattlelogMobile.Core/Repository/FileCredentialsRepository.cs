@@ -28,6 +28,7 @@ namespace BattlelogMobile.Core.Repository
                 //writer.WriteLine(_crypto.Encrypt(credentials.Password));
                 writer.WriteLine(credentials.Email);
                 writer.WriteLine(credentials.Password);
+                writer.WriteLine((int)credentials.Game);
                 writer.WriteLine(credentials.RememberMe);
             }
             IsolatedStorageSettings.ApplicationSettings["IsEncrypted"] = false;
@@ -42,9 +43,19 @@ namespace BattlelogMobile.Core.Repository
                 IsolatedStorageSettings.ApplicationSettings.TryGetValue("IsEncrypted", out isEncrypted);
                 if (reader.Peek() > 0)
                 {
-                    credentials.Email = isEncrypted ? _crypto.Decrypt(reader.ReadLine()) : reader.ReadLine();
-                    credentials.Password = isEncrypted ? _crypto.Decrypt(reader.ReadLine()) : reader.ReadLine();
-                    credentials.RememberMe = !string.IsNullOrEmpty(credentials.Password) && Convert.ToBoolean(reader.ReadLine());
+                    try
+                    {
+                        credentials.Email = isEncrypted ? _crypto.Decrypt(reader.ReadLine()) : reader.ReadLine();
+                        credentials.Password = isEncrypted ? _crypto.Decrypt(reader.ReadLine()) : reader.ReadLine();
+                        credentials.Game = (SupportedGame) Convert.ToInt32(reader.ReadLine());
+                        credentials.RememberMe = !string.IsNullOrEmpty(credentials.Password) && Convert.ToBoolean(reader.ReadLine());
+                    }
+                    catch (Exception e)
+                    {
+                        // If it's format exception, then user has not saved credentials in new format before
+                        if (!(e is FormatException))
+                            throw;
+                    }
                 }
             }
             
