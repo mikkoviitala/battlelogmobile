@@ -17,18 +17,23 @@
         public const string HttpContentType = "application/x-www-form-urlencoded";
 
         public const string CredentialsFile = "credentials.txt";
-        public const string OverviewFile = "overview.txt";
-        public const string VehiclesFile = "vehicles.txt";
-        public const string WeaponsAndGadgetsFile = "weapons.txt";
-        public const string UnlocksFile = "unlocks.txt";
+        public const string Bf3OverviewFile = "bf3overview.txt";
+        public const string Bf3VehiclesFile = "bf3vehicles.txt";
+        public const string Bf3WeaponsAndGadgetsFile = "bf3weapons.txt";
+
+        public const string Bf4OverviewFile = "bf4overview.txt";
+        public const string Bf4VehiclesFile = "bf4vehicles.txt";
+        public const string Bf4WeaponsAndGadgetsFile = "bf4weapons.txt";
 
         public const string Bf3EntryPageUrl = "http://battlelog.battlefield.com/bf3/";
         public const string Bf3OverviewPageUrl = "http://battlelog.battlefield.com/bf3/overviewPopulateStats/{0}/bf3-us-assault/{1}/"; // {0} for user id and {1} for platform
         public const string Bf3VehiclesPageUrl = "http://battlelog.battlefield.com/bf3/vehiclesPopulateStats/{0}/{1}/";
         public const string Bf3GadgetsPageUrl = "http://battlelog.battlefield.com/bf3/weaponsPopulateStats/{0}/{1}/";
-        public const string Bf3UnlocksPageUrl = "http://battlelog.battlefield.com/bf3/upcomingUnlocksPopulateStats/{0}/{1}/";
 
         public const string Bf4EntryPageUrl = "http://battlelog.battlefield.com/bf4/";
+        public const string Bf4OverviewPageUrl = "http://battlelog.battlefield.com/bf4/warsawoverviewpopulate/{0}/{1}/";
+        public const string Bf4VehiclesPageUrl = "http://battlelog.battlefield.com/bf4/warsawvehiclesPopulateStats/{0}/{1}/";
+        public const string Bf4GadgetsPageUrl = "http://battlelog.battlefield.com/bf4/warsawWeaponsPopulateStats/{0}/{1}/";
 
         public const string GravatarImageUrl = "http://www.gravatar.com/avatar/{0}?s=52&d=http://battlelog-cdn.battlefield.com/public/base/shared/default-avatar-52.png?v=7909";
 

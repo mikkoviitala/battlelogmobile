@@ -21,7 +21,7 @@ namespace BattlelogMobile.Core.Service
             
             try
             {
-                resource = _isolatedStorage.OpenFile(Common.OverviewFile, FileMode.Open);
+                resource = _isolatedStorage.OpenFile(Common.Bf3OverviewFile, FileMode.Open);
                 var streamReader = new StreamReader(resource);
             
                 string completeJson = streamReader.ReadToEnd();
@@ -30,9 +30,9 @@ namespace BattlelogMobile.Core.Service
 
                 _battlefield3Data = JsonConvert.DeserializeObject<Battlefield3Data>(dataToken.ToString());
 
-                ParseVehicles(Common.VehiclesFile);
-                ParseWeapons(Common.WeaponsAndGadgetsFile);
-                ParseGadgets(Common.WeaponsAndGadgetsFile);
+                ParseVehicles(Common.Bf3VehiclesFile);
+                ParseWeapons(Common.Bf3WeaponsAndGadgetsFile);
+                ParseGadgets(Common.Bf3WeaponsAndGadgetsFile);
 
                _battlefield3Data.Overview.KitServiceStars.Sort((p1, p2) =>
                string.CompareOrdinal(

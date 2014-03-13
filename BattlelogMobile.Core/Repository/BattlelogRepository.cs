@@ -91,13 +91,15 @@ namespace BattlelogMobile.Core.Repository
 
             if (game == SupportedGame.Battlefield3)
             {
-                await DownloadService.GetFile(string.Format(Common.Bf3OverviewPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.OverviewFile);
-                await DownloadService.GetFile(string.Format(Common.Bf3VehiclesPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.VehiclesFile);
-                await DownloadService.GetFile(string.Format(Common.Bf3GadgetsPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.WeaponsAndGadgetsFile);
+                await DownloadService.GetFile(string.Format(Common.Bf3OverviewPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.Bf3OverviewFile);
+                await DownloadService.GetFile(string.Format(Common.Bf3VehiclesPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.Bf3VehiclesFile);
+                await DownloadService.GetFile(string.Format(Common.Bf3GadgetsPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.Bf3WeaponsAndGadgetsFile);
             }
             else
             {
-                
+                await DownloadService.GetFile(string.Format(Common.Bf4OverviewPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.Bf4OverviewFile);
+                await DownloadService.GetFile(string.Format(Common.Bf4VehiclesPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.Bf4VehiclesFile);
+                await DownloadService.GetFile(string.Format(Common.Bf4GadgetsPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.Bf4WeaponsAndGadgetsFile);
             }
         }
 
