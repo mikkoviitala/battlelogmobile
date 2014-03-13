@@ -66,19 +66,33 @@ namespace BattlelogMobile.Client.ViewModel
             bool success = await BattlelogRepository.UpdateStorage(_game, forceUpdate);
             if (!success)
                 return;
+            
+            if (_game == SupportedGame.Battlefield3)
+            {
+                var battlefieldData = await BattlelogRepository.LoadBattlefieldData(new Bf3Parser());
+                if (battlefieldData == null)
+                    return;
 
-            var battlefieldData = await BattlelogRepository.LoadBattlefield3Data();
-            if (battlefieldData == null)
-                return;
-
-            DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                DispatcherHelper.CheckBeginInvokeOnUI(() =>
                 {
                     Messenger.Default.Send(new NotificationMessage(this, string.Empty));
                     ViewModelLocator.Bf3Soldier.Data = battlefieldData;
                     ViewModelLocator.Navigation.NavigateTo(ViewModelLocator.SoldierPageUri);
                 });
-            //if (Game == SupportedGame.Battlefield3)
-            //    await BattlelogRepository.UpdateStorage(true);
+            }
+            else
+            {
+                var battlefieldData = await BattlelogRepository.LoadBattlefieldData(new Bf4Parser());
+                if (battlefieldData == null)
+                    return;
+
+                DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                {
+                    Messenger.Default.Send(new NotificationMessage(this, string.Empty));
+                    //ViewModelLocator.Bf3Soldier.Data = battlefieldData;
+                    ViewModelLocator.Navigation.NavigateTo(ViewModelLocator.SoldierPageUri);
+                });
+            }
         }
     }
 }

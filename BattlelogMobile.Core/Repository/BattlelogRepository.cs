@@ -50,10 +50,12 @@ namespace BattlelogMobile.Core.Repository
 
             if (!IsSerialized)
             {
-                //_battlelogUser = await DownloadService.ResolveUserIdAndPlatform(Common.Bf3EntryPageUrl, new UserIdAndPlatformResolver());
-                _battlelogUser = await DownloadService.ResolveUserIdAndPlatform(Common.Bf4EntryPageUrl, new UserIdAndPlatformResolver(game));
+                string url = game == SupportedGame.Battlefield3 ? Common.Bf3EntryPageUrl : Common.Bf4EntryPageUrl;
+                _battlelogUser = await DownloadService.ResolveUserIdAndPlatform(url, new UserIdAndPlatformResolver(game));
+                
                 if (_battlelogUser == null || !_battlelogUser.IsValid)
                     return false;
+                
                 await GetFilesFromServer(game);
             }
             return true;
@@ -66,20 +68,29 @@ namespace BattlelogMobile.Core.Repository
                     _storage.DeleteFile(_battlelogUser.StorageFile);
         }
 
-        public Task<Battlefield3Data> LoadBattlefield3Data()
+        public T Daa<T>()
+        {
+            return default(T);
+        }
+
+        public Task<T> LoadBattlefieldData<T>(JSONParser<T> parser) where T : class
         {
             if (!IsSerialized)
             {
                 return Task.Factory.StartNew(() =>
                     {
-                        var parser = new JSONParser();
-                        var data = parser.Parse();
-                        Serialize(data);
+                        //T data = default(T);
+                        //if (typeof (T) == typeof (Battlefield3Data))
+                        //{
+                            //var parser = new Bf3Parser();
+                            T data = parser.Parse(); // as T;
+                            Serialize(data);
+                        //}
                         return data;
                     });
             }
 
-            return Task.Factory.StartNew(() =>  Deserialize());
+            return Task.Factory.StartNew(() =>  Deserialize<T>());
         }
 
         /// <summary>
@@ -103,7 +114,7 @@ namespace BattlelogMobile.Core.Repository
             }
         }
 
-        private void Serialize(Battlefield3Data data)
+        private void Serialize<T>(T data) where T : class
         {
             bool errorOccured = false;
 
@@ -129,9 +140,9 @@ namespace BattlelogMobile.Core.Repository
             }
         }
 
-        private Battlefield3Data Deserialize()
+        private T Deserialize<T>() where T : class
         {
-            Battlefield3Data data = null;
+            T data = default(T);
             bool errorOccured = false;
 
             using (var file = _storage.OpenFile(_battlelogUser.StorageFile, FileMode.Open))
@@ -139,7 +150,7 @@ namespace BattlelogMobile.Core.Repository
                 var serializer = new SharpSerializer(true);
                 try
                 {
-                    data = serializer.Deserialize(file) as Battlefield3Data;
+                    data = serializer.Deserialize(file) as T;
                 }
                 catch (Exception)
                 {

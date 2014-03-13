@@ -10,36 +10,62 @@ using Newtonsoft.Json.Linq;
 
 namespace BattlelogMobile.Core.Service
 {
-    public class JSONParser
+    public abstract class JSONParser<T>
     {
-        private readonly IsolatedStorageFile _isolatedStorage = IsolatedStorageFile.GetUserStoreForApplication();
-        private Battlefield3Data _battlefield3Data = new Battlefield3Data();
+        protected readonly IsolatedStorageFile IsolatedStorage = IsolatedStorageFile.GetUserStoreForApplication();
+        public abstract T Parse();
+    }
 
-        public Battlefield3Data Parse()
+    public class Bf4Parser : JSONParser<Battlefield4Data>
+    {
+        private Battlefield4Data _data = new Battlefield4Data();
+
+        public override Battlefield4Data Parse()
+        {
+            
+            using (var resource = IsolatedStorage.OpenFile(Common.Bf4OverviewFile, FileMode.Open))
+            {
+                var streamReader = new StreamReader(resource);
+
+                string completeJson = streamReader.ReadToEnd();
+                JObject jObject = JObject.Parse(completeJson);
+                var dataToken = jObject.SelectToken("data");
+                var a = JsonConvert.DeserializeObject<Battlefield4Data>(dataToken.ToString());
+            }
+            return _data;
+            
+        }
+    }
+
+    public class Bf3Parser : JSONParser<Battlefield3Data>
+    {
+        private Battlefield3Data _data = new Battlefield3Data();
+
+        public override Battlefield3Data Parse()
         {
             IsolatedStorageFileStream resource = null;
             
             try
             {
-                resource = _isolatedStorage.OpenFile(Common.Bf3OverviewFile, FileMode.Open);
+                resource = IsolatedStorage.OpenFile(Common.Bf3OverviewFile, FileMode.Open);
                 var streamReader = new StreamReader(resource);
             
                 string completeJson = streamReader.ReadToEnd();
                 JObject jObject = JObject.Parse(completeJson);
                 var dataToken = jObject.SelectToken("data");
 
-                _battlefield3Data = JsonConvert.DeserializeObject<Battlefield3Data>(dataToken.ToString());
+                _data = JsonConvert.DeserializeObject<Battlefield3Data>(dataToken.ToString());
 
                 ParseVehicles(Common.Bf3VehiclesFile);
                 ParseWeapons(Common.Bf3WeaponsAndGadgetsFile);
                 ParseGadgets(Common.Bf3WeaponsAndGadgetsFile);
 
-               _battlefield3Data.Overview.KitServiceStars.Sort((p1, p2) =>
+               _data.Overview.KitServiceStars.Sort((p1, p2) =>
                string.CompareOrdinal(
                    ((int)p1.Type).ToString(CultureInfo.InvariantCulture).Substring(0, 1),
                        ((int)p2.Type).ToString(CultureInfo.InvariantCulture).Substring(0, 1)));
 
-                return _battlefield3Data;
+                return _data;
             }
             catch (Exception e)
             {
@@ -59,7 +85,7 @@ namespace BattlelogMobile.Core.Service
         private void ParseVehicles(string file)
         {
             string completeJson;
-            using (var streamReader = new StreamReader(_isolatedStorage.OpenFile(file, FileMode.Open)))
+            using (var streamReader = new StreamReader(IsolatedStorage.OpenFile(file, FileMode.Open)))
                 completeJson = streamReader.ReadToEnd();
             JObject jObject = JObject.Parse(completeJson);
 
@@ -73,13 +99,13 @@ namespace BattlelogMobile.Core.Service
                 vehicle.ImageName = imageName;
             }
             
-            _battlefield3Data.Vehicles = data.Vehicles;
+            _data.Vehicles = data.Vehicles;
         }
 
         private void ParseWeapons(string file)
         {
             string completeJson;
-            using (var reader = new StreamReader(_isolatedStorage.OpenFile(file, FileMode.Open)))
+            using (var reader = new StreamReader(IsolatedStorage.OpenFile(file, FileMode.Open)))
                 completeJson = reader.ReadToEnd();
             JObject jObject = JObject.Parse(completeJson);
 
@@ -94,13 +120,13 @@ namespace BattlelogMobile.Core.Service
                 weapon.ImageName = imageName;
             }
 
-            _battlefield3Data.Weapons = data.Weapons;
+            _data.Weapons = data.Weapons;
         }
 
         private void ParseGadgets(string file)
         {
             string completeJson;
-            using (var reader = new StreamReader(_isolatedStorage.OpenFile(file, FileMode.Open)))
+            using (var reader = new StreamReader(IsolatedStorage.OpenFile(file, FileMode.Open)))
                 completeJson = reader.ReadToEnd();
             JObject jObject = JObject.Parse(completeJson);
 
@@ -114,7 +140,7 @@ namespace BattlelogMobile.Core.Service
                 gadget.ImageName = imageName;
             }
 
-            _battlefield3Data.Gadgets = data.Gadgets;
+            _data.Gadgets = data.Gadgets;
         }
     }
 }
