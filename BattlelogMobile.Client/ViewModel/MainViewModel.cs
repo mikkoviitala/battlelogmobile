@@ -237,6 +237,7 @@ namespace BattlelogMobile.Client.ViewModel
                 }
                 else
                 {
+                    ResetControls();
                     DispatcherHelper.CheckBeginInvokeOnUI(() => LogInFailedReason = Common.LogInFailedReasonInvalidCredentials);
                 }
             }
