@@ -16,28 +16,29 @@ namespace BattlelogMobile.Core.Service
 
         public override Battlefield3Data Parse()
         {
-            IsolatedStorageFileStream resource = null;
-            
             try
             {
-                resource = IsolatedStorage.OpenFile(Common.Bf3OverviewFile, FileMode.Open);
-                var streamReader = new StreamReader(resource);
-            
-                string completeJson = streamReader.ReadToEnd();
-                JObject jObject = JObject.Parse(completeJson);
-                var dataToken = jObject.SelectToken("data");
+                using (var resource = IsolatedStorage.OpenFile(Common.Bf3OverviewFile, FileMode.Open))
+                {
+                    var streamReader = new StreamReader(resource);
 
-                _data = JsonConvert.DeserializeObject<Battlefield3Data>(dataToken.ToString());
+                    string completeJson = streamReader.ReadToEnd();
+                    JObject jObject = JObject.Parse(completeJson);
+                    var dataToken = jObject.SelectToken("data");
 
-                ParseVehicles(Common.Bf3VehiclesFile);
-                ParseWeapons(Common.Bf3WeaponsAndGadgetsFile);
-                ParseGadgets(Common.Bf3WeaponsAndGadgetsFile);
+                    _data = JsonConvert.DeserializeObject<Battlefield3Data>(dataToken.ToString());
 
-                _data.Overview.KitServiceStars.Sort((p1, p2) =>
-                                                    string.CompareOrdinal(
-                                                        ((int)p1.Type).ToString(CultureInfo.InvariantCulture).Substring(0, 1),
-                                                        ((int)p2.Type).ToString(CultureInfo.InvariantCulture).Substring(0, 1)));
+                    ParseVehicles(Common.Bf3VehiclesFile);
+                    ParseWeapons(Common.Bf3WeaponsAndGadgetsFile);
+                    ParseGadgets(Common.Bf3WeaponsAndGadgetsFile);
 
+                    _data.Overview.KitServiceStars.Sort((p1, p2) =>
+                        string.CompareOrdinal(
+                            ((int)p1.Type).ToString(CultureInfo.InvariantCulture).Substring(0, 1),
+                                ((int)p2.Type).ToString(CultureInfo.InvariantCulture).Substring(0, 1)));
+                }
+
+                _data.Updated = DateTime.Now;
                 return _data;
             }
             catch (Exception e)
@@ -46,13 +47,8 @@ namespace BattlelogMobile.Core.Service
                     Messenger.Default.Send(new NotificationMessage(this, Common.JsonParseFailedMessage));
                 else
                     throw;
-                return null;
             }
-            finally
-            {
-                if (resource != null)
-                    resource.Close();
-            }
+            return null;
         }
 
         private void ParseVehicles(string file)
