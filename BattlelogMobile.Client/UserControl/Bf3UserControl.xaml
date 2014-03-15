@@ -236,10 +236,7 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
+                    
                     <amq:PieChart 
                         x:Name="KitUsageChart" 
                         Grid.Row="0"
@@ -258,7 +255,31 @@
                         </amq:PieChart.Brushes>
                     </amq:PieChart>
 
-                    <ListBox Grid.Row="1" Grid.Column="0" Margin="0" ItemsSource="{Binding FirstTwoKits}" IsHitTestVisible="False">
+                    <toolkit:WrapPanel Grid.Row="1" Orientation="Horizontal">
+                        <ItemsControl Margin="0" IsHitTestVisible="False" ItemsSource="{Binding Data.Overview.KitServiceStars}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <toolkit:WrapPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="145" />
+                                            <ColumnDefinition Width="82" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Type}" />
+                                        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" FontSize="24" 
+                                               Text="{Binding Percentage, Converter={StaticResource DoublePercentageStringConverter}}" 
+                                               Margin="0,4,25,0" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </toolkit:WrapPanel>
+                    
+                    <!--<ListBox Grid.Row="1" Grid.Column="0" Margin="0" ItemsSource="{Binding FirstTwoKits}" IsHitTestVisible="False">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -298,7 +319,7 @@
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
-                    </ListBox>
+                    </ListBox>-->
                 </Grid>
             </controls:PivotItem>
 
