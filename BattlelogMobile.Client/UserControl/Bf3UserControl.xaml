@@ -38,8 +38,14 @@
         <controls:Pivot x:Name="Pivot">
             <controls:Pivot.Title>
                 <StackPanel>
-                    <TextBlock Text="{Binding ApplicationName}" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="60" Margin="-2"/>
-                    <TextBlock Text="{Binding ApplicationVersion}" Style="{StaticResource PhoneTextNormalStyle}" Margin="0"/>
+                    <!--<TextBlock Text="{Binding ApplicationName}" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="60" Margin="-2"/>-->
+                    <!--<TextBlock Text="{Binding ApplicationVersion}" Style="{StaticResource PhoneTextNormalStyle}" Margin="0"/>-->
+                    <TextBlock Text="Battlefield 3" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="60" Margin="-2"/>
+                    <TextBlock Grid.Column="1" Style="{StaticResource PhoneTextNormalStyle}" Margin="0">
+                        <Run Text="Updated:"/>
+                        <Run Text="{Binding Updated, Converter={StaticResource TimeSpanStringConverter}, ConverterParameter=full}" />
+                        <Run Text="ago"/>
+                    </TextBlock>
                 </StackPanel>
             </controls:Pivot.Title>
             
