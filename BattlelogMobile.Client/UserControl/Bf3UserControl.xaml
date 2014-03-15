@@ -278,48 +278,6 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </toolkit:WrapPanel>
-                    
-                    <!--<ListBox Grid.Row="1" Grid.Column="0" Margin="0" ItemsSource="{Binding FirstTwoKits}" IsHitTestVisible="False">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="145" />
-                                        <ColumnDefinition Width="90" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" 
-                                               Text="{Binding Type}" VerticalAlignment="Center" />
-                                    <TextBlock Grid.Row="1" Grid.Column="1" FontSize="24" 
-                                               Text="{Binding Percentage, Converter={StaticResource DoublePercentageStringConverter}}" 
-                                               Margin="0,4,25,0" HorizontalAlignment="Right" VerticalAlignment="Center" />
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-
-                    <ListBox Grid.Row="1" Grid.Column="1" Margin="0" ItemsSource="{Binding LastTwoKits}" IsHitTestVisible="False">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="145" />
-                                        <ColumnDefinition Width="90" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" 
-                                               Text="{Binding Type}" VerticalAlignment="Center" />
-                                    <TextBlock Grid.Row="1" Grid.Column="1" FontSize="24" 
-                                               Text="{Binding Percentage, Converter={StaticResource DoublePercentageStringConverter}}" 
-                                               Margin="0,4,25,0" HorizontalAlignment="Right" VerticalAlignment="Center" />
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>-->
                 </Grid>
             </controls:PivotItem>
 
