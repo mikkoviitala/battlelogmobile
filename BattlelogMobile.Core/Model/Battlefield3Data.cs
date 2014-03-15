@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace BattlelogMobile.Core.Model
 {
     public class Battlefield3Data : BaseModel
     {
+        [JsonIgnore]
+        public DateTime Updated { get; set; }
+
         private Overview _overview;
         [JsonProperty(PropertyName = "overviewStats")]
         public Overview Overview

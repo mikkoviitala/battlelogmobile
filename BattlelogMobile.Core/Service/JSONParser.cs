@@ -1,5 +1,4 @@
 ﻿using System.IO.IsolatedStorage;
-using BattlelogMobile.Core.Model.Battlefield4.Vehiclez;
 
 namespace BattlelogMobile.Core.Service
 {
