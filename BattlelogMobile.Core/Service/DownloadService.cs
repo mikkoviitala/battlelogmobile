@@ -86,7 +86,7 @@ namespace BattlelogMobile.Core.Service
 
         public async Task<bool> GetFile(string url, string isolatedStorageFile)
         {
-            var client = new SharpGIS.GZipWebClient();
+            var client = new CookieAwareGZipWebClient(CookieJar);
             try
             {
                 string responseStream = await client.DownloadStringTaskAsync(new Uri(url));
