@@ -89,7 +89,7 @@ namespace BattlelogMobile.Client.ViewModel
                 DispatcherHelper.CheckBeginInvokeOnUI(() =>
                 {
                     Messenger.Default.Send(new NotificationMessage(this, string.Empty));
-                    //ViewModelLocator.Bf3Soldier.Data = battlefieldData;
+                    ViewModelLocator.Bf4Soldier.Data = battlefieldData;
                     ViewModelLocator.Navigation.NavigateTo(ViewModelLocator.SoldierPageUri);
                 });
             }

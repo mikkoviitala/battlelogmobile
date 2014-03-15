@@ -94,6 +94,7 @@
     <Compile Include="Model\Award.cs" />
     <Compile Include="Model\AwardContainer.cs" />
     <Compile Include="Model\BaseModel.cs" />
+    <Compile Include="Model\Battlefield4\Battlefield4Data.cs" />
     <Compile Include="Model\Battlefield4\Index.cs" />
     <Compile Include="Model\Battlefield4\Overview.cs" />
     <Compile Include="Model\Battlefield4\Vehicles.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Repository\FileSettingsRepository.cs" />
     <Compile Include="Service\AwardPropertyMapper.cs" />
     <Compile Include="Service\Bf3Parser.cs" />
+    <Compile Include="Service\Bf4Parser.cs" />
     <Compile Include="Service\CookieAwareGZipWebClient.cs" />
     <Compile Include="Service\CryptoService.cs" />
     <Compile Include="Service\DownloadService.cs" />
