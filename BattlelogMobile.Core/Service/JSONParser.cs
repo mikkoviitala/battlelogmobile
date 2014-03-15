@@ -30,6 +30,16 @@ namespace BattlelogMobile.Core.Service
             //    var a = JsonConvert.DeserializeObject<Battlefield4Data>(dataToken.ToString());
             //}
 
+            using (var resource = IsolatedStorage.OpenFile(Common.Bf4IndexFile, FileMode.Open))
+            {
+                var streamReader = new StreamReader(resource);
+
+                string completeJson = streamReader.ReadToEnd();
+                JObject jObject = JObject.Parse(completeJson);
+                var dataToken = jObject.SelectToken("data");
+                var a = JsonConvert.DeserializeObject<Index.RootObject>(completeJson);
+            }
+
             using (var resource = IsolatedStorage.OpenFile(Common.Bf4OverviewFile, FileMode.Open))
             {
                 var streamReader = new StreamReader(resource);

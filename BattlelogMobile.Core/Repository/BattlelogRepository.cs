@@ -108,6 +108,7 @@ namespace BattlelogMobile.Core.Repository
             }
             else
             {
+                await DownloadService.GetFile(string.Format(Common.Bf4IndexPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.Bf4IndexFile);
                 await DownloadService.GetFile(string.Format(Common.Bf4OverviewPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.Bf4OverviewFile);
                 await DownloadService.GetFile(string.Format(Common.Bf4VehiclesPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.Bf4VehiclesFile);
                 await DownloadService.GetFile(string.Format(Common.Bf4GadgetsPageUrl, _battlelogUser.UserId, (int)_battlelogUser.Platform.Value), Common.Bf4WeaponsAndGadgetsFile);

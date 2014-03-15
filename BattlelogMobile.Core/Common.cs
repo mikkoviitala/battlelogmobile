@@ -21,6 +21,7 @@
         public const string Bf3VehiclesFile = "bf3vehicles.txt";
         public const string Bf3WeaponsAndGadgetsFile = "bf3weapons.txt";
 
+        public const string Bf4IndexFile = "bf4index.txt";
         public const string Bf4OverviewFile = "bf4overview.txt";
         public const string Bf4VehiclesFile = "bf4vehicles.txt";
         public const string Bf4WeaponsAndGadgetsFile = "bf4weapons.txt";
@@ -31,6 +32,7 @@
         public const string Bf3GadgetsPageUrl = "http://battlelog.battlefield.com/bf3/weaponsPopulateStats/{0}/{1}/";
 
         public const string Bf4EntryPageUrl = "http://battlelog.battlefield.com/bf4/";
+        public const string Bf4IndexPageUrl = "http://battlelog.battlefield.com/bf4/indexstats/{0}/{1}/?stats=1";
         public const string Bf4OverviewPageUrl = "http://battlelog.battlefield.com/bf4/warsawoverviewpopulate/{0}/{1}/";
         public const string Bf4VehiclesPageUrl = "http://battlelog.battlefield.com/bf4/warsawvehiclesPopulateStats/{0}/{1}/";
         public const string Bf4GadgetsPageUrl = "http://battlelog.battlefield.com/bf4/warsawWeaponsPopulateStats/{0}/{1}/";
