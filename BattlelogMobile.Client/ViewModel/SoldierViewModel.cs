@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Repository;
@@ -46,12 +47,12 @@ namespace BattlelogMobile.Client.ViewModel
             set
             {
                 _game = value;
-                Daa();
+                UpdateData();
                 RaisePropertyChanged("Game");
             }
         }
 
-        private async void Daa()
+        private async void UpdateData()
         {
             AppBarEnabled = false;
             await Update();
@@ -66,30 +67,26 @@ namespace BattlelogMobile.Client.ViewModel
             bool success = await BattlelogRepository.UpdateStorage(_game, forceUpdate);
             if (!success)
                 return;
-            
+
             if (_game == SupportedGame.Battlefield3)
             {
                 var battlefieldData = await BattlelogRepository.LoadBattlefieldData(new Bf3Parser());
-                if (battlefieldData == null)
-                    return;
-
                 DispatcherHelper.CheckBeginInvokeOnUI(() =>
                 {
                     Messenger.Default.Send(new NotificationMessage(this, string.Empty));
-                    ViewModelLocator.Bf3Soldier.Data = battlefieldData;
+                    ViewModelLocator.Bf3UserControl.Data = battlefieldData;
+                    ViewModelLocator.Bf4UserControl.Data = null;
                     ViewModelLocator.Navigation.NavigateTo(ViewModelLocator.SoldierPageUri);
                 });
             }
             else
             {
                 var battlefieldData = await BattlelogRepository.LoadBattlefieldData(new Bf4Parser());
-                if (battlefieldData == null)
-                    return;
-
                 DispatcherHelper.CheckBeginInvokeOnUI(() =>
                 {
                     Messenger.Default.Send(new NotificationMessage(this, string.Empty));
-                    ViewModelLocator.Bf4Soldier.Data = battlefieldData;
+                    ViewModelLocator.Bf4UserControl.Data = battlefieldData;
+                    ViewModelLocator.Bf3UserControl.Data = null;
                     ViewModelLocator.Navigation.NavigateTo(ViewModelLocator.SoldierPageUri);
                 });
             }

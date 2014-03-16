@@ -130,6 +130,7 @@
     <Compile Include="Model\GadgetContainer.cs" />
     <Compile Include="Model\GadgetsData.cs" />
     <Compile Include="Model\ItemContainer.cs" />
+    <Compile Include="Model\IUpdateInfo.cs" />
     <Compile Include="Model\KitServiceStar.cs" />
     <Compile Include="Model\Overview.cs" />
     <Compile Include="Model\Performance.cs" />

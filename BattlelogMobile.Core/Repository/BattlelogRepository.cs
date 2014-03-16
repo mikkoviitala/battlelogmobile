@@ -45,6 +45,9 @@ namespace BattlelogMobile.Core.Repository
         {
             Messenger.Default.Send(new NotificationMessage(this, Common.ProggressIndicator, Common.StatusInformationSeekingContent));
 
+            if (_battlelogUser != null)
+                _battlelogUser.Game = game;
+
             if (forceUpdate)
                 ClearCache();
 
