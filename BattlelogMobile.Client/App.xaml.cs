@@ -13,7 +13,7 @@ namespace BattlelogMobile.Client
     public partial class App
     {
         // Easy access to the root frame
-        public PhoneApplicationFrame RootFrame { get;  private set; }
+        public PhoneApplicationFrame RootFrame { get; private set; }
 
         // Constructor
         public App()

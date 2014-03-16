@@ -37,7 +37,7 @@
               AppPublisherLabel=""
               AppVersionLabel="Version:"
               AppAdditionalNotesLabel=""
-              AppReviewButtonContent="Review in Marketplace"
+              AppReviewButtonContent="Review in Store"
               AppBuyButtonContent="">
       <Links>
         <!-- A collection of links presented on the front page. -->
@@ -72,16 +72,13 @@
       Terri Hyland
       Loz Slater
       James Havens
-      Background image Wallpaperswide.com, dante3200
-      
-
-      Participate!
-      If you want to contribute in any way or just find out what is being developed for the next release, visit http://mikkoviitala.github.com/battlelogmobile
+      Background: Wallpaperswide.com, dante3200
     </Item>
     
     <Item Title="History" Type="text">
       v3.0
-      Added initial support for BF4
+      Added statistics for Battlefield 4
+      Added update time indicator
       Adapted to generic Battlelog changes
 
       v2.3
