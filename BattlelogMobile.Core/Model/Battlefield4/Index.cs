@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
+using Polenter.Serialization;
 
 namespace BattlelogMobile.Core.Model.Battlefield4
 {
@@ -26,14 +27,35 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             public string clanTag { get; set; }
         }
 
-        public class MyPersona
+        public class MyPersona : BaseModel
         {
             public string picture { get; set; }
             public string personaId { get; set; }
-            public string personaName { get; set; }
+
+            private string _personaName;
+            public string personaName
+            {
+                get { return _personaName; }
+                set
+                {
+                    _personaName = value;
+                    RaisePropertyChanged("personaName");
+                }
+            }
+            
             public int updatedAt { get; set; }
             public string userId { get; set; }
-            public string clanTag { get; set; }
+
+            private string _clanTag;
+            public string clanTag
+            {
+                get { return _clanTag; } 
+                set
+                {
+                    _clanTag = value;
+                    RaisePropertyChanged("clanTag");
+                }
+            }
             public OriginalPersona originalPersona { get; set; }
 
             [JsonProperty(PropertyName = "namespace")]
@@ -57,10 +79,22 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             public Versions versions { get; set; }
         }
 
-        public class CurrentRankNeeded
+        public class CurrentRankNeeded : BaseModel
         {
             public string name { get; set; }
-            public int level { get; set; }
+
+            private int _level;
+            public int level
+            {
+                get { return _level; } 
+                set
+                {
+                    _level = value;
+                    RaisePropertyChanged("level");
+                }
+            }
+            
+            
             public int pointsNeeded { get; set; }
             public string texture { get; set; }
             public ImageConfig iconImageConfig { get; set; }
@@ -129,6 +163,24 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             public int valueNeeded { get; set; }
             public int actualValue { get; set; }
             public string codeNeeded { get; set; }
+        }
+
+        public class ServiceStars
+        {
+            [JsonProperty(PropertyName = "8")]
+            public string Recon { get; set; }
+
+            [JsonProperty(PropertyName = "1")]
+            public string Assault { get; set; }
+
+            [JsonProperty(PropertyName = "2")]
+            public string Engineer { get; set; }
+
+            [JsonProperty(PropertyName = "2048")]
+            public string Commander { get; set; }
+
+            [JsonProperty(PropertyName = "32")]
+            public string Support { get; set; }
         }
 
         public class ServiceStarsProgress
@@ -212,34 +264,47 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             public string Prop16 { get; set; }
         }
 
-        public class ServiceStars
-        {
-            [JsonProperty(PropertyName = "8")]
-            public string Recon { get; set; }
-
-            [JsonProperty(PropertyName = "1")]
-            public string Assault { get; set; }
-
-            [JsonProperty(PropertyName = "2")]
-            public string Engineer { get; set; }
-
-            [JsonProperty(PropertyName = "2048")]
-            public string Commander { get; set; }
-
-            [JsonProperty(PropertyName = "32")]
-            public string Support { get; set; }
-        }
-
-        public class GeneralPersonaStats
+        public class GeneralPersonaStats : BaseModel
         {
             public object timeDead { get; set; }
-            public int skill { get; set; }
+
+            private int _skill;
+            public int skill
+            {
+                get { return _skill; } 
+                set
+                {
+                    _skill = value;
+                    RaisePropertyChanged("skill");
+                }
+            }
             public int elo { get; set; }
             public int sc_award { get; set; }
             public int revives { get; set; }
             public object rushWlr { get; set; }
-            public int kills { get; set; }
-            public double kdRatio { get; set; }
+
+            private int _kills;
+            public int kills
+            {
+                get { return _kills; } 
+                set
+                {
+                    _kills = value;
+                    RaisePropertyChanged("kills");
+                }
+            }
+
+            private double _kdRatio;
+            public double kdRatio
+            {
+                get { return _kdRatio; }
+                set
+                {
+                    _kdRatio = value;
+                    RaisePropertyChanged("kdRatio");
+                }
+            }
+
             public int sc_bonus { get; set; }
             public object flagrunner { get; set; }
             public int rsKills { get; set; }
@@ -261,16 +326,62 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             public KitTimes kitTimes { get; set; }
             public int timePlayedDelta { get; set; }
             public KitTimesInPercentage kitTimesInPercentage { get; set; }
-            public int timePlayed { get; set; }
+
+            private int _timePlayed;
+            public int timePlayed
+            {
+                get { return _timePlayed; } 
+                set
+                {
+                    _timePlayed = value;
+                    RaisePropertyChanged("timePlayed");
+                    actualTimePlayed = TimeSpan.FromSeconds(_timePlayed);
+                }
+            }
+            
+            private TimeSpan _actualTimePlayed;
+            [JsonIgnore]
+            public TimeSpan actualTimePlayed
+            {
+                get { return _actualTimePlayed; }
+                set
+                {
+                    _actualTimePlayed = value;
+                    RaisePropertyChanged("actualTimePlayed");
+                }
+            }
+
             public KitScores kitScores { get; set; }
             public int suppressionAssists { get; set; }
             public int rsDeaths { get; set; }
             public int timePlayedSinceLastReset { get; set; }
             public object winPercentage { get; set; }
             public object tdmWlr { get; set; }
-            public double wlRatio { get; set; }
+
+            private double _wlRatio;
+            [JsonIgnore]
+            public double wlRatio
+            {
+                get { return _wlRatio; } 
+                set
+                {
+                    _wlRatio = value;
+                    RaisePropertyChanged("wlRatio");
+                }
+            }
+            
             public object meleeKills { get; set; }
-            public int numRounds { get; set; }
+
+            private int _numRounds;
+            public int numRounds
+            {
+                get { return _numRounds; } 
+                set
+                {
+                    _numRounds = value;
+                    RaisePropertyChanged("numRounds");
+                }
+            }
             public object maxKillsInRound { get; set; }
             public int killStreakBonus { get; set; }
             public int lastReset { get; set; }
@@ -278,7 +389,19 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             public int rsShotsFired { get; set; }
             public int shotsHit { get; set; }
             public List<ServiceStarsGameMode> serviceStarsGameModes { get; set; }
-            public int numLosses { get; set; }
+
+            private int _numLosses;
+            public int numLosses
+            {
+                get { return _numLosses; }
+                set
+                {
+                    _numLosses = value;
+                    RaisePropertyChanged("numLosses");
+                    CalculateWinLoseRatio();
+                }
+            }
+
             public object spm_assault { get; set; }
             public object squadDMLosses { get; set; }
             public object maxScoreInRound { get; set; }
@@ -303,7 +426,19 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             public object squadRushLosses { get; set; }
             public int flagDefend { get; set; }
             public int nemesisStreak { get; set; }
-            public int numWins { get; set; }
+
+            private int _numWins;
+            public int numWins
+            {
+                get { return _numWins; }
+                set
+                {
+                    _numWins = value;
+                    RaisePropertyChanged("numWins");
+                    CalculateWinLoseRatio();
+                }
+            }
+
             public object conquestWins { get; set; }
             public int scorePerMinuteDelta { get; set; }
             public int sc_objective { get; set; }
@@ -315,7 +450,18 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             public int vehicleDamage { get; set; }
             public ServiceStars serviceStars { get; set; }
             public int dogtagsTaken { get; set; }
-            public int deaths { get; set; }
+
+            private int _deaths;
+            public int deaths
+            {
+                get { return _deaths; } 
+                set
+                {
+                    _deaths = value;
+                    RaisePropertyChanged("deaths");
+                }
+            }
+            
             public int killAssists { get; set; }
             public object tdmWins { get; set; }
             public int headshots { get; set; }
@@ -325,16 +471,44 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             public object squadDmWlr { get; set; }
             public object maxMeleeKillsInRound { get; set; }
             public int rankScore { get; set; }
-            public double accuracy { get; set; }
+
+            private double _accuracy;
+            public double accuracy
+            {
+                get { return _accuracy; }
+                set
+                {
+                    _accuracy = value;
+                    RaisePropertyChanged("accuracy");
+                }
+            }
             public int scoreDelta { get; set; }
             public int vehiclesDestroyed { get; set; }
-            public int scorePerMinute { get; set; }
+
+            private int _scorePerMinute;
+            public int scorePerMinute
+            {
+                get { return _scorePerMinute; }
+                set
+                {
+                    _scorePerMinute = value;
+                    RaisePropertyChanged("scorePerMinute");
+                }
+            }
             public int combatScore { get; set; }
             public int scoreMultiplier { get; set; }
             public double mcomDestroy { get; set; }
             public object squadRushWins { get; set; }
             public int sc_general { get; set; }
             public int saviorKills { get; set; }
+
+            private void CalculateWinLoseRatio()
+            {
+                if (_numLosses == 0)
+                    wlRatio = 0;
+                else
+                    wlRatio = (double) _numWins / _numLosses;
+            }
         }
 
         public class Versions
@@ -349,23 +523,25 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             public ImageInfo large { get; set; }
         }
 
-        public class RankNeeded
-        {
-            public string name { get; set; }
-            public int level { get; set; }
-            public int pointsNeeded { get; set; }
-            public string texture { get; set; }
-            public ImageConfig iconImageConfig { get; set; }
-            public string guid { get; set; }
-            public ImageConfig imageConfig { get; set; }
-        }
+        //public class RankNeeded
+        //{
+        //    public string name { get; set; }
+        //    public int level { get; set; }
+        //    public int pointsNeeded { get; set; }
+        //    public string texture { get; set; }
+        //    public ImageConfig iconImageConfig { get; set; }
+        //    public string guid { get; set; }
+        //    public ImageConfig imageConfig { get; set; }
+        //}
 
         public class Data
         {
             public List<MyPersona> myPersonas { get; set; }
+
             public CurrentRankNeeded currentRankNeeded { get; set; }
+
             public GeneralPersonaStats generalPersonaStats { get; set; }
-            public RankNeeded rankNeeded { get; set; }
+            //public RankNeeded rankNeeded { get; set; }
         }
     }
 }
