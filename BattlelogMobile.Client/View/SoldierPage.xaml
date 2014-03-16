@@ -9,6 +9,7 @@
         xmlns:userControl="clr-namespace:BattlelogMobile.Client.UserControl"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:appBarUtils="clr-namespace:AppBarUtils;assembly=AppBarUtils"
+        xmlns:conv="clr-namespace:BattlelogMobile.Client.Converter"
         FontFamily="{StaticResource PhoneFontFamilyNormal}"
         FontSize="{StaticResource PhoneFontSizeNormal}"
         Foreground="{StaticResource PhoneForegroundBrush}"
@@ -21,6 +22,10 @@
         d:DesignHeight="696"
         DataContext="{Binding Soldier, Source={StaticResource Locator}}">
 
+    <phone:PhoneApplicationPage.Resources>
+        <conv:NullVisibilityConverter x:Key="NullVisibilityConverter" />
+    </phone:PhoneApplicationPage.Resources>
+    
     <toolkit:TransitionService.NavigationInTransition>
         <toolkit:NavigationInTransition>
             <toolkit:NavigationInTransition.Backward>
@@ -45,8 +50,8 @@
     <Grid x:Name="LayoutRoot">
         <!--work around listener to enable/disable appbar icon-->
         <CheckBox IsEnabled="{Binding AppBarEnabled}" IsEnabledChanged="ToggleAppBarSate" Visibility="Collapsed" />
-        <!--<userControl:Bf3UserControl />-->
-        <userControl:Bf3UserControl />
+        <userControl:Bf3UserControl Visibility="{Binding RelativeSource={RelativeSource Self}, Path=DataContext.Data, Converter={StaticResource NullVisibilityConverter}, ConverterParameter=bf3}" />
+        <userControl:Bf4UserControl Visibility="{Binding RelativeSource={RelativeSource Self}, Path=DataContext.Data, Converter={StaticResource NullVisibilityConverter}, ConverterParameter=bf4}" />
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>

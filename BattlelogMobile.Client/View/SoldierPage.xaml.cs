@@ -19,7 +19,7 @@ namespace BattlelogMobile.Client.View
 
     public partial class SoldierPage : PhoneApplicationPage
     {
-        private const string BackgroundUri = "/PivotBackground.jpg";
+        private const string BackgroundUri = "/Untitled.png"; //"/PivotBackground.jpg";
         private const string CheckedUri = "/Toolkit.Content/ApplicationBar.Check.png";
         private const string UncheckedUri = "/Toolkit.Content/ApplicationBar.Uncheck.png";
 
@@ -102,20 +102,20 @@ namespace BattlelogMobile.Client.View
 
         private void SetBackground()
         {
-            var button = ApplicationBar.Buttons[1] as ApplicationBarIconButton;
-            if (button == null)
-                return;
+            //var button = ApplicationBar.Buttons[1] as ApplicationBarIconButton;
+            //if (button == null)
+            //    return;
 
-            if (BackgroundEnabled)
-            {
-                LayoutRoot.Background = _brush;
-                button.IconUri = (new Uri(UncheckedUri, UriKind.Relative));
-            }
-            else
-            {
-                LayoutRoot.Background = _blackBrush; 
-                button.IconUri = (new Uri(CheckedUri, UriKind.Relative));
-            }
+            //if (BackgroundEnabled)
+            //{
+            //    LayoutRoot.Background = _brush;
+            //    button.IconUri = (new Uri(UncheckedUri, UriKind.Relative));
+            //}
+            //else
+            //{
+            //    LayoutRoot.Background = _blackBrush; 
+            //    button.IconUri = (new Uri(CheckedUri, UriKind.Relative));
+            //}
         }
 
         private static void ShowRatingPrompt()
