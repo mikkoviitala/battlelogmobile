@@ -4,6 +4,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Reflection;
 using BattlelogMobile.Client.Service;
+using BattlelogMobile.Core.Model;
+using BattlelogMobile.Core.Model.Battlefield4;
 using GalaSoft.MvvmLight.Messaging;
 using StoreLauncher;
 
@@ -39,10 +41,10 @@ namespace BattlelogMobile.Client.ViewModel
                 Main = new MainViewModel();
             if (Soldier == null)
                 Soldier = new SoldierViewModel();
-            if (Bf3Soldier == null)
-                Bf3Soldier = new Bf3SoldierViewModel();
-            if (Bf4Soldier == null)
-                Bf4Soldier = new Bf4SoldierViewModel();
+            if (Bf3UserControl == null)
+                Bf3UserControl = new BfUserControlViewModel<Battlefield3Data>();
+            if (Bf4UserControl == null)
+                Bf4UserControl = new BfUserControlViewModel<Battlefield4Data>();
             if (Navigation == null)
                 Navigation = new NavigationService();
 
@@ -54,12 +56,12 @@ namespace BattlelogMobile.Client.ViewModel
         {
             Messenger.Default.Unregister(Main);
             Messenger.Default.Unregister(Soldier);
-            Messenger.Default.Unregister(Bf3Soldier);
-            Messenger.Default.Unregister(Bf4Soldier);
+            Messenger.Default.Unregister(Bf3UserControl);
+            Messenger.Default.Unregister(Bf4UserControl);
             Main = null;
             Soldier = null;
-            Bf3Soldier = null;
-            Bf4Soldier = null;
+            Bf3UserControl = null;
+            Bf4UserControl = null;
             Navigation = null;
         }
 
@@ -70,10 +72,10 @@ namespace BattlelogMobile.Client.ViewModel
         public static SoldierViewModel Soldier { get; private set; }
 
         [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed for data binding purposes.")]
-        public static Bf3SoldierViewModel Bf3Soldier { get; private set; }
+        public static BfUserControlViewModel<Battlefield3Data> Bf3UserControl { get; private set; }
 
         [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed for data binding purposes.")]
-        public static Bf4SoldierViewModel Bf4Soldier { get; private set; }
+        public static BfUserControlViewModel<Battlefield4Data> Bf4UserControl { get; private set; }
 
         [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed for data binding purposes.")]
         public static StoreBase Store { get; private set; }
