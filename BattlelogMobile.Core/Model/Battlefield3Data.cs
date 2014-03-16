@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace BattlelogMobile.Core.Model
 {
-    public class Battlefield3Data : BaseModel
+    public class Battlefield3Data : BaseModel, IUpdateInfo
     {
         [JsonIgnore]
         public DateTime Updated { get; set; }
