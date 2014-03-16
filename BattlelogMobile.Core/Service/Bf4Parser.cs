@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using BattlelogMobile.Core.Model.Battlefield4;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -22,7 +23,7 @@ namespace BattlelogMobile.Core.Service
                 _data.Index = a;
             }
 
-
+            _data.Updated = DateTime.Now;
 
             //using (var resource = IsolatedStorage.OpenFile(Common.Bf4OverviewFile, FileMode.Open))
             //{
