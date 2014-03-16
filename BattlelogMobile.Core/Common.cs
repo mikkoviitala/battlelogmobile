@@ -6,7 +6,7 @@
         public const string LogInFailedReasonTimedOut = "Login request timed out!";
         public const string LogInFailedReasonInvalidCredentials = "User credentials not accepted!";
         public const string StatusInformationVerifyingCredential = "Verifying credentials";
-        public const string StatusInformationDownloading = "Downloading";
+        public const string StatusInformationDownloading = "Downloading{0}";
         public const string StatusInformationSeekingContent = "Seeking content";
         public const string ServerMessageUrl = "http://www.losninosdelsol.net/battlelogmobile/message.txt?nocache={0}";
 
