@@ -13,6 +13,7 @@ using BattlelogMobile.Core.Repository;
 using BattlelogMobile.Core.Service;
 using BattlelogMobile.Core;
 using GalaSoft.MvvmLight.Threading;
+using Microsoft.Phone.Net.NetworkInformation;
 using Credentials = BattlelogMobile.Core.Model.Credentials;
 
 namespace BattlelogMobile.Client.ViewModel
@@ -42,6 +43,8 @@ namespace BattlelogMobile.Client.ViewModel
             LoadCredentials();
 
             Task.Factory.StartNew(() => (new DownloadService(ViewModelLocator.CookieJar)).RetrieveServerMessage(string.Format(Common.ServerMessageUrl, DateTime.Now.Ticks.ToString())));
+
+            
         }
 
         public FileCredentialsRepository CredentialsRepository { get; set; }

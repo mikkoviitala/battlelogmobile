@@ -98,7 +98,14 @@ namespace BattlelogMobile.Core.Repository
         /// </summary>
         private async Task GetFilesFromServer(SupportedGame game)
         {
-            Messenger.Default.Send(new NotificationMessage(this, Common.ProggressIndicator, Common.StatusInformationDownloading));
+            string status;
+            var network = NetworkInformation.Current();
+            if (string.IsNullOrWhiteSpace(network))
+                status = string.Format(Common.StatusInformationDownloading, string.Empty);
+            else
+                status = string.Format(Common.StatusInformationDownloading, string.Format(" ({0})", network));
+            
+            Messenger.Default.Send(new NotificationMessage(this, Common.ProggressIndicator, status));
 
             if (game == SupportedGame.Battlefield3)
             {
