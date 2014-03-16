@@ -1,4 +1,5 @@
 ﻿<UserControl x:Class="BattlelogMobile.Client.UserControl.Bf3UserControl"
+        x:Name="Root"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
@@ -15,16 +16,12 @@
         mc:Ignorable="d"
         d:DesignWidth="480"
         d:DesignHeight="696"
-        Background="Transparent"
-        DataContext="{Binding Bf3Soldier, Source={StaticResource Locator}}">
+        
+        DataContext="{Binding Bf3UserControl, Source={StaticResource Locator}}">
 
-    <!--
-    
-    
-    TODO: Add header indicating name of teh game...
-    
-    
-    -->
+    <UserControl.Background>
+        <ImageBrush ImageSource="/PivotBackground.jpg"></ImageBrush>
+    </UserControl.Background>
     
     <UserControl.Resources>
         <conv:DoubleStringConverter x:Key="DoubleStringConverter" />
