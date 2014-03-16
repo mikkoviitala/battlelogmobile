@@ -77,8 +77,10 @@
     
     <Item Title="History" Type="text">
       v3.0
-      Added statistics for Battlefield 4
-      Added update time indicator
+      Added Battlefield 4 support
+      Added statistics update time indicator
+      Added network type indicator
+      Added error reporting via email
       Adapted to generic Battlelog changes
 
       v2.3
