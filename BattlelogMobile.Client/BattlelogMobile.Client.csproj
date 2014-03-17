@@ -101,6 +101,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.4.0.7\lib\sl4-windowsphone71\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="StoreLauncher, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\StoreLauncher\Bin\Debug\StoreLauncher.dll</HintPath>
+    </Reference>
     <Reference Include="System.Device" />
     <Reference Include="Microsoft.Phone" />
     <Reference Include="System.IO">
@@ -212,6 +216,9 @@
     <None Include="StoreWrapper.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="StoreWrapper.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="Toolkit.Content\ApplicationBar.Uncheck.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -238,12 +245,10 @@
       <Project>{ED3F380C-DDB1-4248-946F-F2B7ABA005D6}</Project>
       <Name>BattlelogMobile.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\StoreLauncher\StoreLauncher.csproj">
-      <Project>{197E7BF3-EFA9-49B4-8060-6418E7BA9EA0}</Project>
-      <Name>StoreLauncher</Name>
-    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

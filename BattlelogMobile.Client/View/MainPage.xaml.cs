@@ -23,8 +23,8 @@ namespace BattlelogMobile.Client.View
                         try
                         {
                             GeoCoordinate coordinates = _watcher.Position.Location;
-                            BattlelogMobileAds.Longitude = coordinates.Longitude;
-                            BattlelogMobileAds.Latitude = coordinates.Latitude;
+                            DevCenterAds.Longitude = coordinates.Longitude;
+                            DevCenterAds.Latitude = coordinates.Latitude;
                         }
                         finally
                         {
