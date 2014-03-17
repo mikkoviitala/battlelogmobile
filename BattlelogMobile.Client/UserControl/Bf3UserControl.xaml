@@ -16,13 +16,9 @@
         mc:Ignorable="d"
         d:DesignWidth="480"
         d:DesignHeight="696"
-        
+        Background="Transparent"
         DataContext="{Binding Bf3UserControl, Source={StaticResource Locator}}">
 
-    <UserControl.Background>
-        <ImageBrush ImageSource="/PivotBackground.jpg"></ImageBrush>
-    </UserControl.Background>
-    
     <UserControl.Resources>
         <conv:DoubleStringConverter x:Key="DoubleStringConverter" />
         <conv:TimeSpanStringConverter x:Key="TimeSpanStringConverter" />
@@ -221,7 +217,7 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Type}" />
                                         <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                            <Image Source="\Assets\Images\Battlefield3\servicestar-31x31.png" Width="30" Height="30" VerticalAlignment="Center" />
+                                            <Image Source="\Assets\Images\Common\servicestar.png" Width="30" Height="30" VerticalAlignment="Center" />
                                             <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Stars}" />
                                         </StackPanel>
                                     </Grid>
@@ -337,7 +333,7 @@
                                        Width="90" Height="54" Margin="0,0,25,0" VerticalAlignment="Top" />
 
                                 <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding DisplayName}" />
-                                <Image Grid.Row="0" Grid.Column="2" Source="\Assets\Images\Battlefield3\servicestar-31x31.png" Margin="0,0,45,0" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                <Image Grid.Row="0" Grid.Column="2" Source="\Assets\Images\Common\servicestar.png" Margin="0,0,45,0" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" />
                                 <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding ServiceStars}" HorizontalAlignment="Right" />
 
                                 <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextNormalStyle}">
@@ -388,7 +384,7 @@
                                         Width="147" Height="88" Margin="0,0,15,0" VerticalAlignment="Top" />
 
                                 <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding DisplayName}" />
-                                <Image Grid.Row="0" Grid.Column="2" Source="\Assets\Images\Battlefield3\servicestar-31x31.png" Margin="0,-8,45,0" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                <Image Grid.Row="0" Grid.Column="2" Source="\Assets\Images\Common\servicestar.png" Margin="0,-8,45,0" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" />
                                 <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding ServiceStars}" HorizontalAlignment="Right" />
 
                                 <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Top">

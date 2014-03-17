@@ -44,6 +44,7 @@ namespace StoreWrapper
         {
             get
             {
+                MessageBox.Show("!");
                 return new ApolloLicenseInformation(CurrentApp.LicenseInformation);
             }
         }

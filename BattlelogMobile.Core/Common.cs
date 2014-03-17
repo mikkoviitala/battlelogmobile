@@ -62,5 +62,10 @@
         public const string ProggressIndicator = "ProgressIndicator";
         public const string DeveloperInformation = "DeveloperInformation";
         public const string FailedMessageHeader = "Oh noes!";
+
+        public const string Bf3BackgroundUri = "/Assets/Images/Battlefield3/Background.png";
+        public const string Bf4BackgroundUri = "/Assets/Images/Battlefield4/Background.png";
+        public const string ToggleBackgroundCheckedUri = "/Toolkit.Content/ApplicationBar.Check.png";
+        public const string ToggleBackgroundUncheckedUri = "/Toolkit.Content/ApplicationBar.Uncheck.png";
     }
 }

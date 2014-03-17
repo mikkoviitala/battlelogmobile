@@ -16,11 +16,8 @@
         mc:Ignorable="d"
         d:DesignWidth="480"
         d:DesignHeight="696"
+        Background="Transparent"
         DataContext="{Binding Bf4UserControl, Source={StaticResource Locator}}">
-
-    <UserControl.Background>
-        <ImageBrush ImageSource="/Untitled.png"></ImageBrush>
-    </UserControl.Background>
     
     <UserControl.Resources>
         <conv:DoubleStringConverter x:Key="DoubleStringConverter" />
@@ -97,6 +94,10 @@
                     <TextBlock Grid.Row="9" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Quits" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="9" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="n/a" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
                 </Grid>
+            </controls:PivotItem>
+
+            <controls:PivotItem Header="More stats">
+                <TextBlock x:Name="Daa" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></TextBlock>
             </controls:PivotItem>
         </controls:Pivot>
     </Grid>

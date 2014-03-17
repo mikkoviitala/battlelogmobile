@@ -19,10 +19,6 @@ namespace BattlelogMobile.Client.View
 
     public partial class SoldierPage : PhoneApplicationPage
     {
-        private const string BackgroundUri = "/Untitled.png"; //"/PivotBackground.jpg";
-        private const string CheckedUri = "/Toolkit.Content/ApplicationBar.Check.png";
-        private const string UncheckedUri = "/Toolkit.Content/ApplicationBar.Uncheck.png";
-
         private const string AppLaunchesKey = "AppLaunches";
         private const string NextRatingPromptKey = "NextRatingPrompt";
         private const string RatingUniqueIdentifier = "RatingMsgPrompt";
@@ -32,53 +28,23 @@ namespace BattlelogMobile.Client.View
         private const int DefaultNextRatingPrompt = 5;
         private static bool _ratingPrompted;
         private static bool _isUpdating;
-        private readonly Brush _blackBrush = new SolidColorBrush(Colors.Black);
-        private readonly ImageBrush _brush = new ImageBrush 
-            { ImageSource = new BitmapImage(new Uri(BackgroundUri, UriKind.Relative)), Opacity = 0.25d, Stretch = Stretch.None };
- 
-        private readonly FileSettingsRepository _settingsRepository = new FileSettingsRepository();
-        private bool _backgroundEnabled;
 
         public SoldierPage()
         {
             InitializeComponent();
-            BackgroundEnabled = (_settingsRepository.Load()).BackgroundEnabled;
-            SetBackground();
         }
 
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
-            var dispatchTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(2) };
-            dispatchTimer.Tick += (o, args) =>
-            {
-                dispatchTimer.Stop();
-                ShowInfoPrompt();
-                ShowTipPrompt();
-                ShowRatingPrompt();
-            };
-            dispatchTimer.Start();
+            ShowInfoPrompt();
+            ShowTipPrompt();
+            ShowRatingPrompt();
         }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
             if (_isUpdating)
                 e.Cancel = true;
-        }
-
-        public bool BackgroundEnabled
-        {
-            get { return _backgroundEnabled; }
-            set
-            {
-                _backgroundEnabled = value;
-                _settingsRepository.Save(new Settings { BackgroundEnabled = value });
-            }
-        }
-        
-        //TODO: Refactor as Commands
-        private void AboutMenuItemClick(object sender, EventArgs e)
-        {
-            ViewModelLocator.Navigation.NavigateTo(ViewModelLocator.AboutPageUri);
         }
 
         private void ToggleUIState(bool isEnabled)
@@ -92,30 +58,6 @@ namespace BattlelogMobile.Client.View
         private void ToggleAppBarSate(object sender, DependencyPropertyChangedEventArgs e)
         {
             ToggleUIState((sender as CheckBox).IsEnabled);
-        }
-
-        private void BackgroundMenuItemClick(object sender, EventArgs e)
-        {
-            BackgroundEnabled = !BackgroundEnabled;
-            SetBackground();
-        }
-
-        private void SetBackground()
-        {
-            //var button = ApplicationBar.Buttons[1] as ApplicationBarIconButton;
-            //if (button == null)
-            //    return;
-
-            //if (BackgroundEnabled)
-            //{
-            //    LayoutRoot.Background = _brush;
-            //    button.IconUri = (new Uri(UncheckedUri, UriKind.Relative));
-            //}
-            //else
-            //{
-            //    LayoutRoot.Background = _blackBrush; 
-            //    button.IconUri = (new Uri(CheckedUri, UriKind.Relative));
-            //}
         }
 
         private static void ShowRatingPrompt()

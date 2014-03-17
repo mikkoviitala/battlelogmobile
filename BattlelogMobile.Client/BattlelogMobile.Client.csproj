@@ -198,12 +198,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Images\Battlefield3\servicestar-31x31.png" />
-    <Content Include="paypal.png" />
-    <Content Include="PivotBackground.jpg">
+    <Content Include="Assets\Images\Common\servicestar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Untitled.png">
+    <Content Include="Assets\Images\Battlefield3\Background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="InAppBf4Unlock.png" />
+    <Content Include="paypal.png" />
+    <Content Include="Assets\Images\Battlefield4\Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="StoreWrapper.dll">
@@ -240,9 +243,7 @@
       <Name>StoreLauncher</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\Images\Common\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

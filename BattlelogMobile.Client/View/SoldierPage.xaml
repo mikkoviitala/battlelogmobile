@@ -20,6 +20,7 @@
         mc:Ignorable="d"
         d:DesignWidth="480"
         d:DesignHeight="696"
+        Background="Transparent"
         DataContext="{Binding Soldier, Source={StaticResource Locator}}">
 
     <phone:PhoneApplicationPage.Resources>
@@ -46,8 +47,8 @@
             </toolkit:NavigationOutTransition.Forward>
         </toolkit:NavigationOutTransition>
     </toolkit:TransitionService.NavigationOutTransition>
-    
-    <Grid x:Name="LayoutRoot">
+
+    <Grid x:Name="LayoutRoot" Background="{Binding Background}">
         <!--work around listener to enable/disable appbar icon-->
         <CheckBox IsEnabled="{Binding AppBarEnabled}" IsEnabledChanged="ToggleAppBarSate" Visibility="Collapsed" />
         <userControl:Bf3UserControl Visibility="{Binding RelativeSource={RelativeSource Self}, Path=DataContext.Data, Converter={StaticResource NullVisibilityConverter}, ConverterParameter=bf3}" />
@@ -55,24 +56,20 @@
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" x:Name="AppBar" Mode="Minimized" IsMenuEnabled="True">
+        <shell:ApplicationBar IsVisible="True" Mode="Minimized" IsMenuEnabled="True">
             <shell:ApplicationBar.Buttons>
                 <shell:ApplicationBarIconButton
                     IconUri="/Toolkit.Content/ApplicationBar.Refresh.png"
                     Text="Update" 
                     IsEnabled="True" />
                 <shell:ApplicationBarIconButton
-                    x:Name="BackgroundMenuItem" 
                     IconUri="/Toolkit.Content/ApplicationBar.Uncheck.png"
                     Text="Image" 
-                    IsEnabled="True"
-                    Click="BackgroundMenuItemClick"/>
+                    IsEnabled="True" />
                 <shell:ApplicationBarIconButton
-                    x:Name="UpdateMenuItem" 
                     IconUri="/Toolkit.Content/ApplicationBar.Questionmark.png"
                     IsEnabled="True"
-                    Text="About" 
-                    Click="AboutMenuItemClick"/>
+                    Text="About" />
             </shell:ApplicationBar.Buttons>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
@@ -80,5 +77,9 @@
     <i:Interaction.Behaviors>
         <appBarUtils:AppBarItemCommand Id="Update" Text="Update" IconUri="/Toolkit.Content/ApplicationBar.Refresh.png" 
             Command="{Binding UpdateCommand}" />
+        <appBarUtils:AppBarItemCommand Id="Image" Text="Image" IconUri="{Binding ToggleBackgroundIconUri}" 
+            Command="{Binding ToggleBackgroundCommand}" />
+        <appBarUtils:AppBarItemCommand Id="About" Text="About" IconUri="/Toolkit.Content/ApplicationBar.Questionmark.png" 
+            Command="{Binding AboutCommand}" />
     </i:Interaction.Behaviors>
 </phone:PhoneApplicationPage>

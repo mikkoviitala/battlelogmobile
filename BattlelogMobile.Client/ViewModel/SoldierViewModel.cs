@@ -1,6 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using BattlelogMobile.Core;
 using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Repository;
 using BattlelogMobile.Core.Service;
@@ -12,23 +16,57 @@ namespace BattlelogMobile.Client.ViewModel
 {
     public class SoldierViewModel : BaseViewModel
     {
+        private readonly Brush _blackBrush = new SolidColorBrush(Colors.Black);
+        private readonly ImageBrush _bf3Brush = new ImageBrush 
+            { ImageSource = new BitmapImage(new Uri(Common.Bf3BackgroundUri, UriKind.Relative)), Opacity = 0.25d, Stretch = Stretch.None };
+        private readonly ImageBrush _bf4Brush = new ImageBrush 
+            { ImageSource = new BitmapImage(new Uri(Common.Bf4BackgroundUri, UriKind.Relative)), Opacity = 0.25d, Stretch = Stretch.None };
+
         private bool _appBarEnabled = true;
+        private bool _backgroundEnabled;
+        private Brush _background;
+        private SupportedGame _game = SupportedGame.Unknown;
 
         public SoldierViewModel()
-            :this(new BattlelogRepository(new DownloadService(ViewModelLocator.CookieJar)))
+            :this(new FileSettingsRepository(), new BattlelogRepository(new DownloadService(ViewModelLocator.CookieJar)))
         {}
 
-        public SoldierViewModel(BattlelogRepository battlelogRepository)
+        public SoldierViewModel(FileSettingsRepository settingRepository, BattlelogRepository battlelogRepository)
         {
+            _background = _bf3Brush;
+            SettingsRepository = settingRepository;
             BattlelogRepository = battlelogRepository;
 
-            UpdateCommand = new RelayCommand(async () =>
+            UpdateCommand = new RelayCommand(() => UpdateData(true));
+
+            ToggleBackgroundCommand = new RelayCommand(() =>
                 {
-                    AppBarEnabled = false;
-                    await Update(true);
-                    AppBarEnabled = true;
+                    _backgroundEnabled = !_backgroundEnabled;
+                    SetBackground();
                 });
+
+            AboutCommand = new RelayCommand(() => ViewModelLocator.Navigation.NavigateTo(ViewModelLocator.AboutPageUri));
+
+            _backgroundEnabled = (SettingsRepository.Load()).BackgroundEnabled;
         }
+
+        private void SetBackground()
+        {
+            if (!_backgroundEnabled)
+                Background = _blackBrush;
+            else
+                Background = _game == SupportedGame.Battlefield3 ? _bf3Brush : _bf4Brush;
+        }
+
+        public ICommand UpdateCommand { get; set; }
+
+        public ICommand ToggleBackgroundCommand { get; set; }
+
+        public ICommand AboutCommand { get; set; }
+
+        public BattlelogRepository BattlelogRepository { get; set; }
+
+        public FileSettingsRepository SettingsRepository { get; set; }
 
         public bool AppBarEnabled
         {
@@ -36,30 +74,43 @@ namespace BattlelogMobile.Client.ViewModel
             set { _appBarEnabled = value; RaisePropertyChanged("AppBarEnabled"); }
         }
 
-        public ICommand UpdateCommand { get; set; }
+        public Brush Background
+        {
+            get { return _background; }
+            set
+            {
+                _background = value;
+                RaisePropertyChanged("Background");
+                RaisePropertyChanged("ToggleBackgroundIconUri");
+            }
+        }
 
-        public BattlelogRepository BattlelogRepository { get; set; }
+        public string ToggleBackgroundIconUri 
+        {
+            get { return !_backgroundEnabled ? Common.ToggleBackgroundCheckedUri : Common.ToggleBackgroundUncheckedUri; }
+        }
 
-        private SupportedGame _game = SupportedGame.Unknown;
         public SupportedGame Game
         {
             get { return _game; }
             set
             {
                 _game = value;
-                UpdateData();
                 RaisePropertyChanged("Game");
+
+                SetBackground();
+                UpdateData(false);
             }
         }
 
-        private async void UpdateData()
+        private async void UpdateData(bool forceUpdate)
         {
             AppBarEnabled = false;
-            await Update();
+            await Update(forceUpdate);
             AppBarEnabled = true;
         }
 
-        public async Task Update(bool forceUpdate = false)
+        public async Task Update(bool forceUpdate)
         {
             // TODO: Untangle this logic right here
 

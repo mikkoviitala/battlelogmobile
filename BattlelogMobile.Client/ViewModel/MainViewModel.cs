@@ -13,7 +13,6 @@ using BattlelogMobile.Core.Repository;
 using BattlelogMobile.Core.Service;
 using BattlelogMobile.Core;
 using GalaSoft.MvvmLight.Threading;
-using Microsoft.Phone.Net.NetworkInformation;
 using Credentials = BattlelogMobile.Core.Model.Credentials;
 
 namespace BattlelogMobile.Client.ViewModel
@@ -182,7 +181,7 @@ namespace BattlelogMobile.Client.ViewModel
         /// </summary>
         private async void LogInCommandReceived()
         {
-            //await PurchaseProduct();
+            await PurchaseProduct();
             LogIn(Game);
         }
 
@@ -254,16 +253,20 @@ namespace BattlelogMobile.Client.ViewModel
         {
             try
             {
-                var license = ViewModelLocator.Store.LicenseInformation.ProductLicenses["bf4"];
 
-                if (!license.IsActive)
-                    ViewModelLocator.Store.RequestProductPurchaseAsync(license.ProductId, false);
+                //var license = ViewModelLocator.Store.LoadListingInformationAsync();
+
+                //var license = ViewModelLocator.Store.LicenseInformation.ProductLicenses["betabf4stats"];
+
+                //if (!license.IsActive)
+                //    ViewModelLocator.Store.RequestProductPurchaseAsync(license.ProductId, false);
 
                 //if (license.IsActive)
                 //    ViewModelLocator.Store.ReportProductFulfillment(license.ProductId);
             }
             catch (Exception ex)
             {
+
                 // When the user does not complete the purchase (e.g. cancels or navigates back from the Purchase Page), an exception with an HRESULT of E_FAIL is expected.
             }
         }
