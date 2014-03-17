@@ -8,6 +8,8 @@
         Unknown = -1,
         PC = 1,
         XBOX360 = 2,
-        PS3 = 4
+        PS3 = 4,
+        PS4 = 32,
+        XBOXONE = 64
     }
 }
