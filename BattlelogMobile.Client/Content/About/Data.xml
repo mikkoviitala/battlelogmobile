@@ -24,7 +24,7 @@
   <App Author=""
        Publisher=""
        Description=""
-       AdditionalNotes="Battlelog Mobile is a open source project. It was not developed by EA / DICE and has nothing to do with official Battlefield 3 or Battlelog products." />
+       AdditionalNotes="Battlelog Mobile is a open source project. It was not developed by EA / DICE and has nothing to do with official Battlefield or Battlelog products." />
   <Items>
     <!-- Create a MainItem entry to configure the front page -->
     <!-- The Titel attribute defines the title of the pivot item -->
@@ -166,7 +166,7 @@
           </TextBlock>
 
           <HyperlinkButton HorizontalAlignment="Center" Width="244" Height="94" TargetName="_blank"
-                         NavigateUri="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=RWXXHM9QLFSRJ">
+              NavigateUri="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=RWXXHM9QLFSRJ">
             <HyperlinkButton.Background>
               <ImageBrush ImageSource="/paypal.png"/>
             </HyperlinkButton.Background>

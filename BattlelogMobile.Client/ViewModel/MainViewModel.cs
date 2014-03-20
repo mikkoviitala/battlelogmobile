@@ -185,6 +185,19 @@ namespace BattlelogMobile.Client.ViewModel
             LogIn(Game);
         }
 
+        //private bool RestrictedEmail()
+        //{
+        //    var restricted = new List<string>() { "nummelalauri08@gmail.com", "tim-vandorpe@hotmail.com", "mikko.viitala@nbl.fi" };
+        //    if (restricted.Contains(Email))
+        //    {
+        //        Messenger.Default.Send(
+        //            new DialogMessage(this, "You have been exclusively banned for abusing application Support.", result => { }) 
+        //                { Caption = "Too bad!", Button = MessageBoxButton.OK });
+        //        return true;
+        //    }
+        //    return false;
+        //}
+
         private async void LogIn(SupportedGame game)
         {
             UserInterfaceEnabled = false;
