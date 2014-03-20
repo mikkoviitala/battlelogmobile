@@ -137,6 +137,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converter\BoolVisibilityConverter.cs" />
     <Compile Include="Converter\DoublePercentageStringConverter.cs" />
     <Compile Include="Converter\DoubleStringConverter.cs" />
     <Compile Include="Converter\IntegerStringConverter.cs" />
@@ -208,7 +209,12 @@
     <Content Include="Assets\Images\Battlefield3\Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="InAppBf4Unlock.png" />
+    <Content Include="Assets\Images\Common\shut-up-and-take-my-money.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\Common\InAppBf4Unlock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="paypal.png" />
     <Content Include="Assets\Images\Battlefield4\Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

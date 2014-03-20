@@ -37,6 +37,12 @@ namespace BattlelogMobile.Client.ViewModel
 
         public ViewModelLocator()
         {
+            if (Environment.OSVersion.Version.Major >= 8)
+                Store = StoreLauncher.StoreLauncher.GetStoreInterface("StoreWrapper.Store, StoreWrapper, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null");
+
+            if (Navigation == null)
+                Navigation = new NavigationService();
+
             if (Main == null)
                 Main = new MainViewModel();
             if (Soldier == null)
@@ -45,11 +51,6 @@ namespace BattlelogMobile.Client.ViewModel
                 Bf3UserControl = new BfUserControlViewModel<Battlefield3Data>();
             if (Bf4UserControl == null)
                 Bf4UserControl = new BfUserControlViewModel<Battlefield4Data>();
-            if (Navigation == null)
-                Navigation = new NavigationService();
-
-            if (Environment.OSVersion.Version.Major >= 8)
-                Store = StoreLauncher.StoreLauncher.GetStoreInterface("StoreWrapper.Store, StoreWrapper, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null");
         }
 
         public static void Cleanup()

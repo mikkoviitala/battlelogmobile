@@ -24,6 +24,7 @@
         <conv:TimeSpanStringConverter x:Key="TimeSpanStringConverter" />
         <conv:IntegerStringConverter x:Key="IntegerStringConverter" />
         <conv:DoublePercentageStringConverter x:Key="DoublePercentageStringConverter" />
+        <conv:BoolVisibilityConverter x:Key="BoolVisibilityConverter" />
         <conv:IntegerVisibilityConverter x:Key="IntegerVisibilityConverter" />
     </UserControl.Resources>
 
@@ -96,8 +97,37 @@
                 </Grid>
             </controls:PivotItem>
 
-            <controls:PivotItem Header="More stats">
-                <TextBlock x:Name="Daa" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></TextBlock>
+            <controls:PivotItem Header="More stats" Background="Aqua">
+                <Grid>
+                    <!--<StackPanel x:Name="Buy">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Margin="15" Source="/Assets/Images/Common/InAppBf4Unlock.png"/>
+                            <StackPanel Grid.Column="1" Margin="15">
+                                <TextBlock Foreground="white" FontWeight="ExtraBold" Text="{Binding A}" />
+                                <TextBlock Margin="0,0,0,20" Foreground="white" FontWeight="Normal" Text="{Binding B}" />
+                                <TextBlock Foreground="white" FontWeight="Normal" Text="{Binding C}" />
+                                <Button Margin="0" Content="Buy now" Command="{Binding PurchaseCommand}" />
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>-->
+
+                    
+                    <StackPanel x:Name="Stats" 
+                                Visibility="{Binding HasLicense, Converter={StaticResource BoolVisibilityConverter}}"
+                                >
+                        <TextBlock TextWrapping="Wrap" Margin="15">
+                            Way to go, In-App purchase completed successfully! 
+                            For now on, you should see this image everytime you login, even if you have
+                            uninstalled &amp; reinstalled the application.
+                        </TextBlock>
+                        <Image Source="/Assets/Images/Common/shut-up-and-take-my-money.jpg"></Image>
+                        
+                    </StackPanel>
+                </Grid>
             </controls:PivotItem>
         </controls:Pivot>
     </Grid>

@@ -181,7 +181,7 @@ namespace BattlelogMobile.Client.ViewModel
         /// </summary>
         private async void LogInCommandReceived()
         {
-            await PurchaseProduct();
+            //await PurchaseProduct();
             LogIn(Game);
         }
 
