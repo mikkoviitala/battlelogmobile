@@ -48,9 +48,9 @@ namespace BattlelogMobile.Client.ViewModel
             if (Soldier == null)
                 Soldier = new SoldierViewModel();
             if (Bf3UserControl == null)
-                Bf3UserControl = new BfUserControlViewModel<Battlefield3Data>();
+                Bf3UserControl = new Bf3UserControlViewModel();
             if (Bf4UserControl == null)
-                Bf4UserControl = new BfUserControlViewModel<Battlefield4Data>();
+                Bf4UserControl = new Bf4UserControlViewModel();
         }
 
         public static void Cleanup()

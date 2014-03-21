@@ -97,36 +97,38 @@
                 </Grid>
             </controls:PivotItem>
 
-            <controls:PivotItem Header="More stats" Background="Aqua">
+            <controls:PivotItem Header="More stats">
                 <Grid>
-                    <!--<StackPanel x:Name="Buy">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Image Margin="15" Source="/Assets/Images/Common/InAppBf4Unlock.png"/>
-                            <StackPanel Grid.Column="1" Margin="15">
-                                <TextBlock Foreground="white" FontWeight="ExtraBold" Text="{Binding A}" />
-                                <TextBlock Margin="0,0,0,20" Foreground="white" FontWeight="Normal" Text="{Binding B}" />
-                                <TextBlock Foreground="white" FontWeight="Normal" Text="{Binding C}" />
-                                <Button Margin="0" Content="Buy now" Command="{Binding PurchaseCommand}" />
-                            </StackPanel>
-                        </Grid>
-                    </StackPanel>-->
-
-                    
-                    <StackPanel x:Name="Stats" 
-                                Visibility="{Binding HasLicense, Converter={StaticResource BoolVisibilityConverter}}"
-                                >
-                        <TextBlock TextWrapping="Wrap" Margin="15">
-                            Way to go, In-App purchase completed successfully! 
-                            For now on, you should see this image everytime you login, even if you have
-                            uninstalled &amp; reinstalled the application.
+                    <StackPanel>
+                        <TextBlock Margin="70" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                            Here will be in-app purchase icons to unlock more detailed statistics.
                         </TextBlock>
-                        <Image Source="/Assets/Images/Common/shut-up-and-take-my-money.jpg"></Image>
-                        
                     </StackPanel>
+                    <!--<ItemsControl x:Name="Products">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Margin="4" Source="{Binding Image}"/>
+                                        <StackPanel Grid.Column="1" Margin="0,30,0,0">
+                                            <TextBlock Foreground="white" FontWeight="ExtraBold" Text="{Binding Name}" />
+                                            <TextBlock Foreground="white" FontWeight="Normal" Text="{Binding Description}" />
+                                            <TextBlock Foreground="white" FontWeight="Normal" Text="{Binding FormattedPrice}" />
+                                            <TextBlock Foreground="white" FontWeight="Normal" Text="{Binding HasLicense}" />
+                                            <Button Content="Buy Now" />
+                                        </StackPanel>
+                                    </Grid>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>-->
+                    <!--Way to go, In-App purchase completed successfully! 
+                            For now on, you should see this image everytime you login, even if you have
+                            uninstalled &amp; reinstalled the application.-->
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>
