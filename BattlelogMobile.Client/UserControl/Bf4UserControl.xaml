@@ -382,6 +382,69 @@
                 </Grid>
             </controls:PivotItem>
 
+            <!-- Weapons -->
+            <controls:PivotItem Header="Weapons">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <UserControl:PurchaseUserControl Grid.Row="0" Visibility="{Binding HasLicense, Converter={StaticResource BoolVisibilityConverter}, ConverterParameter=reverse}" />
+
+                    <Grid Grid.Row="1" Visibility="{Binding HasLicense, Converter={StaticResource BoolVisibilityConverter}}">
+                        <ListBox ItemsSource="{Binding Data.Weapons.mainWeaponStats}">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    <Setter Property="Margin" Value="0,0,0,10"></Setter>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100" />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Source="{Binding Image}" 
+                                       Width="90" Height="54" Margin="0,0,25,0" VerticalAlignment="Top" />
+
+                                        <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding slug}" />
+                                        <Image Grid.Row="0" Grid.Column="2" Source="\Assets\Images\Common\servicestar.png" Margin="0,0,45,0" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                        <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding serviceStars}" HorizontalAlignment="Right" />
+
+                                        <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextNormalStyle}">
+                                    <Run Text="{Binding kills}" />
+                                    <Run Text="kills" />
+                                        </TextBlock>
+                                        <TextBlock Grid.Row="1" Grid.Column="2" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Right">
+                                    <Run Text="{Binding headshots}" />
+                                    <Run Text="headshots" />
+                                        </TextBlock>
+                                        <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextNormalStyle}">
+                                    <Run Text="{Binding shotsFired}" />
+                                    <Run Text="shots" />
+                                        </TextBlock>
+                                        <TextBlock Grid.Row="2" Grid.Column="2" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Right">
+                                    <Run Text="{Binding accuracy, Converter={StaticResource DoublePercentageStringConverter}, ConverterParameter=100}" />
+                                    <Run Text="hit" />
+                                        </TextBlock>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </Grid>
+            </controls:PivotItem>
             
         </controls:Pivot>
     </Grid>

@@ -23,15 +23,26 @@ namespace BattlelogMobile.Core.Service
                 _data.Index = indexData;
             }
 
-            using (var resource = IsolatedStorage.OpenFile(Common.Bf4OverviewFile, FileMode.Open))
+            //using (var resource = IsolatedStorage.OpenFile(Common.Bf4OverviewFile, FileMode.Open))
+            //{
+            //    var streamReader = new StreamReader(resource);
+
+            //    string completeJson = streamReader.ReadToEnd();
+            //    JObject jObject = JObject.Parse(completeJson);
+            //    var dataToken = jObject.SelectToken("data");
+            //    var overviewData = JsonConvert.DeserializeObject<Overview.Data>(dataToken.ToString());
+            //    _data.Overview = overviewData;
+            //}
+
+            using (var resource = IsolatedStorage.OpenFile(Common.Bf4WeaponsAndGadgetsFile, FileMode.Open))
             {
                 var streamReader = new StreamReader(resource);
 
                 string completeJson = streamReader.ReadToEnd();
                 JObject jObject = JObject.Parse(completeJson);
-                var dataToken = jObject.SelectToken("data");
-                var overviewData = JsonConvert.DeserializeObject<Overview.Data>(dataToken.ToString());
-                _data.Overview = overviewData;
+                string dataToken = jObject.SelectToken("data").ToString();
+                var weaponsData = JsonConvert.DeserializeObject<Weapons.Data>(dataToken);
+                _data.Weapons = weaponsData;
             }
 
             _data.Updated = DateTime.Now;
@@ -57,15 +68,7 @@ namespace BattlelogMobile.Core.Service
             //    var b = JsonConvert.DeserializeObject<BattlelogMobile.Core.Model.Battlefield4.Vehiclez.Data>(dataToken.ToString());
             //}
 
-            //using (var resource = IsolatedStorage.OpenFile(Common.Bf4WeaponsAndGadgetsFile, FileMode.Open))
-            //{
-            //    var streamReader = new StreamReader(resource);
 
-            //    string completeJson = streamReader.ReadToEnd();
-            //    JObject jObject = JObject.Parse(completeJson);
-            //    var dataToken = jObject.SelectToken("data");
-            //    var a = JsonConvert.DeserializeObject<BattlelogMobile.Core.Model.Battlefield4.Weapons.Data>(dataToken.ToString());
-            //}
             return _data;
             
         }

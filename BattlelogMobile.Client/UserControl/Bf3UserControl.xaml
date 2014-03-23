@@ -305,7 +305,7 @@
                 </ListBox>
             </controls:PivotItem>
 
-            <!-- Top weapons / Pivot item six -->
+            <!-- Weapons / Pivot item six -->
             <controls:PivotItem Header="Weapons">
                 <ListBox ItemsSource="{Binding Data.Weapons}">
                     <ListBox.ItemContainerStyle>

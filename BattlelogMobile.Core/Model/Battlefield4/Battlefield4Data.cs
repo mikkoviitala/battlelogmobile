@@ -13,6 +13,8 @@ namespace BattlelogMobile.Core.Model.Battlefield4
 
         public Index.Data Index { get; set; }
 
-        public Overview.Data Overview { get; set; }
+        //public Overview.Data Overview { get; set; }
+
+        public Weapons.Data Weapons { get; set; }
     }
 }
