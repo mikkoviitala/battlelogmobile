@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using BattlelogMobile.Core.Service;
 using Newtonsoft.Json;
 using Polenter.Serialization;
 
@@ -123,37 +125,37 @@ namespace BattlelogMobile.Core.Model.Battlefield4
         public class KitTimesInPercentage
         {
             [JsonProperty(PropertyName = "8")]
-            public string Recon { get; set; }
+            public double Recon { get; set; }
 
             [JsonProperty(PropertyName = "1")]
-            public string Assault { get; set; }
+            public double Assault { get; set; }
 
             [JsonProperty(PropertyName = "2")]
-            public string Engineer { get; set; }
+            public double Engineer { get; set; }
 
             [JsonProperty(PropertyName = "2048")]
-            public string Commander { get; set; }
+            public double Commander { get; set; }
 
             [JsonProperty(PropertyName = "32")]
-            public string Support { get; set; }
+            public double Support { get; set; }
         }
 
         public class KitScores
         {
             [JsonProperty(PropertyName = "8")]
-            public string Recon { get; set; }
+            public int Recon { get; set; }
 
             [JsonProperty(PropertyName = "1")]
-            public string Assault { get; set; }
+            public int Assault { get; set; }
 
             [JsonProperty(PropertyName = "2")]
-            public string Engineer { get; set; }
+            public int Engineer { get; set; }
 
             [JsonProperty(PropertyName = "2048")]
-            public string Commander { get; set; }
+            public int Commander { get; set; }
 
             [JsonProperty(PropertyName = "32")]
-            public string Support { get; set; }
+            public int Support { get; set; }
         }
 
         public class ServiceStarsGameMode
@@ -168,37 +170,37 @@ namespace BattlelogMobile.Core.Model.Battlefield4
         public class ServiceStars
         {
             [JsonProperty(PropertyName = "8")]
-            public string Recon { get; set; }
+            public int Recon { get; set; }
 
             [JsonProperty(PropertyName = "1")]
-            public string Assault { get; set; }
+            public int Assault { get; set; }
 
             [JsonProperty(PropertyName = "2")]
-            public string Engineer { get; set; }
+            public int Engineer { get; set; }
 
             [JsonProperty(PropertyName = "2048")]
-            public string Commander { get; set; }
+            public int Commander { get; set; }
 
             [JsonProperty(PropertyName = "32")]
-            public string Support { get; set; }
+            public int Support { get; set; }
         }
 
         public class ServiceStarsProgress
         {
             [JsonProperty(PropertyName = "8")]
-            public string Recon { get; set; }
+            public double Recon { get; set; }
 
             [JsonProperty(PropertyName = "1")]
-            public string Assault { get; set; }
+            public double Assault { get; set; }
 
             [JsonProperty(PropertyName = "2")]
-            public string Engineer { get; set; }
+            public double Engineer { get; set; }
 
             [JsonProperty(PropertyName = "2048")]
-            public string Commander { get; set; }
+            public double Commander { get; set; }
 
             [JsonProperty(PropertyName = "32")]
-            public string Support { get; set; }
+            public double Support { get; set; }
         }
 
         public class GameModesScore
@@ -266,6 +268,30 @@ namespace BattlelogMobile.Core.Model.Battlefield4
 
         public class GeneralPersonaStats : BaseModel
         {
+            public GeneralPersonaStats()
+            {
+                KitsServiceStars = new List<KitServiceStar>()
+                    {
+                        new KitServiceStar(KitType.Assault),
+                        new KitServiceStar(KitType.Engineer),
+                        new KitServiceStar(KitType.Support),
+                        new KitServiceStar(KitType.Recon),
+                        new KitServiceStar(KitType.Commander)
+                    };
+            }
+
+            private List<KitServiceStar> _kitServiceStar;
+            [JsonIgnore]
+            public List<KitServiceStar> KitsServiceStars
+            {
+                get { return _kitServiceStar; }
+                set
+                {
+                    _kitServiceStar = value;
+                    RaisePropertyChanged("KitsServiceStars");
+                }
+            }
+
             public object timeDead { get; set; }
 
             private int _skill;
@@ -325,7 +351,23 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             public int score { get; set; }
             public KitTimes kitTimes { get; set; }
             public int timePlayedDelta { get; set; }
-            public KitTimesInPercentage kitTimesInPercentage { get; set; }
+
+            private KitTimesInPercentage _kitTimesInPercentage;
+            public KitTimesInPercentage kitTimesInPercentage
+            {
+                get { return _kitTimesInPercentage; }
+                set
+                {
+                    _kitTimesInPercentage = value;
+                    RaisePropertyChanged("kitTimesInPercentage");
+
+                    KitsServiceStars.First(k => k.Type == KitType.Assault).Percentage = _kitTimesInPercentage.Assault;
+                    KitsServiceStars.First(k => k.Type == KitType.Engineer).Percentage = _kitTimesInPercentage.Engineer;
+                    KitsServiceStars.First(k => k.Type == KitType.Support).Percentage = _kitTimesInPercentage.Support;
+                    KitsServiceStars.First(k => k.Type == KitType.Recon).Percentage = _kitTimesInPercentage.Recon;
+                    KitsServiceStars.First(k => k.Type == KitType.Commander).Percentage = _kitTimesInPercentage.Commander;
+                }
+            }
 
             private int _timePlayed;
             public int timePlayed
@@ -351,7 +393,23 @@ namespace BattlelogMobile.Core.Model.Battlefield4
                 }
             }
 
-            public KitScores kitScores { get; set; }
+            private KitScores _kitScores;
+            public KitScores kitScores
+            {
+                get { return _kitScores; }
+                set
+                {
+                    _kitScores = value;
+                    RaisePropertyChanged("KitScores");
+
+                    KitsServiceStars.First(k => k.Type == KitType.Assault).Score = _kitScores.Assault;
+                    KitsServiceStars.First(k => k.Type == KitType.Engineer).Score = _kitScores.Engineer;
+                    KitsServiceStars.First(k => k.Type == KitType.Support).Score = _kitScores.Support;
+                    KitsServiceStars.First(k => k.Type == KitType.Recon).Score = _kitScores.Recon;
+                    KitsServiceStars.First(k => k.Type == KitType.Commander).Score = _kitScores.Commander;
+                }
+            }
+
             public int suppressionAssists { get; set; }
             public int rsDeaths { get; set; }
             public int timePlayedSinceLastReset { get; set; }
@@ -405,7 +463,24 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             public object spm_assault { get; set; }
             public object squadDMLosses { get; set; }
             public object maxScoreInRound { get; set; }
-            public ServiceStarsProgress serviceStarsProgress { get; set; }
+
+            private ServiceStarsProgress _serviceStarsProgress;
+            public ServiceStarsProgress serviceStarsProgress
+            {
+                get { return _serviceStarsProgress; }
+                set
+                {
+                    _serviceStarsProgress = value;
+                    RaisePropertyChanged("serviceStarsProgress");
+
+                    KitsServiceStars.First(k => k.Type == KitType.Assault).Progression = _serviceStarsProgress.Assault;
+                    KitsServiceStars.First(k => k.Type == KitType.Engineer).Progression = _serviceStarsProgress.Engineer;
+                    KitsServiceStars.First(k => k.Type == KitType.Support).Progression = _serviceStarsProgress.Support;
+                    KitsServiceStars.First(k => k.Type == KitType.Recon).Progression = _serviceStarsProgress.Recon;
+                    KitsServiceStars.First(k => k.Type == KitType.Commander).Progression = _serviceStarsProgress.Commander;
+                }
+            }
+            
             public double rsScorePerMinute { get; set; }
             public int rsScore { get; set; }
             public GameModesScore gameModesScore { get; set; }
@@ -448,7 +523,23 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             public int nemesisKills { get; set; }
             public int sc_squad { get; set; }
             public int vehicleDamage { get; set; }
-            public ServiceStars serviceStars { get; set; }
+
+            private ServiceStars _serviceStars;
+            public ServiceStars serviceStars
+            {
+                get { return _serviceStars; }
+                set
+                {
+                    _serviceStars = value;
+                    RaisePropertyChanged("ServiceStars");
+
+                    KitsServiceStars.First(k => k.Type == KitType.Assault).Stars = _serviceStars.Assault;
+                    KitsServiceStars.First(k => k.Type == KitType.Engineer).Stars = _serviceStars.Engineer;
+                    KitsServiceStars.First(k => k.Type == KitType.Support).Stars = _serviceStars.Support;
+                    KitsServiceStars.First(k => k.Type == KitType.Recon).Stars = _serviceStars.Recon;
+                    KitsServiceStars.First(k => k.Type == KitType.Commander).Stars = _serviceStars.Commander;
+                }
+            }
             public int dogtagsTaken { get; set; }
 
             private int _deaths;

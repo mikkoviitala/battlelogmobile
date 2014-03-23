@@ -153,6 +153,7 @@
     <Compile Include="Service\CryptoService.cs" />
     <Compile Include="Service\DownloadService.cs" />
     <Compile Include="Repository\ImageRepository.cs" />
+    <Compile Include="Service\EnumHelper.cs" />
     <Compile Include="Service\JSONParser.cs" />
     <Compile Include="Service\NetworkInformation.cs" />
     <Compile Include="Service\UserIdAndPlatformResolver.cs" />

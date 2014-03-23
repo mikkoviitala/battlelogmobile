@@ -37,8 +37,8 @@ namespace BattlelogMobile.Client.View
 
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
-            ShowInfoPrompt();
-            ShowTipPrompt();
+            //ShowInfoPrompt();
+            //ShowTipPrompt();
             ShowRatingPrompt();
         }
 

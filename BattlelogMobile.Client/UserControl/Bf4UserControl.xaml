@@ -9,10 +9,10 @@
         xmlns:amq="clr-namespace:AmCharts.Windows.QuickCharts;assembly=AmCharts.Windows.QuickCharts.WP"
         xmlns:conv="clr-namespace:BattlelogMobile.Client.Converter"
         xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71"
-             xmlns:UserControl="clr-namespace:BattlelogMobile.Client.UserControl"
-             FontFamily="{StaticResource PhoneFontFamilyNormal}"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71"
+        xmlns:UserControl="clr-namespace:BattlelogMobile.Client.UserControl"
+        FontFamily="{StaticResource PhoneFontFamilyNormal}"
         FontSize="{StaticResource PhoneFontSizeNormal}"
         Foreground="{StaticResource PhoneForegroundBrush}"
         shell:SystemTray.IsVisible="True"
@@ -111,29 +111,17 @@
                     <UserControl:PurchaseUserControl Grid.Row="0" Visibility="{Binding HasLicense, Converter={StaticResource BoolVisibilityConverter}, ConverterParameter=reverse}" />
 
                     <Grid Grid.Row="1" Visibility="{Binding HasLicense, Converter={StaticResource BoolVisibilityConverter}}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="50" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="210" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-
-                        <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                     <RowDefinition />
                                     <RowDefinition />
                                     <RowDefinition />
+                                    <RowDefinition Height="60" />
                                     <RowDefinition />
                                     <RowDefinition />
                                     <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
+                                    <RowDefinition Height="60" />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
@@ -173,18 +161,228 @@
 
                                 <TextBlock Grid.Row="8" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Unlock" HorizontalAlignment="Left" />
                                 <TextBlock Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.sc_unlock, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" />
-                            </Grid>
-                        </StackPanel>
-                        
-                        <Rectangle Grid.Row="3" Grid.ColumnSpan="2" Stroke="White" StrokeThickness="1" Fill="White" Margin="10,0,10,0" Height="1" VerticalAlignment="Top" />
-                        <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" 
-                                Text="Total Score" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
+
+                            <Rectangle Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" Stroke="White" StrokeThickness="1" Fill="White" Margin="10,0,10,0" Height="1" VerticalAlignment="Top" />
+                            <TextBlock Grid.Row="9" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Total Score" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource PhoneTextLargeStyle}" 
                                 Text="{Binding Data.Index.generalPersonaStats.totalScore, Converter={StaticResource IntegerStringConverter}, ConverterParameter=AddEquals}" 
                                 HorizontalAlignment="Right" VerticalAlignment="Center" />
+                        </Grid>
                     </Grid>
                 </Grid>
             </controls:PivotItem>
+
+            <!-- pivot control 3 -->
+            <controls:PivotItem Header="Progression">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <UserControl:PurchaseUserControl Grid.Row="0" Visibility="{Binding HasLicense, Converter={StaticResource BoolVisibilityConverter}, ConverterParameter=reverse}" />
+
+                    <Grid Grid.Row="1" Visibility="{Binding HasLicense, Converter={StaticResource BoolVisibilityConverter}}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <amq:SerialChart 
+                                Grid.Row="0" 
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                ValueFormatString="0.00"
+                                VerticalAlignment="Top"
+                                DataSource="{Binding Data.Index.generalPersonaStats.KitsServiceStars}" 
+                                CategoryValueMemberPath="Type"
+                                AxisForeground="White"
+                                LegendVisibility="Visible"
+                                PlotAreaBackground="Transparent"
+                                Opacity="0.75"
+                                GridStroke="DarkGray"
+                                IsHitTestVisible="False">
+                                <amq:SerialChart.Graphs>
+                                    <amq:ColumnGraph 
+                                        ValueMemberPath="Progression" 
+                                        Title="Completion %" 
+                                        Brush="#8000FF00"
+                                        ColumnWidthAllocation="0.7" />
+                                </amq:SerialChart.Graphs>
+                            </amq:SerialChart>
+
+                            <Grid Grid.Row="1" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="75" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Assault" />
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <Image Source="\Assets\Images\Common\servicestar.png" Width="30" Height="30" VerticalAlignment="Center" />
+                                    <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.serviceStars.Assault}" />
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid Grid.Row="1" Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="75" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Engineer" />
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <Image Source="\Assets\Images\Common\servicestar.png" Width="30" Height="30" VerticalAlignment="Center" />
+                                    <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.serviceStars.Engineer}" />
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid Grid.Row="2" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="75" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Support" />
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <Image Source="\Assets\Images\Common\servicestar.png" Width="30" Height="30" VerticalAlignment="Center" />
+                                    <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.serviceStars.Support}" />
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid Grid.Row="2" Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="75" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Recon" />
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <Image Source="\Assets\Images\Common\servicestar.png" Width="30" Height="30" VerticalAlignment="Center" />
+                                    <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.serviceStars.Recon}" />
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="75" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Commander" />
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <Image Source="\Assets\Images\Common\servicestar.png" Width="30" Height="30" VerticalAlignment="Center" />
+                                    <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.serviceStars.Commander}" />
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </controls:PivotItem>
+
+            <!-- pivot control 4 -->
+            <controls:PivotItem Header="Kit usage">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <UserControl:PurchaseUserControl Grid.Row="0" Visibility="{Binding HasLicense, Converter={StaticResource BoolVisibilityConverter}, ConverterParameter=reverse}" />
+
+                    <Grid Grid.Row="1" Visibility="{Binding HasLicense, Converter={StaticResource BoolVisibilityConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <amq:PieChart 
+                            x:Name="KitUsageChart" 
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            DataSource="{Binding Data.Index.generalPersonaStats.KitsServiceStars}"
+                            TitleMemberPath="Type" 
+                            ValueMemberPath="Percentage"
+                            LegendVisibility="Visible"
+                            Opacity="0.75"
+                            IsHitTestVisible="False">
+                            <amq:PieChart.Brushes>
+                                <SolidColorBrush Color="#26729a" />
+                                <SolidColorBrush Color="#b6a761" />
+                                <SolidColorBrush Color="#86ae31" />
+                                <SolidColorBrush Color="#a1562e" />
+                                <SolidColorBrush Color="#60a0bd" />
+                            </amq:PieChart.Brushes>
+                        </amq:PieChart>
+
+                        <Grid Grid.Row="1" Grid.Column="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="85" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Assault" />
+                            <TextBlock Grid.Column="1" FontSize="24" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                       Style="{StaticResource PhoneTextLargeStyle}" 
+                                       Text="{Binding Data.Index.generalPersonaStats.kitTimesInPercentage.Assault, Converter={StaticResource DoublePercentageStringConverter}}" />
+                        </Grid>
+
+                        <Grid Grid.Row="1" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="85" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Engineer" />
+                            <TextBlock Grid.Column="1" FontSize="24" HorizontalAlignment="Right" VerticalAlignment="Center" 
+                                       Style="{StaticResource PhoneTextLargeStyle}" 
+                                       Text="{Binding Data.Index.generalPersonaStats.kitTimesInPercentage.Engineer, Converter={StaticResource DoublePercentageStringConverter}}" />
+                        </Grid>
+
+                        <Grid Grid.Row="2" Grid.Column="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="85" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Support" />
+                            <TextBlock Grid.Column="1" FontSize="24" HorizontalAlignment="Right" VerticalAlignment="Center" 
+                                       Style="{StaticResource PhoneTextLargeStyle}" 
+                                       Text="{Binding Data.Index.generalPersonaStats.kitTimesInPercentage.Support, Converter={StaticResource DoublePercentageStringConverter}}" />
+                        </Grid>
+
+                        <Grid Grid.Row="2" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="85" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Recon" />
+                            <TextBlock Grid.Column="1" FontSize="24" HorizontalAlignment="Right" VerticalAlignment="Center" 
+                                       Style="{StaticResource PhoneTextLargeStyle}" 
+                                       Text="{Binding Data.Index.generalPersonaStats.kitTimesInPercentage.Recon, Converter={StaticResource DoublePercentageStringConverter}}" />
+                        </Grid>
+
+                        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="85" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Commander" />
+                            <TextBlock Grid.Column="1" FontSize="24" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                       Style="{StaticResource PhoneTextLargeStyle}" 
+                                       Text="{Binding Data.Index.generalPersonaStats.kitTimesInPercentage.Commander, Converter={StaticResource DoublePercentageStringConverter}}" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </controls:PivotItem>
+
+            
         </controls:Pivot>
     </Grid>
 </UserControl>

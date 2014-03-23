@@ -13,6 +13,10 @@ namespace BattlelogMobile.Core.Model
         public KitServiceStar()
         {}
 
+        public KitServiceStar(KitType kitType)
+            :this(kitType, 0, 0, 0d, 0d)
+        {}
+
         public KitServiceStar(KitType kitType, int score, int stars, double progression, double percentage)
         {
             Type = kitType;

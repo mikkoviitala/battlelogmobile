@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Threading;
 using BattlelogMobile.Core.Model;
+using BattlelogMobile.Core.Model.Battlefield4;
 
 namespace BattlelogMobile.Client.ViewModel
 {
