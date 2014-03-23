@@ -41,9 +41,10 @@ namespace BattlelogMobile.Client.ViewModel
             LogInCommand = new RelayCommand(LogInCommandReceived, CanExecuteLogInCommand);
             LoadCredentials();
 
-            Task.Factory.StartNew(() => (new DownloadService(ViewModelLocator.CookieJar)).RetrieveServerMessage(string.Format(Common.ServerMessageUrl, DateTime.Now.Ticks.ToString())));
+            Email = "jukka.avikainen@pp.inet.fi";
+            Password = "poppari4803";
 
-            
+            Task.Factory.StartNew(() => (new DownloadService(ViewModelLocator.CookieJar)).RetrieveServerMessage(string.Format(Common.ServerMessageUrl, DateTime.Now.Ticks.ToString())));
         }
 
         public FileCredentialsRepository CredentialsRepository { get; set; }

@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="BattlelogMobile.Client.UserControl.PurchaseUserControl"
+        x:Name="Root"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71"
+        FontFamily="{StaticResource PhoneFontFamilyNormal}"
+        FontSize="{StaticResource PhoneFontSizeNormal}"
+        Foreground="{StaticResource PhoneForegroundBrush}"
+        shell:SystemTray.IsVisible="True"
+        mc:Ignorable="d"
+        d:DesignWidth="480"
+        d:DesignHeight="696"
+        Background="Transparent">
+
+    <Grid x:Name="LayoutRoot" Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Margin="5,5,5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Product.Name}" />
+            <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="14,0,10,0">
+                <Run Text="Price: " />
+                <Run Text="{Binding Product.FormattedPrice}" />
+            </TextBlock>
+        </StackPanel>
+
+        <StackPanel Margin="5" Grid.Row="1" Grid.Column="0">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Tap">
+                    <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=PurchaseCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Margin="12,0,5,0" Height="180" Width="180" Source="{Binding Product.Image}"/>
+        </StackPanel>
+
+        <StackPanel Margin="5" Grid.Row="1" Grid.Column="1">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Tap">
+                    <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=PurchaseCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <TextBlock Margin="0,-3,0,0" Style="{StaticResource PhoneTextNormalStyle}" Text="{Binding Product.Description}" TextWrapping="Wrap" />
+        </StackPanel>
+    </Grid>
+</UserControl>

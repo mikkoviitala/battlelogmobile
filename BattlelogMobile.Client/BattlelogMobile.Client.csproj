@@ -101,10 +101,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.4.0.7\lib\sl4-windowsphone71\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="StoreLauncher, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\StoreLauncher\Bin\Debug\StoreLauncher.dll</HintPath>
-    </Reference>
     <Reference Include="System.Device" />
     <Reference Include="Microsoft.Phone" />
     <Reference Include="System.IO">
@@ -146,6 +142,7 @@
     <Compile Include="Converter\StringLengthVisibilityConverter.cs" />
     <Compile Include="Converter\TimeSpanStringConverter.cs" />
     <Compile Include="GlobalLoading.cs" />
+    <Compile Include="Message\ProductLicenseMessage.cs" />
     <Compile Include="MetroGridHelper.cs" />
     <Compile Include="UserControl\Bf3UserControl.xaml.cs">
       <DependentUpon>Bf3UserControl.xaml</DependentUpon>
@@ -153,7 +150,13 @@
     <Compile Include="UserControl\Bf4UserControl.xaml.cs">
       <DependentUpon>Bf4UserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\BfSoldierViewModel.cs" />
+    <Compile Include="UserControl\PurchaseUserControl.xaml.cs">
+      <DependentUpon>PurchaseUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Bf3UserControlViewModel.cs" />
+    <Compile Include="ViewModel\Bf4UserControlViewModel.cs" />
+    <Compile Include="ViewModel\BfUserControlViewModel.cs" />
+    <Compile Include="ViewModel\ProductInfo.cs" />
     <Compile Include="ViewModel\SoldierViewModel.cs" />
     <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -182,6 +185,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UserControl\PurchaseUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -203,6 +210,21 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Images\Battlefield4\assault-small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\Battlefield4\commander-small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\Battlefield4\engineer-small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\Battlefield4\recon-small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\Battlefield4\support-small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Images\Common\servicestar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -219,12 +241,9 @@
     <Content Include="Assets\Images\Battlefield4\Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="StoreWrapper.dll">
+    <Content Include="StoreWrapper.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="StoreWrapper.pdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <Content Include="Toolkit.Content\ApplicationBar.Uncheck.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -250,6 +269,10 @@
     <ProjectReference Include="..\BattlelogMobile.Core\BattlelogMobile.Core.csproj">
       <Project>{ED3F380C-DDB1-4248-946F-F2B7ABA005D6}</Project>
       <Name>BattlelogMobile.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StoreLauncher\StoreLauncher.csproj">
+      <Project>{197E7BF3-EFA9-49B4-8060-6418E7BA9EA0}</Project>
+      <Name>StoreLauncher</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

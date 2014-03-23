@@ -12,5 +12,7 @@ namespace BattlelogMobile.Core.Model.Battlefield4
         public DateTime Updated { get; set; }
 
         public Index.Data Index { get; set; }
+
+        public Overview.Data Overview { get; set; }
     }
 }

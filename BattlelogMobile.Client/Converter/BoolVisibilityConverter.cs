@@ -10,14 +10,14 @@ namespace BattlelogMobile.Client.Converter
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var visible = System.Convert.ToBoolean(value);
+            if (parameter != null && parameter.ToString().Equals("reverse"))
+                return visible ? Visibility.Collapsed : Visibility.Visible;
             return visible ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var visible = value is Visibility ? (Visibility) value : Visibility.Collapsed;
-            return visible == Visibility.Visible;
-
+            throw new NotFiniteNumberException();
         }
     }
 }

@@ -67,5 +67,7 @@
         public const string Bf4BackgroundUri = "/Assets/Images/Battlefield4/Background.png";
         public const string ToggleBackgroundCheckedUri = "/Toolkit.Content/ApplicationBar.Check.png";
         public const string ToggleBackgroundUncheckedUri = "/Toolkit.Content/ApplicationBar.Uncheck.png";
+
+        public const string ProductKey = "bf4stats";
     }
 }

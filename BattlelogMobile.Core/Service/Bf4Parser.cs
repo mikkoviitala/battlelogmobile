@@ -19,8 +19,19 @@ namespace BattlelogMobile.Core.Service
                 string completeJson = streamReader.ReadToEnd();
                 JObject jObject = JObject.Parse(completeJson);
                 var dataToken = jObject.SelectToken("data");
-                var a = JsonConvert.DeserializeObject<Index.Data>(dataToken.ToString());
-                _data.Index = a;
+                var indexData = JsonConvert.DeserializeObject<Index.Data>(dataToken.ToString());
+                _data.Index = indexData;
+            }
+
+            using (var resource = IsolatedStorage.OpenFile(Common.Bf4OverviewFile, FileMode.Open))
+            {
+                var streamReader = new StreamReader(resource);
+
+                string completeJson = streamReader.ReadToEnd();
+                JObject jObject = JObject.Parse(completeJson);
+                var dataToken = jObject.SelectToken("data");
+                var overviewData = JsonConvert.DeserializeObject<Overview.Data>(dataToken.ToString());
+                _data.Overview = overviewData;
             }
 
             _data.Updated = DateTime.Now;

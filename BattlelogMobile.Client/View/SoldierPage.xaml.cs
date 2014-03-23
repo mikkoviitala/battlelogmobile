@@ -3,6 +3,7 @@ using System.IO.IsolatedStorage;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using BattlelogMobile.Client.Message;
 using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Repository;
 using GalaSoft.MvvmLight.Messaging;
@@ -39,6 +40,12 @@ namespace BattlelogMobile.Client.View
             ShowInfoPrompt();
             ShowTipPrompt();
             ShowRatingPrompt();
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            Messenger.Default.Send(new ProductLicenseMessage());
         }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)

@@ -9,7 +9,10 @@
         xmlns:amq="clr-namespace:AmCharts.Windows.QuickCharts;assembly=AmCharts.Windows.QuickCharts.WP"
         xmlns:conv="clr-namespace:BattlelogMobile.Client.Converter"
         xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-        FontFamily="{StaticResource PhoneFontFamilyNormal}"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71"
+             xmlns:UserControl="clr-namespace:BattlelogMobile.Client.UserControl"
+             FontFamily="{StaticResource PhoneFontFamilyNormal}"
         FontSize="{StaticResource PhoneFontSizeNormal}"
         Foreground="{StaticResource PhoneForegroundBrush}"
         shell:SystemTray.IsVisible="True"
@@ -93,42 +96,93 @@
                     <TextBlock Grid.Row="8" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.wlRatio, Converter={StaticResource DoubleStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
 
                     <TextBlock Grid.Row="9" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Quits" VerticalAlignment="Center" />
-                    <TextBlock Grid.Row="9" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="n/a" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+                    <TextBlock Grid.Row="9" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.quitPercentage, Converter={StaticResource DoublePercentageStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
                 </Grid>
             </controls:PivotItem>
 
-            <controls:PivotItem Header="More stats">
+            <!-- pivot control 2 -->
+            <controls:PivotItem Header="Score">
                 <Grid>
-                    <StackPanel>
-                        <TextBlock Margin="70" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                            Here will be in-app purchase icons to unlock more detailed statistics.
-                        </TextBlock>
-                    </StackPanel>
-                    <!--<ItemsControl x:Name="Products">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Image Margin="4" Source="{Binding Image}"/>
-                                        <StackPanel Grid.Column="1" Margin="0,30,0,0">
-                                            <TextBlock Foreground="white" FontWeight="ExtraBold" Text="{Binding Name}" />
-                                            <TextBlock Foreground="white" FontWeight="Normal" Text="{Binding Description}" />
-                                            <TextBlock Foreground="white" FontWeight="Normal" Text="{Binding FormattedPrice}" />
-                                            <TextBlock Foreground="white" FontWeight="Normal" Text="{Binding HasLicense}" />
-                                            <Button Content="Buy Now" />
-                                        </StackPanel>
-                                    </Grid>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>-->
-                    <!--Way to go, In-App purchase completed successfully! 
-                            For now on, you should see this image everytime you login, even if you have
-                            uninstalled &amp; reinstalled the application.-->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <UserControl:PurchaseUserControl Grid.Row="0" Visibility="{Binding HasLicense, Converter={StaticResource BoolVisibilityConverter}, ConverterParameter=reverse}" />
+
+                    <Grid Grid.Row="1" Visibility="{Binding HasLicense, Converter={StaticResource BoolVisibilityConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="50" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="210" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="235" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Assault" HorizontalAlignment="Left" />
+                                <Image Grid.Row="0" Grid.Column="1" Source="\Assets\Images\Battlefield4\assault-small.png" Width="26" Height="26" Margin="30,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.kitScores.Assault, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" />
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Engineer" HorizontalAlignment="Left" />
+                                <Image Grid.Row="1" Grid.Column="1" Source="\Assets\Images\Battlefield4\engineer-small.png" Width="26" Height="26" Margin="30,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                <TextBlock Grid.Row="1" Grid.Column="2" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.kitScores.Engineer, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" />
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Support" HorizontalAlignment="Left" />
+                                <Image Grid.Row="2" Grid.Column="1" Source="\Assets\Images\Battlefield4\support-small.png" Width="26" Height="26" Margin="30,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                <TextBlock Grid.Row="2" Grid.Column="2" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.kitScores.Support, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" />
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Recon" HorizontalAlignment="Left" />
+                                <Image Grid.Row="3" Grid.Column="1" Source="\Assets\Images\Battlefield4\recon-small.png" Width="26" Height="26" Margin="30,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                <TextBlock Grid.Row="3" Grid.Column="2" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.kitScores.Recon, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" />
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Commander" HorizontalAlignment="Left" />
+                                <Image Grid.Row="4" Grid.Column="1" Source="\Assets\Images\Battlefield4\commander-small.png" Width="26" Height="26" Margin="30,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                <TextBlock Grid.Row="4" Grid.Column="2" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.kitScores.Commander, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" />
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Squad" HorizontalAlignment="Left" />
+                                <TextBlock Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.sc_squad, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" />
+
+                                <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Vehicle" HorizontalAlignment="Left" />
+                                <TextBlock Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.sc_vehicle, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" />
+
+                                <TextBlock Grid.Row="7" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Award" HorizontalAlignment="Left" />
+                                <TextBlock Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.sc_award, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" />
+
+                                <TextBlock Grid.Row="8" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Unlock" HorizontalAlignment="Left" />
+                                <TextBlock Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.sc_unlock, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" />
+                            </Grid>
+                        </StackPanel>
+                        
+                        <Rectangle Grid.Row="3" Grid.ColumnSpan="2" Stroke="White" StrokeThickness="1" Fill="White" Margin="10,0,10,0" Height="1" VerticalAlignment="Top" />
+                        <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" 
+                                Text="Total Score" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" 
+                                Text="{Binding Data.Index.generalPersonaStats.totalScore, Converter={StaticResource IntegerStringConverter}, ConverterParameter=AddEquals}" 
+                                HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>
