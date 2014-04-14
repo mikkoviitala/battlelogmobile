@@ -17,13 +17,28 @@ namespace BattlelogMobile.Client.Converter
         /// </summary>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
-                return "0.0%";
+            try
+            {
+                if (value == null)
+                    return "0.0%";
 
-            int multiplier = 1;
-            if (parameter != null)
-                int.TryParse(parameter as string, out multiplier);
-            return ((System.Convert.ToDouble(value) * multiplier).ToString(PercentageFormat, CultureInfo.InvariantCulture)) + Suffix;
+                int multiplier = 1;
+                if (parameter != null)
+                    int.TryParse(parameter.ToString(), out multiplier);
+
+                // :(((((
+                double val;
+                double.TryParse(value.ToString(), out val);
+                if (Math.Abs(val - 0d) < 0.001)
+                    double.TryParse(value.ToString().Replace(".", ","), out val);
+
+                var percentage = ((val * multiplier).ToString(PercentageFormat, CultureInfo.InvariantCulture)) + Suffix;
+                return percentage;
+            }
+            catch (Exception e)
+            {
+                return "";
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
