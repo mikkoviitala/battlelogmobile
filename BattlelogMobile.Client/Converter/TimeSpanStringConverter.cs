@@ -11,6 +11,9 @@ namespace BattlelogMobile.Client.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value == null)
+                return string.Empty;
+
             var span = (TimeSpan)value;
 
             if (parameter == null || string.CompareOrdinal(parameter.ToString(), "full") != 0)

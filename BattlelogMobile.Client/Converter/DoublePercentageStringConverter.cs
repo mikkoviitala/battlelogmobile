@@ -17,6 +17,9 @@ namespace BattlelogMobile.Client.Converter
         /// </summary>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value == null)
+                return "0.0%";
+
             int multiplier = 1;
             if (parameter != null)
                 int.TryParse(parameter as string, out multiplier);

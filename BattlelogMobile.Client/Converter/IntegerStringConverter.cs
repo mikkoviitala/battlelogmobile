@@ -17,6 +17,9 @@ namespace BattlelogMobile.Client.Converter
         /// </summary>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value == null)
+                return "0";
+
             string formatted = (System.Convert.ToDouble(value, CultureInfo.InvariantCulture).ToString(ScoreFormat, CultureInfo.InvariantCulture)).Trim();
 
             if (parameter != null && parameter.ToString().Equals(AddEquals))
