@@ -12,16 +12,16 @@ namespace BattlelogMobile.Core.Service
 
         public override Battlefield4Data Parse()
         {
-            //using (var resource = IsolatedStorage.OpenFile(Common.Bf4IndexFile, FileMode.Open))
-            //{
-            //    var streamReader = new StreamReader(resource);
+            using (var resource = IsolatedStorage.OpenFile(Common.Bf4IndexFile, FileMode.Open))
+            {
+                var streamReader = new StreamReader(resource);
 
-            //    string completeJson = streamReader.ReadToEnd();
-            //    JObject jObject = JObject.Parse(completeJson);
-            //    var dataToken = jObject.SelectToken("data");
-            //    var indexData = JsonConvert.DeserializeObject<Index.Data>(dataToken.ToString());
-            //    _data.Index = indexData;
-            //}
+                string completeJson = streamReader.ReadToEnd();
+                JObject jObject = JObject.Parse(completeJson);
+                var dataToken = jObject.SelectToken("data");
+                var indexData = JsonConvert.DeserializeObject<Index.Data>(dataToken.ToString());
+                _data.Index = indexData;
+            }
 
             //using (var resource = IsolatedStorage.OpenFile(Common.Bf4OverviewFile, FileMode.Open))
             //{
