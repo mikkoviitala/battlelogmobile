@@ -1,92 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
-namespace BattlelogMobile.Core.Model.Battlefield4.Vehiclez
+namespace BattlelogMobile.Core.Model.Battlefield4
 {
-public class Medium
+public class ImageInfo
 {
     public string path { get; set; }
     public bool isSprite { get; set; }
     public int height { get; set; }
     public string name { get; set; }
     public int width { get; set; }
-}
-
-public class Squarelarge
-{
-    public string path { get; set; }
-    public bool isSprite { get; set; }
-    public int height { get; set; }
-    public string name { get; set; }
-    public int width { get; set; }
-}
-
-public class Mobile
-{
-    public string path { get; set; }
-    public bool isSprite { get; set; }
-    public int height { get; set; }
-    public string name { get; set; }
-    public int width { get; set; }
-}
-
-public class Small
-{
-    public string path { get; set; }
-    public bool isSprite { get; set; }
-    public int height { get; set; }
-    public string name { get; set; }
-    public int width { get; set; }
-}
-
-public class Xsmall
-{
-    public string path { get; set; }
-    public bool isSprite { get; set; }
-    public int height { get; set; }
-    public string name { get; set; }
-    public int width { get; set; }
-}
-
-public class Mediumns
-{
-    public string path { get; set; }
-    public bool isSprite { get; set; }
-    public int height { get; set; }
-    public string name { get; set; }
-    public int width { get; set; }
-}
-
-public class Smallns
-{
-    public string path { get; set; }
-    public bool isSprite { get; set; }
-    public int height { get; set; }
-    public string name { get; set; }
-    public int width { get; set; }
-}
-
-public class Large
-{
-    public string path { get; set; }
-    public bool isSprite { get; set; }
-    public int height { get; set; }
-    public string name { get; set; }
-    public int width { get; set; }
-}
-
-public class Versions
-{
-    public Medium medium { get; set; }
-    public Squarelarge squarelarge { get; set; }
-    public Mobile mobile { get; set; }
-    public Small small { get; set; }
-    public Xsmall xsmall { get; set; }
-    public Mediumns mediumns { get; set; }
-    public Smallns smallns { get; set; }
-    public Large large { get; set; }
 }
 
 public class Image
@@ -94,7 +17,6 @@ public class Image
     public string category { get; set; }
     public string slug { get; set; }
     public string texture { get; set; }
-    public Versions versions { get; set; }
 }
 
 public class PlayerProgress
@@ -524,49 +446,7 @@ public class UnlockProgression2
     //public List<VehicleAntiAir> __invalid_name__Vehicle Anti Air { get; set; }
 }
 
-public class VehicleAirHelicopterScout2
-{
-    public int taken { get; set; }
-    public int total { get; set; }
-}
-
-public class VehicleFastAttackCraft2
-{
-    public int taken { get; set; }
-    public int total { get; set; }
-}
-
-public class VehicleInfantryFightingVehicle2
-{
-    public int taken { get; set; }
-    public int total { get; set; }
-}
-
-public class VehicleAirJetAttack2
-{
-    public int taken { get; set; }
-    public int total { get; set; }
-}
-
-public class VehicleAirHelicopterAttack2
-{
-    public int taken { get; set; }
-    public int total { get; set; }
-}
-
-public class VehicleMainBattleTanks
-{
-    public int taken { get; set; }
-    public int total { get; set; }
-}
-
-public class VehicleAirJetStealth2
-{
-    public int taken { get; set; }
-    public int total { get; set; }
-}
-
-public class VehicleAntiAir2
+public class VehicleTaken
 {
     public int taken { get; set; }
     public int total { get; set; }
@@ -574,14 +454,29 @@ public class VehicleAntiAir2
 
 public class UnlockProgressionAmount
 {
-    //public VehicleAirHelicopterScout2 __invalid_name__Vehicle Air Helicopter Scout { get; set; }
-    //public VehicleFastAttackCraft2 __invalid_name__Vehicle Fast Attack Craft { get; set; }
-    //public VehicleInfantryFightingVehicle2 __invalid_name__Vehicle Infantry Fighting Vehicle { get; set; }
-    //public VehicleAirJetAttack2 __invalid_name__Vehicle Air Jet Attack { get; set; }
-    //public VehicleAirHelicopterAttack2 __invalid_name__Vehicle Air Helicopter Attack { get; set; }
-    //public VehicleMainBattleTanks __invalid_name__Vehicle Main Battle Tanks { get; set; }
-    //public VehicleAirJetStealth2 __invalid_name__Vehicle Air Jet Stealth { get; set; }
-    //public VehicleAntiAir2 __invalid_name__Vehicle Anti Air { get; set; }
+    [JsonProperty(PropertyName = "Vehicle Air Helicopter Scout")]
+    public VehicleTaken ScoutHeli { get; set; }
+
+    [JsonProperty(PropertyName = "Vehicle Fast Attack Craft")]
+    public VehicleTaken FAC { get; set; }
+
+    [JsonProperty(PropertyName = "Vehicle Infantry Fighting Vehicle")]
+    public VehicleTaken IFV { get; set; }
+
+    [JsonProperty(PropertyName = "Vehicle Air Jet Attack")]
+    public VehicleTaken AttackJet { get; set; }
+
+    [JsonProperty(PropertyName = "Vehicle Air Helicopter Attack")]
+    public VehicleTaken AttackHeli { get; set; }
+
+    [JsonProperty(PropertyName = "Vehicle Main Battle Tanks")]
+    public VehicleTaken MBT { get; set; }
+
+    [JsonProperty(PropertyName = "Vehicle Air Jet Stealth")]
+    public VehicleTaken StealthJet { get; set; }
+
+    [JsonProperty(PropertyName = "Vehicle Anti Air")]
+    public VehicleTaken AA { get; set; }
 }
 
 public class Data
