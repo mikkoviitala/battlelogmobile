@@ -133,7 +133,7 @@ namespace BattlelogMobile.Core.Service
 
         public static string Get(string itemIdentifier)
         {
-            return Mapper.ContainsKey(itemIdentifier) ? Mapper[itemIdentifier] : "*" + itemIdentifier;
+            return Mapper.ContainsKey(itemIdentifier) ? Mapper[itemIdentifier] : itemIdentifier;
         }
     }
 }

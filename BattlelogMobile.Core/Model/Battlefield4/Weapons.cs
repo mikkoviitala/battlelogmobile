@@ -20,13 +20,12 @@ namespace BattlelogMobile.Core.Model.Battlefield4
                 get { return _weapons; }
                 set
                 {
-                    _weapons = value.OrderBy(w => w.slug).ToList();
-                    //_weapons = value.Where(w => w.kills > 0).
-                    //            OrderByDescending(g => g.kills).
-                    //            ThenByDescending(g => g.headshots).
-                    //            ThenBy(g => g.slug).
-                    //            ThenBy(g => g.name)
-                    //            .ToList();
+                    //_weapons = value.OrderBy(w => w.slug).ToList();
+                    _weapons = value.Where(w => w.kills > 0).
+                                OrderByDescending(g => g.kills).
+                                ThenByDescending(g => g.headshots).
+                                ThenBy(g => g.slug)
+                                .ToList();
                     RaisePropertyChanged("mainWeaponStats");
                 }
             }

@@ -374,7 +374,7 @@
     <Content Include="Assets\Images\Battlefield4\hawk-12g.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Images\Battlefield4\hvm_ii.png">
+    <Content Include="Assets\Images\Battlefield4\hvm-ii.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Images\Battlefield4\improvised.png">
