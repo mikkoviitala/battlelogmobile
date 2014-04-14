@@ -14,6 +14,57 @@ namespace BattlelogMobile.Core.Service
         {
             Mapper = new Dictionary<string, string>
             {
+                // New from Battlefield 4 
+                {"870-MCS", "870 MCS"},
+                {"AA-MINE", "AA MINE"},
+                {"ACE-21-CQB", "ACE 21 CQB"},
+                {"ACE-23", "ACE 23"},
+                {"ACE-52-CQB", "ACE 52 CQB"},
+                {"ACE-53-SV", "ACE 53 SV"},
+                {"AK-5C", "AK 5C"},
+                {"AMR-2-CQB", "AMR-2 CQB"},
+                {"AMR-2-MID", "AMR-2 MID"},
+                {"AUG-A3", "AUG A3"},
+                {"C4-EXPLOSIVE", "C4 EXPLOSIVE"},
+                {"CARBON-FIBER", "CARBON FIBER"},
+                {"COMPACT-45", "COMPACT 45"},
+                {"FGM-172-SRAW", "SRAW"},
+                {"GOL-MAGNUM", "GOL MAGNUM"},
+                {"HAND-FLARE", "HAND FLARE"},
+                {"HAWK-12G", "HAWK 12G"},
+                {"M136-CS", "M136 CS"},
+                {"M18-SMOKE", "M18 SMOKE"},
+                {"M26-DART", "M26 DART"},
+                {"M26-FRAG", "M26 FRAG"},
+                {"M26-SLUG", "M26 SLUG"},
+                {"M2-SLAM", "M2 SLAM"},
+                {"M320-3GL", "M320 3GL"},
+                {"M320-DART", "M320 DART"},
+                {"M320-FB", "M320 FB"},
+                {"M320-HE", "M320 HE"},
+                {"M320-LVG", "M320 LVG"},
+                {"M320-SMK", "M320 SMOKE"},
+                {"M32-MGL", "M32 MGL"},
+                {"M34-INCENDIARY", "M34 INCENDIARY"},
+                {"M412-REX", "M412 REX"},
+                {"M67-FRAG", "M67 FRAG"},
+                {"M82A3-CQB", "M82A3 CQB"},
+                {"M82A3-MID", "M82A3 MID"},
+                {"M84-FLASHBANG", "M84 FLASHBANG"},
+                {"MBT-LAW", "MBT LAW"},
+                {"MK153-SMAW", "SMAW"},
+                {"RGO-IMPACT", "RGO IMPACT"},
+                {"SCAR-H-SV", "SCAR-H SV"},
+                {"SCOUT-ELITE", "SCOUT ELITE"},
+                {"SHORTY-12G", "SHORTY 12G"},
+                {"U-100-MK5", "U-100 MK5"},
+                {"USAS-12-FLIR", "USAS-12 FLIR"},
+                {"UTS-15", "UTS 15"},
+                {"V40-MINI", "V40 MINI"},
+                {"XM25-AIRBURST", "XM25 AIRBURST"},
+                {"XM25-DART", "XM25 DART"},
+                {"XM25-SMOKE", "XM25 SMOKE"},
+
                 // Weapon slug -> Display name
                 {"44-MAGNUM", ".44 MAGNUM"},
                 {"44-SCOPED", ".44 SCOPED"},
@@ -37,7 +88,7 @@ namespace BattlelogMobile.Core.Service
                 {"MP443-TACT", "MP443 TACT."},
                 {"PKP-PECHENEG", "PKP PECHENEG"},
                 {"SAIGA-12K", "SAIGA 12K"},
-                {"SA-18-IGLA", "SA18 IGLA"},
+                {"SA-18-IGLA", "IGLA"},
                 {"TYPE-88-LMG", "TYPE88 LMG"},
                 {"ASSAULT-M320-LVG", "M320"},
                 {"XBOW-SCOPED", "XBOW SCOPED"},
@@ -82,7 +133,7 @@ namespace BattlelogMobile.Core.Service
 
         public static string Get(string itemIdentifier)
         {
-            return Mapper.ContainsKey(itemIdentifier) ? Mapper[itemIdentifier] : itemIdentifier;
+            return Mapper.ContainsKey(itemIdentifier) ? Mapper[itemIdentifier] : "*" + itemIdentifier;
         }
     }
 }
