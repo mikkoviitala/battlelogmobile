@@ -297,7 +297,7 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             private int _skill;
             public int skill
             {
-                get { return _skill; } 
+                get { return _skill; }
                 set
                 {
                     _skill = value;
@@ -312,7 +312,7 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             private int _kills;
             public int kills
             {
-                get { return _kills; } 
+                get { return _kills; }
                 set
                 {
                     _kills = value;
@@ -331,26 +331,26 @@ namespace BattlelogMobile.Core.Model.Battlefield4
                 }
             }
 
-            public int sc_bonus { get; set; }
+            public string flagCaptures { get; set; }
+            public string sc_unlock { get; set; }
+            public string quitPercentage { get; set; }
+            public string sc_bonus { get; set; }
+            public string rsKills { get; set; }
+            public int resupplies { get; set; }
+            public int repairs { get; set; }
+            public int timePlayedDelta { get; set; }
+            public int shotsFired { get; set; }
+            public KitTimes kitTimes { get; set; }
             public object flagrunner { get; set; }
-            public int rsKills { get; set; }
             public object kdRatioDelta { get; set; }
             public object squadRushWlr { get; set; }
-            public double quitPercentage { get; set; }
             public object spm_engineer { get; set; }
-            public int flagCaptures { get; set; }
-            public int sc_unlock { get; set; }
             public object reDeploys { get; set; }
             public object clubRepution { get; set; }
             public object rushLosses { get; set; }
-            public int resupplies { get; set; }
             public object spm_support { get; set; }
-            public int repairs { get; set; }
-            public int shotsFired { get; set; }
             public object maxHeadshotsInRound { get; set; }
             public int score { get; set; }
-            public KitTimes kitTimes { get; set; }
-            public int timePlayedDelta { get; set; }
 
             private KitTimesInPercentage _kitTimesInPercentage;
             public KitTimesInPercentage kitTimesInPercentage
@@ -372,7 +372,7 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             private int _timePlayed;
             public int timePlayed
             {
-                get { return _timePlayed; } 
+                get { return _timePlayed; }
                 set
                 {
                     _timePlayed = value;
@@ -380,7 +380,7 @@ namespace BattlelogMobile.Core.Model.Battlefield4
                     actualTimePlayed = TimeSpan.FromSeconds(_timePlayed);
                 }
             }
-            
+
             private TimeSpan _actualTimePlayed;
             [JsonIgnore]
             public TimeSpan actualTimePlayed
@@ -410,9 +410,9 @@ namespace BattlelogMobile.Core.Model.Battlefield4
                 }
             }
 
-            public int suppressionAssists { get; set; }
+            public string suppressionAssists { get; set; }
             public int rsDeaths { get; set; }
-            public int timePlayedSinceLastReset { get; set; }
+            public string timePlayedSinceLastReset { get; set; }
             public object winPercentage { get; set; }
             public object tdmWlr { get; set; }
 
@@ -420,7 +420,7 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             [JsonIgnore]
             public double wlRatio
             {
-                get { return _wlRatio; } 
+                get { return _wlRatio; }
                 set
                 {
                     _wlRatio = value;
@@ -433,7 +433,7 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             private int _numRounds;
             public int numRounds
             {
-                get { return _numRounds; } 
+                get { return _numRounds; }
                 set
                 {
                     _numRounds = value;
@@ -448,8 +448,8 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             public int shotsHit { get; set; }
             public List<ServiceStarsGameMode> serviceStarsGameModes { get; set; }
 
-            private int _numLosses;
-            public int numLosses
+            private string _numLosses;
+            public string numLosses
             {
                 get { return _numLosses; }
                 set
@@ -480,7 +480,7 @@ namespace BattlelogMobile.Core.Model.Battlefield4
                     KitsServiceStars.First(k => k.Type == KitType.Commander).Progression = _serviceStarsProgress.Commander;
                 }
             }
-            
+
             public double rsScorePerMinute { get; set; }
             public int rsScore { get; set; }
             public GameModesScore gameModesScore { get; set; }
@@ -492,18 +492,18 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             public int totalScore { get; set; }
             public int heals { get; set; }
             public double longestHeadshot { get; set; }
+            public double mcomDefendKills { get; set; }
             public object conquestWlr { get; set; }
             public object tdmLosses { get; set; }
             public object longestWinStreak { get; set; }
-            public double mcomDefendKills { get; set; }
             public object vehiclesDestroyedAssists { get; set; }
             public object squadDMWins { get; set; }
             public object squadRushLosses { get; set; }
-            public int flagDefend { get; set; }
-            public int nemesisStreak { get; set; }
+            public string flagDefend { get; set; }
+            public string nemesisStreak { get; set; }
 
-            private int _numWins;
-            public int numWins
+            private string _numWins;
+            public string numWins
             {
                 get { return _numWins; }
                 set
@@ -519,8 +519,8 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             public int sc_objective { get; set; }
             public int rsTimePlayed { get; set; }
             public VehicleScores vehicleScores { get; set; }
-            public int rsShotsHit { get; set; }
-            public int nemesisKills { get; set; }
+            public string rsShotsHit { get; set; }
+            public string nemesisKills { get; set; }
             public int sc_squad { get; set; }
             public int vehicleDamage { get; set; }
 
@@ -540,12 +540,12 @@ namespace BattlelogMobile.Core.Model.Battlefield4
                     KitsServiceStars.First(k => k.Type == KitType.Commander).Stars = _serviceStars.Commander;
                 }
             }
-            public int dogtagsTaken { get; set; }
+            public string dogtagsTaken { get; set; }
 
             private int _deaths;
             public int deaths
             {
-                get { return _deaths; } 
+                get { return _deaths; }
                 set
                 {
                     _deaths = value;
@@ -555,13 +555,13 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             
             public int killAssists { get; set; }
             public object tdmWins { get; set; }
-            public int headshots { get; set; }
-            public int avengerKills { get; set; }
+            public string headshots { get; set; }
+            public string avengerKills { get; set; }
             public object conquestLosses { get; set; }
-            public int rsNumWins { get; set; }
             public object squadDmWlr { get; set; }
             public object maxMeleeKillsInRound { get; set; }
             public int rankScore { get; set; }
+            public int rsNumWins { get; set; }
 
             private double _accuracy;
             public double accuracy
@@ -576,8 +576,8 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             public int scoreDelta { get; set; }
             public int vehiclesDestroyed { get; set; }
 
-            private int _scorePerMinute;
-            public int scorePerMinute
+            private string _scorePerMinute;
+            public string scorePerMinute
             {
                 get { return _scorePerMinute; }
                 set
@@ -586,19 +586,30 @@ namespace BattlelogMobile.Core.Model.Battlefield4
                     RaisePropertyChanged("scorePerMinute");
                 }
             }
-            public int combatScore { get; set; }
+            public string combatScore { get; set; }
+
             public int scoreMultiplier { get; set; }
+
             public double mcomDestroy { get; set; }
+
             public object squadRushWins { get; set; }
+
             public int sc_general { get; set; }
-            public int saviorKills { get; set; }
+
+            public string saviorKills { get; set; }
 
             private void CalculateWinLoseRatio()
             {
-                if (_numLosses == 0)
+                int win = 0;
+                int loss = 0;
+
+                int.TryParse(_numWins, out win);
+                int.TryParse(_numLosses, out loss);
+
+                if (loss == 0)
                     wlRatio = 0;
                 else
-                    wlRatio = (double) _numWins / _numLosses;
+                    wlRatio = (double)win / loss;
             }
         }
 
@@ -632,6 +643,7 @@ namespace BattlelogMobile.Core.Model.Battlefield4
             public CurrentRankNeeded currentRankNeeded { get; set; }
 
             public GeneralPersonaStats generalPersonaStats { get; set; }
+            
             //public RankNeeded rankNeeded { get; set; }
         }
     }

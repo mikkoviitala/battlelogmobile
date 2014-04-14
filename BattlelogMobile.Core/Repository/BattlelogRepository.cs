@@ -82,13 +82,8 @@ namespace BattlelogMobile.Core.Repository
             {
                 return Task.Factory.StartNew(() =>
                     {
-                        //T data = default(T);
-                        //if (typeof (T) == typeof (Battlefield3Data))
-                        //{
-                            //var parser = new Bf3Parser();
-                            T data = parser.Parse(); // as T;
-                            Serialize(data);
-                        //}
+                        T data = parser.Parse();
+                        Serialize(data);
                         return data;
                     });
             }

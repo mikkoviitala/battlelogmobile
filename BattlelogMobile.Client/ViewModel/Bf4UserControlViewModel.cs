@@ -18,6 +18,9 @@ namespace BattlelogMobile.Client.ViewModel
                     if (Product == null)
                         GetProducts();
 
+
+                    // TODO: STORE == NULL
+
                     HasLicense = true; // message.HasLicense;
                     RaisePropertyChanged("HasLicense");
                 });

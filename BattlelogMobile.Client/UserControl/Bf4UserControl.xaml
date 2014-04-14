@@ -29,6 +29,8 @@
         <conv:DoublePercentageStringConverter x:Key="DoublePercentageStringConverter" />
         <conv:BoolVisibilityConverter x:Key="BoolVisibilityConverter" />
         <conv:IntegerVisibilityConverter x:Key="IntegerVisibilityConverter" />
+        <conv:PathImageSourceConverter x:Key="PathImageSourceConverter" />
+        <conv:NullStringConverter x:Key="NullStringConverter" />
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot">
@@ -407,7 +409,6 @@
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="100" />
@@ -415,28 +416,28 @@
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Source="{Binding Image}" 
-                                       Width="90" Height="54" Margin="0,0,25,0" VerticalAlignment="Top" />
+                                        <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="{Binding Image, Converter={StaticResource PathImageSourceConverter}}" 
+                                            Width="105" Height="105" Margin="0,0,5,0" VerticalAlignment="Top" />
 
-                                        <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding slug}" />
+                                        <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding DisplayName}" />
                                         <Image Grid.Row="0" Grid.Column="2" Source="\Assets\Images\Common\servicestar.png" Margin="0,0,45,0" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" />
                                         <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding serviceStars}" HorizontalAlignment="Right" />
 
                                         <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextNormalStyle}">
-                                    <Run Text="{Binding kills}" />
-                                    <Run Text="kills" />
+                                            <Run Text="{Binding kills, Converter={StaticResource NullStringConverter}, ConverterParameter=n/a}" />
+                                            <Run Text="kills" />
                                         </TextBlock>
                                         <TextBlock Grid.Row="1" Grid.Column="2" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Right">
-                                    <Run Text="{Binding headshots}" />
-                                    <Run Text="headshots" />
+                                            <Run Text="{Binding headshots, Converter={StaticResource NullStringConverter}, ConverterParameter=n/a}" />
+                                            <Run Text="headshots" />
                                         </TextBlock>
                                         <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextNormalStyle}">
-                                    <Run Text="{Binding shotsFired}" />
-                                    <Run Text="shots" />
+                                            <Run Text="{Binding shotsFired}" />
+                                            <Run Text="shots" />
                                         </TextBlock>
                                         <TextBlock Grid.Row="2" Grid.Column="2" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Right">
-                                    <Run Text="{Binding accuracy, Converter={StaticResource DoublePercentageStringConverter}, ConverterParameter=100}" />
-                                    <Run Text="hit" />
+                                            <Run Text="{Binding accuracy, Converter={StaticResource DoublePercentageStringConverter}, ConverterParameter=100}" />
+                                            <Run Text="hit" />
                                         </TextBlock>
                                     </Grid>
                                 </DataTemplate>
