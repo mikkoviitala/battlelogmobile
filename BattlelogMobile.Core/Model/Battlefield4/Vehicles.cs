@@ -18,12 +18,12 @@ namespace BattlelogMobile.Core.Model.Battlefield4
                 get { return _vehicles; }
                 set
                 {
-                    _vehicles = value.OrderBy(v => v.slug).ToList();
-                    //_vehicles = value.Where(v => v.kills > 0).
-                    //            OrderByDescending(v => v.serviceStars).
-                    //            ThenByDescending(v => v.kills).
-                    //            ThenBy(v => v.slug)
-                    //            .ToList();
+                    _vehicles = value.Where(v => v.kills > 0).
+                                OrderByDescending(v => v.serviceStars).
+                                ThenByDescending(v => v.kills).
+                                ThenByDescending(v => v.TimeInSeconds).
+                                ThenBy(v => v.slug)
+                                .ToList();
                     RaisePropertyChanged("mainVehicleStats");
                 }
             }

@@ -8,9 +8,6 @@
         xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
         xmlns:amq="clr-namespace:AmCharts.Windows.QuickCharts;assembly=AmCharts.Windows.QuickCharts.WP"
         xmlns:conv="clr-namespace:BattlelogMobile.Client.Converter"
-        xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71"
         xmlns:UserControl="clr-namespace:BattlelogMobile.Client.UserControl"
         FontFamily="{StaticResource PhoneFontFamilyNormal}"
         FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -28,8 +25,6 @@
         <conv:IntegerStringConverter x:Key="IntegerStringConverter" />
         <conv:DoublePercentageStringConverter x:Key="DoublePercentageStringConverter" />
         <conv:BoolVisibilityConverter x:Key="BoolVisibilityConverter" />
-        <conv:IntegerVisibilityConverter x:Key="IntegerVisibilityConverter" />
-        <conv:NullVisibilityConverter x:Key="NullVisibilityConverter" />
         <conv:PathImageSourceConverter x:Key="PathImageSourceConverter" />
         <conv:NullStringConverter x:Key="NullStringConverter" />
     </UserControl.Resources>
@@ -90,7 +85,7 @@
                     <TextBlock Grid.Row="5" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.accuracy, Converter={StaticResource DoublePercentageStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
 
                     <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Score / min" VerticalAlignment="Center" />
-                    <TextBlock Grid.Row="6" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.scorePerMinute}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+                    <TextBlock Grid.Row="6" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.scorePerMinute, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
 
                     <TextBlock Grid.Row="7" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="K / D ratio" VerticalAlignment="Center" />
                     <TextBlock Grid.Row="7" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.kdRatio, Converter={StaticResource DoubleStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
@@ -488,7 +483,7 @@
                                             Width="105" Height="105" Margin="0,0,5,0" VerticalAlignment="Top" />
 
                                         <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding DisplayName}" />
-                                        <Image Grid.Row="0" Grid.Column="2" Source="\Assets\Images\Common\servicestar.png" Margin="0,0,45,0" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                                        <Image Grid.Row="0" Grid.Column="2" Source="\Assets\Images\Common\servicestar.png" Margin="0,0,45,0" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center" />
                                         <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding serviceStars}" HorizontalAlignment="Right" />
 
                                         <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextNormalStyle}">
@@ -504,6 +499,257 @@
                 </Grid>
             </controls:PivotItem>
 
+            <!-- General -->
+            <controls:PivotItem Header="General">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <UserControl:PurchaseUserControl Grid.Row="0" Visibility="{Binding HasLicense, Converter={StaticResource BoolVisibilityConverter}, ConverterParameter=reverse}" />
+
+                    <Grid Grid.Row="1" Visibility="{Binding HasLicense, Converter={StaticResource BoolVisibilityConverter}}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="225" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Kills" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.kills, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Deaths" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.deaths, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Kill assists" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.killAssists, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="K / D ratio" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                            <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.kdRatio, Converter={StaticResource DoubleStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Wins" VerticalAlignment="Center" HorizontalAlignment="Left"  />
+                            <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.numWins, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Losses" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="5" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.numLosses, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Shots fired" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="6" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.shotsFired, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="7" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Shots hit" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="7" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.shotsHit, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="8" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Accuracy" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="8" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.accuracy, Converter={StaticResource DoublePercentageStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="9" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="9" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </controls:PivotItem>
+
+            <!-- Team -->
+            <controls:PivotItem Header="Team">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <UserControl:PurchaseUserControl Grid.Row="0" Visibility="{Binding HasLicense, Converter={StaticResource BoolVisibilityConverter}, ConverterParameter=reverse}" />
+
+                    <Grid Grid.Row="1" Visibility="{Binding HasLicense, Converter={StaticResource BoolVisibilityConverter}}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="225" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Repairs" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.repairs, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Revives" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.revives, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Heals" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.heals, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Resupplies" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                            <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.resupplies, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Avenger kills" VerticalAlignment="Center" HorizontalAlignment="Left"  />
+                            <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.avengerKills, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Savior kills" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="5" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.saviorKills, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Supp. assists" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="6" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.suppressionAssists, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="7" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Quits" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="7" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.quitPercentage, Converter={StaticResource DoublePercentageStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="8" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="8" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="9" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="9" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </controls:PivotItem>
+
+            <!-- Extra -->
+            <controls:PivotItem Header="Extra">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <UserControl:PurchaseUserControl Grid.Row="0" Visibility="{Binding HasLicense, Converter={StaticResource BoolVisibilityConverter}, ConverterParameter=reverse}" />
+
+                    <Grid Grid.Row="1" Visibility="{Binding HasLicense, Converter={StaticResource BoolVisibilityConverter}}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Dogtags taken" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.dogtagsTaken, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Veh. destroyd" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.vehiclesDestroyed, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Vehicle damage" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.vehicleDamage, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Headshots" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                            <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.headshots, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Longest headshot" VerticalAlignment="Center" HorizontalAlignment="Left"  />
+                            <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.longestHeadshot, Converter={StaticResource DoubleStringConverter}, ConverterParameter=m}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Kill streak" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="5" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.killStreakBonus, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Nemesis kills" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="6" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.nemesisKills, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="7" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Nemesis streak" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="7" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.nemesisStreak, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="8" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="8" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="9" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="9" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </controls:PivotItem>
+
+            <!-- Game modes -->
+            <!--<controls:PivotItem Header="Game modes">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <UserControl:PurchaseUserControl Grid.Row="0" Visibility="{Binding HasLicense, Converter={StaticResource BoolVisibilityConverter}, ConverterParameter=reverse}" />
+
+                    <Grid Grid.Row="1" Visibility="{Binding HasLicense, Converter={StaticResource BoolVisibilityConverter}}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="225" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Dogtags taken" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats., Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Veh. destroyd" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.vehiclesDestroyed, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Vehicle damage" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.vehicleDamage, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Headshots" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                            <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.headshots, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Longest headshot" VerticalAlignment="Center" HorizontalAlignment="Left"  />
+                            <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.longestHeadshot, Converter={StaticResource DoubleStringConverter}, ConverterParameter=m}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Kill streak" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="5" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.killStreakBonus, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Nemesis kills" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="6" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.nemesisKills, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="7" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Nemesis streak" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="7" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.nemesisStreak, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="8" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="8" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+
+                            <TextBlock Grid.Row="9" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="9" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </controls:PivotItem>-->
         </controls:Pivot>
     </Grid>
 </UserControl>
