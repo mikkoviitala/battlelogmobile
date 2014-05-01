@@ -54,8 +54,8 @@ namespace BattlelogMobile.Core.Service
                 string completeJson = streamReader.ReadToEnd();
                 JObject jObject = JObject.Parse(completeJson);
                 string dataToken = jObject.SelectToken("data").ToString();
-                var vehiclesData = JsonConvert.DeserializeObject<Weapons.Data>(dataToken);
-                _data.Weapons = vehiclesData;
+                var vehiclesData = JsonConvert.DeserializeObject<Vehicles.Data>(dataToken);
+                _data.Vehicles = vehiclesData;
             }
 
             _data.Updated = DateTime.Now;
