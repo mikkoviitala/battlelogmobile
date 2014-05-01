@@ -29,6 +29,7 @@
         <conv:DoublePercentageStringConverter x:Key="DoublePercentageStringConverter" />
         <conv:BoolVisibilityConverter x:Key="BoolVisibilityConverter" />
         <conv:IntegerVisibilityConverter x:Key="IntegerVisibilityConverter" />
+        <conv:NullVisibilityConverter x:Key="NullVisibilityConverter" />
         <conv:PathImageSourceConverter x:Key="PathImageSourceConverter" />
         <conv:NullStringConverter x:Key="NullStringConverter" />
     </UserControl.Resources>
@@ -427,15 +428,20 @@
                                             <Run Text="{Binding kills, Converter={StaticResource NullStringConverter}, ConverterParameter=n/a}" />
                                             <Run Text="kills" />
                                         </TextBlock>
-                                        <TextBlock Grid.Row="1" Grid.Column="2" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Right">
+                                        <TextBlock Grid.Row="1" Grid.Column="2" 
+                                                   Style="{StaticResource PhoneTextNormalStyle}" 
+                                                   HorizontalAlignment="Right">
                                             <Run Text="{Binding headshots, Converter={StaticResource NullStringConverter}, ConverterParameter=n/a}" />
                                             <Run Text="headshots" />
                                         </TextBlock>
-                                        <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource PhoneTextNormalStyle}">
-                                            <Run Text="{Binding shotsFired}" />
+                                        <TextBlock Grid.Row="2" Grid.Column="1" 
+                                                   Style="{StaticResource PhoneTextNormalStyle}">
+                                            <Run Text="{Binding shotsFired, Converter={StaticResource NullStringConverter}, ConverterParameter=n/a}" />
                                             <Run Text="shots" />
                                         </TextBlock>
-                                        <TextBlock Grid.Row="2" Grid.Column="2" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Right">
+                                        <TextBlock Grid.Row="2" Grid.Column="2" 
+                                                   Style="{StaticResource PhoneTextNormalStyle}" 
+                                                   HorizontalAlignment="Right">
                                             <Run Text="{Binding accuracy, Converter={StaticResource DoublePercentageStringConverter}, ConverterParameter=100}" />
                                             <Run Text="hit" />
                                         </TextBlock>

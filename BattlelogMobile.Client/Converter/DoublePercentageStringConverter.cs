@@ -20,7 +20,7 @@ namespace BattlelogMobile.Client.Converter
             try
             {
                 if (value == null)
-                    return "0.0%";
+                    return "n/a";
 
                 int multiplier = 1;
                 if (parameter != null)
