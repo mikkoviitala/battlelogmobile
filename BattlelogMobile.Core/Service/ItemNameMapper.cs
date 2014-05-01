@@ -65,6 +65,22 @@ namespace BattlelogMobile.Core.Service
                 {"XM25-DART", "XM25 DART"},
                 {"XM25-SMOKE", "XM25 SMOKE"},
 
+                {"OLD-CANNON", "OLD CANNON"},
+                {"LD-2000-AA", "LD-2000 AA"},
+                {"50-CAL", ".50 CAL"},
+                {"A10-WARTHOG", "A10 WARTHOG"},
+                {"AA-MINE1", "AA MINE"},
+                {"AC-130-GUNSHIP", "AC-130 GUNSHIP"},
+                {"HJ-8-LAUNCHER", "HJ-8 LAUNCHER"},
+                {"HJ-8-LAUNCHER1", "HJ-8 LAUNCHER"},
+                {"M224-MORTAR1", "M224 MORTAR"},
+                {"Q-5-FANTAN", "Q-5 FANTAN"},
+                {"TYPE-95-AA", "TYPE 95 AA"},
+                {"TYPE-99-MBT", "TYPE 99 MBT"},
+                {"UCAV1", "UCAV"},
+                {"Z-11W1", "Z-11W"},
+                {"Z-9-HAITUN", "Z-9 HAITUN"},
+
                 // Weapon slug -> Display name
                 {"44-MAGNUM", ".44 MAGNUM"},
                 {"44-SCOPED", ".44 SCOPED"},
