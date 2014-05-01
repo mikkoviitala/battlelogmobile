@@ -16,5 +16,7 @@ namespace BattlelogMobile.Core.Model.Battlefield4
         //public Overview.Data Overview { get; set; }
 
         public Weapons.Data Weapons { get; set; }
+
+        public Vehicles.Data Vehicles { get; set; }
     }
 }

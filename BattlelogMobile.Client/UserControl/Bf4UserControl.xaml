@@ -446,7 +446,58 @@
                     </Grid>
                 </Grid>
             </controls:PivotItem>
-            
+
+            <!-- Vehicles -->
+            <controls:PivotItem Header="Vehicles">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <UserControl:PurchaseUserControl Grid.Row="0" Visibility="{Binding HasLicense, Converter={StaticResource BoolVisibilityConverter}, ConverterParameter=reverse}" />
+
+                    <Grid Grid.Row="1" Visibility="{Binding HasLicense, Converter={StaticResource BoolVisibilityConverter}}">
+                        <ListBox ItemsSource="{Binding Data.Vehicles.mainVehicleStats}">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    <Setter Property="Margin" Value="0,0,0,10"></Setter>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100" />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Source="{Binding Image, Converter={StaticResource PathImageSourceConverter}}" 
+                                            Width="105" Height="105" Margin="0,0,5,0" VerticalAlignment="Top" />
+
+                                        <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding DisplayName}" />
+                                        <Image Grid.Row="0" Grid.Column="2" Source="\Assets\Images\Common\servicestar.png" Margin="0,0,45,0" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                                        <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding serviceStars}" HorizontalAlignment="Right" />
+
+                                        <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextNormalStyle}">
+                                            <Run Text="{Binding kills, Converter={StaticResource NullStringConverter}, ConverterParameter=n/a}" />
+                                            <Run Text="kills" />
+                                        </TextBlock>
+                                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding TimeIn, Converter={StaticResource TimeSpanStringConverter}}" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Right" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </Grid>
+            </controls:PivotItem>
+
         </controls:Pivot>
     </Grid>
 </UserControl>
