@@ -40,7 +40,7 @@ namespace BattlelogMobile.Client.ViewModel
             CredentialsRepository = credentialsRepository;
             LogInCommand = new RelayCommand(LogInCommandReceived, CanExecuteLogInCommand);
             LoadCredentials();
-
+            
             Task.Factory.StartNew(() => (new DownloadService(ViewModelLocator.CookieJar)).RetrieveServerMessage(string.Format(Common.ServerMessageUrl, DateTime.Now.Ticks.ToString())));
         }
 
