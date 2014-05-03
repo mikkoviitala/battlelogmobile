@@ -1,19 +1,12 @@
-﻿using System;
-using System.IO.IsolatedStorage;
+﻿using System.IO.IsolatedStorage;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Threading;
 using BattlelogMobile.Client.Message;
-using BattlelogMobile.Core.Model;
-using BattlelogMobile.Core.Repository;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
 using Tomers.Phone.Controls;
-using BattlelogMobile.Client.ViewModel;
 using Microsoft.Phone.Shell;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace BattlelogMobile.Client.View
 {

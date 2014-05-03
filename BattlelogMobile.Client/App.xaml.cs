@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Navigation;
+using BattlelogMobile.Log;
 using GalaSoft.MvvmLight.Threading;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
@@ -79,6 +80,7 @@ namespace BattlelogMobile.Client
         // Code to execute if a navigation fails
         private void RootFrameNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
+            EmailLogProvider.Log(e.Exception);
             if (System.Diagnostics.Debugger.IsAttached)
             {
                 // A navigation has failed; break into the debugger
@@ -89,6 +91,7 @@ namespace BattlelogMobile.Client
         // Code to execute on Unhandled Exceptions
         private void ApplicationUnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
         {
+            EmailLogProvider.Log(e.ExceptionObject);
             if (System.Diagnostics.Debugger.IsAttached)
             {
                 // An unhandled exception has occurred; break into the debugger

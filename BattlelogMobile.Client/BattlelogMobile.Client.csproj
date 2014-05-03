@@ -911,6 +911,10 @@
       <Project>{ED3F380C-DDB1-4248-946F-F2B7ABA005D6}</Project>
       <Name>BattlelogMobile.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BattlelogMobile.Log\BattlelogMobile.Log.csproj">
+      <Project>{5244A963-15F3-4FBC-AEC8-39FBADCF84E4}</Project>
+      <Name>BattlelogMobile.Log</Name>
+    </ProjectReference>
     <ProjectReference Include="..\StoreLauncher\StoreLauncher.csproj">
       <Project>{197E7BF3-EFA9-49B4-8060-6418E7BA9EA0}</Project>
       <Name>StoreLauncher</Name>

@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Device.Location;
+using BattlelogMobile.Log;
 
 namespace BattlelogMobile.Client.View
 {
@@ -33,6 +33,14 @@ namespace BattlelogMobile.Client.View
                     } 
                 };
             _watcher.Start();
+
+            LayoutUpdated += OnLayoutUpdated;
+        }
+
+        private void OnLayoutUpdated(object sender, EventArgs eventArgs)
+        {
+            LayoutUpdated -= OnLayoutUpdated;
+            EmailLogProvider.ReportException();
         }
 
         private void InputChangedUpdateTrigger(object sender, EventArgs e)

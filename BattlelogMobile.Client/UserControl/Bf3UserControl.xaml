@@ -1,5 +1,4 @@
 ﻿<UserControl x:Class="BattlelogMobile.Client.UserControl.Bf3UserControl"
-        x:Name="Root"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
@@ -27,8 +26,8 @@
         <conv:IntegerVisibilityConverter x:Key="IntegerVisibilityConverter" />
     </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot">
-        <controls:Pivot x:Name="Pivot">
+    <Grid x:Name="Bf3LayoutRoot">
+        <controls:Pivot>
             <controls:Pivot.Title>
                 <StackPanel>
                     <!--<TextBlock Text="{Binding ApplicationName}" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="60" Margin="-2"/>-->
@@ -178,7 +177,7 @@
 
             <!-- Kit progression / Pivot item three -->
             <controls:PivotItem Header="Progression">
-                <Grid x:Name="ProgressGrid" Grid.Row="1">
+                <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
@@ -230,14 +229,13 @@
 
             <!-- Kit usages / Pivot item four -->
             <controls:PivotItem Header="Kit usage">
-                <Grid x:Name="KitUsageGrid">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     
                     <amq:PieChart 
-                        x:Name="KitUsageChart" 
                         Grid.Row="0"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"

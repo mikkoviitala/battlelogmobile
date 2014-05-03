@@ -20,6 +20,7 @@ namespace BattlelogMobile.Client.ViewModel
 
 
                     // TODO: STORE == NULL
+                    // Save licence locally
 
                     HasLicense = true; // message.HasLicense;
                     RaisePropertyChanged("HasLicense");
@@ -58,13 +59,13 @@ namespace BattlelogMobile.Client.ViewModel
                 var li = ViewModelLocator.Store.LoadListingInformationAsync().GetResults();
                 if (li.ProductListings.ContainsKey(Common.ProductKey))
                 {
-                    var pListing = li.ProductListings[Common.ProductKey];
+                    var productListing = li.ProductListings[Common.ProductKey];
 
                     var product = new ProductInfo(
-                        pListing.Name,
-                        pListing.Description,
-                        pListing.FormattedPrice,
-                        pListing.ImageUri);
+                        productListing.Name,
+                        productListing.Description,
+                        productListing.FormattedPrice,
+                        productListing.ImageUri);
 
                     Product = product;
                 }

@@ -8,7 +8,7 @@ namespace BattlelogMobile.Core.Service
 {
     public class Bf4Parser : JSONParser<Battlefield4Data>
     {
-        private Battlefield4Data _data = new Battlefield4Data();
+        private readonly Battlefield4Data _data = new Battlefield4Data();
 
         public override Battlefield4Data Parse()
         {
@@ -23,8 +23,7 @@ namespace BattlelogMobile.Core.Service
                 _data.Index = indexData;
             }
 
-            //TODO: Do not download overview file at all?!?!!
-
+            //TODO: Do not download overview file
             //using (var resource = IsolatedStorage.OpenFile(Common.Bf4OverviewFile, FileMode.Open))
             //{
             //    var streamReader = new StreamReader(resource);
@@ -60,19 +59,7 @@ namespace BattlelogMobile.Core.Service
 
             _data.Updated = DateTime.Now;
 
-            //using (var resource = IsolatedStorage.OpenFile(Common.Bf4VehiclesFile, FileMode.Open))
-            //{
-            //    var streamReader = new StreamReader(resource);
-
-            //    string completeJson = streamReader.ReadToEnd();
-            //    JObject jObject = JObject.Parse(completeJson);
-            //    var dataToken = jObject.SelectToken("data");
-            //    var a = JsonConvert.DeserializeObject<BattlelogMobile.Core.Model.Battlefield4.Vehiclez.RootObject>(completeJson);
-            //    var b = JsonConvert.DeserializeObject<BattlelogMobile.Core.Model.Battlefield4.Vehiclez.Data>(dataToken.ToString());
-            //}
-
             return _data;
-            
         }
     }
 }
