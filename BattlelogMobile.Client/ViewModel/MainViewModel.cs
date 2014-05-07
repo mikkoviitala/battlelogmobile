@@ -249,28 +249,6 @@ namespace BattlelogMobile.Client.ViewModel
             }
         }
 
-        private async Task PurchaseProduct()
-        {
-            try
-            {
-
-                //var license = ViewModelLocator.Store.LoadListingInformationAsync();
-
-                //var license = ViewModelLocator.Store.LicenseInformation.ProductLicenses["betabf4stats"];
-
-                //if (!license.IsActive)
-                //    ViewModelLocator.Store.RequestProductPurchaseAsync(license.ProductId, false);
-
-                //if (license.IsActive)
-                //    ViewModelLocator.Store.ReportProductFulfillment(license.ProductId);
-            }
-            catch (Exception ex)
-            {
-
-                // When the user does not complete the purchase (e.g. cancels or navigates back from the Purchase Page), an exception with an HRESULT of E_FAIL is expected.
-            }
-        }
-
         private bool CanExecuteLogInCommand()
         {
             if (!UserInterfaceEnabled || (Email == null || Password == null))
