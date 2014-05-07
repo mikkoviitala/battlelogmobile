@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using BattlelogMobile.Client.Message;
 using BattlelogMobile.Core;
+using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Model.Battlefield4;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -18,11 +19,10 @@ namespace BattlelogMobile.Client.ViewModel
                     if (Product == null)
                         GetProducts();
 
-
                     // TODO: STORE == NULL
                     // Save licence locally
 
-                    HasLicense = true; // message.HasLicense;
+                    HasLicense = false; // message.HasLicense;
                     RaisePropertyChanged("HasLicense");
                 });
 
