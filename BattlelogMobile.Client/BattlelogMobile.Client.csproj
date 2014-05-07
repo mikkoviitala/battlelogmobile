@@ -158,7 +158,6 @@
     <Compile Include="ViewModel\Bf3UserControlViewModel.cs" />
     <Compile Include="ViewModel\Bf4UserControlViewModel.cs" />
     <Compile Include="ViewModel\BfUserControlViewModel.cs" />
-    <Compile Include="ViewModel\ProductInfo.cs" />
     <Compile Include="ViewModel\SoldierViewModel.cs" />
     <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
