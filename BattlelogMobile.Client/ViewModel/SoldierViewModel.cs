@@ -97,17 +97,24 @@ namespace BattlelogMobile.Client.ViewModel
             {
                 _game = value;
                 RaisePropertyChanged("Game");
-
-                SetBackground();
-                UpdateData(false);
             }
         }
 
-        private async void UpdateData(bool forceUpdate)
+        public async void UpdateData(bool forceUpdate)
         {
-            AppBarEnabled = false;
-            await Update(forceUpdate);
-            AppBarEnabled = true;
+            try
+            {
+                SetBackground();
+                AppBarEnabled = false;
+                await Update(forceUpdate);
+                AppBarEnabled = true;
+            }
+            catch
+            {
+                Messenger.Default.Send(
+                    new DialogMessage(this, Common.UnexpectedException, result => { }) 
+                        { Caption = Common.FailedMessageHeader, Button = MessageBoxButton.OK });
+            }
         }
 
         public async Task Update(bool forceUpdate)
@@ -119,14 +126,14 @@ namespace BattlelogMobile.Client.ViewModel
             if (!success)
                 return;
 
-            if (_game == SupportedGame.Battlefield3)
+            if (_game == SupportedGame.Unknown || _game == SupportedGame.Battlefield3)
             {
                 var battlefieldData = await BattlelogRepository.LoadBattlefieldData(new Bf3Parser());
                 DispatcherHelper.CheckBeginInvokeOnUI(() =>
                 {
                     Messenger.Default.Send(new NotificationMessage(this, string.Empty));
-                    ViewModelLocator.Bf3UserControl.Data = battlefieldData;
                     ViewModelLocator.Bf4UserControl.Data = null;
+                    ViewModelLocator.Bf3UserControl.Data = battlefieldData;
                     ViewModelLocator.Navigation.NavigateTo(ViewModelLocator.SoldierPageUri);
                 });
             }
@@ -136,8 +143,8 @@ namespace BattlelogMobile.Client.ViewModel
                 DispatcherHelper.CheckBeginInvokeOnUI(() =>
                 {
                     Messenger.Default.Send(new NotificationMessage(this, string.Empty));
-                    ViewModelLocator.Bf4UserControl.Data = battlefieldData;
                     ViewModelLocator.Bf3UserControl.Data = null;
+                    ViewModelLocator.Bf4UserControl.Data = battlefieldData;
                     ViewModelLocator.Navigation.NavigateTo(ViewModelLocator.SoldierPageUri);
                 });
             }

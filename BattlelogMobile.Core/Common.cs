@@ -56,6 +56,7 @@
         public const string ImageSuffix = ".png";
         public const string JsonParseFailedMessage = "Couldn't read soldier information";
 
+        public const string UnexpectedException = "Something went wrong, please try again.";
         public const string SerializationFailed = "Something funky occured while saving your soldier... :(";
         public const string DeserializationFailed = "Something funky occured while loading your soldier... :(";
 

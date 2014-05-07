@@ -18,11 +18,16 @@ namespace BattlelogMobile.Client.ViewModel
             _dispatchTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1d) };
             _dispatchTimer.Tick += (sender, args) =>
                 {
-                    if (Data == null)
-                        return;
+                    try
+                    {
+                        if (Data == null)
+                            return;
 
-                    Updated = DateTime.Now  - Data.Updated;
-                    RaisePropertyChanged("Updated");
+                        Updated = DateTime.Now - Data.Updated;
+                        RaisePropertyChanged("Updated");
+                    }
+                    catch
+                    {}
                 };
             _dispatchTimer.Start();
         }
