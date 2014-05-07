@@ -119,9 +119,8 @@ namespace BattlelogMobile.Client.ViewModel
 
         public async Task Update(bool forceUpdate)
         {
-            // TODO: Untangle this logic right here
+            // TODO: Untangle this "logic" right here
 
-            //bool success = await BattlelogRepository.UpdateStorage(forceUpdate);
             bool success = await BattlelogRepository.UpdateStorage(_game, forceUpdate);
             if (!success)
                 return;

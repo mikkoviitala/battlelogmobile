@@ -11,22 +11,16 @@ namespace BattlelogMobile.Client.ViewModel
     public class Bf4UserControlViewModel : BfUserControlViewModel<Battlefield4Data>
     {
         private ProductInfo _product = null;
+        private bool _hasLicense = false;
 
         public Bf4UserControlViewModel()
         {
             Messenger.Default.Register<ProductLicenseMessage>(this, message =>
                 {
-                    //if (Product == null)
-                    //    GetProducts();
+                    if (Product == null)
+                        GetProducts();
 
-                    // TODO: STORE == NULL
-                    // Save licence locally
-
-                    if (ViewModelLocator.Store == null)
-                        HasLicense = true;
-                    else
-                        HasLicense = false; // message.HasLicense;
-                    RaisePropertyChanged("HasLicense");
+                    HasLicense = ViewModelLocator.Store == null || message.HasLicense;
                 });
 
             PurchaseCommand = new RelayCommand(() =>
@@ -44,7 +38,15 @@ namespace BattlelogMobile.Client.ViewModel
 
         public ICommand PurchaseCommand { get; set; }
         
-        public bool HasLicense { get; set; }
+        public bool HasLicense
+        {
+            get { return _hasLicense; }
+            set
+            {
+                _hasLicense = value;
+                RaisePropertyChanged("HasLicense");
+            }
+        }
 
         public ProductInfo Product
         {
@@ -74,7 +76,8 @@ namespace BattlelogMobile.Client.ViewModel
                     Product = product;
                 }
             }
-            catch {}
+            catch 
+            {}
         }
     }
 }
