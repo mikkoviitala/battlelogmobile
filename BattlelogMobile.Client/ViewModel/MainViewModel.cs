@@ -22,7 +22,8 @@ namespace BattlelogMobile.Client.ViewModel
         private string _email;
         private string _password;
         private SupportedGame _game = SupportedGame.Battlefield3;
-        private readonly ObservableCollection<SupportedGame> _games = new ObservableCollection<SupportedGame> { SupportedGame.Battlefield3, SupportedGame.Battlefield4 };
+        private readonly ObservableCollection<SupportedGame> _games = new ObservableCollection<SupportedGame> 
+            { SupportedGame.Battlefield3, SupportedGame.Battlefield4 };
         private string _logInFailedReason = string.Empty;
         private string _serverMessage = string.Empty;
         private bool _userInterfaceEnabled = true;
@@ -245,6 +246,7 @@ namespace BattlelogMobile.Client.ViewModel
             }
             catch (WebException we)
             {
+                ResetControls();
                 DispatcherHelper.CheckBeginInvokeOnUI(() => LogInFailedReason = we.Message);
             }
         }
