@@ -30,14 +30,12 @@ namespace BattlelogMobile.Client.ViewModel
 
         public static CookieContainer CookieJar = new CookieContainer();
 
-        //public static readonly string ApplicationVersion = (new AssemblyName(Assembly.GetExecutingAssembly().FullName)).Version.ToString();
-
         public static readonly string ApplicationVersion =
             Assembly.GetExecutingAssembly().GetCustomAttributes(false).OfType<AssemblyFileVersionAttribute>().First().Version;
 
         public ViewModelLocator()
         {
-            if (Environment.OSVersion.Version.Major >= 9)
+            if (Environment.OSVersion.Version.Major >= 8)
                 Store = StoreLauncher.StoreLauncher.GetStoreInterface("StoreWrapper.Store, StoreWrapper, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null");
 
             if (Navigation == null)
