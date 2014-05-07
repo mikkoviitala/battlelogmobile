@@ -59,10 +59,10 @@
     <!-- Supported types are "text" and "xaml", where text is nicely formatted automatically, and XAML is handled by the built-in XamlReader -->
     <Item Title="Contributions" Type="text">
       Lead Developer
-      Mikko Viitala (Mustavuori @ Battlelog)
+      Mikko Viitala
 
       Developer
-      Geir-Tore Lindsve (riegetor @ Battlelog)
+      Geir-Tore Lindsve
 
       Thanks to
       Alex Knight
