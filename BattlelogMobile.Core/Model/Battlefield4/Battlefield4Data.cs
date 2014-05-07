@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Newtonsoft.Json;
 
 namespace BattlelogMobile.Core.Model.Battlefield4
@@ -13,10 +10,10 @@ namespace BattlelogMobile.Core.Model.Battlefield4
 
         public Index.Data Index { get; set; }
 
-        //public Overview.Data Overview { get; set; }
-
         public Weapons.Data Weapons { get; set; }
 
         public Vehicles.Data Vehicles { get; set; }
+
+        //public Overview.Data Overview { get; set; }
     }
 }

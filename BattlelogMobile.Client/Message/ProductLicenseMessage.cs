@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BattlelogMobile.Client.ViewModel;
+﻿using BattlelogMobile.Client.ViewModel;
 using BattlelogMobile.Core;
 using GalaSoft.MvvmLight.Messaging;
 using StoreLauncher;
@@ -19,7 +15,8 @@ namespace BattlelogMobile.Client.Message
             {
                 _license = ViewModelLocator.Store.LicenseInformation.ProductLicenses[Common.ProductKey];
             }
-            catch { }            
+            catch 
+            {}            
         }
         
         public bool HasLicense

@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using BattlelogMobile.Client.Message;
 using BattlelogMobile.Core;
+using BattlelogMobile.Core.Model;
 using BattlelogMobile.Core.Model.Battlefield4;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -10,6 +11,7 @@ namespace BattlelogMobile.Client.ViewModel
     public class Bf4UserControlViewModel : BfUserControlViewModel<Battlefield4Data>
     {
         private ProductInfo _product = null;
+        private bool _hasLicense = false;
 
         public Bf4UserControlViewModel()
         {
@@ -18,12 +20,7 @@ namespace BattlelogMobile.Client.ViewModel
                     if (Product == null)
                         GetProducts();
 
-
-                    // TODO: STORE == NULL
-                    // Save licence locally
-
-                    HasLicense = true; // message.HasLicense;
-                    RaisePropertyChanged("HasLicense");
+                    HasLicense = ViewModelLocator.Store == null || message.HasLicense;
                 });
 
             PurchaseCommand = new RelayCommand(() =>
@@ -32,7 +29,8 @@ namespace BattlelogMobile.Client.ViewModel
                     {
                         ViewModelLocator.Store.RequestProductPurchaseAsync(Common.ProductKey, true);
                     }
-                    catch { }
+                    catch 
+                    {}
                 });
 
             GetProducts();
@@ -40,7 +38,15 @@ namespace BattlelogMobile.Client.ViewModel
 
         public ICommand PurchaseCommand { get; set; }
         
-        public bool HasLicense { get; set; }
+        public bool HasLicense
+        {
+            get { return _hasLicense; }
+            set
+            {
+                _hasLicense = value;
+                RaisePropertyChanged("HasLicense");
+            }
+        }
 
         public ProductInfo Product
         {
@@ -70,7 +76,8 @@ namespace BattlelogMobile.Client.ViewModel
                     Product = product;
                 }
             }
-            catch {}
+            catch 
+            {}
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Threading;
 using BattlelogMobile.Core.Model;
-using BattlelogMobile.Core.Model.Battlefield4;
 
 namespace BattlelogMobile.Client.ViewModel
 {
@@ -9,6 +8,7 @@ namespace BattlelogMobile.Client.ViewModel
     {
         private static DispatcherTimer _dispatchTimer;
         private T _data;
+        private TimeSpan _updated;
 
         public BfUserControlViewModel()
         {
@@ -24,7 +24,6 @@ namespace BattlelogMobile.Client.ViewModel
                             return;
 
                         Updated = DateTime.Now - Data.Updated;
-                        RaisePropertyChanged("Updated");
                     }
                     catch
                     {}
@@ -32,7 +31,15 @@ namespace BattlelogMobile.Client.ViewModel
             _dispatchTimer.Start();
         }
         
-        public TimeSpan Updated { get; private set; }
+        public TimeSpan Updated
+        {
+            get { return _updated; }
+            set
+            {
+                _updated = value;
+                RaisePropertyChanged("Updated");
+            }
+        }
 
         public T Data 
         {

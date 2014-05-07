@@ -30,8 +30,6 @@ namespace BattlelogMobile.Client.ViewModel
 
         public static CookieContainer CookieJar = new CookieContainer();
 
-        //public static readonly string ApplicationVersion = (new AssemblyName(Assembly.GetExecutingAssembly().FullName)).Version.ToString();
-
         public static readonly string ApplicationVersion =
             Assembly.GetExecutingAssembly().GetCustomAttributes(false).OfType<AssemblyFileVersionAttribute>().First().Version;
 

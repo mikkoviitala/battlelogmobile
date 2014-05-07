@@ -89,6 +89,7 @@ namespace BattlelogMobile.Client.View
                     new NotificationBoxCommand("No", () => { }));
             }
             IsolatedStorageSettings.ApplicationSettings[AppLaunchesKey] = ++launches;
+            IsolatedStorageSettings.ApplicationSettings.Save();
         }
 
         private void ShowInfoPrompt()
@@ -106,6 +107,7 @@ namespace BattlelogMobile.Client.View
                         "Hey there!", MessageBoxButton.OK);
 
                     IsolatedStorageSettings.ApplicationSettings[InfoPromptedKey] = true;
+                    IsolatedStorageSettings.ApplicationSettings.Save();
                 });
         }
 
@@ -124,6 +126,7 @@ namespace BattlelogMobile.Client.View
                     "Pro tip!", MessageBoxButton.OK);
 
                 IsolatedStorageSettings.ApplicationSettings[TipPromptedKey] = true;
+                IsolatedStorageSettings.ApplicationSettings.Save();
             });
         }
     }

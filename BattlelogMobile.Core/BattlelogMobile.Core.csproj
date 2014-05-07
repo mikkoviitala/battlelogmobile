@@ -134,6 +134,7 @@
     <Compile Include="Model\KitServiceStar.cs" />
     <Compile Include="Model\Overview.cs" />
     <Compile Include="Model\Performance.cs" />
+    <Compile Include="Model\ProductInfo.cs" />
     <Compile Include="Model\SupportedGame.cs" />
     <Compile Include="Model\ItemComparer.cs" />
     <Compile Include="Model\Battlefield3Data.cs" />

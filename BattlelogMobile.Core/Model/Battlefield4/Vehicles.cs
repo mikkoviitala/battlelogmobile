@@ -43,12 +43,28 @@ namespace BattlelogMobile.Core.Model.Battlefield4
                 get { return ItemNameMapper.Get(slug.ToUpper()); }
             }
 
-            public double serviceStars { get; set; }
-            public double serviceStarsProgress { get; set; }
-            public string code { get; set; }
-            public double kills { get; set; }
-            public string guid { get; set; }
+            private double _serviceStars;
+            public double serviceStars
+            {
+                get { return _serviceStars; }
+                set
+                {
+                    _serviceStars = value;
+                    RaisePropertyChanged("serviceStars");
+                }
+            }
 
+            private double _kills;
+            public double kills
+            {
+                get { return _kills; }
+                set
+                {
+                    _kills = value;
+                    RaisePropertyChanged("kills");
+                }
+            }
+            
             private TimeSpan? _timeIn;
             [JsonIgnore]
             public TimeSpan? TimeIn
@@ -87,12 +103,15 @@ namespace BattlelogMobile.Core.Model.Battlefield4
                 }
             }
 
-            public string category { get; set; }
-            public string name { get; set; }
-            public object killsDelta { get; set; }
-            public object vehicle { get; set; }
-            public object type { get; set; }
-            public object timeInDelta { get; set; }
+            //public string category { get; set; }
+            //public string name { get; set; }
+            //public object killsDelta { get; set; }
+            //public object vehicle { get; set; }
+            //public object type { get; set; }
+            //public object timeInDelta { get; set; }
+            //public string guid { get; set; }
+            //public double serviceStarsProgress { get; set; }
+            //public string code { get; set; }
         }
 
         //public class UnlockProgression

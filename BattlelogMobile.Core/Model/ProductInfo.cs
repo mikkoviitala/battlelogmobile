@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Windows.Media.Imaging;
-using BattlelogMobile.Core.Model;
 
-namespace BattlelogMobile.Client.ViewModel
+namespace BattlelogMobile.Core.Model
 {
     public class ProductInfo : BaseModel
     {
