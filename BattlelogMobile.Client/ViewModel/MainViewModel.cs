@@ -231,7 +231,11 @@ namespace BattlelogMobile.Client.ViewModel
                 var response = await responseTask.ConfigureAwait(false);
                 if (response.ResponseUri.Equals(responseUri))
                 {
-                    DispatcherHelper.CheckBeginInvokeOnUI(() => ViewModelLocator.Soldier.Game = game);
+                    DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                        {
+                            ViewModelLocator.Soldier.Game = game;
+                            ViewModelLocator.Soldier.UpdateData(false);
+                        });
                 }
                 else
                 {

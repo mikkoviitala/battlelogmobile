@@ -1,4 +1,5 @@
 ﻿<phone:PhoneApplicationPage x:Class="BattlelogMobile.Client.View.SoldierPage"
+        Name="SoldiePage"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -48,11 +49,11 @@
         </toolkit:NavigationOutTransition>
     </toolkit:TransitionService.NavigationOutTransition>
 
-    <Grid x:Name="LayoutRoot" Background="{Binding Background}">
-        <!--work around listener to enable/disable appbar icon-->
-        <CheckBox IsEnabled="{Binding AppBarEnabled}" IsEnabledChanged="ToggleAppBarSate" Visibility="Collapsed" />
-        <userControl:Bf3UserControl Visibility="{Binding RelativeSource={RelativeSource Self}, Path=DataContext.Data, Converter={StaticResource NullVisibilityConverter}, ConverterParameter=bf3}" />
-        <userControl:Bf4UserControl Visibility="{Binding RelativeSource={RelativeSource Self}, Path=DataContext.Data, Converter={StaticResource NullVisibilityConverter}, ConverterParameter=bf4}" />
+    <Grid x:Name="SoldierPageLayoutRoot" Background="{Binding Background}">
+        <!-- Work around listener to enable/disable appbar icons -->
+        <CheckBox Name="AppBarStateCheckBox" IsEnabled="{Binding AppBarEnabled}" IsEnabledChanged="ToggleAppBarSate" Visibility="Collapsed" />
+        <userControl:Bf3UserControl Name="Battlefield3Stats" Visibility="{Binding RelativeSource={RelativeSource Self}, Path=DataContext.Data, Converter={StaticResource NullVisibilityConverter}, ConverterParameter=bf3}" />
+        <userControl:Bf4UserControl Name="Battlefield4Stats" Visibility="{Binding RelativeSource={RelativeSource Self}, Path=DataContext.Data, Converter={StaticResource NullVisibilityConverter}, ConverterParameter=bf4}" />
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>

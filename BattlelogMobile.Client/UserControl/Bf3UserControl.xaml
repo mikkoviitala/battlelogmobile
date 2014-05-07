@@ -1,4 +1,5 @@
 ﻿<UserControl x:Class="BattlelogMobile.Client.UserControl.Bf3UserControl"
+        Name="B3Stats"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
@@ -27,13 +28,11 @@
     </UserControl.Resources>
 
     <Grid x:Name="Bf3LayoutRoot">
-        <controls:Pivot>
+        <controls:Pivot Name="Bf3Pivot">
             <controls:Pivot.Title>
                 <StackPanel>
-                    <!--<TextBlock Text="{Binding ApplicationName}" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="60" Margin="-2"/>-->
-                    <!--<TextBlock Text="{Binding ApplicationVersion}" Style="{StaticResource PhoneTextNormalStyle}" Margin="0"/>-->
-                    <TextBlock Text="Battlefield 3" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="60" Margin="-2"/>
-                    <TextBlock Grid.Column="1" Style="{StaticResource PhoneTextNormalStyle}" Margin="0">
+                    <TextBlock Name="Bf3StaticHeader" Text="Battlefield 3" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="60" Margin="-2"/>
+                    <TextBlock Name="Bf3UpdateTime" Grid.Column="1" Style="{StaticResource PhoneTextNormalStyle}" Margin="0">
                         <Run Text="Updated:"/>
                         <Run Text="{Binding Updated, Converter={StaticResource TimeSpanStringConverter}, ConverterParameter=full}" />
                         <Run Text="ago"/>
@@ -42,7 +41,7 @@
             </controls:Pivot.Title>
             
             <!-- Pivotitem 1 / Overview -->
-            <controls:PivotItem Header="Overview">
+            <controls:PivotItem Name="Bf3Overview"  Header="Overview">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -95,7 +94,7 @@
             </controls:PivotItem>
 
             <!-- Score / Pivot item two -->
-            <controls:PivotItem Header="Score">
+            <controls:PivotItem Name="Bf3Score" Header="Score">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -176,7 +175,7 @@
             </controls:PivotItem>
 
             <!-- Kit progression / Pivot item three -->
-            <controls:PivotItem Header="Progression">
+            <controls:PivotItem Name="Bf3Progression" Header="Progression">
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
@@ -228,7 +227,7 @@
             </controls:PivotItem>
 
             <!-- Kit usages / Pivot item four -->
-            <controls:PivotItem Header="Kit usage">
+            <controls:PivotItem Name="Bf3KitUsage" Header="Kit usage">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
@@ -279,7 +278,7 @@
             </controls:PivotItem>
 
             <!-- Lastest awards / Pivot item five -->
-            <controls:PivotItem Header="Latest awards">
+            <controls:PivotItem Name="Bf3LatestAwards" Header="Latest awards">
                 <ListBox ItemsSource="{Binding Data.Awards}" IsHitTestVisible="False">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -304,7 +303,7 @@
             </controls:PivotItem>
 
             <!-- Weapons / Pivot item six -->
-            <controls:PivotItem Header="Weapons">
+            <controls:PivotItem Name="Bf3Weapons" Header="Weapons">
                 <ListBox ItemsSource="{Binding Data.Weapons}">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
@@ -357,7 +356,7 @@
             </controls:PivotItem>
 
             <!-- Top vehicles / Pivotitem 7 -->
-            <controls:PivotItem Header="Vehicles">
+            <controls:PivotItem Name="Bf3Vehicles" Header="Vehicles">
                 <ListBox ItemsSource="{Binding Data.Vehicles}">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
@@ -400,7 +399,7 @@
             </controls:PivotItem>
 
             <!-- Top gadgets / Pivotitem 8 -->
-            <controls:PivotItem Header="Gadgets">
+            <controls:PivotItem Name="Bf3Gadgets" Header="Gadgets">
                 <ListBox ItemsSource="{Binding Data.Gadgets}">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
@@ -448,7 +447,7 @@
             </controls:PivotItem>
 
             <!-- Statistics / Pivot item nine -->
-            <controls:PivotItem Header="Statistics">
+            <controls:PivotItem Name="Bf3Statistics1" Header="Statistics">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -519,7 +518,7 @@
             </controls:PivotItem>
 
             <!-- Statistics / Pivot item ten -->
-            <controls:PivotItem Header="Statistics">
+            <controls:PivotItem Name="Bf3Statistics2" Header="Statistics">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition />
