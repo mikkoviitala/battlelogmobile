@@ -19,7 +19,8 @@ namespace BattlelogMobile.Client.Message
             {
                 _license = ViewModelLocator.Store.LicenseInformation.ProductLicenses[Common.ProductKey];
             }
-            catch { }            
+            catch 
+            {}            
         }
         
         public bool HasLicense

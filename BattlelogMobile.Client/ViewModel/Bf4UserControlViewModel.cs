@@ -16,13 +16,16 @@ namespace BattlelogMobile.Client.ViewModel
         {
             Messenger.Default.Register<ProductLicenseMessage>(this, message =>
                 {
-                    if (Product == null)
-                        GetProducts();
+                    //if (Product == null)
+                    //    GetProducts();
 
                     // TODO: STORE == NULL
                     // Save licence locally
 
-                    HasLicense = false; // message.HasLicense;
+                    if (ViewModelLocator.Store == null)
+                        HasLicense = true;
+                    else
+                        HasLicense = false; // message.HasLicense;
                     RaisePropertyChanged("HasLicense");
                 });
 
@@ -32,7 +35,8 @@ namespace BattlelogMobile.Client.ViewModel
                     {
                         ViewModelLocator.Store.RequestProductPurchaseAsync(Common.ProductKey, true);
                     }
-                    catch { }
+                    catch 
+                    {}
                 });
 
             GetProducts();
