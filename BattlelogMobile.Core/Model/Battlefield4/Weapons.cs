@@ -41,12 +41,60 @@ namespace BattlelogMobile.Core.Model.Battlefield4
                 get { return ItemNameMapper.Get(slug.ToUpper()); }
             }
 
-            public double serviceStars { get; set; }
-            public double serviceStarsProgress { get; set; }
-            public double? shotsFired { get; set; }
-            public double? accuracy { get; set; }
-            public double? headshots { get; set; }
-            public double kills { get; set; }
+            private double _serviceStars ;
+            public double serviceStars
+            {
+                get { return _serviceStars; } 
+                set
+                {
+                    _serviceStars = value;
+                    RaisePropertyChanged("serviceStars");
+                }
+            }
+
+            private double? _shotsFired;
+            public double? shotsFired
+            {
+                get { return _shotsFired; }
+                set
+                {
+                    _shotsFired = value;
+                    RaisePropertyChanged("shotsFired");
+                }
+            }
+
+            private double? _accuracy;
+            public double? accuracy
+            {
+                get { return _accuracy; }
+                set
+                {
+                    _accuracy = value;
+                    RaisePropertyChanged("accuracy");
+                }
+            }
+
+            private double? _headshots;
+            public double? headshots
+            {
+                get { return _headshots; }
+                set
+                {
+                    _headshots = value;
+                    RaisePropertyChanged("headshots");
+                }
+            }
+
+            private double _kills;
+            public double kills
+            {
+                get { return _kills; }
+                set
+                {
+                    _kills = value;
+                    RaisePropertyChanged("kills");
+                }
+            }
 
             private string _slug;
             public string slug
@@ -61,7 +109,8 @@ namespace BattlelogMobile.Core.Model.Battlefield4
                 }
             }
 
-            public double? shotsHit { get; set; }
+            //public double serviceStarsProgress { get; set; }
+            //public double? shotsHit { get; set; }
         }
     }
 }
