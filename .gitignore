@@ -9,3 +9,5 @@ TestResults
 _ReSharper.BattlelogMobile
 *.suo
 BattlelogMobile.v11.suo
+BattlelogMobile.Client/BattlelogMobile.Client.csproj.user
+*.user
