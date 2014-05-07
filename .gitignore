@@ -1,13 +1,16 @@
-# Build Folders
+# build
 bin
 obj
 
-# mstest test results
+# mstest
 TestResults
 
 # resharper
 _ReSharper.BattlelogMobile
+
+# vs
 *.suo
-BattlelogMobile.v11.suo
-BattlelogMobile.Client/BattlelogMobile.Client.csproj.user
 *.user
+
+# other
+public
