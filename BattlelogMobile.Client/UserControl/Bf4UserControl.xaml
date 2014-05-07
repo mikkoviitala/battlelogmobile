@@ -615,7 +615,7 @@
                             <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Dogtags taken" VerticalAlignment="Center" />
                             <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.dogtagsTaken, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
 
-                            <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Veh. destroyd" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Veh. destroyed" VerticalAlignment="Center" />
                             <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Data.Index.generalPersonaStats.vehiclesDestroyed, Converter={StaticResource IntegerStringConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
 
                             <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource PhoneTextLargeStyle}" Text="Vehicle damage" VerticalAlignment="Center" />
