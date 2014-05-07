@@ -20,7 +20,7 @@ namespace BattlelogMobile.Client.ViewModel
         private readonly ImageBrush _bf3Brush = new ImageBrush 
             { ImageSource = new BitmapImage(new Uri(Common.Bf3BackgroundUri, UriKind.Relative)), Opacity = 0.25d, Stretch = Stretch.None };
         private readonly ImageBrush _bf4Brush = new ImageBrush 
-            { ImageSource = new BitmapImage(new Uri(Common.Bf4BackgroundUri, UriKind.Relative)), Opacity = 0.25d, Stretch = Stretch.None };
+            { ImageSource = new BitmapImage(new Uri(Common.Bf4BackgroundUri, UriKind.Relative)), Opacity = 0.20d, Stretch = Stretch.None };
 
         private bool _appBarEnabled = true;
         private bool _backgroundEnabled;
