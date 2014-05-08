@@ -7,15 +7,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71"
-        FontFamily="{StaticResource PhoneFontFamilyNormal}"
+             xmlns:conv="clr-namespace:BattlelogMobile.Client.Converter"
+             FontFamily="{StaticResource PhoneFontFamilyNormal}"
         FontSize="{StaticResource PhoneFontSizeNormal}"
         Foreground="{StaticResource PhoneForegroundBrush}"
         shell:SystemTray.IsVisible="True"
         mc:Ignorable="d"
         d:DesignWidth="480"
         d:DesignHeight="696"
-        Background="Transparent">
+        Background="Transparent"
+        DataContext="{Binding Bf4UserControl, Source={StaticResource Locator}}">
 
+    <UserControl.Resources>
+        <conv:BoolVisibilityConverter x:Key="NullVisibilityConverter" />
+    </UserControl.Resources>
+   
     <Grid x:Name="LayoutRoot" Background="Black">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -28,10 +34,11 @@
 
         <StackPanel Margin="5,5,5,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
             <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Product.Name}" />
-            <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Margin="14,0,10,0">
+            <TextBlock Text=" " Style="{StaticResource PhoneTextNormalStyle}" Margin="14,0,10,0" />
+            <!--<TextBlock Text="" Visibility="{Binding Show, Converter={StaticResource NullVisibilityConverter}}" Style="{StaticResource PhoneTextNormalStyle}" Margin="14,0,10,0" 
                 <Run Text="Price: " />
                 <Run Text="{Binding Product.FormattedPrice}" />
-            </TextBlock>
+            </TextBlock>-->
         </StackPanel>
 
         <StackPanel Margin="5" Grid.Row="1" Grid.Column="0">
@@ -40,7 +47,8 @@
                     <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=PurchaseCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-            <Image Margin="12,0,5,0" Height="180" Width="180" Source="{Binding Product.Image}"/>
+            <!--<Image Margin="12,0,5,0" Height="180" Width="180" Source="{Binding Product.Image}" Visibility="{Binding Show, Converter={StaticResource NullVisibilityConverter}}"/>-->
+            <Image Margin="12,0,5,0" Height="180" Width="180" Source="\Assets\Images\Common\InAppBf4Unlock.png" />
         </StackPanel>
 
         <StackPanel Margin="5" Grid.Row="1" Grid.Column="1">
@@ -49,7 +57,20 @@
                     <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=PurchaseCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-            <TextBlock Margin="0,-3,0,0" Style="{StaticResource PhoneTextNormalStyle}" Text="{Binding Product.Description}" TextWrapping="Wrap" />
+            
+            <TextBlock Margin="0,-3,0,0" Style="{StaticResource PhoneTextNormalStyle}" 
+                       Text="{Binding Product.Description}" TextWrapping="Wrap" />
+                       <!--Visibility="{Binding Show, Converter={StaticResource NullVisibilityConverter}}"/>
+
+            <StackPanel Visibility="{Binding Show, Converter={StaticResource NullVisibilityConverter}, ConverterParameter=reverse}">
+                <TextBlock Margin="0,-3,0,0" Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap">
+                    Product is not currently available for purchasing or service is experiencing technical difficulties. 
+                    Tap this notice to give it a try, anyway.
+                </TextBlock>
+                <TextBlock Margin="0,20,0,0" Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap">
+                    If purchasing fails, please restart the application and try again. In case problem persists, please contact support via login page.
+                </TextBlock>
+            </StackPanel>-->
         </StackPanel>
     </Grid>
 </UserControl>

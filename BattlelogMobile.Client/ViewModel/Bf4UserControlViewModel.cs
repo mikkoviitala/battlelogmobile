@@ -1,4 +1,7 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Input;
 using BattlelogMobile.Client.Message;
 using BattlelogMobile.Core;
 using BattlelogMobile.Core.Model;
@@ -32,7 +35,6 @@ namespace BattlelogMobile.Client.ViewModel
                     catch 
                     {}
                 });
-
             GetProducts();
         }
 
@@ -48,6 +50,11 @@ namespace BattlelogMobile.Client.ViewModel
             }
         }
 
+        public bool Show
+        {
+            get { return _product != null; }
+        }
+
         public ProductInfo Product
         {
             get { return _product; }
@@ -55,29 +62,38 @@ namespace BattlelogMobile.Client.ViewModel
             {
                 _product = value;
                 RaisePropertyChanged("Product");
+                RaisePropertyChanged("Show");
             }
         }
 
         private void GetProducts()
         {
-            try
-            {
-                var li = ViewModelLocator.Store.LoadListingInformationAsync().GetResults();
-                if (li.ProductListings.ContainsKey(Common.ProductKey))
-                {
-                    var productListing = li.ProductListings[Common.ProductKey];
+            var product = new ProductInfo(
+                        "Full Battlefield 4 statistics",
+                        "Tap here to unlock rest of your Battlefield 4 statistics and support continuous development of Battlelog Mobile. This is a one time purchase.",
+                        null,
+                        null);
+            Product = product;
+            
+            //try
+            //{
+            //    var li = await ViewModelLocator.Store.LoadListingInformationAsync();
 
-                    var product = new ProductInfo(
-                        productListing.Name,
-                        productListing.Description,
-                        productListing.FormattedPrice,
-                        productListing.ImageUri);
+            //    if (li.ProductListings.ContainsKey(Common.ProductKey))
+            //    {
+            //        var productListing = li.ProductListings[Common.ProductKey];
 
-                    Product = product;
-                }
-            }
-            catch 
-            {}
+            //        var product = new ProductInfo(
+            //            productListing.Name,
+            //            productListing.Description,
+            //            productListing.FormattedPrice,
+            //            productListing.ImageUri);
+
+            //        Product = product;
+            //    }
+            //}
+            //catch
+            //{ }
         }
     }
 }
