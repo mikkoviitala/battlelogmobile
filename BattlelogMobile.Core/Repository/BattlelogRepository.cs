@@ -71,11 +71,6 @@ namespace BattlelogMobile.Core.Repository
                     _storage.DeleteFile(_battlelogUser.StorageFile);
         }
 
-        public T Daa<T>()
-        {
-            return default(T);
-        }
-
         public Task<T> LoadBattlefieldData<T>(JSONParser<T> parser) where T : class
         {
             if (!IsSerialized)
